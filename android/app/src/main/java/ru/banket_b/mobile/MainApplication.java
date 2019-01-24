@@ -1,10 +1,18 @@
-package com.rubanketb;
+package ru.banket_b.mobile;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.sentry.RNSentryPackage;
+
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
+import com.evollu.react.fcm.FIRMessagingPackage;
+import com.appsflyer.reactnative.RNAppsFlyerPackage;
+
 
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -14,10 +22,6 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-import com.appsflyer.reactnative.RNAppsFlyerPackage;
-import com.devfd.RNGeocoder.RNGeocoderPackage;
-
-import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -31,12 +35,13 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNFirebasePackage(),
+                    new FIRMessagingPackage(),
                     new RNSentryPackage(),
                     new RNAppsFlyerPackage(MainApplication.this),
                     new RNGeocoderPackage(),
-
-                    new RNFusedLocationPackage()
-
+                    new RNFusedLocationPackage(),
+                    new RNFirebaseMessagingPackage()
             );
         }
 

@@ -12,6 +12,8 @@ import BattleList from './pages/BattleList'
 import {isFirstLunch} from './helpers/Luncher';
 
 
+import firebase from 'react-native-firebase';
+
 import { Sentry } from 'react-native-sentry';
 Sentry.config(config.sentryDSN).install();
 
@@ -30,6 +32,26 @@ export default class App extends React.Component {
         })
     }
 
+    componentDidMount() {
+        firebase.messaging().hasPermission()
+            .then(enabled => {
+                if (enabled) {
+                    firebase.messaging().getToken().then(token => {
+                        console.log("LOG: ", token);
+                    })
+                    // user has permissions
+                } else {
+                    firebase.messaging().requestPermission()
+                        .then(() => {
+                            alert("User Now Has Permission")
+                        })
+                        .catch(error => {
+                            alert("Error", error)
+                            // User has rejected permissions
+                        });
+                }
+            });
+    }
 
     render() {
         return (

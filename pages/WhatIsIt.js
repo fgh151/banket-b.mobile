@@ -4,6 +4,7 @@ import {Actions} from "react-native-router-flux";
 import trackEvent from '../helpers/AppsFlyer';
 
 import GeoLocation from '../helpers/GeoLocation';
+import Push from "../helpers/Push";
 
 export default class WhatIsIt extends React.Component{
 
@@ -14,6 +15,14 @@ export default class WhatIsIt extends React.Component{
         });
 
         // let l = new GeoLocation();
+
+
+
+    }
+
+    componentDidMount() {
+
+        var p = new Push();
     }
 
     goNext() {

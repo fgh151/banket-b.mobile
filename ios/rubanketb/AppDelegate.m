@@ -15,10 +15,21 @@
 //#import "RNSentry.h" // This is used for versions of react < 0.40
 //#endif
 
+#import "Firebase.h"
+#import "RNFirebaseNotifications.h" //Add This Line
+
+
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  
+  [FIRApp configure]; //Add This Line
+  [RNFirebaseNotifications configure];  //Add This Line
+  
   NSURL *jsCodeLocation;
 
   #ifdef DEBUG
@@ -40,7 +51,36 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self]; //Add This Line
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   return YES;
 }
+
+
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+  [[RNFirebaseNotifications instance] didReceiveLocalNotification:notification];
+}
+
 
 @end

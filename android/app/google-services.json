@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "552523161732",
+    "firebase_url": "https://banket-b.firebaseio.com",
+    "project_id": "banket-b",
+    "storage_bucket": "banket-b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552523161732:android:90582f78acdd4ec1",
+        "android_client_info": {
+          "package_name": "ru.banket_b.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552523161732-863d4rf1r56hsujusestha6i6on2ls9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgtkRIAGjehnnlVJ0yOV7Rtb8EVtYDP8g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
