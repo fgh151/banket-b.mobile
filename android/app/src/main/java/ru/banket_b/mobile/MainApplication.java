@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // <-- Add this line
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -42,7 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNGeocoderPackage(),
                     new RNFusedLocationPackage(),
                     new RNFirebaseMessagingPackage(),
-                    new RNFirebaseNotificationsPackage()
+                    new RNFirebaseNotificationsPackage(),
+                    new RNFirebaseDatabasePackage()
             );
         }
 

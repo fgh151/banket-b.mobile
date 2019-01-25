@@ -19,6 +19,9 @@ Sentry.config(config.sentryDSN).install();
 
 export default class App extends React.Component {
 
+
+    static PROPOSALS_CACHE_KEY = 'my-proposals';
+
     constructor() {
         super();
         this.state = {
