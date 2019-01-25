@@ -10,7 +10,6 @@ import io.sentry.RNSentryPackage;
 
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.devfd.RNGeocoder.RNGeocoderPackage;
-import com.evollu.react.fcm.FIRMessagingPackage;
 import com.appsflyer.reactnative.RNAppsFlyerPackage;
 
 
@@ -21,6 +20,8 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // <-- Add this line
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -36,12 +37,12 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
             new RNFirebasePackage(),
-                    new FIRMessagingPackage(),
                     new RNSentryPackage(),
                     new RNAppsFlyerPackage(MainApplication.this),
                     new RNGeocoderPackage(),
                     new RNFusedLocationPackage(),
-                    new RNFirebaseMessagingPackage()
+                    new RNFirebaseMessagingPackage(),
+                    new RNFirebaseNotificationsPackage()
             );
         }
 

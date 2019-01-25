@@ -13,7 +13,6 @@ target 'rubanketb' do
   #pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  pod 'react-native-fcm', :path => '../node_modules/react-native-fcm'
 
   target 'rubanketbTests' do
     inherit! :search_paths
