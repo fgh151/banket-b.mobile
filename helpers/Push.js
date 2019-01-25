@@ -1,4 +1,4 @@
-import {AsyncStorage, Permissions, Platform} from "react-native";
+import {Vibration, AsyncStorage, Permissions, Platform} from "react-native";
 import Client from '../http/Client';
 
 import React from "react";
@@ -60,7 +60,10 @@ export default class Push {
                 .android.setChannelId('test-channel')
                 .android.setSmallIcon('ic_launcher');
             firebase.notifications()
-                .displayNotification(notification);
+                .displayNotification(notification)
+                .then(() => {
+                    Vibration.vibrate(100, [1000, 2000, 3000])
+                });
 
         });
     }
