@@ -3,6 +3,7 @@ package ru.banket_b.mobile;
 import com.facebook.react.ReactActivity;
 
 import android.content.Intent;
+import org.devio.rn.splashscreen.SplashScreen; // here
 
 public class MainActivity extends ReactActivity {
 
@@ -17,6 +18,7 @@ public class MainActivity extends ReactActivity {
 
     @Override
     public void onNewIntent(Intent intent) {
+        SplashScreen.show(this, R.style.SplashTheme);  // here
         super.onNewIntent(intent);
         setIntent(intent);
     }

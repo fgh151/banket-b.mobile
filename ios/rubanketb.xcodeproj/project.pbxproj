@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -18,13 +19,11 @@
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		21390A1599E49DE570DF7001 /* libPods-rubanketbTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3324F21FCDC217E0503D96BD /* libPods-rubanketbTests.a */; };
 		22BC83AF303343DC9B59D5D5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DE19577600EF408B824023AF /* libz.tbd */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */; };
@@ -41,6 +40,9 @@
 		6F211FA521F5DE3800C03D21 /* libRNSentry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F211FA221F5DCFC00C03D21 /* libRNSentry.a */; };
 		6F211FAC21F5E0BB00C03D21 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F211FAB21F5E0B000C03D21 /* libRNGeocoder.a */; };
 		6FA6F05E21F9D6BC002717F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FA6F05D21F9D6BC002717F7 /* GoogleService-Info.plist */; };
+		6FC0A88822002D1800FEFDDC /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC0A88722002CFC00FEFDDC /* libSplashScreen.a */; };
+		6FC0A89B2200418900FEFDDC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0A89A2200418900FEFDDC /* Launch Screen.storyboard */; };
+		6FC0A89E2200426900FEFDDC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0A89D2200426900FEFDDC /* Images.xcassets */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		CF21F64CCB864113A2486DFC /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9D4EBB80714694ADCCE8CF /* libRNFirebase.a */; };
@@ -383,13 +385,6 @@
 			remoteGlobalIDString = DFAF9B20F77F7E4EC0D659B47BF689D2;
 			remoteInfo = React;
 		};
-		6F3FCCEE21F727EB0078F046 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6F3FCC5E21F713CD0078F046 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AB8387ECC17F6A1BBF1A7D831421C171;
-			remoteInfo = "react-native-fcm";
-		};
 		6F3FCD4921F72B5B0078F046 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6F3FCC5E21F713CD0078F046 /* Pods.xcodeproj */;
@@ -403,6 +398,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNFirebase;
+		};
+		6FC0A85722002CFC00FEFDDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F3FCC5E21F713CD0078F046 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B5DE117497053A59C1165A5044A3F0B;
+			remoteInfo = FirebaseDatabase;
+		};
+		6FC0A85922002CFC00FEFDDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F3FCC5E21F713CD0078F046 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8BC0825C7DD56615B294438AA54187B;
+			remoteInfo = "leveldb-library";
+		};
+		6FC0A88622002CFC00FEFDDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FC0A84922002CFC00FEFDDC /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
 		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -444,7 +460,6 @@
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = rubanketb/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = rubanketb/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rubanketb/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rubanketb/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rubanketb/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
@@ -461,6 +476,9 @@
 		6F3FCC5D21F713710078F046 /* rubanketb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rubanketb.entitlements; path = rubanketb/rubanketb.entitlements; sourceTree = "<group>"; };
 		6F3FCC5E21F713CD0078F046 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		6FA6F05D21F9D6BC002717F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "rubanketb/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6FC0A84922002CFC00FEFDDC /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
+		6FC0A89A2200418900FEFDDC /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "rubanketb/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		6FC0A89D2200426900FEFDDC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		92121AC794C4AD8B196FEB05 /* Pods-rubanketbTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rubanketbTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-rubanketbTests/Pods-rubanketbTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -485,6 +503,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FC0A88822002D1800FEFDDC /* libSplashScreen.a in Frameworks */,
 				6F211FAC21F5E0BB00C03D21 /* libRNGeocoder.a in Frameworks */,
 				6F211FA521F5DE3800C03D21 /* libRNSentry.a in Frameworks */,
 				6F211F6721F5C38900C03D21 /* libRNAppsFlyer.a in Frameworks */,
@@ -613,12 +632,13 @@
 		13B07FAE1A68108700A75B9A /* rubanketb */ = {
 			isa = PBXGroup;
 			children = (
+				6FC0A89D2200426900FEFDDC /* Images.xcassets */,
+				6FC0A89A2200418900FEFDDC /* Launch Screen.storyboard */,
 				6FA6F05D21F9D6BC002717F7 /* GoogleService-Info.plist */,
 				6F3FCC5D21F713710078F046 /* rubanketb.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -709,14 +729,15 @@
 			isa = PBXGroup;
 			children = (
 				6F3FCC6921F713CD0078F046 /* libFirebaseCore.a */,
+				6FC0A85822002CFC00FEFDDC /* libFirebaseDatabase.a */,
 				6F3FCC6B21F713CD0078F046 /* libFirebaseMessaging.a */,
 				6F3FCC6D21F713CD0078F046 /* libGoogleUtilities.a */,
+				6FC0A85A22002CFC00FEFDDC /* libleveldb-library.a */,
 				6F3FCC6F21F713CD0078F046 /* libnanopb.a */,
 				6F3FCC7121F713CD0078F046 /* libPods-rubanketb.a */,
 				6F3FCC7321F713CD0078F046 /* libPods-rubanketbTests.a */,
 				6F3FCC7521F713CD0078F046 /* libProtobuf.a */,
 				6F3FCCED21F727EB0078F046 /* libReact.a */,
-				6F3FCCEF21F727EB0078F046 /* libreact-native-fcm.a */,
 				6F3FCD4A21F72B5B0078F046 /* libyoga.a */,
 			);
 			name = Products;
@@ -738,6 +759,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6FC0A84A22002CFC00FEFDDC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FC0A88722002CFC00FEFDDC /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +779,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6FC0A84922002CFC00FEFDDC /* SplashScreen.xcodeproj */,
 				6F3FCC5E21F713CD0078F046 /* Pods.xcodeproj */,
 				6F211FA621F5E0AF00C03D21 /* RNGeocoder.xcodeproj */,
 				6F211F7521F5DCFC00C03D21 /* RNSentry.xcodeproj */,
@@ -1009,6 +1039,10 @@
 				{
 					ProductGroup = 6F211F7621F5DCFC00C03D21 /* Products */;
 					ProjectRef = 6F211F7521F5DCFC00C03D21 /* RNSentry.xcodeproj */;
+				},
+				{
+					ProductGroup = 6FC0A84A22002CFC00FEFDDC /* Products */;
+					ProjectRef = 6FC0A84922002CFC00FEFDDC /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1344,13 +1378,6 @@
 			remoteRef = 6F3FCCEC21F727EB0078F046 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6F3FCCEF21F727EB0078F046 /* libreact-native-fcm.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libreact-native-fcm.a";
-			remoteRef = 6F3FCCEE21F727EB0078F046 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		6F3FCD4A21F72B5B0078F046 /* libyoga.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1363,6 +1390,27 @@
 			fileType = archive.ar;
 			path = libRNFirebase.a;
 			remoteRef = 6FA6F05B21F9B1C2002717F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FC0A85822002CFC00FEFDDC /* libFirebaseDatabase.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFirebaseDatabase.a;
+			remoteRef = 6FC0A85722002CFC00FEFDDC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FC0A85A22002CFC00FEFDDC /* libleveldb-library.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libleveldb-library.a";
+			remoteRef = 6FC0A85922002CFC00FEFDDC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FC0A88722002CFC00FEFDDC /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 6FC0A88622002CFC00FEFDDC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -1400,8 +1448,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				6FC0A89E2200426900FEFDDC /* Images.xcassets in Resources */,
+				6FC0A89B2200418900FEFDDC /* Launch Screen.storyboard in Resources */,
 				6FA6F05E21F9D6BC002717F7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1410,7 +1459,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1584,9 +1632,7 @@
 				INFOPLIST_FILE = rubanketbTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1611,9 +1657,7 @@
 				INFOPLIST_FILE = rubanketbTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1636,6 +1680,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = rubanketb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1662,6 +1707,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = rubanketb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1694,9 +1740,7 @@
 				);
 				INFOPLIST_FILE = "rubanketb-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1727,9 +1771,7 @@
 				);
 				INFOPLIST_FILE = "rubanketb-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1759,9 +1801,7 @@
 				);
 				INFOPLIST_FILE = "rubanketb-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1791,9 +1831,7 @@
 				);
 				INFOPLIST_FILE = "rubanketb-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",

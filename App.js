@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 import {Actions, Reducer, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import HowItWork from './pages/HowItWork';
@@ -11,6 +9,7 @@ import config from './Config';
 import BattleList from './pages/BattleList'
 import {isFirstLunch} from './helpers/Luncher';
 
+import SplashScreen from 'react-native-splash-screen'
 
 import firebase from 'react-native-firebase';
 
@@ -36,6 +35,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
+        SplashScreen.hide();
         firebase.messaging().hasPermission()
             .then(enabled => {
                 if (enabled) {

@@ -18,6 +18,7 @@
 #import "Firebase.h"
 #import "RNFirebaseNotifications.h"
 #import "RNFirebaseMessaging.h"
+#import "RNSplashScreen.h"
 
 
 @implementation AppDelegate
@@ -51,31 +52,12 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self]; //Add This Line
   
-  
-  
-  
-  
-  
-  
-  
-  
+   [RNSplashScreen show];
   
   return YES;
 }
-
-
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
   [[RNFirebaseNotifications instance] didReceiveLocalNotification:notification];

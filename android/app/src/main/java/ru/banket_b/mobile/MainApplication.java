@@ -1,28 +1,23 @@
 package ru.banket_b.mobile;
 
 import android.app.Application;
-
-import com.facebook.react.ReactApplication;
-import io.invertase.firebase.RNFirebasePackage;
-
-import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
-import io.sentry.RNSentryPackage;
-
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
-import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.appsflyer.reactnative.RNAppsFlyerPackage;
-
-
+import com.devfd.RNGeocoder.RNGeocoderPackage;
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import io.sentry.RNSentryPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
-
-import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // <-- Add this line
-import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -37,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNFirebasePackage(),
+                    new SplashScreenReactPackage(),
+                    new RNFirebasePackage(),
                     new RNSentryPackage(),
                     new RNAppsFlyerPackage(MainApplication.this),
                     new RNGeocoderPackage(),
