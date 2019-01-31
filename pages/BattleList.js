@@ -1,6 +1,8 @@
 import React from 'react';
 import {ListView, AsyncStorage} from "react-native";
 import Loading from "./Loading";
+import Proposal from "../models/Proposal";
+import ProposalListItem from "./ProposalListItem";
 
 export default class BattleList extends React.Component{
 
@@ -91,7 +93,7 @@ export default class BattleList extends React.Component{
         }
 
         return (
-            <List style={ProposalListStyle.wrapper}>
+            <List>
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={(proposal, rowMap) => this.renderProposal(proposal, rowMap)}
@@ -121,7 +123,7 @@ export default class BattleList extends React.Component{
             });
     }
 
-    renderProposal(proposal) {
+    renderProposal(proposal: Proposal) {
 
         const deleteFunction = this.delete.bind(this);
 

@@ -5,8 +5,7 @@ export default class Loading extends Component {
     render() {
         return (
             <View>
-                <ActivityIndicator color={'#fff'} style={{alignItems: 'center', marginTop: 80}}
-                                   size={'large'}/>
+                <ActivityIndicator color={'#fff'} size={'large'}/>
             </View>
         );
     }

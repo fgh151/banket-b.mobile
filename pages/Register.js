@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {AsyncStorage, Button, TextInput, View} from 'react-native';
+import type {LoginResponse} from "../types/LoginResponse";
+import trackEvent from "../helpers/AppsFlyer";
 
 export default class Register extends React.Component{
 
@@ -25,14 +27,14 @@ export default class Register extends React.Component{
     register() {
         const api = new Client();
         api.login(this.state.email, this.state.code)
-            .then(response => {
+            .then((response : LoginResponse ) => {
                 if (response.hasOwnProperty('error')) {
                     this.setState({showError: true})
                 } else {
                     console.log(response);
 
                     AsyncStorage.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
-                        .then((v) => {
+                        .then(() => {
                             console.log('added');
                             trackEvent(
                                 'registration', {

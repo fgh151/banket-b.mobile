@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {AsyncStorage, Modal, Platform, TouchableHighlight} from "react-native";
 import {Button, Text, View} from "native-base";
 import {Col, Grid, Row} from "react-native-easy-grid";
-import EventBus from "eventing-bus";
 import {Actions} from "react-native-router-flux";
 import moment from 'moment';
 import ru from 'moment/locale/ru'
@@ -10,6 +9,8 @@ import {Menu, MenuOption, MenuOptions, MenuTrigger,} from 'react-native-popup-me
 import App from '../App';
 import * as ArrayHelper from '../helpers/ArrayHelper';
 import Config from '../Config';
+
+import Proposal from "../models/Proposal";
 
 export default class ProposalListItem extends Component {
 
@@ -23,11 +24,10 @@ export default class ProposalListItem extends Component {
         super(props);
     }
 
-    static goToDialogs(proposal) {
+    static goToDialogs(proposal : Proposal) {
 
-        const newTitle = proposal.date + ' на ' + proposal.guests_count + ' человек';
+        proposal.organizations[0].id;
 
-        changeProposal(proposal);
         Actions.dialogList({proposal: proposal})
     }
 
@@ -105,11 +105,7 @@ export default class ProposalListItem extends Component {
             <Grid
                 style={{width: '100%', height: '100%'}}
             >
-                <Row style={[ListViewStyle.rowFront, {
-                    width: '100%',
-                    height: 'auto',
-                    paddingLeft: 15
-                }]}>
+                <Row>
                     <TouchableHighlight
                         onPress={() => ProposalListItem.goToDialogs(this.props.proposal)}
                         style={{width: '70%'}}
@@ -117,14 +113,12 @@ export default class ProposalListItem extends Component {
                         <Col style={{}} size={8}>
                             <Row>
                                 <Col style={{flexDirection: 'row'}}>
-                                    <Text
-                                        style={[ProposalListStyle.text, {paddingLeft: 15}]}>{date}</Text>
+                                    <Text>{date}</Text>
                                 </Col>
                             </Row>
                             <Row>
-                                <Col style={{flexDirection: 'row'}}>
-                                    <Text
-                                        style={[ProposalListStyle.text, {paddingLeft: 15}]}>{this.props.proposal.guests_count} человек
+                                <Col >
+                                    <Text>{this.props.proposal.guests_count} человек
                                         по {this.props.proposal.amount}</Text>
                                 </Col>
                             </Row>
@@ -133,37 +127,36 @@ export default class ProposalListItem extends Component {
                     <Col size={1.5}>
                         {this.renderNewMessages()}
                     </Col>
-                    <Col style={{textAlign: 'right'}} size={1.5}>
-                        <Menu style={{paddingLeft: 15}}>
+                    <Col size={1.5}>
+                        <Menu >
                             <MenuTrigger>
-                                <Icon name={buttonName} size={30} style={{color: "#fff"}}/>
+                                <Icon name={buttonName} size={30}/>
                             </MenuTrigger>
                             <MenuOptions>
                                 <MenuOption onSelect={() => this.setModalVisible(!this.state.modalVisible)}>
-                                    <Text style={{paddingTop: 4, paddingBottom: 4, paddingLeft: 4}}>Подробнее</Text>
+                                    <Text>Подробнее</Text>
                                 </MenuOption>
                                 <MenuOption
                                     onSelect={() => this.props.deleteHandler(this.props.proposal.id)}>
-                                    <Text style={{paddingBottom: 4, paddingLeft: 4}}>Закрыть заявку</Text>
+                                    <Text>Закрыть заявку</Text>
                                 </MenuOption>
                             </MenuOptions>
                         </Menu>
                     </Col>
                 </Row>
 
-                <View style={{paddingTop: 3, flexDirection: "row", justifyContent: "flex-end"}}>
+                <View>
                     <Modal
                         animationType="slide"
                         transparent={true}
                         visible={this.state.modalVisible}
                         onRequestClose={() => this.state.modalVisible = false}
                     >
-                        <View style={ModalStyle.overlay}>
-                            <View style={ModalStyle.content}>
+                        <View>
+                            <View>
                                 <ProposalInfoPopup proposal={this.props.proposal}/>
-                                <View style={LoginStyle.requestRow}>
+                                <View>
                                     <Button
-                                        style={ButtonStyle.default}
                                         onPress={() => {
                                             this.setModalVisible(!this.state.modalVisible);
                                         }}>

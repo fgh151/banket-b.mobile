@@ -3,9 +3,10 @@ import moment from "moment";
 import trackEvent from "../helpers/AppsFlyer";
 import Client from '../http/Client';
 import * as ArrayHelper from "../helpers/ArrayHelper";
+import type {Proposal as ProposalType} from "../types/Proposal";
 
 
-export default class Proposal {
+export default class Proposal extends ProposalType{
 
     now = moment();
 
