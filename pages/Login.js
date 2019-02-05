@@ -36,8 +36,8 @@ export default class Login extends React.Component{
                         .then(() => {
                             console.log('added');
                             trackEvent(
-                                'registration', {
-                                    email: this.state.email
+                                'login', {
+                                    if: response.id
                                 });
                             Actions.main()
                         })

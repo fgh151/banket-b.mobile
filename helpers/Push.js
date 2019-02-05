@@ -26,17 +26,17 @@ export default class Push {
                 if (enabled) {
                     this.granted = true;
                     console.log('Push permission granted');
-                    this.saveToken();
+                    Push.saveToken();
                 } else {
                     firebase.messaging().requestPermission()
                         .then(() => {
-                            this.saveToken();
+                            Push.saveToken();
                         });
                 }
             });
     }
 
-    async saveToken() {
+    static async saveToken() {
         const token = await FCM.getToken();
 
         console.log("Save token", token);

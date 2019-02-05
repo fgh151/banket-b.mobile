@@ -38,7 +38,7 @@ export default class Register extends React.Component{
                             console.log('added');
                             trackEvent(
                                 'registration', {
-                                    email: this.state.email
+                                    email: response.id
                                 });
                             Actions.main()
                         })

@@ -26,7 +26,6 @@ export default class ProposalListItem extends Component {
 
     static goToDialogs(proposal : Proposal) {
 
-        proposal.organizations[0].id;
 
         Actions.dialogList({proposal: proposal})
     }
