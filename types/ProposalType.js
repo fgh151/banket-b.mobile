@@ -1,6 +1,6 @@
 import type {Organization} from './Organization';
 
-export type Proposal = {
+export type ProposalType = {
     id: number,
     City: string,
     date: string,

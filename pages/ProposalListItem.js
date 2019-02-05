@@ -1,11 +1,8 @@
 import React, {Component} from "react";
 import {AsyncStorage, Modal, Platform, TouchableHighlight} from "react-native";
-import {Button, Text, View} from "native-base";
-import {Col, Grid, Row} from "react-native-easy-grid";
 import {Actions} from "react-native-router-flux";
 import moment from 'moment';
 import ru from 'moment/locale/ru'
-import {Menu, MenuOption, MenuOptions, MenuTrigger,} from 'react-native-popup-menu';
 import App from '../App';
 import * as ArrayHelper from '../helpers/ArrayHelper';
 import Config from '../Config';
@@ -46,7 +43,7 @@ export default class ProposalListItem extends Component {
                         console.log('VALUE size ' + this.props.proposal.id + ' ' + organizationId + ' ');
                         console.log(value['p_' + this.props.proposal.id][organizationId]);
 
-                        length += ArrayHelper.getKeys(value['p_' + this.props.proposal.id][organizationId]).length;
+                        // length += ArrayHelper.getKeys(value['p_' + this.props.proposal.id][organizationId]).length;
                     });
 
                     AsyncStorage.getItem('answers-count-' + this.props.proposal.id)
@@ -77,12 +74,7 @@ export default class ProposalListItem extends Component {
     renderNewMessages() {
         if (this.state.newMessages) {
             return (
-                <View style={{
-                    backgroundColor: '#8136e9',
-                    width: 25,
-                    height: 25,
-                    borderRadius: 25 / 2
-                }}>
+                <View>
                     <Text style={{color: 'white', width: 25, textAlign: 'center'}}>
                         {this.state.answersCount}
                     </Text>
@@ -101,48 +93,26 @@ export default class ProposalListItem extends Component {
 
         // noinspection JSUnresolvedFunction
         return (
-            <Grid
-                style={{width: '100%', height: '100%'}}
-            >
-                <Row>
+            <View>
+                <View>
                     <TouchableHighlight
                         onPress={() => ProposalListItem.goToDialogs(this.props.proposal)}
-                        style={{width: '70%'}}
                     >
-                        <Col style={{}} size={8}>
-                            <Row>
-                                <Col style={{flexDirection: 'row'}}>
+                        <View style={{}} size={8}>
+                                <View>
                                     <Text>{date}</Text>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col >
+                                </View>
+                                <View>
                                     <Text>{this.props.proposal.guests_count} человек
                                         по {this.props.proposal.amount}</Text>
-                                </Col>
-                            </Row>
-                        </Col>
+                                </View>
+                        </View>
                     </TouchableHighlight>
-                    <Col size={1.5}>
+                    <View>
                         {this.renderNewMessages()}
-                    </Col>
-                    <Col size={1.5}>
-                        <Menu >
-                            <MenuTrigger>
-                                <Icon name={buttonName} size={30}/>
-                            </MenuTrigger>
-                            <MenuOptions>
-                                <MenuOption onSelect={() => this.setModalVisible(!this.state.modalVisible)}>
-                                    <Text>Подробнее</Text>
-                                </MenuOption>
-                                <MenuOption
-                                    onSelect={() => this.props.deleteHandler(this.props.proposal.id)}>
-                                    <Text>Закрыть заявку</Text>
-                                </MenuOption>
-                            </MenuOptions>
-                        </Menu>
-                    </Col>
-                </Row>
+                    </View>
+
+                </View>
 
                 <View>
                     <Modal
@@ -166,7 +136,7 @@ export default class ProposalListItem extends Component {
                         </View>
                     </Modal>
                 </View>
-            </Grid>
+            </View>
         );
     }
 

@@ -25,7 +25,7 @@ export default class DialogList extends Component {
 
         DialogList.proposal = this.props.proposal.id;
 
-        console.log('Proposal');
+        console.log('ProposalType');
         console.log(this.props.proposal);
     }
 
