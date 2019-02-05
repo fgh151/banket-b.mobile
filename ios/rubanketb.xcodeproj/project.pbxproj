@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -46,6 +45,8 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		CF21F64CCB864113A2486DFC /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9D4EBB80714694ADCCE8CF /* libRNFirebase.a */; };
+		8D14C9F327B6462F9D691F0E /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E9ED4A343844128955262A5 /* Lato-Bold.ttf */; };
+		41062A2101AA440A9B1DD787 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -487,6 +488,8 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B29DCD55588E640022CA40D7 /* Pods-rubanketb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rubanketb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rubanketb/Pods-rubanketb.debug.xcconfig"; sourceTree = "<group>"; };
 		DE19577600EF408B824023AF /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		9E9ED4A343844128955262A5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -820,6 +823,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4F646A6631036F7AF2E5BBEA /* Pods */,
 				6FA6F02321F9B1C0002717F7 /* Recovered References */,
+				0F9B8AF6E27F42D599EA98EA /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -845,6 +849,16 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		0F9B8AF6E27F42D599EA98EA /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				9E9ED4A343844128955262A5 /* Lato-Bold.ttf */,
+				F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1452,6 +1466,8 @@
 				6FC0A89E2200426900FEFDDC /* Images.xcassets in Resources */,
 				6FC0A89B2200418900FEFDDC /* Launch Screen.storyboard in Resources */,
 				6FA6F05E21F9D6BC002717F7 /* GoogleService-Info.plist in Resources */,
+				8D14C9F327B6462F9D691F0E /* Lato-Bold.ttf in Resources */,
+				41062A2101AA440A9B1DD787 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

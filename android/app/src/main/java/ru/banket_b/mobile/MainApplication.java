@@ -2,9 +2,9 @@ package ru.banket_b.mobile;
 
 import android.app.Application;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
-import com.appsflyer.reactnative.RNAppsFlyerPackage;
 import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.facebook.react.ReactApplication;
+import com.appsflyer.reactnative.RNAppsFlyerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
