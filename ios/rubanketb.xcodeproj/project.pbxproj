@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -34,19 +35,22 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* rubanketbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* rubanketbTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		41062A2101AA440A9B1DD787 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */; };
 		6EAA99EFA9FB85140D653070 /* libPods-rubanketb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C63A5290DEBD33875BF7343 /* libPods-rubanketb.a */; };
 		6F211F6721F5C38900C03D21 /* libRNAppsFlyer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F211F6621F5C34400C03D21 /* libRNAppsFlyer.a */; };
 		6F211FA521F5DE3800C03D21 /* libRNSentry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F211FA221F5DCFC00C03D21 /* libRNSentry.a */; };
 		6F211FAC21F5E0BB00C03D21 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F211FAB21F5E0B000C03D21 /* libRNGeocoder.a */; };
+		6F94724F220ACA75004DC5BB /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA6F05C21F9B1C2002717F7 /* libRNFirebase.a */; };
+		6F947250220ACAA7004DC5BB /* libFirebaseCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FCC6921F713CD0078F046 /* libFirebaseCore.a */; };
+		6F947251220ACAB6004DC5BB /* libFirebaseMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FCC6B21F713CD0078F046 /* libFirebaseMessaging.a */; };
+		6F947252220ACABD004DC5BB /* libFirebaseDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC0A85822002CFC00FEFDDC /* libFirebaseDatabase.a */; };
 		6FA6F05E21F9D6BC002717F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FA6F05D21F9D6BC002717F7 /* GoogleService-Info.plist */; };
 		6FC0A88822002D1800FEFDDC /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC0A88722002CFC00FEFDDC /* libSplashScreen.a */; };
 		6FC0A89B2200418900FEFDDC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0A89A2200418900FEFDDC /* Launch Screen.storyboard */; };
 		6FC0A89E2200426900FEFDDC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0A89D2200426900FEFDDC /* Images.xcassets */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		CF21F64CCB864113A2486DFC /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9D4EBB80714694ADCCE8CF /* libRNFirebase.a */; };
 		8D14C9F327B6462F9D691F0E /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E9ED4A343844128955262A5 /* Lato-Bold.ttf */; };
-		41062A2101AA440A9B1DD787 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */; };
+		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -484,12 +488,12 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		92121AC794C4AD8B196FEB05 /* Pods-rubanketbTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rubanketbTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-rubanketbTests/Pods-rubanketbTests.release.xcconfig"; sourceTree = "<group>"; };
 		9B9D4EBB80714694ADCCE8CF /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
+		9E9ED4A343844128955262A5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		A54F3D8DCBF98F58CFBE0EE3 /* Pods-rubanketbTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rubanketbTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rubanketbTests/Pods-rubanketbTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B29DCD55588E640022CA40D7 /* Pods-rubanketb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rubanketb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rubanketb/Pods-rubanketb.debug.xcconfig"; sourceTree = "<group>"; };
 		DE19577600EF408B824023AF /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		9E9ED4A343844128955262A5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,6 +510,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F947252220ACABD004DC5BB /* libFirebaseDatabase.a in Frameworks */,
+				6F947251220ACAB6004DC5BB /* libFirebaseMessaging.a in Frameworks */,
+				6F947250220ACAA7004DC5BB /* libFirebaseCore.a in Frameworks */,
+				6F94724F220ACA75004DC5BB /* libRNFirebase.a in Frameworks */,
 				6FC0A88822002D1800FEFDDC /* libSplashScreen.a in Frameworks */,
 				6F211FAC21F5E0BB00C03D21 /* libRNGeocoder.a in Frameworks */,
 				6F211FA521F5DE3800C03D21 /* libRNSentry.a in Frameworks */,
@@ -523,7 +531,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				22BC83AF303343DC9B59D5D5 /* libz.tbd in Frameworks */,
 				6EAA99EFA9FB85140D653070 /* libPods-rubanketb.a in Frameworks */,
-				CF21F64CCB864113A2486DFC /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +617,15 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0F9B8AF6E27F42D599EA98EA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9E9ED4A343844128955262A5 /* Lato-Bold.ttf */,
+				F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
@@ -849,16 +865,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		0F9B8AF6E27F42D599EA98EA /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				9E9ED4A343844128955262A5 /* Lato-Bold.ttf */,
-				F4A6A24991104FCB8B8A0801 /* Lato-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

@@ -14,7 +14,9 @@ import SplashScreen from 'react-native-splash-screen'
 import firebase from 'react-native-firebase';
 
 import { Sentry } from 'react-native-sentry';
-Sentry.config(config.sentryDSN).install();
+// Sentry.config(config.sentryDSN).install();
+
+
 
 export default class App extends React.Component {
 
@@ -61,6 +63,7 @@ export default class App extends React.Component {
             <Router>
                 <Scene key="root" hideNavBar={false} title="Банкетный баттл">
                     <Scene
+                        hideNavBar={true}
                         key="WhatIsIt"
                         component={WhatIsIt}
                         title="Что это"

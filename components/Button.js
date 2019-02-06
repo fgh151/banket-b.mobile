@@ -60,12 +60,14 @@ export class Button extends BaseButton{
 
 const styles = StyleSheet.create({
     button: Platform.select({
-        ios: {},
+        ios: {
+            borderRadius:5
+        },
         android: {
             elevation: 0,
             // Material design blue from https://material.google.com/style/color.html#color-color-palette
             backgroundColor: '#0C20E3',
-
+            borderRadius:5
         },
     }),
     text: Platform.select({
