@@ -86,10 +86,15 @@ const styles = StyleSheet.create({
         },
     }),
     buttonDisabled: Platform.select({
-        ios: {},
+        ios: {
+
+        },
         android: {
             elevation: 0,
-            backgroundColor: '#dfdfdf',
+            backgroundColor: 'transparent',
+            borderColor: '#CFCFCF',
+            borderWidth:1,
+            color: '#CFCFCF'
         },
     }),
     textDisabled: Platform.select({

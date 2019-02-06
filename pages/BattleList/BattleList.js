@@ -1,8 +1,12 @@
 import React from 'react';
-import {ListView, AsyncStorage} from "react-native";
-import Loading from "./Loading";
-import Proposal from "../models/Proposal";
-import ProposalListItem from "./ProposalListItem";
+import {ListView, AsyncStorage, View, Text} from "react-native";
+import Loading from "../Loading";
+import Proposal from "../../models/Proposal";
+import ProposalListItem from "../ProposalListItem";
+import CacheStore from 'react-native-cache-store';
+import Client from '../../http/Client';
+import Config from '../../Config';
+import Empty from './Empty';
 
 export default class BattleList extends React.Component{
 
@@ -80,15 +84,7 @@ export default class BattleList extends React.Component{
 
         if (this.state.dataSource.getRowCount() < 1) {
             return (
-                <Grid>
-                    <Row>
-                        <Col style={LoginStyle.requestRow}>
-                            <Text style={LoginStyle.requestText}>
-                                У Вас нет ни одной заявки на проведение банкета
-                            </Text>
-                        </Col>
-                    </Row>
-                </Grid>
+                <Empty/>
             )
         }
 

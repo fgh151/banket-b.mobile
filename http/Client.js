@@ -15,7 +15,7 @@ export default class Client {
 
     login(phone, code) {
         // Returns a Promise with the response.
-        return this.GET('/v2/auth/index', {phone: phone, code: code});
+        return this.POST('/v2/auth/index', {phone: phone, code: code});
     }
 
     getCurrentUser() {

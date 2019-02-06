@@ -15,5 +15,12 @@ export function isFirstLunch() {
  * @returns {Promise}
  */
 export function firstLunchDone() {
-    return AsyncStorage.setItem(STORAGE_KEY, false.toString());
+    return AsyncStorage.setItem(STORAGE_KEY, true.toString());
+}
+
+/**
+ * @returns {Promise}
+ */
+export function firstLunchRevert() {
+    return AsyncStorage.removeItem(STORAGE_KEY);
 }

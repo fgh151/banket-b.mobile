@@ -1,21 +1,22 @@
 import React from 'react';
-
-import {Actions, Reducer, Router, Scene} from "react-native-router-flux";
+import {Text} from "react-native"
+import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
-import HowItWork from './pages/HowItWork';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import Register from './pages/Register';
-import config from './Config';
-import BattleList from './pages/BattleList'
+import BattleList from './pages/BattleList/BattleList'
 import {isFirstLunch} from './helpers/Luncher';
 
 import SplashScreen from 'react-native-splash-screen'
 
 import firebase from 'react-native-firebase';
 
-import { Sentry } from 'react-native-sentry';
-// Sentry.config(config.sentryDSN).install();
+import {Styles} from "./styles/Global";
 
+import LoginPhone from "./pages/auth/LoginPhone";
+import Menu from './components/Menu';
+import LoginCode from "./pages/auth/LoginCode";
+// Sentry.config(config.sentryDSN).install();
 
 
 export default class App extends React.Component {
@@ -26,18 +27,18 @@ export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            firstLunch : true
+            firstLunch: false
         };
-
-        isFirstLunch().then((value) => {
-            if (value === false.toString()) {
-                this.setState({firstLunch: false});
-            }
-        })
     }
 
     componentDidMount() {
         SplashScreen.hide();
+        isFirstLunch().then((value) => {
+            if (value !== true.toString()) {
+                //TODO: WTF???
+                // this.setState({firstLunch: true});
+            }
+        });
         firebase.messaging().hasPermission()
             .then(enabled => {
                 if (enabled) {
@@ -60,9 +61,13 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Router>
+            <Router
+                sceneStyle={{backgroundColor: '#ffffff'}}
+                titleStyle={{textAlign:'center'}}
+            >
                 <Scene key="root" hideNavBar={false} title="Банкетный баттл">
                     <Scene
+                        style={{backgroundColor: 'red'}}
                         hideNavBar={true}
                         key="WhatIsIt"
                         component={WhatIsIt}
@@ -70,14 +75,16 @@ export default class App extends React.Component {
                         initial={this.state.firstLunch} //Главный экран ?
                     />
                     <Scene
-                        key="HowItWork"
-                        component={HowItWork}
-                        title="Как это работает"
+                        key="LoginPhone"
+                        navigationBarStyle={Styles.navBar}
+                        component={LoginPhone}
+                        title="Вход"
                     />
                     <Scene
-                        key="Login"
-                        component={Login}
-                        title="Login"
+                        key="LoginCode"
+                        navigationBarStyle={Styles.navBar}
+                        component={LoginCode}
+                        title="Вход"
                     />
                     <Scene
                         key="Register"
@@ -87,9 +94,28 @@ export default class App extends React.Component {
                     <Scene
                         key="BattleList"
                         component={BattleList}
-                        title="List"
+                        title="Ваши батлы"
                         initial={!this.state.firstLunch} //Главный экран ?
+                        renderLeftButton={<Menu buttons={[
+                            {
+                                action: () => alert('test'),
+                                title: 'test'
+                            }
+                        ]}/>}
+                        renderRightButton={
+                            <Text
+                                style={{
+                                    color: '#0C20E3',
+                                    fontSize: 18,
+                                    textAlign: 'right', marginRight: 15
+                                }}
+                                onPress={() => Actions.Create()}
+                            >
+                                Новый батл
+                            </Text>
+                        }
                     />
+                    <Scene key="Create" component={BattleList}/>
                 </Scene>
             </Router>
         );
