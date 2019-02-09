@@ -16,6 +16,15 @@ import {Styles} from "./styles/Global";
 import LoginPhone from "./pages/auth/LoginPhone";
 import Menu from './components/Menu';
 import LoginCode from "./pages/auth/LoginCode";
+
+import Form from './pages/create/Form';
+import Services from "./pages/create/Services";
+import Finish from "./pages/create/Finish";
+import DialogList from './pages/messeger/DialogList'
+import ProposalBar from "./components/ProposalBar";
+import BackButton from './components/BackButton';
+import Messenger from "./pages/messeger/Messenger";
+
 // Sentry.config(config.sentryDSN).install();
 
 
@@ -63,7 +72,7 @@ export default class App extends React.Component {
         return (
             <Router
                 sceneStyle={{backgroundColor: '#ffffff'}}
-                titleStyle={{textAlign:'center'}}
+                titleStyle={{textAlign: 'center'}}
             >
                 <Scene key="root" hideNavBar={false} title="Банкетный баттл">
                     <Scene
@@ -92,11 +101,16 @@ export default class App extends React.Component {
                         title="Login"
                     />
                     <Scene
+                        key="Form"
+                        component={Form}
+                        title="Создать батл"
+                    />
+                    <Scene
                         key="BattleList"
                         component={BattleList}
                         title="Ваши батлы"
                         initial={!this.state.firstLunch} //Главный экран ?
-                        renderLeftButton={<Menu buttons={[
+                        renderLeftButton={<Menu image="menu" buttons={[
                             {
                                 action: () => alert('test'),
                                 title: 'test'
@@ -109,13 +123,54 @@ export default class App extends React.Component {
                                     fontSize: 18,
                                     textAlign: 'right', marginRight: 15
                                 }}
-                                onPress={() => Actions.Create()}
+                                onPress={() => Actions.Form()}
                             >
                                 Новый батл
                             </Text>
                         }
                     />
                     <Scene key="Create" component={BattleList}/>
+
+
+                    <Scene
+                        key="Services"
+                        component={Services}
+                        title="Выберите услуги"
+                    />
+                    <Scene
+                        key="Finish"
+                        component={Finish}
+                        title="Батл создан"
+                        back={false}
+                    />
+                    <Scene
+                        key="DialogList"
+                        component={DialogList}
+                        title="DialogList"
+                        navigationBarStyle={{height: 109}}
+                        renderTitle={<ProposalBar/>}
+                        renderBackButton={() => <BackButton/>}
+                        renderRightButton={
+                            <Menu
+                                image='dots'
+                                buttons={[
+                                    {
+                                        action: () => alert('test'),
+                                        title: 'close'
+                                    }
+                                ]}/>
+                        }
+                    />
+
+                    <Scene
+                        key="Messenger"
+                        component={Messenger}
+                        title="messwnger"
+                        // renderTitle={<ChangeableTitle/>}
+                        // renderRightButton={() => <DialogHelp/>}
+                        // renderBackButton={() => <BackButton/>}
+                    />
+
                 </Scene>
             </Router>
         );

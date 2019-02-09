@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import moment from "moment";
 import {db} from '../../Config';
-import {Button, TextInput, View, AsyncStorage, Image, Platform} from "react-native";
+import {Button, TextInput, View, AsyncStorage, Image, Platform, Text} from "react-native";
 
 export default class MessageForm extends Component {
 
@@ -33,7 +33,7 @@ export default class MessageForm extends Component {
         AsyncStorage.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/o_' + this.organizationId + '/' + this.state.created_at;
-                db.ref(path).set(JSON.stringify(this.state));
+                db.ref(path).set(this.state);
                 this.setState({
                     message: "",
                     created_at: moment().format('X'),
@@ -54,13 +54,8 @@ export default class MessageForm extends Component {
                             />
                         </View>
                         <Button transparent
-                                onPress={() => this.sendMessage()}>
-
-                            <Image
-                                source={require('../../../assets/images/send.png')}
-                            />
-
-                        </Button>
+                                title="send"
+                                onPress={() => this.sendMessage()}/>
             </View>
         )
     }

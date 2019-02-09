@@ -1,22 +1,27 @@
 import type {Organization} from './Organization';
 
-export type ProposalType = {
+export type ProposalListItemType = {
+    index: number,
+    item: ProposalType
+}
+
+type ProposalType = {
     id: number,
     City: string,
     date: string,
-    time:string,
-    guests_count:number,
-    amount:number,
-    type:number,
-    event_type:number,
-    metro:number,
-    dance:boolean,
-    private:boolean,
-    own_alcohol:boolean,
-    parking:boolean,
-    comment:string,
-    minCost:number,
+    time: string,
+    guests_count: number,
+    amount: number,
+    type: number,
+    event_type: number,
+    metro: number,
+    dance: boolean,
+    private: boolean,
+    own_alcohol: boolean,
+    parking: boolean,
+    comment: string,
+    minCost: number,
     organizations: Organization[],
-    profit:number
-    
+    profit: number
+
 }

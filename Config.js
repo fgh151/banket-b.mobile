@@ -38,6 +38,18 @@ const config = {
         projectId: 'banket-b',
         storageBucket: 'restorate-battle.appspot.com'
     },
+
+    // firebase: {
+    //     appId: "1:911932262915:android:1fb0623114da33be",
+    //     apiKey: "AIzaSyDDGo2kRmSJ_oORXgf-I-cNgBM2JMyX93Q",
+    //     // authDomain: "<YOUR-AUTH-DOMAIN>",
+    //     databaseURL: "https://restorate-battle.firebaseio.com",
+    //     // messagingSenderId: '123',
+    //     projectId: 'restorate-battle',
+    //     storageBucket: 'restorate-battle.appspot.com'
+    // },
+
+
     sentryDSN: 'https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643'
 };
 export const firebase = Firebase.initializeApp(config.firebase);

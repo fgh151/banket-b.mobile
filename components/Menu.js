@@ -12,19 +12,31 @@ export default class Menu extends React.Component {
         this.setState({modalVisible: !this.state.modalVisible});
     };
 
+    static defaultProps = {
+        image: 'menu'
+    };
+
     render() {
+
+        const images = {
+            menu: require('../assets/images/menu.png'),
+            dots: require('../assets/images/menu-dots.png')
+        };
+
         return (
-            <View>
+            <View style={this.props.style}>
                 <TouchableOpacity onPress={this.toggleModal}>
-                    <Image style={{margin: 15}} source={require('../assets/images/menu.png')} on/>
+                    <Image style={{margin: 15}} source={images[this.props.image]} on/>
                 </TouchableOpacity>
                 <Modal
                     animationType="fade"
                     transparent={true}
                     visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                    }}
                 >
                     <TouchableOpacity style={ModalStyle.overlay}
-                          onPress={this.toggleModal}
+                                      onPress={this.toggleModal}
                     >
                         <View style={ModalStyle.content}>
                             {this.renderButtons()}
@@ -36,8 +48,9 @@ export default class Menu extends React.Component {
     }
 
     renderButtons() {
-         return this.props.buttons.map((item) => {
+        return this.props.buttons.map((item, index) => {
             return (<Button
+                key={index}
                 onPress={() => item.action()}
                 title={item.title}
             />)

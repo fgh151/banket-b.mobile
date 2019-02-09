@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, Image, ListView, Share} from "react-native";
-import {List, ListItem, Text, View} from "native-base";
+import {AsyncStorage, Image, ListView, Share, View, Text} from "react-native";
 import Config, {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
@@ -10,6 +9,7 @@ import Hyperlink from 'react-native-hyperlink'
 import CacheStore from "react-native-cache-store";
 import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {Actions} from "react-native-router-flux";
+import {Styles as textStyle} from "../../styles/Global";
 
 export default class Messenger extends Component {
 
@@ -33,18 +33,17 @@ export default class Messenger extends Component {
     }
 
     static decodeMessage(message) {
-        return JSON.parse(message);
+        return  message; // JSON.parse(message);
     }
 
     static myMessage(model) {
         return (
-            <ListItem
-                noBorder>
-                        <View style={[MessengerStyle.myMessageArea, MessengerStyle.messageArea]}>
-                            <Text style={MessengerStyle.messageText}>{model.message}</Text>
+            <View>
+                        <View>
+                            <Text>{model.message}</Text>
                             {this.renderTime(model.created_at)}
                         </View>
-            </ListItem>
+            </View>
         );
     }
 
@@ -64,8 +63,7 @@ export default class Messenger extends Component {
 
     static foreignMessage(model) {
         return (
-            <ListItem
-                noBorder>
+            <View>
                     <View size={12}
                          onPress={() => Messenger.shareMessage(model.message)}
                          >
@@ -76,7 +74,7 @@ export default class Messenger extends Component {
                             {this.renderTimeWithShare(model.created_at)}
                         </View>
                     </View>
-            </ListItem>
+            </View>
         );
     }
 
@@ -91,9 +89,7 @@ export default class Messenger extends Component {
                 <Text >
                     <Text>{time.format('DD.MM.YYYY HH:mm')}
                     </Text>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Image
-                        source={require('../../../assets/images/share.png')}
-                    />
+
                 </Text>
             </View>
         )
@@ -134,9 +130,20 @@ export default class Messenger extends Component {
         AsyncStorage.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/';
-                db.ref(path)
-                    .on('value', (snapshot) => {
+
+
+                console.log('firebase path',path);
+
+                let ref = db.ref(path);
+
+                ref.once('value', snapshot => {console.log("snapshot value", snapshot)});
+
+                console.log('ref', ref);
+
+                ref.on('value', (snapshot) => {
                         const value = snapshot.val();
+
+                        console.log('snapshot', value);
 
                         if (value['o_' + this.dialogId]) {
 
@@ -184,10 +191,13 @@ export default class Messenger extends Component {
     }
 
     render() {
+
+        console.log("STATE ", this.state.loaded);
+
         if (!this.state.loaded) {
             return (
 
-                    <View style={MainStyle.root}>
+                <View style={textStyle.rootView}>
                         <Loading/>
                     </View>
             );
@@ -195,25 +205,29 @@ export default class Messenger extends Component {
 
         return (
 
-                <View style={[MainStyle.root, {height: '90%'}]}>
+            <View style={textStyle.rootView}>
                     <View>
                         <Text style={{
                             marginLeft: 15,
                             color: '#fff'
                         }}>{this.props.proposal.date} на {this.props.proposal.guests_count} человека</Text>
                     </View>
-                    <List>
+                    <View>
                         <ListView
                             dataSource={this.state.dataSource}
                             renderRow={this.renderMessage}
                         />
-                    </List>
+                    </View>
                     <MessageForm proposalId={this.proposalId} organizationId={this.dialogId}/>
                 </View>
         );
     }
 
     renderMessage(message, sectionID, rowID) {
+
+        console.log(message);
+
+
         const decodedMessage = Messenger.decodeMessage(message);
         const render = Messenger.isMy(decodedMessage) ? Messenger.myMessage(decodedMessage) : Messenger.foreignMessage(decodedMessage);
         return (render);

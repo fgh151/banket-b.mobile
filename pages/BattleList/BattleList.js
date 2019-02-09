@@ -1,21 +1,22 @@
 import React from 'react';
-import {ListView, AsyncStorage, View, Text} from "react-native";
+import {AsyncStorage, FlatList, View} from "react-native";
 import Loading from "../Loading";
-import Proposal from "../../models/Proposal";
+import {ProposalListItemType} from "../../types/ProposalType";
 import ProposalListItem from "../ProposalListItem";
 import CacheStore from 'react-native-cache-store';
 import Client from '../../http/Client';
 import Config from '../../Config';
 import Empty from './Empty';
+import {Styles as textStyle} from "../../styles/Global";
+import Ad from "../../components/Ad";
+import trackEvent from "../../helpers/AppsFlyer";
 
-export default class BattleList extends React.Component{
+export default class BattleList extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-            }),
+            items: [],
             loaded: false,
         };
     }
@@ -61,8 +62,11 @@ export default class BattleList extends React.Component{
                     api.GET('/proposal/list')
                         .then(
                             (responseData) => {
-                                this.updateList(responseData);
-                                CacheStore.set(CACHE_KEY, responseData, Config.lowCache);
+
+
+                                let items = responseData;
+                                this.updateList(items);
+                                CacheStore.set(CACHE_KEY, items, Config.lowCache);
                             }
                         )
                 }
@@ -72,7 +76,7 @@ export default class BattleList extends React.Component{
     updateList(items) {
         // noinspection JSAccessibilityCheck
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(items),
+            items: items,
             loaded: true,
         });
     }
@@ -82,19 +86,22 @@ export default class BattleList extends React.Component{
             return <Loading/>;
         }
 
-        if (this.state.dataSource.getRowCount() < 1) {
+        if (this.state.items.length < 1) {
             return (
                 <Empty/>
             )
         }
 
+        //padding 10 - нужен для корректного отображения кружков новых сообщений
         return (
-            <List>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={(proposal, rowMap) => this.renderProposal(proposal, rowMap)}
+            <View style={[textStyle.rootView, {padding:10}]}>
+                <FlatList
+                    data={this.state.items}
+                    renderItem={this.renderProposal}
                 />
-            </List>
+
+                <Ad style={{marginBottom: -10}}/>
+            </View>
         );
     }
 
@@ -119,12 +126,13 @@ export default class BattleList extends React.Component{
             });
     }
 
-    renderProposal(proposal: Proposal) {
+    renderProposal(proposal: ProposalListItemType) {
 
-        const deleteFunction = this.delete.bind(this);
+
+        // const deleteFunction = this.delete.bind(this);
 
         return (
-            <ProposalListItem proposal={proposal} deleteHandler={deleteFunction}/>
+            <ProposalListItem proposal={proposal.item} deleteHandler={() => this.delete(proposal.item.id)}/>
         );
     }
 }

@@ -6,6 +6,7 @@ export default class Input extends React.Component {
     render() {
         return (
             <View style={styles.wrapper}>
+                <Text style={styles.error}>{this.props.error}</Text>
                 <View style={styles.input}>
                     {this.props.component}
                 </View>
@@ -62,5 +63,8 @@ const styles = StyleSheet.create({
     },
     description: {
         color: '#E0E0E0'
+    },
+    error : {
+        color: '#ff1700'
     }
 });

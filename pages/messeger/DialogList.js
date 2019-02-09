@@ -1,36 +1,29 @@
 import React, {Component} from "react";
-import {AsyncStorage, ListView, Text, View} from "react-native";
+import {AsyncStorage, ListView, Text, View, FlatList} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
 import CacheStore from 'react-native-cache-store';
 import DialogListItem from './DialogListItem';
 import Config from "../../Config";
+import Proposal from "../../models/Proposal";
+import {changeTitle} from "../../components/ProposalBar";
+
+
+import Empty from './Empty';
 
 export default class DialogList extends Component {
 
-    static proposal;
+    state = {
+        items:[],
+        listTitle: '',
+        loaded: false
+    };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-            }),
-            listTitle: '',
-            loaded: false
-        };
-
-        this.proposalId = this.props.proposal.id;
-
-        DialogList.proposal = this.props.proposal.id;
-
-        console.log('ProposalType');
-        console.log(this.props.proposal);
-    }
 
     componentDidMount() {
         this.fetchData();
+        changeTitle(this.props.proposal);
     }
 
     /**
@@ -60,7 +53,7 @@ export default class DialogList extends Component {
                     Actions.login();
                 } else {
                     const api = new Client(result);
-                    api.GET('/proposal/dialogs/' + this.proposalId)
+                    api.GET('/proposal/dialogs/' + this.props.proposal.id)
                         .then(
                             (responseData) => {
                                 this.updateList(responseData);
@@ -74,7 +67,7 @@ export default class DialogList extends Component {
     updateList(items) {
         // noinspection JSAccessibilityCheck
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(items),
+            items: items,
             loaded: true,
         });
     }
@@ -95,41 +88,42 @@ export default class DialogList extends Component {
 
     render() {
 
-        const deleteFunction = this.delete.bind(this);
+        console.log('dialog list', this.props.proposal);
 
         if (!this.state.loaded) {
             return (
-                <View>
                     <Loading/>
-                </View>
             )
         }
 
-        if (this.state.dataSource.getRowCount() < 1) {
+        if (this.state.items.length < 1) {
             return (
-                <View>
-
-                    <Text>
-                        На Вашу заявку пока не поступило предложений от наших партнеров
-                    </Text>
-                </View>
+                <Empty/>
             )
         }
+
+        console.log(this.state.items);
+
 
         return (
             <View>
-                <View>
-                    <Text>{this.props.proposal.date} на {this.props.proposal.guests_count} человека</Text>
-                </View>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={(dialog, rowMap) => (
-                        <DialogListItem dialog={dialog} proposal={this.props.proposal}
-                                        deleteHandler={deleteFunction}/>
-                    )}
-                >
-                </ListView>
+
+                <FlatList
+                    data={this.state.items}
+                    renderItem={(item) => this.renderItem(item)}
+                />
+
             </View>
         );
+    }
+
+
+    renderItem(item) {
+
+        console.log('props', this.props.proposal);
+
+        // return null;
+        // const deleteFunction = this.delete.bind(this);
+        return <DialogListItem dialog={item}  proposal={this.props.proposal}/>
     }
 }
