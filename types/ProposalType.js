@@ -5,7 +5,7 @@ export type ProposalListItemType = {
     item: ProposalType
 }
 
-type ProposalType = {
+export type ProposalType = {
     id: number,
     City: string,
     date: string,
@@ -22,6 +22,7 @@ type ProposalType = {
     comment: string,
     minCost: number,
     organizations: Organization[],
-    profit: number
+    profit: number,
+    answers: number
 
 }

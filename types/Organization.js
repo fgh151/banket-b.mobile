@@ -11,5 +11,13 @@ id:number,
     images:string[],
     amount:number,
     halls:Hall[],
-    metro:Metro[]
+    metro:Metro[],
+
+
+
+    rating:number,
+    profit:number,
+    minPrice:number,
+    lastMessage:number
+
 }

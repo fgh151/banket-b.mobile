@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Picker, ScrollView, TextInput, View, StyleSheet} from "react-native";
+import {Picker, ScrollView, TextInput, View, StyleSheet, TouchableOpacity, Text} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import Input from "../../components/Input";
 import {Button} from "../../components/Button";
@@ -9,6 +9,7 @@ import moment from "moment";
 
 import Proposal from '../../models/Proposal';
 import {Actions} from "react-native-router-flux";
+import {City} from "../../helpers/GeoLocation";
 
 export default class Form extends React.Component {
     state = {
@@ -106,6 +107,16 @@ export default class Form extends React.Component {
         )
     }
 
+    getCityPicker() {
+        return (
+            <TouchableOpacity
+            onPress={() => Actions.CitySelector()}
+            >
+                <Text>{(new City()).city.title}</Text>
+            </TouchableOpacity>
+        )
+    }
+
     setProposalProperty(propertyName, value) {
 
         console.log("validate", value);
@@ -137,12 +148,7 @@ export default class Form extends React.Component {
             <View style={textStyle.rootView}>
                 <ScrollView>
                     <Input
-                        component={<TextInput
-                            refInput={ref => {
-                                this.input = ref
-                            }}
-                            placeholder='Город'
-                        />}
+                        component={this.getCityPicker()}
                         active={true}
                     />
                     <Input

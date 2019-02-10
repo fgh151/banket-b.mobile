@@ -21,9 +21,9 @@ export default class LoginPhone extends React.Component{
     nextPage = () => {
 
         const api = new Client();
-        // api.POST('/v2/auth/sendcode', {phone: this.state.phone})
-        //     .then((response : LoginResponse) => {
-        //     });
+        api.POST('/v2/auth/sendcode', {phone: this.state.phone})
+            .then((response : LoginResponse) => {
+            });
         Actions.LoginCode({phone: this.state.phone});
     };
 

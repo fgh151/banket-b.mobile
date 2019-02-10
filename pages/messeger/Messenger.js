@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, Image, ListView, Share, View, Text} from "react-native";
+import {AsyncStorage, FlatList, Share, Text, View} from "react-native";
 import Config, {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
@@ -8,8 +8,10 @@ import Hyperlink from 'react-native-hyperlink'
 
 import CacheStore from "react-native-cache-store";
 import * as ArrayHelper from "../../helpers/ArrayHelper";
-import {Actions} from "react-native-router-flux";
+import {messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
+import {updateProposalList} from "../ProposalListItem";
+import Organization from "./Organization";
 
 export default class Messenger extends Component {
 
@@ -18,31 +20,36 @@ export default class Messenger extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-            }),
+            items: [],
             listTitle: '',
             loaded: false,
         };
 
-        this.dialogId = this.props.dialogId;
-        this.proposalId = this.props.proposal.id;
-        this.organizationName = this.props.organizationName;
-
-        this.cacheKey = 'cache-messages-' + this.proposalId + '-o_' + this.dialogId;
-    }
-
-    static decodeMessage(message) {
-        return  message; // JSON.parse(message);
+        this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
     }
 
     static myMessage(model) {
         return (
-            <View>
-                        <View>
+            <View style={{paddingRight: 10, paddingBottom: 10, paddingTop: 10, alignItems: 'flex-end'}}>
+                <View
+                    style={{
+                        borderRadius: 15,
+                        backgroundColor: '#DFEAFF',
+                        flex: 1,
+                        flexDirection: 'column',
+                        maxWidth: '90%',
+                        padding: 10
+                    }}
+                >
+                    <View >
+                        <Hyperlink linkDefault={true}>
                             <Text>{model.message}</Text>
-                            {this.renderTime(model.created_at)}
-                        </View>
+                        </Hyperlink>
+                    </View>
+                    <View >
+                        {this.renderTime(model.created_at, 'right')}
+                    </View>
+                </View>
             </View>
         );
     }
@@ -63,17 +70,27 @@ export default class Messenger extends Component {
 
     static foreignMessage(model) {
         return (
-            <View>
-                    <View size={12}
-                         onPress={() => Messenger.shareMessage(model.message)}
-                         >
-                        <View>
-                            <Hyperlink linkDefault={true}>
-                                <Text>{model.message}</Text>
-                            </Hyperlink>
-                            {this.renderTimeWithShare(model.created_at)}
-                        </View>
+            <View style={{paddingRight: 10, paddingBottom: 10, paddingTop: 10, alignItems: 'flex-start'}}>
+                <View
+                    style={{
+                        borderRadius: 15,
+                        backgroundColor: '#F6F6F6',
+                        flex: 1,
+                        flexDirection: 'column',
+                        maxWidth: '90%',
+                        padding: 10
+                    }}
+                    onPress={() => Messenger.shareMessage(model.message)}
+                >
+                    <View style={{}}>
+                        <Hyperlink linkDefault={true}>
+                            <Text>{model.message}</Text>
+                        </Hyperlink>
                     </View>
+                    <View>
+                        {this.renderTime(model.created_at, 'right')}
+                    </View>
+                </View>
             </View>
         );
     }
@@ -82,23 +99,10 @@ export default class Messenger extends Component {
         return model.author_class === 'app\\common\\models\\MobileUser';
     }
 
-    static renderTimeWithShare(timestamp) {
+    static renderTime(timestamp, align) {
         const time = moment(timestamp * 1000);
         return (
-            <View>
-                <Text >
-                    <Text>{time.format('DD.MM.YYYY HH:mm')}
-                    </Text>&nbsp;&nbsp;&nbsp;&nbsp;
-
-                </Text>
-            </View>
-        )
-    }
-
-    static renderTime(timestamp) {
-        const time = moment(timestamp * 1000);
-        return (
-            <Text>{time.format('DD.MM.YYYY HH:mm')}</Text>
+            <Text style={{paddingTop: 10, textAlign: align}}>{time.format('HH:mm')}</Text>
         )
     }
 
@@ -109,7 +113,7 @@ export default class Messenger extends Component {
     componentWillUnmount() {
         AsyncStorage.getItem('battle@id')
             .then((id) => {
-                const path = '/proposal_2/u_' + id + '/p_' + this.proposalId;
+                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
                 db.ref(path).off()
 
             });
@@ -129,107 +133,95 @@ export default class Messenger extends Component {
 
         AsyncStorage.getItem('battle@id')
             .then((id) => {
-                const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/';
+                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
 
-
-                console.log('firebase path',path);
+                console.log(path);
 
                 let ref = db.ref(path);
 
-                ref.once('value', snapshot => {console.log("snapshot value", snapshot)});
-
-                console.log('ref', ref);
-
                 ref.on('value', (snapshot) => {
-                        const value = snapshot.val();
+                    const value = snapshot.val();
 
-                        console.log('snapshot', value);
+                    this.updateList(value);
+                    AsyncStorage.setItem(this.cacheKey, JSON.stringify(value));
+                    const messages = ArrayHelper.getKeys(value);
+                    let count = 0;
+                    messages.forEach((messageTime) => {
 
-                        if (value['o_' + this.dialogId]) {
-
-                            const items = value['o_' + this.dialogId];
-
-                            this.updateList(items);
-                            AsyncStorage.setItem(this.cacheKey, JSON.stringify(items));
-
-
-                            let length = 0;
-                            const orgs = ArrayHelper.getKeys(value);
-                            orgs.forEach((organizationId) => {
-                                length += ArrayHelper.getKeys(value[organizationId]).length;
-                            });
-
-                            AsyncStorage.getItem('answers-count-read' + this.proposalId)
-                                .then((value) => {
-
-                                    let acr = value == null ? length : value + length;
-
-                                    console.log('SET READ PROPOSAL ' + acr);
-
-                                    AsyncStorage.setItem('answers-count-read' + this.props.proposal.id, acr.toString());
-                                });
-
-                            console.log('SET DIALOG READ ' + length + ' proposal ' + this.props.proposal.id + ' dialog ' + this.dialogId);
-
-                            AsyncStorage.setItem('answers-count-read' + this.props.proposal.id + '-' + this.dialogId, length.toString());
-                            Actions.refresh();
+                        let message = value[messageTime];
+                        if (message.author_class === 'app\\common\\models\\Organization') {
+                            count++;
                         }
-                    })
+                    });
+
+                    AsyncStorage.getItem('answers-count-read' + this.props.proposal.id)
+                        .then((value) => {
+
+                            let acr = value == null ? count : parseInt(value) + count;
+
+                            AsyncStorage.setItem('answers-count-read' + this.props.proposal.id, acr.toString());
+                        });
+                    updateProposalList();
+                })
             });
     }
 
     updateList(items) {
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(items),
+            items: items,
             loaded: true,
         });
 
         const length = ArrayHelper.getKeys(items).length;
-        CacheStore.set('answers-count-read' + this.proposalId + '-' + this.dialogId, length, Config.lowCache);
+        CacheStore.set('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length, Config.lowCache);
 
 
     }
 
     render() {
 
-        console.log("STATE ", this.state.loaded);
-
         if (!this.state.loaded) {
             return (
 
                 <View style={textStyle.rootView}>
-                        <Loading/>
-                    </View>
+                    <Loading/>
+                </View>
             );
         }
 
+        let messages = messagesObject2array(this.state.items);
+
+        console.log(messages, this.props);
+
         return (
 
-            <View style={textStyle.rootView}>
-                    <View>
-                        <Text style={{
-                            marginLeft: 15,
-                            color: '#fff'
-                        }}>{this.props.proposal.date} на {this.props.proposal.guests_count} человека</Text>
-                    </View>
-                    <View>
-                        <ListView
-                            dataSource={this.state.dataSource}
-                            renderRow={this.renderMessage}
-                        />
-                    </View>
-                    <MessageForm proposalId={this.proposalId} organizationId={this.dialogId}/>
+            <View style={[textStyle.rootView, {}]}>
+                <Organization organization={this.props.organization} proposal={this.props.proposal}/>
+                <FlatList
+                    style={{flex: 1, flexDirection: 'column'}}
+                    data={messages}
+                    renderItem={(item) => this.renderMessage(item)}
+                />
+                <View>
+                    <Text style={{
+                        borderRadius: 15,
+                        borderWidth: 1,
+                        borderColor: '#979797',
+                        textAlign: 'center',
+                        padding: 10,
+                        opacity: .5
+                    }}>
+                        Опишите для ресторана свои пожелания и дополнительные требования
+                    </Text>
                 </View>
+                <MessageForm proposalId={this.props.proposal.id} organizationId={this.props.organization.id}/>
+            </View>
         );
     }
 
-    renderMessage(message, sectionID, rowID) {
-
-        console.log(message);
-
-
-        const decodedMessage = Messenger.decodeMessage(message);
-        const render = Messenger.isMy(decodedMessage) ? Messenger.myMessage(decodedMessage) : Messenger.foreignMessage(decodedMessage);
+    renderMessage(listItem) {
+        var message = listItem.item;
+        const render = Messenger.isMy(message) ? Messenger.myMessage(message) : Messenger.foreignMessage(message);
         return (render);
     }
 

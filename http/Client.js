@@ -3,7 +3,7 @@ import {NetInfo} from 'react-native';
 
 export default class Client {
 
-    constructor(authToken, baseUrl = '', {headers = {}, devMode = false, simulatedDelay = 0} = {}) {
+    constructor(authToken, baseUrl = '', {headers = {}} = {}) {
         this.headers = {
             'Accept': '*/*',
             'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export default class Client {
         return NetInfo.getConnectionInfo().then((connectionInfo) => {
 
 
-            console.log(connectionInfo.type);
+            // console.log(connectionInfo.type);
 
             // if (connectionInfo.type !== 'none') {
                 return fetchPromise()

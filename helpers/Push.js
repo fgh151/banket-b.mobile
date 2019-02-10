@@ -6,6 +6,7 @@ import React from "react";
 
 import type {RemoteMessage} from 'react-native-firebase';
 import firebase from "react-native-firebase";
+import {updateProposalList} from "../pages/ProposalListItem";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -62,7 +63,8 @@ export default class Push {
             firebase.notifications()
                 .displayNotification(notification)
                 .then(() => {
-                    Vibration.vibrate(100, [1000, 2000, 3000])
+                    Vibration.vibrate(100, [1000, 2000, 3000]);
+                    updateProposalList();
                 });
 
         });

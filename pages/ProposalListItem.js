@@ -1,21 +1,26 @@
 import React, {Component} from "react";
-import {AsyncStorage, StyleSheet, Text, TouchableHighlight, View, TouchableOpacity} from "react-native";
+import {AsyncStorage, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
-import App from '../App';
 import * as ArrayHelper from '../helpers/ArrayHelper';
-import {formatCost, plural, formatDate} from '../helpers/StringHelper';
-import Config from '../Config';
+import {formatCost, formatDate, plural} from '../helpers/StringHelper';
+import {db} from '../Config';
 
 import Proposal from "../models/Proposal";
 import Shadow from "../components/Shadow";
 import {Styles as textStyle} from "../styles/Global";
 import moment from 'moment';
+import type {ProposalType} from "../types/ProposalType";
+
+let shouldUpdate = false;
+
+export function updateProposalList() {
+    shouldUpdate = true;
+}
 
 export default class ProposalListItem extends Component {
 
     state = {
         newMessages: false,
-        // answersCount: null
     };
 
     constructor(props) {
@@ -23,50 +28,46 @@ export default class ProposalListItem extends Component {
     }
 
     static goToDialogs(proposal: Proposal) {
-
-
-        console.log('go to dialog list', proposal);
-
         Actions.DialogList({proposal: proposal})
+    }
+
+    shouldComponentUpdate() {
+        let should = shouldUpdate;
+        if (should) {
+            shouldUpdate = false;
+        }
+        return should;
     }
 
     componentDidMount() {
 
+        AsyncStorage.getItem('battle@id')
+            .then((id) => {
+                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/';
+                db.ref(path).once('value', (snapshot) => {
+                    let messagesCount = 0;
+                    const value = snapshot.val();
+                    let organizations = ArrayHelper.getKeys(value);
+                    organizations.forEach((organization) => {
+                        let messagesTime = ArrayHelper.getKeys(value[organization]);
+                        messagesTime.forEach((messageTime) => {
+                            let message = value[organization][messageTime];
+                            if (message.author_class === 'app\\common\\models\\Organization') {
+                                messagesCount++;
+                            }
+                        })
+                    });
+                    if (messagesCount > 0) {
+                        AsyncStorage.getItem('answers-count-read' + this.props.proposal.id)
+                            .then((readedAnswersCount) => {
 
-        // AsyncStorage.getItem(App.PROPOSALS_CACHE_KEY)
-        //     .then((value) => {
-        //         if (value['p_' + this.props.proposal.id]) {
-        //             const answers = value['p_' + this.props.proposal.id];
-        //
-        //             let length = 0;
-        //             const orgs = ArrayHelper.getKeys(answers);
-        //
-        //             orgs.forEach((organizationId) => {
-        //
-        //                 console.log('VALUE size ' + this.props.proposal.id + ' ' + organizationId + ' ');
-        //                 console.log(value['p_' + this.props.proposal.id][organizationId]);
-        //
-        //                 // length += ArrayHelper.getKeys(value['p_' + this.props.proposal.id][organizationId]).length;
-        //             });
-        //
-        //             AsyncStorage.getItem('answers-count-' + this.props.proposal.id)
-        //                 .then((value) => {
-        //                     AsyncStorage.getItem('answers-count-read' + this.props.proposal.id)
-        //                         .then((value) => {
-        //                             if (value !== null) {
-        //                                 length = value - length;
-        //                                 if (length > 0) {
-        //                                     AsyncStorage.setItem('answers-count-' + this.props.proposal.id, length, Config.lowCache);
-        //                                     this.setState({newMessages: true, answersCount: length});
-        //                                 }
-        //                             } else {
-        //                                 this.setState({newMessages: true, answersCount: length});
-        //                                 AsyncStorage.setItem('answers-count-' + this.props.proposal.id, length, Config.lowCache)
-        //                             }
-        //                         });
-        //                 });
-        //         }
-        //     });
+                                if (parseInt(readedAnswersCount) < messagesCount) {
+                                    this.setState({newMessages: true});
+                                }
+                            });
+                    }
+                });
+            })
     }
 
 
@@ -81,13 +82,25 @@ export default class ProposalListItem extends Component {
         return null;
     }
 
+
+    renderProfit(proposal: ProposalType) {
+        if (proposal.answers > 0) {
+            return(<Text style={styles.profit}>{proposal.profit}% выгода</Text>)
+        }
+        return null;
+    }
+
+    renderAnswersCount(proposal: ProposalType){
+
+        if (proposal.answers > 0) {
+            return(<Text>{proposal.answers} {plural(proposal.answers, 'ставка', 'ставки', 'ставок')}</Text>)
+        }
+        return null;
+    }
+
     render() {
 
         const proposal = this.props.proposal;
-
-        console.log(proposal);
-
-
         return (
             <Shadow style={styles.blockWrapper}>
                 {this.renderNewMessages()}
@@ -97,15 +110,14 @@ export default class ProposalListItem extends Component {
                     <View>
                         <View style={styles.rowWrapper}>
                             <View>
-
                                 <Text>
 
-                                <Text style={styles.eventType}>
-                                    {Proposal.getEventTypeNames(proposal.event_type)}
-                                </Text>
+                                    <Text style={styles.eventType}>
+                                        {Proposal.getEventTypeNames(proposal.event_type)}
+                                    </Text>
 
                                     <Text style={styles.time}>
-                                        &nbsp;{formatDate(proposal.date)}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
+                                        &nbsp;{formatDate(proposal.date)}, {moment(proposal.time, "HH:mm:ss").format("hh:mm")}
                                     </Text>
 
                                 </Text>
@@ -123,18 +135,23 @@ export default class ProposalListItem extends Component {
                         </View>
                         <View style={styles.rowWrapper}>
                             <View>
-                                <Text>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
+                                <Text>
+                                    {formatDate(proposal.date, 'D MMMM')}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
+                                </Text>
                             </View>
                             <View>
-                                <Text style={styles.profit}>80% выгода</Text>
+                                {this.renderProfit(proposal)}
                             </View>
                         </View>
                         <View style={styles.rowWrapper}>
                             <View>
-                                <Text>{formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
+                                <Text>
+                                    <Text>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
+                                    <Text>, {formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
+                                </Text>
                             </View>
                             <View>
-                                <Text>5 ставок</Text>
+                                {this.renderAnswersCount(proposal)}
                             </View>
                         </View>
                     </View>
@@ -144,7 +161,6 @@ export default class ProposalListItem extends Component {
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     blockWrapper: {
@@ -176,11 +192,11 @@ const styles = StyleSheet.create({
     time: {
         fontSize: 18,
     },
-    profit:{
+    profit: {
         fontFamily: "Lato-Bold",
         color: '#00D800'
     },
-    round:{
+    round: {
         height: 22,
         width: 22,
         backgroundColor: '#D0021B',
@@ -193,6 +209,6 @@ const styles = StyleSheet.create({
 
         position: 'absolute',
         top: -11,
-        right:-11
+        right: -11
     }
 });

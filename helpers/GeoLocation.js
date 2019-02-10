@@ -1,5 +1,7 @@
 import Geocoder from 'react-native-geocoder';
 import Geolocation from 'react-native-geolocation-service';
+import {PermissionsAndroid, AsyncStorage} from "react-native";
+import Client from '../http/Client';
 
 
 const Position = {
@@ -30,41 +32,89 @@ const geoCoder = {
     subLocality: String | null
 };
 
+let hasPermission;
+
+export class City {
+    static instance;
+    //По умолчанию Москва
+    id = 1;
+    city = {
+        districts: [],
+        id: 1,
+        metro: [],
+        title: "Москва"
+    };
+    constructor() {
+        if (City.instance) {
+            return City.instance;
+        }
+        City.instance = this;
+    }
+}
+
 export default class GeoLocation {
+    static CACHE_KEY = 'geo-base';
+    city = new City();
 
     constructor() {
-        console.log("geolocation constructor");
-
-        this.getLocation();
+        this.requestLocationPermission();
     }
 
+    async requestLocationPermission() {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                {
+                    title: "Банкет батл",
+                    message: "Поиск лучшего места для банкета"
+                }
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                // console.log("You can use the location");
+
+                this.getLocation();
+
+                // alert("You can use the location");
+            } else {
+                console.log("location permission denied");
+                // alert("Location permission denied");
+            }
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+
+    findInRemote(cityName) {
+
+
+        GeoLocation.getRemoteCities()
+            .then(
+                (responseData) => {
+                    AsyncStorage.setItem(GeoLocation.CACHE_KEY, responseData);
+                    let c = responseData.find((cityObject) => cityObject.title === cityName);
+                    if (c) {
+                        // console.log(c);
+                        this.city.id = c.id;
+                        this.city.city = c;
+                    }
+
+                }
+            )
+    }
+
+    static getRemoteCities() {
+        const api = new Client();
+        return api.GET('/city/city')
+    }
 
     getLocation() {
-        console.log("get location");
-
-
         Geolocation.getCurrentPosition(
             (position) => {
-
-                // position = {
-                //     "coords": {
-                //         "speed": -1,
-                //         "longitude": -122.406417,
-                //         "latitude": 37.785834,
-                //         "accuracy": 5,
-                //         "heading": -1,
-                //         "altitude": 0,
-                //         "altitudeAccuracy": -1
-                //     }, "timestamp": 1548078506866.419
-                // };
-
-                console.log("position");
-                console.log(JSON.stringify(position));
 
                 var location = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
-                }
+                };
 
                 Geocoder.geocodePosition(location).then(res => {
                     // res is an Array of geocoding object (see below)
@@ -86,8 +136,9 @@ export default class GeoLocation {
                     // }];
 
 
-                    console.log("Geo coder");
-                    console.log(JSON.stringify(res));
+                    // console.log("Geo coder");
+                    // console.log(JSON.stringify(res));
+                    this.findInRemote(res.locality);
 
                 })
 

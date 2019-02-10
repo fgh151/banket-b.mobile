@@ -76,3 +76,13 @@ export function isEmpty(obj) {
 }
 
 
+export function messagesObject2array(obj) {
+    let result = [];
+    const keys = getKeys(obj);
+    keys.forEach(function (item) {
+        let message = obj[item];
+        message['key'] = item;
+        result.push(message)
+    });
+return result;
+}

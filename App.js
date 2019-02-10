@@ -1,9 +1,8 @@
 import React from 'react';
-import {Text} from "react-native"
+import {AsyncStorage, Text} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 // import Login from './pages/Login';
-import Register from './pages/Register';
 import BattleList from './pages/BattleList/BattleList'
 import {isFirstLunch} from './helpers/Luncher';
 
@@ -21,9 +20,14 @@ import Form from './pages/create/Form';
 import Services from "./pages/create/Services";
 import Finish from "./pages/create/Finish";
 import DialogList from './pages/messeger/DialogList'
-import ProposalBar from "./components/ProposalBar";
+import ProposalBar, {getCurrentProposal} from "./components/ProposalBar";
 import BackButton from './components/BackButton';
 import Messenger from "./pages/messeger/Messenger";
+import GeoLocation from "./helpers/GeoLocation";
+import CitySelector from './pages/create/CitySelector';
+import RegisterPhone from "./pages/auth/RegisterPhone";
+import RegisterCode from "./pages/auth/RegisterCode";
+import Client from "./http/Client";
 
 // Sentry.config(config.sentryDSN).install();
 
@@ -41,6 +45,11 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
+
+
+        new GeoLocation();
+
+
         SplashScreen.hide();
         isFirstLunch().then((value) => {
             if (value !== true.toString()) {
@@ -52,7 +61,7 @@ export default class App extends React.Component {
             .then(enabled => {
                 if (enabled) {
                     firebase.messaging().getToken().then(token => {
-                        console.log("LOG: ", token);
+                        // console.log("LOG: ", token);
                     })
                     // user has permissions
                 } else {
@@ -96,9 +105,16 @@ export default class App extends React.Component {
                         title="Вход"
                     />
                     <Scene
-                        key="Register"
-                        component={Register}
-                        title="Login"
+                        key="RegisterPhone"
+                        navigationBarStyle={Styles.navBar}
+                        component={RegisterPhone}
+                        title="Регистрация"
+                    />
+                    <Scene
+                        key="RegisterCode"
+                        navigationBarStyle={Styles.navBar}
+                        component={RegisterCode}
+                        title="Регистрация"
                     />
                     <Scene
                         key="Form"
@@ -112,8 +128,10 @@ export default class App extends React.Component {
                         initial={!this.state.firstLunch} //Главный экран ?
                         renderLeftButton={<Menu image="menu" buttons={[
                             {
-                                action: () => alert('test'),
-                                title: 'test'
+                                action: () => {
+                                    AsyncStorage.clear(() => Actions.WhatIsIt())
+                                },
+                                title: 'Выйти'
                             }
                         ]}/>}
                         renderRightButton={
@@ -150,25 +168,37 @@ export default class App extends React.Component {
                         navigationBarStyle={{height: 109}}
                         renderTitle={<ProposalBar/>}
                         renderBackButton={() => <BackButton/>}
-                        renderRightButton={
-                            <Menu
-                                image='dots'
-                                buttons={[
-                                    {
-                                        action: () => alert('test'),
-                                        title: 'close'
-                                    }
-                                ]}/>
-                        }
+                        // renderRightButton={<ProposalMenu />}
+                        renderRightButton={<Menu image="dots" buttons={[
+                            {
+                                action: () => {
+                                    let p = getCurrentProposal();
+                                    const api = new Client(result);
+                                    api.GET('/proposal/close/' + p.id)
+                                        .then(
+                                            () => {
+                                                Actions.BattleList();
+                                            }
+                                        );
+                                },
+                                title: 'Закончить батл'
+                            }
+                        ]}/>}
                     />
 
                     <Scene
                         key="Messenger"
                         component={Messenger}
-                        title="messwnger"
+                        title="Чат"
                         // renderTitle={<ChangeableTitle/>}
                         // renderRightButton={() => <DialogHelp/>}
                         // renderBackButton={() => <BackButton/>}
+                    />
+
+                    <Scene
+                        key="CitySelector"
+                        component={CitySelector}
+                        title="Выберите город"
                     />
 
                 </Scene>

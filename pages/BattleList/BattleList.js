@@ -55,6 +55,8 @@ export default class BattleList extends React.Component {
         const CACHE_KEY = 'proposal-list';
         AsyncStorage.getItem('battle@token')
             .then((result) => {
+
+                // console.log('User token', result);
                 if (result === null) {
                     Actions.login();
                 } else {
@@ -100,9 +102,16 @@ export default class BattleList extends React.Component {
                     renderItem={this.renderProposal}
                 />
 
-                <Ad style={{marginBottom: -10}}/>
+                {this.renderAd()}
             </View>
         );
+    }
+
+    renderAd() {
+        if (this.state.items.length < 3) {
+            return <Ad style={{marginBottom: -10}}/>
+        }
+        return null;
     }
 
     /**
@@ -127,10 +136,6 @@ export default class BattleList extends React.Component {
     }
 
     renderProposal(proposal: ProposalListItemType) {
-
-
-        // const deleteFunction = this.delete.bind(this);
-
         return (
             <ProposalListItem proposal={proposal.item} deleteHandler={() => this.delete(proposal.item.id)}/>
         );

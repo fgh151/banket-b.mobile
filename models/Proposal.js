@@ -4,6 +4,7 @@ import * as ArrayHelper from "../helpers/ArrayHelper";
 import {Actions} from "react-native-router-flux";
 import {AsyncStorage} from "react-native";
 import React from "react";
+import {City} from "../helpers/GeoLocation";
 
 
 const MIN_GUEST_COUNT = 1;
@@ -12,7 +13,7 @@ const MIN_AMOUNT = 100;
 export default class Proposal {
 
     static instance;
-    cityId = 1; //Москва
+    cityId = (new City()).id; // 1; //Москва
     event_type = 7;
     date = null;
     time = null;
