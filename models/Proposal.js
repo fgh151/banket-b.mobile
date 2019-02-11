@@ -108,7 +108,7 @@ export default class Proposal {
         AsyncStorage.getItem('battle@token')
             .then((result) => {
                 if (result === null) {
-                    Actions.Register();
+                    Actions.RegisterPhone();
                 } else {
                     const api = new Client(result);
                     api.POST('/proposal/create', this)

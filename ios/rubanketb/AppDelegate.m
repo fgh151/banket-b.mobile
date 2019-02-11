@@ -54,7 +54,7 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
   
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self]; //Add This Line
   
-   [RNSplashScreen show];
+//   [RNSplashScreen show];
   
   return YES;
 }

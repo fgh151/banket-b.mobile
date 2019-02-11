@@ -36,12 +36,18 @@ export default class App extends React.Component {
 
 
     static PROPOSALS_CACHE_KEY = 'my-proposals';
+    state = {
+        firstLunch: false
+    };
 
     constructor() {
         super();
-        this.state = {
-            firstLunch: false
-        };
+        isFirstLunch().then((value) => {
+            if (value !== true.toString()) {
+                this.state.firstLunch = true
+                // this.setState({firstLunch: true});
+            }
+        });
     }
 
     componentDidMount() {
@@ -51,12 +57,7 @@ export default class App extends React.Component {
 
 
         SplashScreen.hide();
-        isFirstLunch().then((value) => {
-            if (value !== true.toString()) {
-                //TODO: WTF???
-                // this.setState({firstLunch: true});
-            }
-        });
+
         firebase.messaging().hasPermission()
             .then(enabled => {
                 if (enabled) {
@@ -67,7 +68,7 @@ export default class App extends React.Component {
                 } else {
                     firebase.messaging().requestPermission()
                         .then(() => {
-                            alert("User Now Has Permission")
+                            // alert("User Now Has Permission")
                         })
                         .catch(error => {
                             alert("Error", error)
@@ -120,6 +121,7 @@ export default class App extends React.Component {
                         key="Form"
                         component={Form}
                         title="Создать батл"
+                        renderBackButton={() => {}}
                     />
                     <Scene
                         key="BattleList"
@@ -154,12 +156,14 @@ export default class App extends React.Component {
                         key="Services"
                         component={Services}
                         title="Выберите услуги"
+                        renderBackButton={() => <BackButton/>}
                     />
                     <Scene
                         key="Finish"
                         component={Finish}
                         title="Батл создан"
                         back={false}
+                        renderBackButton={() => {}}
                     />
                     <Scene
                         key="DialogList"
@@ -190,6 +194,7 @@ export default class App extends React.Component {
                         key="Messenger"
                         component={Messenger}
                         title="Чат"
+                        renderBackButton={() => <BackButton/>}
                         // renderTitle={<ChangeableTitle/>}
                         // renderRightButton={() => <DialogHelp/>}
                         // renderBackButton={() => <BackButton/>}
@@ -199,6 +204,7 @@ export default class App extends React.Component {
                         key="CitySelector"
                         component={CitySelector}
                         title="Выберите город"
+                        renderBackButton={() => <BackButton/>}
                     />
 
                 </Scene>
