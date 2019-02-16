@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, View} from "react-native";
+import {Platform, StyleSheet, TextInput, View} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -9,6 +9,11 @@ import {Actions} from "react-native-router-flux";
 import type {LoginResponse} from "../../types/LoginResponse";
 
 export default class RegisterPhone extends React.Component {
+    state = {
+        phone: '',
+        name: '',
+        buttonDisabled: true
+    };
 
     nextPage = () => {
 
@@ -28,15 +33,6 @@ export default class RegisterPhone extends React.Component {
         this.setState({name:name});
     };
 
-    constructor() {
-        super();
-        this.state = {
-            phone: '',
-            name: '',
-            buttonDisabled: true
-        }
-    }
-
     render() {
         return (
             <View style={Styles.rootView}>
@@ -44,6 +40,7 @@ export default class RegisterPhone extends React.Component {
                     <View style={{flex: 0.2}}>
                         <Input
                             component={<TextInput
+                                style={styles.textInput}
                                 placeholder="Имя"
                                 onChangeText={this.nameChange}
                             />}
@@ -76,3 +73,19 @@ export default class RegisterPhone extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    textInput : {
+        fontSize:15,
+        ...Platform.select({
+            ios: {
+                paddingTop:20,
+                paddingBottom:5
+            },
+            android: {
+                marginLeft: -5
+            },
+        }),
+    }
+
+});

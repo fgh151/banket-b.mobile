@@ -61,6 +61,7 @@ export class Button extends BaseButton{
 const styles = StyleSheet.create({
     button: Platform.select({
         ios: {
+            backgroundColor: '#0C20E3',
             borderRadius:5
         },
         android: {
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     text: Platform.select({
         ios: {
             // iOS blue from https://developer.apple.com/ios/human-interface-guidelines/visual-design/color/
-            color: '#0C20E3',
+            color: 'white',
             textAlign: 'center',
             padding: 8,
             fontSize: 18,
@@ -87,7 +88,11 @@ const styles = StyleSheet.create({
     }),
     buttonDisabled: Platform.select({
         ios: {
-
+            elevation: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#CFCFCF',
+            borderWidth:1,
+            color: '#CFCFCF'
         },
         android: {
             elevation: 0,

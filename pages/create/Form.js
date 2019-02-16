@@ -1,11 +1,20 @@
 import React from "react";
 
-import {Picker, ScrollView, TextInput, View, StyleSheet, TouchableOpacity, Text} from "react-native";
+import {
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import Input from "../../components/Input";
 import {Button} from "../../components/Button";
 import DatePicker from 'react-native-datepicker'
 import moment from "moment";
+import RNPickerSelect from 'react-native-picker-select';
 
 import Proposal from '../../models/Proposal';
 import {Actions} from "react-native-router-flux";
@@ -17,8 +26,8 @@ export default class Form extends React.Component {
         eventType: '',
 
 
-        guests_count_error:'',
-        amount_error:'',
+        guests_count_error: '',
+        amount_error: '',
     };
 
     proposal = new Proposal();
@@ -30,22 +39,34 @@ export default class Form extends React.Component {
     };
 
     getEventTypePicker() {
+
+        const placeholder = {
+            label: 'Вид мероприятия',
+            value: null,
+            color: '#9EA0A4',
+        };
+
+        const variants = [
+            {label: "Банкет", value: 1},
+            {label: "Корпоратив", value: 2},
+            {label: "Детский праздник", value: 3},
+            {label: "День рождения", value: 4},
+            {label: "Юбилей", value: 5},
+            {label: "Свадьба", value: 6},
+            {label: "Другое", value: 7}
+        ];
+
         return (
-            <Picker
-                selectedValue={this.state.eventType}
-                prompt="Вид мероприятия"
-                onValueChange={(itemValue, itemIndex) =>
-                    this.setProposalProperty('event_type', itemValue)
-                }>
-                <Picker.Item label="Банкет" value="1"/>
-                <Picker.Item label="Корпоратив" value="2"/>
-                <Picker.Item label="Детский праздник" value="3"/>
-                <Picker.Item label="День рождения" value="4"/>
-                <Picker.Item label="Юбилей" value="5"/>
-                <Picker.Item label="Свадьба" value="6"/>
-                <Picker.Item label="Другое" value="7"/>
-            </Picker>
-        )
+            <RNPickerSelect
+                placeholderTextColor = '#000000'
+                placeholder={placeholder}
+                items={variants}
+                onValueChange={(value) => {
+                    this.setProposalProperty('event_type', value)
+                }}
+                style={pickerSelectStyles}
+            />
+        );
     }
 
     getDatePicker() {
@@ -56,11 +77,10 @@ export default class Form extends React.Component {
                         borderWidth: 0,
                         justifyContent: 'center',
                         alignItems: 'flex-start',
-                        paddingLeft: 10,
-                        width: '100%'
+                        width: '100%',
                     },
-                    placeholderText: textStyle.defaultFont,
-                    dateText: textStyle.defaultFont
+                    placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000'}],
+                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2'}]
                 }}
                 style={styles.dateTouch}
                 date={this.state.date}
@@ -79,18 +99,17 @@ export default class Form extends React.Component {
     }
 
     getTimePicker() {
-        return(
+        return (
             <DatePicker
                 customStyles={{
                     dateInput: {
                         borderWidth: 0,
                         justifyContent: 'center',
                         alignItems: 'flex-start',
-                        paddingLeft: 10,
                         width: '100%'
                     },
-                    placeholderText: textStyle.defaultFont,
-                    dateText: textStyle.defaultFont
+                    placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000'}],
+                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2'}]
                 }}
                 style={styles.dateTouch}
                 date={this.state.time}
@@ -110,9 +129,10 @@ export default class Form extends React.Component {
     getCityPicker() {
         return (
             <TouchableOpacity
-            onPress={() => Actions.CitySelector()}
+                style={{paddingTop: 10}}
+                onPress={() => Actions.CitySelector()}
             >
-                <Text>{(new City()).city.title}</Text>
+                <Text style={[textStyle.defaultFont, {paddingBottom: 5, fontSize:15, color:'#000000'}]}>{(new City()).city.title}</Text>
             </TouchableOpacity>
         )
     }
@@ -122,10 +142,10 @@ export default class Form extends React.Component {
         console.log("validate", value);
 
         let valid = this.proposal.validateProperty(propertyName, value);
-        let errorProp = propertyName+'_error';
+        let errorProp = propertyName + '_error';
         let state = {};
 
-        if (valid === true ) {
+        if (valid === true) {
             state[errorProp] = '';
             this.proposal[propertyName] = value;
             this.setState(this.proposal);
@@ -168,6 +188,8 @@ export default class Form extends React.Component {
                             refInput={ref => {
                                 this.input = ref
                             }}
+                            style={styles.textInput}
+                            placeholderTextColor={'#000000'}
                             onChangeText={(count) => this.setProposalProperty('guests_count', count)}
                             keyboardType="numeric"
                             placeholder='Количество гостей'
@@ -180,9 +202,11 @@ export default class Form extends React.Component {
                             refInput={ref => {
                                 this.input = ref
                             }}
+                            style={styles.textInput}
+                            placeholderTextColor={'#000000'}
                             onChangeText={(amount) => this.setProposalProperty('amount', amount)}
                             keyboardType="numeric"
-                            placeholder='Стоимость'
+                            placeholder='Стоимость на гостя'
                         />}
                         active={true}
                         error={this.state.amount_error}
@@ -194,6 +218,8 @@ export default class Form extends React.Component {
                             refInput={ref => {
                                 this.input = ref
                             }}
+                            style={styles.textInput}
+                            placeholderTextColor={'#000000'}
                             onChangeText={(notes) => this.setProposalProperty('notes', notes)}
                             placeholder='Дополнительно'
                         />}
@@ -217,5 +243,33 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
+    },
+
+    textInput : {
+        fontSize:15,
+        ...Platform.select({
+            ios: {
+                paddingTop:10,
+                paddingBottom:5
+            },
+            android: {
+                marginLeft: -5
+            },
+        }),
+    }
+
+});
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        color: '#0C21E2',
+        paddingRight: 30, // to ensure the text is never behind the icon
+        paddingBottom: 5,
+        paddingTop:10
+    },
+    inputAndroid: {
+        color: '#0C21E2',
+        paddingRight: 30, // to ensure the text is never behind the icon
+        marginLeft: -8
     },
 });

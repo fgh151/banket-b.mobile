@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View, SafeAreaView, Platform} from "react-native";
 import {Actions} from "react-native-router-flux";
 import {Styles as textStyle} from '../styles/Global';
 import {Button} from '../components/Button';
@@ -9,10 +9,10 @@ export default class WhatIsIt extends React.PureComponent {
 
     render() {
         return (
-            <View style={textStyle.rootView}>
+            <SafeAreaView style={[textStyle.rootView, WIIstyles.rootView]}>
                 <View>
                     <Text style={WIIstyles.loginButton}
-                          onPress={() => Actions.LoginCode({phone: '+7 (977) 806 94 28'})}>Войти</Text>
+                          onPress={() => Actions.LoginPhone({phone: '+7 (977) 806 94 28'})}>Войти</Text>
                 </View>
                 <Swiper
                     showsButtons={false}
@@ -46,14 +46,25 @@ export default class WhatIsIt extends React.PureComponent {
                     </View>
                 </Swiper>
                 <View style={WIIstyles.createButtonWrapper}>
-                    <Button onPress={() => Actions.Create()} title="Создать новый батл"/>
+                    <Button onPress={() => Actions.Form()} title="Создать новый батл"/>
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }
 
 const WIIstyles = StyleSheet.create({
+
+    rootView: {
+        ...Platform.select({
+            ios: {
+                margin: 10
+            },
+            android: {
+            },
+        }),
+    },
+
     sliderDot: {
         backgroundColor: 'transparent',
         borderColor: '#0C21E2',

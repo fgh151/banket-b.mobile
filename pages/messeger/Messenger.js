@@ -10,7 +10,7 @@ import CacheStore from "react-native-cache-store";
 import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
-import {updateProposalList} from "../ProposalListItem";
+import {updateProposalList} from "../BattleList/ProposalListItem";
 import Organization from "./Organization";
 
 export default class Messenger extends Component {

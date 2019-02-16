@@ -47,11 +47,11 @@ export default class ProposalBar extends Component {
             let proposal = this.state.proposal;
             return (
                 <View style={{width: 250}}>
-                    <Text style={{fontWeight: '500', fontSize: 20, color: '#000', textAlign: 'center'}}>
+                    <Text style={{fontWeight: '500', fontSize: 18, color: '#000', textAlign: 'center', paddingBottom: 10}}>
                         {Proposal.getEventTypeNames(this.state.proposal.event_type)}
                         {this.renderProposalId()}
                     </Text>
-                    <Text style={{textAlign:'center'}}>
+                    <Text style={{textAlign:'center', paddingBottom: 10}}>
                         {formatDate(proposal.date, 'D MMMM')}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
                     </Text>
                     <Text style={{textAlign:'center'}}>
@@ -59,7 +59,7 @@ export default class ProposalBar extends Component {
                         {proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}
                         </Text>
                         <Text>
-                            <Text>{formatCost(proposal.amount)} {"\u20bd"} на гостя</Text>
+                            <Text>&nbsp;{formatCost(proposal.amount)} {"\u20bd"} на гостя</Text>
                         </Text>
                     </Text>
                 </View>

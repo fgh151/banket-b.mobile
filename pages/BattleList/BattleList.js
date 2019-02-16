@@ -2,7 +2,7 @@ import React from 'react';
 import {AsyncStorage, FlatList, View} from "react-native";
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
-import ProposalListItem from "../ProposalListItem";
+import ProposalListItem from "./ProposalListItem";
 import CacheStore from 'react-native-cache-store';
 import Client from '../../http/Client';
 import Config from '../../Config';
@@ -94,6 +94,8 @@ export default class BattleList extends React.Component {
             )
         }
 
+        console.log(this.state.items);
+
         //padding 10 - нужен для корректного отображения кружков новых сообщений
         return (
             <View style={[textStyle.rootView, {padding:10}]}>
@@ -108,7 +110,7 @@ export default class BattleList extends React.Component {
     }
 
     renderAd() {
-        if (this.state.items.length < 3) {
+        if (this.state.items.length < 4) {
             return <Ad style={{marginBottom: -10}}/>
         }
         return null;

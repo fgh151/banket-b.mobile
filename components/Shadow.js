@@ -16,18 +16,20 @@ const styles = StyleSheet.create({
     shadow: {
 
 
+        padding: 10,
         borderWidth: 1,
-        borderRadius: 2,
+        borderRadius: 5,
         borderColor: '#ddd',
-        borderBottomWidth: 0,
         shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
+        shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 1,
-        marginLeft: 5,
-        marginRight: 5,
-        marginTop: 10
+        shadowRadius: 250,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 10,
+        marginBottom: 1,
+
+        backgroundColor: 'white'
     }
 });
 

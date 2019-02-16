@@ -13,7 +13,7 @@ export default class Empty extends React.Component{
 
             <View style={textStyle.rootView}>
                 <View style={WIIstyles.sliderItem}>
-                    <Image source={require('../../assets/images/clock.png')}/>
+                    <Image source={require('../../assets/images/clock.png')} style={{marginBottom: 15}}/>
                     <View style={WIIstyles.sliderTextWrapper}>
                         <Text style={[textStyle.defaultFont, {textAlign: 'center'}]}>
                             Ожидаем предложений {"\n"}

@@ -11,6 +11,7 @@ import Client from '../../http/Client';
 
 import {firstLunchDone} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
+import Push from "../../helpers/Push";
 
 export default class RegisterCode extends React.Component {
 
@@ -51,6 +52,9 @@ export default class RegisterCode extends React.Component {
                                     if: response.id
                                 });
                             firstLunchDone();
+                            const push = new Push();
+                            Push.saveToken();
+                            push.setRecieveHandler();
                             this.proposal.save();
                         })
                         .catch(err => {

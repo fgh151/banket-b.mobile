@@ -36,6 +36,8 @@ export default class DialogListItem extends Component {
     render() {
         const image = this.props.dialog.item.images[0];
 
+        console.log('ITEM', this.props.dialog.item);
+
         return (
             <Shadow style={styles.blockWrapper}>
                 <TouchableOpacity
@@ -45,7 +47,7 @@ export default class DialogListItem extends Component {
                         <View style={[styles.imageWrapper, {flex: 0.3}]}>
                             <Image style={styles.image} source={{uri: image}} resizeMode="cover"/>
                         </View>
-                        <View style={[styles.itemAnnotation, {padding: 10, flex: 0.55}]}>
+                        <View style={[styles.itemAnnotation, {padding: 10, flex: 0.5}]}>
                             <View>
                                 <Text style={textStyle.boldFont}>
                                     {this.props.dialog.item.name}
@@ -62,7 +64,7 @@ export default class DialogListItem extends Component {
                         <View style={[styles.itemAnnotation, {
                             paddingTop: 10,
                             paddingRight: 10,
-                            flex: 0.45,
+                            flex: 0.5,
                             alignItems: 'flex-end'
                         }]}>
                             <View>

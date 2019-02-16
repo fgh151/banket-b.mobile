@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from "react-native";
+import {Platform, StyleSheet, TextInput, View} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -37,13 +37,14 @@ export default class LoginPhone extends React.Component{
         return(
             <View style={Styles.rootView}>
                 <Input
+                    inputStyle={styles.textInput}
                     component={<TextInputMask
                         refInput={ref => { this.input = ref }}
                         onChangeText={this.phoneChange}
                         keyboardType="phone-pad"
                         placeholder='Номер телефона'
                         placeholderTextColor="#000"
-                        style={{color:'#0C20E3'}}
+                        style={styles.textInput}
                         mask={"+7 ([000]) [000] [00] [00]"}
                     />}
                     description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
@@ -59,3 +60,20 @@ export default class LoginPhone extends React.Component{
         )
     }
 }
+
+const styles = StyleSheet.create({
+    textInput : {
+        fontSize:15,
+        color:'#0C20E3',
+        ...Platform.select({
+            ios: {
+                paddingTop:20,
+                paddingBottom:5
+            },
+            android: {
+                marginLeft: -5
+            },
+        }),
+    }
+
+});

@@ -1,4 +1,4 @@
-import {Vibration, AsyncStorage, Permissions, Platform} from "react-native";
+import {Vibration, AsyncStorage, Permissions, Platform, AppState} from "react-native";
 import Client from '../http/Client';
 
 import React from "react";
@@ -6,7 +6,7 @@ import React from "react";
 
 import type {RemoteMessage} from 'react-native-firebase';
 import firebase from "react-native-firebase";
-import {updateProposalList} from "../pages/ProposalListItem";
+import {updateProposalList} from "../pages/BattleList/ProposalListItem";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -16,7 +16,16 @@ export default class Push {
     url = '/api/v2/push';
     granted = false;
 
+
+    static instance;
+
     constructor() {
+        if (Push.instance) {
+            return Push.instance;
+        }
+
+        Push.instance = this;
+
         this.checkPermissions();
         this.setRecieveHandler();
     }
@@ -44,8 +53,11 @@ export default class Push {
 
         AsyncStorage.getItem('battle@id')
             .then((userId) => {
+
+                console.log(userId, token, Platform.OS);
+
                 const api = new Client();
-                api.POST(this.url, {
+                api.POST(Push.url, {
                     user: userId,
                     token: token,
                     device: Platform.OS,
@@ -55,17 +67,21 @@ export default class Push {
 
     setRecieveHandler() {
         FN.onNotification((notification: Notification) => {
-            console.log("notify recieved", notification);
-            // Process your notification as required
-            notification
-                .android.setChannelId('test-channel')
-                .android.setSmallIcon('ic_launcher');
-            firebase.notifications()
-                .displayNotification(notification)
-                .then(() => {
-                    Vibration.vibrate(100, [1000, 2000, 3000]);
-                    updateProposalList();
-                });
+
+            if (AppState.currentState !== 'active') {
+
+                console.log("notify recieved", notification);
+                // Process your notification as required
+                notification
+                    .android.setChannelId('test-channel')
+                    .android.setSmallIcon('ic_launcher');
+                firebase.notifications()
+                    .displayNotification(notification)
+                    .then(() => {
+                        Vibration.vibrate(100, [1000, 2000, 3000]);
+                        updateProposalList();
+                    });
+            }
 
         });
     }

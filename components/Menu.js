@@ -51,7 +51,7 @@ export default class Menu extends React.Component {
         return this.props.buttons.map((item, index) => {
             return (<Button
                 key={index}
-                onPress={() => item.action()}
+                onPress={() => {item.action(); this.toggleModal();}}
                 title={item.title}
             />)
         })

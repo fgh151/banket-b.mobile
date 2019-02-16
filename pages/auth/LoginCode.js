@@ -11,6 +11,7 @@ import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 
 import {firstLunchDone} from '../../helpers/Luncher';
+import Push from "../../helpers/Push";
 
 export default class LoginCode extends React.Component {
 
@@ -47,6 +48,9 @@ export default class LoginCode extends React.Component {
                                     if: response.id
                                 });
                             firstLunchDone();
+                            const push = new Push();
+                            Push.saveToken();
+                            push.setRecieveHandler();
                             Actions.BattleList()
                         })
                         .catch(err => {this.setState({showLoginBtn: true}); console.log(err)});  // Catch any error

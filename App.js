@@ -1,21 +1,14 @@
 import React from 'react';
-import {AsyncStorage, Text} from "react-native"
+import {AsyncStorage, Text, AppState} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
-// import Login from './pages/Login';
 import BattleList from './pages/BattleList/BattleList'
-import {isFirstLunch} from './helpers/Luncher';
-
 import SplashScreen from 'react-native-splash-screen'
-
 import firebase from 'react-native-firebase';
-
 import {Styles} from "./styles/Global";
-
 import LoginPhone from "./pages/auth/LoginPhone";
 import Menu from './components/Menu';
 import LoginCode from "./pages/auth/LoginCode";
-
 import Form from './pages/create/Form';
 import Services from "./pages/create/Services";
 import Finish from "./pages/create/Finish";
@@ -28,33 +21,19 @@ import CitySelector from './pages/create/CitySelector';
 import RegisterPhone from "./pages/auth/RegisterPhone";
 import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
-
-// Sentry.config(config.sentryDSN).install();
+import {Router as AppRouter} from './components/Router';
 
 
 export default class App extends React.Component {
-
-
-    static PROPOSALS_CACHE_KEY = 'my-proposals';
     state = {
-        firstLunch: false
+        appState: AppState.currentState,
     };
 
-    constructor() {
-        super();
-        isFirstLunch().then((value) => {
-            if (value !== true.toString()) {
-                this.state.firstLunch = true
-                // this.setState({firstLunch: true});
-            }
-        });
-    }
 
     componentDidMount() {
 
-
+        AppState.addEventListener('change', this._handleAppStateChange);
         new GeoLocation();
-
 
         SplashScreen.hide();
 
@@ -78,6 +57,21 @@ export default class App extends React.Component {
             });
     }
 
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (
+            this.state.appState.match(/inactive|background/) &&
+            nextAppState === 'active'
+        ) {
+            //App has come to the foreground!
+            SplashScreen.hide();
+        }
+        this.setState({appState: nextAppState});
+    };
+
     render() {
         return (
             <Router
@@ -85,37 +79,48 @@ export default class App extends React.Component {
                 titleStyle={{textAlign: 'center'}}
             >
                 <Scene key="root" hideNavBar={false} title="Банкетный баттл">
+
                     <Scene
-                        style={{backgroundColor: 'red'}}
+                        key={'router'}
+                    component={AppRouter}
+                        hideNavBar={true}
+                    />
+
+                    <Scene
+                        renderBackButton={() => {}}
                         hideNavBar={true}
                         key="WhatIsIt"
                         component={WhatIsIt}
                         title="Что это"
-                        initial={this.state.firstLunch} //Главный экран ?
+                        // initial={true}
                     />
                     <Scene
                         key="LoginPhone"
                         navigationBarStyle={Styles.navBar}
                         component={LoginPhone}
                         title="Вход"
+                        renderBackButton={() => <BackButton/>}
                     />
                     <Scene
                         key="LoginCode"
                         navigationBarStyle={Styles.navBar}
                         component={LoginCode}
                         title="Вход"
+                        renderBackButton={() => <BackButton/>}
                     />
                     <Scene
                         key="RegisterPhone"
                         navigationBarStyle={Styles.navBar}
                         component={RegisterPhone}
                         title="Регистрация"
+                        renderBackButton={() => <BackButton/>}
                     />
                     <Scene
                         key="RegisterCode"
                         navigationBarStyle={Styles.navBar}
                         component={RegisterCode}
                         title="Регистрация"
+                        renderBackButton={() => <BackButton/>}
                     />
                     <Scene
                         key="Form"
@@ -127,7 +132,6 @@ export default class App extends React.Component {
                         key="BattleList"
                         component={BattleList}
                         title="Ваши батлы"
-                        initial={!this.state.firstLunch} //Главный экран ?
                         renderLeftButton={<Menu image="menu" buttons={[
                             {
                                 action: () => {
@@ -149,8 +153,6 @@ export default class App extends React.Component {
                             </Text>
                         }
                     />
-                    <Scene key="Create" component={BattleList}/>
-
 
                     <Scene
                         key="Services"
@@ -164,6 +166,8 @@ export default class App extends React.Component {
                         title="Батл создан"
                         back={false}
                         renderBackButton={() => {}}
+                        renderLeftButton={() => {}}
+                        renderRightButton={() => {}}
                     />
                     <Scene
                         key="DialogList"
@@ -209,6 +213,6 @@ export default class App extends React.Component {
 
                 </Scene>
             </Router>
-        );
+                );
     }
 }

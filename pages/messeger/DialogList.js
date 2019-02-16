@@ -12,6 +12,7 @@ import {changeTitle} from "../../components/ProposalBar";
 import Empty from './Empty';
 import type {Organization} from "../../types/Organization";
 import {Styles as textStyle} from "../../styles/Global";
+import RNPickerSelect from 'react-native-picker-select';
 
 export default class DialogList extends Component {
 
@@ -59,6 +60,8 @@ export default class DialogList extends Component {
                         .then(
                             (responseData) => {
 
+                                console.log(responseData);
+
                                 this.updateList(responseData);
                                 CacheStore.set(CACHE_KEY, responseData, Config.lowCache);
                             }
@@ -89,6 +92,47 @@ export default class DialogList extends Component {
             });
     }
 
+
+    renderPicker() {
+        const placeholder = {
+            label: 'Лучшее',
+            value: null,
+            color: '#9EA0A4',
+        };
+
+        const variants = [
+            {label: "Лучшее", value: 1},
+            {label: "Последнее", value: 2},
+            {label: "Рейтинг", value: 3},
+        ];
+
+        return (
+            <RNPickerSelect
+                placeholderTextColor = '#000000'
+                placeholder={placeholder}
+                items={variants}
+                selectedValue={variants[0]}
+                onValueChange={(itemValue) => {
+                    this.setState({activeSort: itemValue.value});
+                    switch (itemValue) {
+                        case 1 : {
+                            this.state.items.sort(this.comparePrice);
+                            break
+                        }
+                        case 2 : {
+                            this.state.items.sort(this.compareLastMessage);
+                            break
+                        }
+                        case 3 : {
+                            this.state.items.sort(this.compareRating);
+                            break
+                        }
+                    }
+                }}
+            />
+        );
+    }
+
     render() {
         if (!this.state.loaded) {
             return (
@@ -112,31 +156,7 @@ export default class DialogList extends Component {
                             <Text style={textStyle.boldFont}>Предложения ресторанов</Text>
                         </View>
                         <View style={{width: '40%'}}>
-                            <Picker
-                                style={{width: '100%'}}
-                                selectedValue={this.state.activeSort}
-                                prompt="Сортировка"
-                                onValueChange={(itemValue, itemIndex) => {
-                                    this.setState({activeSort: itemValue});
-                                    switch (itemValue) {
-                                        case 1 : {
-                                            this.state.items.sort(this.comparePrice);
-                                            break
-                                        }
-                                        case 2 : {
-                                            this.state.items.sort(this.compareLastMessage);
-                                            break
-                                        }
-                                        case 3 : {
-                                            this.state.items.sort(this.compareRating);
-                                            break
-                                        }
-                                    }
-                                }}>
-                                <Picker.Item label="Лучшие" value="1"/>
-                                <Picker.Item label="Последние" value="2"/>
-                                <Picker.Item label="Рейтинг" value="3"/>
-                            </Picker>
+                            {this.renderPicker()}
                         </View>
                     </View>
 

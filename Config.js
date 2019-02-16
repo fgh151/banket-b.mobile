@@ -19,6 +19,7 @@ appsFlyer.initSdk(appsFlyerConfig, () => {
 });
 
 const config = {
+    // apiUrl: 'http://api.banket-b.ru',
     apiUrl: 'https://api.banket-b.ru',
     // apiUrl: 'http://f-api.banket.restorate.ru',
     cabinetUrl: 'https://banket-b.ru',

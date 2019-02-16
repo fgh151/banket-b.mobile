@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 export default class Input extends React.Component {
     render() {
         return (
-            <View style={styles.wrapper}>
-                <Text style={styles.error}>{this.props.error}</Text>
-                <View style={styles.input}>
+            <View style={[styles.wrapper, this.props.style]}>
+                {this.renderError()}
+                <View style={[styles.input, this.props.inputStyle]}>
                     {this.props.component}
                 </View>
                 <Text style={styles.description}>{this.props.description}</Text>
@@ -26,13 +26,22 @@ export default class Input extends React.Component {
         }
     }
 
+    renderError() {
+        if (this.props.error) {
+            return <Text style={styles.error}>{this.props.error}</Text>
+        }
+        return null;
+    }
+
 }
 
 Input.propTypes = {
     component: PropTypes.element,
     description: PropTypes.string,
     valid: PropTypes.bool,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    style:PropTypes.stylists,
+    inputStyle:PropTypes.stylists
 };
 
 Input.defaultProps = {
@@ -52,7 +61,6 @@ const styles = StyleSheet.create({
         left:0,
     },
     wrapper: {
-
         flex: 1,
         flexDirection: 'column',
         position: "relative"

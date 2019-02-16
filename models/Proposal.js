@@ -110,6 +110,8 @@ export default class Proposal {
                 if (result === null) {
                     Actions.RegisterPhone();
                 } else {
+
+
                     const api = new Client(result);
                     api.POST('/proposal/create', this)
                         .then(response => {

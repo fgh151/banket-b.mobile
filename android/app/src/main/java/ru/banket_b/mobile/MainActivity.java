@@ -18,7 +18,9 @@ public class MainActivity extends ReactActivity {
 
     @Override
     public void onNewIntent(Intent intent) {
+
         SplashScreen.show(this, R.style.SplashTheme);  // here
+
         super.onNewIntent(intent);
         setIntent(intent);
     }

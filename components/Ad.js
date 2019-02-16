@@ -34,6 +34,9 @@ export default class Ad extends React.Component {
         api.GET(url)
             .then(
                 (responseData) => {
+
+                    console.log(responseData);
+
                     this.setState({
                         items: responseData,
                         loaded: true,
@@ -77,7 +80,7 @@ export default class Ad extends React.Component {
 
     renderListItem(promo) {
         const image = Config.cabinetUrl + promo.item.image;
-        const url = Config.apiUrl + '/promo/redirect/' + promo.id;
+        const url = Config.apiUrl + '/promo/redirect/' + promo.item.id;
 
         return (
             <TouchableOpacity
