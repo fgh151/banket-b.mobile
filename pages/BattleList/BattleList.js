@@ -100,6 +100,7 @@ export default class BattleList extends React.Component {
         return (
             <View style={[textStyle.rootView, {padding:10}]}>
                 <FlatList
+                    ListEmptyComponent={<View/>}
                     data={this.state.items}
                     renderItem={this.renderProposal}
                 />

@@ -19,5 +19,4 @@ Sentry.config(Config.sentryDSN, {
 
 new Push();
 
-
 AppRegistry.registerComponent(appName, () => App);

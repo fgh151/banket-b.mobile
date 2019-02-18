@@ -23,6 +23,11 @@ import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 
+import { Sentry } from 'react-native-sentry';
+
+Sentry.config('https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643').install();
+
+
 
 export default class App extends React.Component {
     state = {
@@ -33,7 +38,7 @@ export default class App extends React.Component {
     componentDidMount() {
 
         AppState.addEventListener('change', this._handleAppStateChange);
-        new GeoLocation();
+        // new GeoLocation();
 
         SplashScreen.hide();
 

@@ -47,7 +47,9 @@ Input.propTypes = {
 Input.defaultProps = {
     description: '',
     valid: false,
-    active: true
+    active: true,
+    style: {},
+    inputStyle: {}
 };
 
 const styles = StyleSheet.create({

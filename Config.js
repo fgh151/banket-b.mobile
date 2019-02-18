@@ -20,9 +20,9 @@ appsFlyer.initSdk(appsFlyerConfig, () => {
 
 const config = {
     // apiUrl: 'http://api.banket-b.ru',
-    apiUrl: 'https://api.banket-b.ru',
+    apiUrl: 'http://v2.api.banket-b.ru',
     // apiUrl: 'http://f-api.banket.restorate.ru',
-    cabinetUrl: 'https://banket-b.ru',
+    cabinetUrl: 'http://v2.banket-b.ru',
     // cabinetUrl: 'http://f-cabinet.banket.restorate.ru',
 
     //Время кеширования на небольшой промежуток времени в минутах
