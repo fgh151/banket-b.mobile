@@ -1,4 +1,4 @@
-import Firebase from 'react-native-firebase';
+// import Firebase from 'react-native-firebase';
 import {Platform} from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
 
@@ -53,8 +53,8 @@ const config = {
 
     sentryDSN: 'https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643'
 };
-export const firebase = Firebase.initializeApp(config.firebase);
-export const db = firebase.database();
+// export const firebase = Firebase.initializeApp(config.firebase);
+// export const db = firebase.database();
 
 export default config;
 

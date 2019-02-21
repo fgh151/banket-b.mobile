@@ -64,3 +64,14 @@ export function getRandomColor() {
 export function trunc(string, n){
     return string.substr(0,n-1)+(string.length>n?"...":'');
 }
+
+/**
+ * Return true if `val` is a non-empty string
+ *
+ * @param {String} `str`
+ * @return {Boolean}
+ */
+
+export function isString(str) {
+    return str && typeof str === 'string';
+};

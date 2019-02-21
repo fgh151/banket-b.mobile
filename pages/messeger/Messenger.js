@@ -142,6 +142,8 @@ export default class Messenger extends Component {
                 ref.on('value', (snapshot) => {
                     const value = snapshot.val();
 
+                    console.log(value);
+
                     this.updateList(value);
                     AsyncStorage.setItem(this.cacheKey, JSON.stringify(value));
                     const messages = ArrayHelper.getKeys(value);

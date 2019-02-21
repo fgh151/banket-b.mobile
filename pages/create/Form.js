@@ -170,18 +170,22 @@ export default class Form extends React.Component {
                     <Input
                         component={this.getCityPicker()}
                         active={true}
+                        
                     />
                     <Input
                         component={this.getEventTypePicker()}
                         active={true}
+                        
                     />
                     <Input
                         component={this.getDatePicker()}
                         active={true}
+                        
                     />
                     <Input
                         component={this.getTimePicker()}
                         active={true}
+                        
                     />
                     <Input
                         component={<TextInput
@@ -196,6 +200,7 @@ export default class Form extends React.Component {
                         />}
                         active={true}
                         error={this.state.guests_count_error}
+                        
                     />
                     <Input
                         component={<TextInput
@@ -210,6 +215,7 @@ export default class Form extends React.Component {
                         />}
                         active={true}
                         error={this.state.amount_error}
+                        
                     />
 
                     <Input
@@ -224,6 +230,7 @@ export default class Form extends React.Component {
                             placeholder='Дополнительно'
                         />}
                         active={true}
+                        
                     />
                 </ScrollView>
 
