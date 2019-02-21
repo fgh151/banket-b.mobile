@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Text, AppState} from "react-native"
+import {AsyncStorage, Text, AppState, Platform} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import BattleList from './pages/BattleList/BattleList'
@@ -22,10 +22,10 @@ import RegisterPhone from "./pages/auth/RegisterPhone";
 import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
-
+import appsFlyer from 'react-native-appsflyer';
 import { Sentry } from 'react-native-sentry';
 
-Sentry.config('https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643').install();
+// Sentry.config('https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643').install();
 
 
 
@@ -38,7 +38,7 @@ export default class App extends React.Component {
     componentDidMount() {
 
         AppState.addEventListener('change', this._handleAppStateChange);
-        // new GeoLocation();
+        new GeoLocation();
 
         SplashScreen.hide();
 
@@ -71,6 +71,9 @@ export default class App extends React.Component {
             this.state.appState.match(/inactive|background/) &&
             nextAppState === 'active'
         ) {
+            if (Platform.OS === 'ios') {
+                appsFlyer.trackAppLaunch();
+            }
             //App has come to the foreground!
             SplashScreen.hide();
         }

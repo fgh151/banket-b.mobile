@@ -185,7 +185,7 @@ export default class Messenger extends Component {
         if (!this.state.loaded) {
             return (
 
-                <View style={textStyle.rootView}>
+                <View style={textStyle.rootViewWrapper}>
                     <Loading/>
                 </View>
             );
@@ -197,7 +197,7 @@ export default class Messenger extends Component {
 
         return (
 
-            <View style={[textStyle.rootView, {}]}>
+            <View style={[textStyle.rootViewWrapper, {}]}>
                 <Organization organization={this.props.organization} proposal={this.props.proposal}/>
                 <FlatList
                     style={{flex: 1, flexDirection: 'column'}}

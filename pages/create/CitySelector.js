@@ -4,6 +4,7 @@ import {FlatList, Text, TouchableOpacity, View} from "react-native";
 import GeoLocation, {City} from '../../helpers/GeoLocation';
 import {Styles as textStyle} from "../../styles/Global";
 import {Actions} from "react-native-router-flux";
+import Loading from "../Loading";
 
 export default class CitySelector extends React.Component {
 
@@ -24,15 +25,19 @@ export default class CitySelector extends React.Component {
 
     render() {
 
-
-        return (
-            <View style={textStyle.rootView}>
-                <FlatList
-                    data={this.state.cities}
-                    renderItem={this.renderCity}
-                />
-            </View>
-        )
+        if (this.state.cities.length > 0) {
+            return (
+                <View style={textStyle.rootViewWrapper}>
+                    <FlatList
+                        style={textStyle.rootView}
+                        data={this.state.cities}
+                        renderItem={this.renderCity}
+                    />
+                </View>
+            )
+        } else {
+            return (<Loading />);
+        }
     }
 
     static setCity(city) {
@@ -48,7 +53,7 @@ export default class CitySelector extends React.Component {
             <TouchableOpacity onPress={() => CitySelector.setCity(city.item)}>
                 <View style={{height: 50, borderColor: '#E0E0E0', borderBottomWidth: 1}}>
                     <Text style={{fontSize: 15}}>
-                        {city.item.title} {city.item.id}
+                        {city.item.title}
                     </Text>
                 </View>
             </TouchableOpacity>

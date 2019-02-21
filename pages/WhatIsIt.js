@@ -9,7 +9,7 @@ export default class WhatIsIt extends React.PureComponent {
 
     render() {
         return (
-            <SafeAreaView style={[textStyle.rootView, WIIstyles.rootView]}>
+            <SafeAreaView style={[textStyle.rootViewWrapper, WIIstyles.rootView]}>
                 <View>
                     <Text style={WIIstyles.loginButton}
                           onPress={() => Actions.LoginPhone({phone: '+7 (977) 806 94 28'})}>Войти</Text>

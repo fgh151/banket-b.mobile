@@ -20,6 +20,9 @@ import Proposal from '../../models/Proposal';
 import {Actions} from "react-native-router-flux";
 import {City} from "../../helpers/GeoLocation";
 
+import FormDatePicker from './FormDatePicker';
+import FormTimePicker from './FormTimePicker';
+
 export default class Form extends React.Component {
     state = {
         buttonDisabled: true,
@@ -28,6 +31,7 @@ export default class Form extends React.Component {
 
         guests_count_error: '',
         amount_error: '',
+
     };
 
     proposal = new Proposal();
@@ -69,62 +73,7 @@ export default class Form extends React.Component {
         );
     }
 
-    getDatePicker() {
-        return (
-            <DatePicker
-                customStyles={{
-                    dateInput: {
-                        borderWidth: 0,
-                        justifyContent: 'center',
-                        alignItems: 'flex-start',
-                        width: '100%',
-                    },
-                    placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000'}],
-                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2'}]
-                }}
-                style={styles.dateTouch}
-                date={this.state.date}
-                mode="date"
-                placeholder="Выберите дату"
-                format="YYYY-MM-DD"
-                minDate={this.now.format('YYYY-MM-DD')}
-                confirmBtnText="Выбрать"
-                cancelBtnText="Отмена"
-                showIcon={false}
-                onDateChange={(date) => {
-                    this.setProposalProperty('date', date)
-                }}
-            />
-        )
-    }
 
-    getTimePicker() {
-        return (
-            <DatePicker
-                customStyles={{
-                    dateInput: {
-                        borderWidth: 0,
-                        justifyContent: 'center',
-                        alignItems: 'flex-start',
-                        width: '100%'
-                    },
-                    placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000'}],
-                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2'}]
-                }}
-                style={styles.dateTouch}
-                date={this.state.time}
-                mode="time"
-                placeholder="Выберите время"
-                format="HH:mm"
-                confirmBtnText="Выбрать"
-                cancelBtnText="Отмена"
-                showIcon={false}
-                onDateChange={(time) => {
-                    this.setProposalProperty('time', time)
-                }}
-            />
-        )
-    }
 
     getCityPicker() {
         return (
@@ -132,7 +81,7 @@ export default class Form extends React.Component {
                 style={{paddingTop: 10}}
                 onPress={() => Actions.CitySelector()}
             >
-                <Text style={[textStyle.defaultFont, {paddingBottom: 5, fontSize:15, color:'#000000'}]}>{(new City()).city.title}</Text>
+                <Text style={[textStyle.defaultFont, {paddingBottom: 5, fontSize:15, color:'#0C21E2'}]}>{(new City()).city.title}</Text>
             </TouchableOpacity>
         )
     }
@@ -165,11 +114,14 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <View style={textStyle.rootView}>
-                <ScrollView>
+            <View style={textStyle.rootViewWrapper}>
+                <ScrollView
+                style={textStyle.rootView}
+                >
                     <Input
                         component={this.getCityPicker()}
                         active={true}
+                        valid={true}
                         
                     />
                     <Input
@@ -178,12 +130,16 @@ export default class Form extends React.Component {
                         
                     />
                     <Input
-                        component={this.getDatePicker()}
+                        component={<FormDatePicker onDateChange={(date) => {
+                            this.setProposalProperty('date', date)
+                        }} />}
                         active={true}
-                        
+
                     />
                     <Input
-                        component={this.getTimePicker()}
+                        component={<FormTimePicker onDateChange={(time) => {
+                            this.setProposalProperty('time', time)
+                        }} />}
                         active={true}
                         
                     />

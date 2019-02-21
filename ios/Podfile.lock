@@ -1,5 +1,5 @@
 PODS:
-  - AppsFlyerFramework (4.8.11)
+  - AppsFlyerFramework (4.8.12)
   - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.4.0)
@@ -70,19 +70,12 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.6.1)
-  - React (0.57.8):
-    - React/Core (= 0.57.8)
-  - React/Core (0.57.8):
-    - yoga (= 0.57.8.React)
-  - yoga (0.57.8.React)
 
 DEPENDENCIES:
   - AppsFlyerFramework
   - Firebase/Core
   - Firebase/Database (~> 5.15.0)
   - Firebase/Messaging
-  - React (from `../node_modules/react-native`)
-  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -101,14 +94,8 @@ SPEC REPOS:
     - nanopb
     - Protobuf
 
-EXTERNAL SOURCES:
-  React:
-    :path: "../node_modules/react-native"
-  yoga:
-    :path: "../node_modules/react-native/ReactCommon/yoga"
-
 SPEC CHECKSUMS:
-  AppsFlyerFramework: 7da8740f23e8d32f02f3afbfee6a9085885fd8bf
+  AppsFlyerFramework: 726f063384d8dc763d7b423e48cbc8cbe10989ab
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
@@ -122,9 +109,7 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
-  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: e30e356e3bbdd8a00fb94187c3100ce0501aad14
+PODFILE CHECKSUM: 06a893468798a471086c7714b0aae4d7e68f1765
 
 COCOAPODS: 1.5.3

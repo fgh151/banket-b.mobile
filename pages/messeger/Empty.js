@@ -11,7 +11,7 @@ export default class Empty extends React.Component{
 
         return(
 
-            <View style={textStyle.rootView}>
+            <View style={textStyle.rootViewWrapper}>
                 <View style={WIIstyles.sliderItem}>
                     <Image source={require('../../assets/images/clock.png')} style={{marginBottom: 15}}/>
                     <View style={WIIstyles.sliderTextWrapper}>

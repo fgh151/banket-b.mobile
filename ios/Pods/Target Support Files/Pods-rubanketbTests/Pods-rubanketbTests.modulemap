@@ -1,6 +1,0 @@
-framework module Pods_rubanketbTests {
-  umbrella header "Pods-rubanketbTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -95,19 +95,23 @@ export default class BattleList extends React.Component {
         }
 
         console.log(this.state.items);
+        if (this.state.items.length > 0) {
+            //padding 10 - нужен для корректного отображения кружков новых сообщений
+            return (
+                <View style={[textStyle.rootViewWrapper, {padding: 10}]}>
+                    <FlatList
+                        style={textStyle.rootView}
+                        ListEmptyComponent={<View/>}
+                        data={this.state.items}
+                        renderItem={this.renderProposal}
+                    />
 
-        //padding 10 - нужен для корректного отображения кружков новых сообщений
-        return (
-            <View style={[textStyle.rootView, {padding:10}]}>
-                <FlatList
-                    ListEmptyComponent={<View/>}
-                    data={this.state.items}
-                    renderItem={this.renderProposal}
-                />
-
-                {this.renderAd()}
-            </View>
-        );
+                    {this.renderAd()}
+                </View>
+            );
+        } else {
+            return (<Loading/>);
+        }
     }
 
     renderAd() {

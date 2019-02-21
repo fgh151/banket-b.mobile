@@ -15,12 +15,15 @@ export const Styles = StyleSheet.create({
         borderBottomColor: '#E0E0E0',
         borderBottomWidth: 1
     },
-    rootView: {
+    rootViewWrapper: {
         flex: 1,
         flexDirection: 'column',
         padding:15,
-
-
+        alignItems: 'center'
+    },
+    rootView: {
+        maxWidth: 300,
+        width:'100%'
     }
 });
 

@@ -35,7 +35,7 @@ export default class RegisterPhone extends React.Component {
 
     render() {
         return (
-            <View style={Styles.rootView}>
+            <View style={Styles.rootViewWrapper}>
                 <View style={{flex: 1}}>
                     <View style={{flex: 0.2}}>
                         <Input

@@ -35,7 +35,7 @@ export default class LoginPhone extends React.Component{
 
     render() {
         return(
-            <View style={Styles.rootView}>
+            <View style={Styles.rootViewWrapper}>
                 <Input
                     inputStyle={styles.textInput}
                     component={<TextInputMask

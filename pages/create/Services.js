@@ -25,7 +25,7 @@ export default class Services extends React.Component{
 
     render() {
         return(
-            <View style={textStyle.rootView}>
+            <View style={textStyle.rootViewWrapper}>
 
                 <ScrollView>
 

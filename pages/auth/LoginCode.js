@@ -108,4 +108,4 @@ LoginCode.propTypes = {
     phone: PropTypes.string,
 };
 
-const wrapperStyle = [Styles.rootView]
+const wrapperStyle = [Styles.rootViewWrapper]

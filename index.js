@@ -17,6 +17,6 @@ Sentry.config(Config.sentryDSN, {
     disableNativeIntegration: Platform.OS === 'android',
 }).install();
 
-new Push();
+// new Push();
 
 AppRegistry.registerComponent(appName, () => App);

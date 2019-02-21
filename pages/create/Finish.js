@@ -8,7 +8,7 @@ export default class Finish extends React.Component {
 
     render() {
         return (
-            <View style={textStyle.rootView}>
+            <View style={textStyle.rootViewWrapper}>
                 <View style={WIIstyles.sliderItem}>
                     <Image source={require('../../assets/images/done.png')}/>
                     <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>

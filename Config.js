@@ -14,9 +14,12 @@ if (Platform.OS === 'ios') {
         devKey: devKey
     }
 }
-appsFlyer.initSdk(appsFlyerConfig, () => {
-}, () => {
-});
+appsFlyer.initSdk(appsFlyerConfig,(result) => {
+        console.log(result);
+    },
+    (error) => {
+        console.error(error);
+    });
 
 const config = {
     // apiUrl: 'http://api.banket-b.ru',

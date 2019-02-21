@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Picker, Text, View} from "react-native";
+import {AsyncStorage, FlatList, Text, View} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
@@ -20,7 +20,7 @@ export default class DialogList extends Component {
         items: [],
         listTitle: '',
         loaded: false,
-        activeSort:1
+        activeSort: 1
     };
 
 
@@ -108,7 +108,7 @@ export default class DialogList extends Component {
 
         return (
             <RNPickerSelect
-                placeholderTextColor = '#000000'
+                placeholderTextColor='#000000'
                 placeholder={placeholder}
                 items={variants}
                 selectedValue={variants[0]}
@@ -146,30 +146,32 @@ export default class DialogList extends Component {
             )
         }
 
-        return (
-            <View style={textStyle.rootView}>
+        if (this.state.cities.length > 0) {
+            return (
+                <View style={textStyle.rootViewWrapper}>
 
-                <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
+                    <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
 
-                    <View style={{ flexDirection: 'row'}}>
-                        <View style={{ width: '60%'}}>
-                            <Text style={textStyle.boldFont}>Предложения ресторанов</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{width: '60%'}}>
+                                <Text style={textStyle.boldFont}>Предложения ресторанов</Text>
+                            </View>
+                            <View style={{width: '40%'}}>
+                                {this.renderPicker()}
+                            </View>
                         </View>
-                        <View style={{width: '40%'}}>
-                            {this.renderPicker()}
+
+                        <View style={{}}>
+                            <FlatList
+                                data={this.state.items}
+                                renderItem={(item) => this.renderItem(item)}
+                            />
                         </View>
-                    </View>
 
-                    <View style={{}}>
-                        <FlatList
-                            data={this.state.items}
-                            renderItem={(item) => this.renderItem(item)}
-                        />
                     </View>
-
                 </View>
-            </View>
-        );
+            );
+        }
     }
 
     compareRating(a: Organization, b: Organization) {
