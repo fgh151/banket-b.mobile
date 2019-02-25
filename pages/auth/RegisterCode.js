@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, TextInput, View} from "react-native";
+import {AsyncStorage, Platform, StyleSheet, TextInput, View} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -12,6 +12,7 @@ import Client from '../../http/Client';
 import {firstLunchDone} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
+import CodeInput from "./CodeInput";
 
 export default class RegisterCode extends React.Component {
 
@@ -54,7 +55,7 @@ export default class RegisterCode extends React.Component {
                             firstLunchDone();
                             const push = new Push();
                             Push.saveToken();
-                            push.setRecieveHandler();
+                            // push.setRecieveHandler();
                             this.proposal.save();
                         })
                         .catch(err => {
@@ -69,53 +70,59 @@ export default class RegisterCode extends React.Component {
 
     render() {
         return (
-            <View style={wrapperStyle}>
-                <View style={{flex: 1}}>
-                    <View style={{flex: 0.2}}>
-                        <Input
-                            component={<TextInput
-                                placeholder="Имя"
-                                onChangeText={this.nameChange}
-                            />}
-                            active={false}
-                            valid={true}
-                        />
-                    </View>
-                    <View style={{flex: 0.2}}><Input
-                        component={<TextInputMask
-                            refInput={ref => {
-                                this.input = ref
-                            }}
-                            onChangeText={this.phoneChange}
-                            keyboardType="phone-pad"
-                            placeholder='Номер телефона'
-                            placeholderTextColor="#000"
-                            style={{color: '#0C20E3'}}
-                            mask={"+7 ([000]) [000] [00] [00]"}
-                        />}
-                        description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                        active={false}
-                        valid={true}
-                    />
-                    </View>
-                    <View style={{flex: 0.2}}>
-                        <Input
-                            component={<TextInput
-                                placeholder="Код подтверждения"
-                                onChangeText={this.codeChange}
+            <View style={styles.container}>
+                <View style={{margin: 10, maxWidth: 300}}>
+                    <View style={{justifyContent: 'flex-start'}} >
+                        <View style={{height: 100}}>
+                            <Input
+                                component={<TextInput
+                                    style={styles.textInput}
+                                    placeholder="Имя"
+                                    value={this.props.name}
+                                    onChangeText={this.nameChange}
+                                />}
+                                style={{marginBottom: 50}}
+                                active={false}
+                                valid={true}
+                            />
+                        </View>
+                        <View style={{height: 100}}>
+
+                            <Input
+                                component={<TextInputMask
+                                    refInput={ref => {
+                                        this.input = ref
+                                    }}
+                                    value={this.props.phone}
+                                    onChangeText={this.phoneChange}
+                                    keyboardType="phone-pad"
+                                    placeholder='Номер телефона'
+                                    placeholderTextColor="#000"
+                                    style={{color: '#0C20E3', paddingBottom: 5}}
+                                    mask={"+7 ([000]) [000] [00] [00]"}
+                                />}
+                                style={{marginBottom: 50}}
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                            />}
-                        />
+                                active={false}
+                                valid={true}
+                            />
+                        </View>
+
+                        <View style={{height: 100}}>
+
+                            <CodeInput phone={this.props.phone}/>
+                        </View>
                     </View>
                 </View>
-
-                <Button
-                    disabled={this.state.buttonDisabled}
-                    title="Создать баттл"
-                    onPress={this.nextPage}
-                />
+                <View style={{padding: 10, width: '100%'}}>
+                    <Button
+                        disabled={this.state.buttonDisabled}
+                        title="Создать батл"
+                        onPress={this.nextPage}
+                    />
+                </View>
             </View>
-        );
+        )
     }
 }
 
@@ -126,3 +133,26 @@ RegisterCode.propTypes = {
 };
 
 const wrapperStyle = [Styles.rootViewWrapper];
+
+
+const styles = StyleSheet.create({
+    textInput: {
+        fontSize: 15,
+        ...Platform.select({
+            ios: {
+                paddingTop: 20,
+                paddingBottom: 5
+            },
+            android: {
+                marginLeft: -5
+            },
+        }),
+    },
+
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+});

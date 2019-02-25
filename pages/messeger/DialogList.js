@@ -108,7 +108,7 @@ export default class DialogList extends Component {
 
         return (
             <RNPickerSelect
-                placeholderTextColor='#000000'
+                placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}
                 selectedValue={variants[0]}
@@ -146,28 +146,29 @@ export default class DialogList extends Component {
             )
         }
 
-        if (this.state.cities.length > 0) {
+        if (this.state.items.length > 0) {
             return (
                 <View style={textStyle.rootViewWrapper}>
+                    <View style={textStyle.rootViewBig}>
 
                     <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
 
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{width: '60%'}}>
-                                <Text style={textStyle.boldFont}>Предложения ресторанов</Text>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <View >
+                                <Text style={[textStyle.boldFont, {fontWeight: '800', fontSize:15, lineHeight:18}]}>Предложения ресторанов</Text>
                             </View>
-                            <View style={{width: '40%'}}>
+                            <View >
                                 {this.renderPicker()}
                             </View>
                         </View>
 
-                        <View style={{}}>
+                        <View style={{marginTop: 10}}>
                             <FlatList
                                 data={this.state.items}
                                 renderItem={(item) => this.renderItem(item)}
                             />
                         </View>
-
+                    </View>
                     </View>
                 </View>
             );

@@ -1,4 +1,4 @@
-// import Firebase from 'react-native-firebase';
+import Firebase from 'react-native-firebase';
 import {Platform} from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
 
@@ -15,17 +15,17 @@ if (Platform.OS === 'ios') {
     }
 }
 appsFlyer.initSdk(appsFlyerConfig,(result) => {
-        console.log(result);
+        // console.log(result);
     },
     (error) => {
-        console.error(error);
+        // console.error(error);
     });
 
 const config = {
     // apiUrl: 'http://api.banket-b.ru',
-    apiUrl: 'http://v2.api.banket-b.ru',
+    apiUrl: 'https://api.banket-b.ru',
     // apiUrl: 'http://f-api.banket.restorate.ru',
-    cabinetUrl: 'http://v2.banket-b.ru',
+    cabinetUrl: 'https://banket-b.ru',
     // cabinetUrl: 'http://f-cabinet.banket.restorate.ru',
 
     //Время кеширования на небольшой промежуток времени в минутах
@@ -56,8 +56,8 @@ const config = {
 
     sentryDSN: 'https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643'
 };
-// export const firebase = Firebase.initializeApp(config.firebase);
-// export const db = firebase.database();
+export const firebase = Firebase.initializeApp(config.firebase);
+export const db = firebase.database();
 
 export default config;
 

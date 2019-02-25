@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Text, AppState, Platform} from "react-native"
+import {AppState, AsyncStorage, Platform, Text, TouchableOpacity} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import BattleList from './pages/BattleList/BattleList'
@@ -23,17 +23,11 @@ import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 import appsFlyer from 'react-native-appsflyer';
-import { Sentry } from 'react-native-sentry';
-
-// Sentry.config('https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643').install();
-
-
 
 export default class App extends React.Component {
     state = {
         appState: AppState.currentState,
     };
-
 
     componentDidMount() {
 
@@ -55,7 +49,7 @@ export default class App extends React.Component {
                             // alert("User Now Has Permission")
                         })
                         .catch(error => {
-                            alert("Error", error)
+                            // alert("Error", error) //TODO: iphone
                             // User has rejected permissions
                         });
                 }
@@ -84,23 +78,23 @@ export default class App extends React.Component {
         return (
             <Router
                 sceneStyle={{backgroundColor: '#ffffff'}}
-                titleStyle={{textAlign: 'center'}}
+                titleStyle={{textAlign: 'center', fontWeight: 'bold', fontSize: 15}}
             >
                 <Scene key="root" hideNavBar={false} title="Банкетный баттл">
 
                     <Scene
                         key={'router'}
-                    component={AppRouter}
+                        component={AppRouter}
                         hideNavBar={true}
                     />
 
                     <Scene
-                        renderBackButton={() => {}}
+                        renderBackButton={() => {
+                        }}
                         hideNavBar={true}
                         key="WhatIsIt"
                         component={WhatIsIt}
                         title="Что это"
-                        // initial={true}
                     />
                     <Scene
                         key="LoginPhone"
@@ -108,6 +102,7 @@ export default class App extends React.Component {
                         component={LoginPhone}
                         title="Вход"
                         renderBackButton={() => <BackButton/>}
+
                     />
                     <Scene
                         key="LoginCode"
@@ -122,6 +117,7 @@ export default class App extends React.Component {
                         component={RegisterPhone}
                         title="Регистрация"
                         renderBackButton={() => <BackButton/>}
+
                     />
                     <Scene
                         key="RegisterCode"
@@ -134,7 +130,7 @@ export default class App extends React.Component {
                         key="Form"
                         component={Form}
                         title="Создать батл"
-                        renderBackButton={() => {}}
+                        renderBackButton={() => <BackButton/>}
                     />
                     <Scene
                         key="BattleList"
@@ -148,17 +144,18 @@ export default class App extends React.Component {
                                 title: 'Выйти'
                             }
                         ]}/>}
+                        //TODO: убрать если список пуст
                         renderRightButton={
-                            <Text
-                                style={{
-                                    color: '#0C20E3',
-                                    fontSize: 18,
-                                    textAlign: 'right', marginRight: 15
-                                }}
+                            <TouchableOpacity
+                                style={{ height:60,  paddingTop:20}}
                                 onPress={() => Actions.Form()}
                             >
-                                Новый батл
-                            </Text>
+                                <Text style={{
+                                    color: '#0C20E3',
+                                    fontSize: 15,
+                                    textAlign: 'right', marginRight: 15
+                                }}>Новый батл</Text>
+                            </TouchableOpacity>
                         }
                     />
 
@@ -167,15 +164,20 @@ export default class App extends React.Component {
                         component={Services}
                         title="Выберите услуги"
                         renderBackButton={() => <BackButton/>}
+
                     />
                     <Scene
                         key="Finish"
                         component={Finish}
                         title="Батл создан"
                         back={false}
-                        renderBackButton={() => {}}
-                        renderLeftButton={() => {}}
-                        renderRightButton={() => {}}
+                        renderBackButton={() => {
+                        }}
+                        renderLeftButton={() => {
+                        }}
+                        renderRightButton={() => {
+                        }}
+
                     />
                     <Scene
                         key="DialogList"
@@ -185,21 +187,26 @@ export default class App extends React.Component {
                         renderTitle={<ProposalBar/>}
                         renderBackButton={() => <BackButton/>}
                         // renderRightButton={<ProposalMenu />}
-                        renderRightButton={<Menu image="dots" buttons={[
-                            {
-                                action: () => {
-                                    let p = getCurrentProposal();
-                                    const api = new Client(result);
-                                    api.GET('/proposal/close/' + p.id)
-                                        .then(
-                                            () => {
-                                                Actions.BattleList();
-                                            }
-                                        );
-                                },
-                                title: 'Закончить батл'
-                            }
-                        ]}/>}
+                        renderRightButton={<Menu image="dots" style={{position: 'absolute', top: 0, right: 0}}
+                                                 buttons={[
+                                                     {
+                                                         action: () => {
+                                                             let p = getCurrentProposal();
+                                                             AsyncStorage.getItem('battle@token')
+                                                                 .then((result) => {
+                                                                     const api = new Client(result);
+                                                                     api.GET('/proposal/close/' + p.id)
+                                                                         .then(
+                                                                             () => {
+                                                                                 Actions.BattleList();
+                                                                             }
+                                                                         )
+                                                                 });
+                                                             Actions.BattleList();
+                                                         },
+                                                         title: 'Закончить батл'
+                                                     }
+                                                 ]}/>}
                     />
 
                     <Scene
@@ -210,7 +217,10 @@ export default class App extends React.Component {
                         // renderTitle={<ChangeableTitle/>}
                         // renderRightButton={() => <DialogHelp/>}
                         // renderBackButton={() => <BackButton/>}
+
+                        // initial={true}
                     />
+
 
                     <Scene
                         key="CitySelector"
@@ -221,6 +231,6 @@ export default class App extends React.Component {
 
                 </Scene>
             </Router>
-                );
+        );
     }
 }

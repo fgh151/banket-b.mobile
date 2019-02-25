@@ -48,14 +48,14 @@ export default class DialogListItem extends Component {
                             <Image style={styles.image} source={{uri: image}} resizeMode="cover"/>
                         </View>
                         <View style={[styles.itemAnnotation, {padding: 10, flex: 0.5}]}>
-                            <View>
+                            <View style={{marginBottom: 5}}>
                                 <Text style={textStyle.boldFont}>
                                     {this.props.dialog.item.name}
                                 </Text>
                             </View>
-                            <View>
+                            <View style={{marginBottom: 5}}>
                                 <Text
-                                    style={[textStyle.defaultFont, {fontSize: 10}]}>{trunc(this.props.dialog.item.address, 15)}</Text>
+                                    style={[textStyle.defaultFont, {fontSize: 13, lineHeight:16}]}>{trunc(this.props.dialog.item.address, 15)}</Text>
                             </View>
                             <View>
                                 <Rating rating={this.props.dialog.item.rating}/>
@@ -67,14 +67,14 @@ export default class DialogListItem extends Component {
                             flex: 0.5,
                             alignItems: 'flex-end'
                         }]}>
-                            <View>
+                            <View style={{marginBottom: 5}}>
                                 <Text>
                                     <Profit profit={this.props.dialog.item.profit}/>
                                     <Text>
                                         <Text style={textStyle.boldFont}>
                                             {formatCost(this.props.proposal.amount * this.props.proposal.guests_count)}
                                         </Text>
-                                        <Text>
+                                        <Text style={{fontSize:18}}>
                                             &nbsp;{"\u20bd"}
                                         </Text>
                                     </Text>
@@ -97,17 +97,27 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#E0E0E0',
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
+        // shadowColor: '#000',
+        // shadowOffset: {width: 0, height: 2},
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
         elevation: 1,
         marginTop: 10,
         marginBottom: 1,
+
+
+
+        shadowColor: 'rgba(0, 0, 0, 0.19452)',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.5,
+        shadowRadius: 30,
+        // height:345
     },
     adItem: {
         flex: 1,
         flexDirection: 'row',
+
+        height:85
     },
     itemAnnotation: {
         flexDirection: 'column',

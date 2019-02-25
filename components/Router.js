@@ -24,7 +24,7 @@ export class Router extends React.Component{
                         } else {
                             let push = new Push();
                             Push.saveToken();
-                            push.setRecieveHandler();
+                            // push.setRecieveHandler();
                             Actions.BattleList();
                         }
                     });

@@ -279,6 +279,13 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
+		6F00CC2B2224288000D0A9DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F00CC272224288000D0A9DF /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 		6F042C5C221EC18B00D7757C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6F042C58221EC18B00D7757C /* RNAppsFlyer.xcodeproj */;
@@ -320,13 +327,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 8A808ECB1D5B0FEC00A75B9C;
 			remoteInfo = InputMask;
-		};
-		6F1D0111221A8FC3009733BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E63E0CFF0A164B369D2AAE4C /* InputMask.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A808ED51D5B0FEC00A75B9C;
-			remoteInfo = InputMaskTests;
 		};
 		6F1D01D8221A99EA009733BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -468,6 +468,7 @@
 		531AB6A0AE6C4CB38C8B8E77 /* InputMaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = InputMaskTests.xctest; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F13CCD665704C11A25AA971 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		6F00CC272224288000D0A9DF /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		6F042C58221EC18B00D7757C /* RNAppsFlyer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNAppsFlyer.xcodeproj; path = "../node_modules/react-native-appsflyer/ios/RNAppsFlyer.xcodeproj"; sourceTree = "<group>"; };
 		6F042C5F221EC2FA00D7757C /* RNTextInputMask.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNTextInputMask.xcodeproj; path = "../node_modules/react-native-text-input-mask/ios/RNTextInputMask/RNTextInputMask.xcodeproj"; sourceTree = "<group>"; };
 		6F042C68221EC3AE00D7757C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -670,6 +671,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6F00CC282224288000D0A9DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F00CC2C2224288000D0A9DF /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6F042C59221EC18B00D7757C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,7 +739,6 @@
 			isa = PBXGroup;
 			children = (
 				6F1D0110221A8FC3009733BE /* InputMask.framework */,
-				6F1D0112221A8FC3009733BE /* InputMaskTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -770,6 +778,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6F00CC272224288000D0A9DF /* SplashScreen.xcodeproj */,
 				6F042C5F221EC2FA00D7757C /* RNTextInputMask.xcodeproj */,
 				6F042C58221EC18B00D7757C /* RNAppsFlyer.xcodeproj */,
 				6F1D01ED221A9E8B009733BE /* Pods.xcodeproj */,
@@ -849,6 +858,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				9CB476C8E4634C7CAB3D7BC3 /* Upload Debug Symbols to Sentry */,
 				6F1D0297221AB527009733BE /* Embed Frameworks */,
+				6F00CC3E2224373400D0A9DF /* Input mask fix */,
 			);
 			buildRules = (
 			);
@@ -970,6 +980,10 @@
 				{
 					ProductGroup = 6F042C60221EC2FA00D7757C /* Products */;
 					ProjectRef = 6F042C5F221EC2FA00D7757C /* RNTextInputMask.xcodeproj */;
+				},
+				{
+					ProductGroup = 6F00CC282224288000D0A9DF /* Products */;
+					ProjectRef = 6F00CC272224288000D0A9DF /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1218,6 +1232,13 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		6F00CC2C2224288000D0A9DF /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 6F00CC2B2224288000D0A9DF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		6F042C5D221EC18B00D7757C /* libRNAppsFlyer.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1258,13 +1279,6 @@
 			fileType = wrapper.framework;
 			path = InputMask.framework;
 			remoteRef = 6F1D010F221A8FC3009733BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6F1D0112221A8FC3009733BE /* InputMaskTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = InputMaskTests.xctest;
-			remoteRef = 6F1D0111221A8FC3009733BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		6F1D01D9221A99EA009733BE /* libRNFirebase.a */ = {
@@ -1401,6 +1415,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6F00CC3E2224373400D0A9DF /* Input mask fix */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Input mask fix";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "EXTRA_DIR=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Frameworks/InputMask.framework/Frameworks\"\n\nif [[ -d \"${EXTRA_DIR}\" ]]; then\nrm -rf \"${EXTRA_DIR}\"\nfi\n";
+		};
 		9CB476C8E4634C7CAB3D7BC3 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1519,6 +1551,7 @@
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1572,6 +1605,7 @@
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

@@ -29,7 +29,7 @@ export default class CitySelector extends React.Component {
             return (
                 <View style={textStyle.rootViewWrapper}>
                     <FlatList
-                        style={textStyle.rootView}
+                        style={textStyle.rootViewBig}
                         data={this.state.cities}
                         renderItem={this.renderCity}
                     />
@@ -50,9 +50,11 @@ export default class CitySelector extends React.Component {
     renderCity(city) {
         console.log(city);
         return (
-            <TouchableOpacity onPress={() => CitySelector.setCity(city.item)}>
-                <View style={{height: 50, borderColor: '#E0E0E0', borderBottomWidth: 1}}>
-                    <Text style={{fontSize: 15}}>
+            <TouchableOpacity
+                onPress={() => CitySelector.setCity(city.item)}
+            >
+                <View style={{ borderColor: '#E0E0E0', borderBottomWidth: 1}}>
+                    <Text style={{fontSize: 15, lineHeight:50}}>
                         {city.item.title}
                     </Text>
                 </View>

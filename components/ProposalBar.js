@@ -47,19 +47,19 @@ export default class ProposalBar extends Component {
             let proposal = this.state.proposal;
             return (
                 <View style={{width: 250}}>
-                    <Text style={{fontWeight: '500', fontSize: 18, color: '#000', textAlign: 'center', paddingBottom: 10}}>
+                    <Text style={{fontWeight: '800', fontSize: 15, lineHeight:18, color: '#000', textAlign: 'center', paddingBottom: 10}}>
                         {Proposal.getEventTypeNames(this.state.proposal.event_type)}
                         {this.renderProposalId()}
                     </Text>
-                    <Text style={{textAlign:'center', paddingBottom: 10}}>
+                    <Text style={{textAlign:'center', paddingBottom: 10, fontSize:15, lineHeight:18}}>
                         {formatDate(proposal.date, 'D MMMM')}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
                     </Text>
-                    <Text style={{textAlign:'center'}}>
+                    <Text style={{textAlign:'center',opacity:.8, fontSize:13, lineHeight:16}}>
                         <Text>
                         {proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}
                         </Text>
                         <Text>
-                            <Text>&nbsp;{formatCost(proposal.amount)} {"\u20bd"} на гостя</Text>
+                            <Text>&nbsp;&nbsp;&nbsp;&nbsp;{formatCost(proposal.amount)} {"\u20bd"} на гостя</Text>
                         </Text>
                     </Text>
                 </View>
@@ -120,8 +120,8 @@ export class ProposalMenu extends React.Component{
     render() {
         return (
             <View style={this.props.style}>
-                <TouchableOpacity onPress={this.toggleModal}>
-                    <Image style={{margin: 15}} source={require('../assets/images/menu-dots.png')} on/>
+                <TouchableOpacity onPress={this.toggleModal} >
+                    <Image style={{margin: 15}} source={require('../assets/images/menu-dots.png')} />
                 </TouchableOpacity>
                 <Modal
                     animationType="fade"

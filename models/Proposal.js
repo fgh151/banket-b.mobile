@@ -66,6 +66,8 @@ export default class Proposal {
      * @returns {boolean|string}
      */
     validateProperty(property: string, value: any) {
+
+
         switch (property) {
             case 'event_type' : {
                 return true;
@@ -82,6 +84,9 @@ export default class Proposal {
             }
             case 'amount' : {
                 return this.countValid(value, MIN_AMOUNT) ? true : 'Минимальная стоимость ' + MIN_AMOUNT;
+            }
+            case 'notes' :{
+                return true;
             }
         }
     }

@@ -8,12 +8,14 @@ export default class Finish extends React.Component {
 
     render() {
         return (
-            <View style={textStyle.rootViewWrapper}>
+            <View style={[textStyle.rootViewWrapper, {paddingTop: -15}]}>
                 <View style={WIIstyles.sliderItem}>
-                    <Image source={require('../../assets/images/done.png')}/>
+                    <Image source={require('../../assets/images/done.png')} style={{marginBottom:30}}/>
+                    <View style={{marginBottom: 20}}>
                     <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>
-                    <View style={WIIstyles.sliderTextWrapper}>
-                        <Text style={[textStyle.defaultFont, {textAlign: 'center'}]}>
+                    </View>
+                        <View style={WIIstyles.sliderTextWrapper}>
+                        <Text style={[textStyle.defaultFont, {textAlign: 'center', fontSize:15, lineHeight: 20 }]}>
                             Батл успешно создан и отправлен в рестораны. Ожидайте ответов от ресторанов.
                         </Text>
                     </View>
@@ -45,15 +47,22 @@ const WIIstyles = StyleSheet.create({
         alignItems: 'center',
     },
     sliderHeader: {
-        fontSize: 34,
+        fontSize: 28,
+
+        lineHeight:34,
+        fontWeight:'900',
+
         color: '#000000'
     },
     sliderTextWrapper: {
-        width: 300
+        width: 300,
+
     },
     sliderText: {
         fontSize: 20,
         color: '#000000'
     },
-    createButtonWrapper: {}
+    createButtonWrapper: {
+        width:'100%'
+    }
 });

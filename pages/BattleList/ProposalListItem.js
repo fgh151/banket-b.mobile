@@ -110,17 +110,9 @@ export default class ProposalListItem extends Component {
                 >
                     <View>
                         <View style={styles.rowWrapper}>
-                            <View>
-                                <Text>
-
-                                    <Text style={styles.eventType}>
-                                        {Proposal.getEventTypeNames(proposal.event_type)}
-                                    </Text>
-
-                                    {/*<Text style={styles.time}>*/}
-                                        {/*&nbsp;{formatDate(proposal.date)}, {moment(proposal.time, "HH:mm:ss").format("hh:mm")}*/}
-                                    {/*</Text>*/}
-
+                            <View style={{marginBottom: 10}}>
+                                <Text style={styles.eventType}>
+                                    {Proposal.getEventTypeNames(proposal.event_type)}
                                 </Text>
                             </View>
                             <View>
@@ -128,14 +120,14 @@ export default class ProposalListItem extends Component {
                                     <Text style={textStyle.boldFont}>
                                         {formatCost(proposal.amount * proposal.guests_count)}
                                     </Text>
-                                    <Text>
+                                    <Text style={{fontSize:18}}>
                                         &nbsp;{"\u20bd"}
                                     </Text>
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.rowWrapper}>
-                            <View>
+                            <View style={{marginBottom: 10}}>
                                 <Text>
                                     {formatDate(proposal.date, 'D MMMM')}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
                                 </Text>
@@ -144,11 +136,11 @@ export default class ProposalListItem extends Component {
                                 {this.renderProfit(proposal)}
                             </View>
                         </View>
-                        <View style={styles.rowWrapper}>
+                        <View style={[styles.rowWrapper, {marginBottom:5}]}>
                             <View>
                                 <Text>
-                                    <Text>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
-                                    <Text>, {formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
+                                    <Text style={textStyle.grayText}>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
+                                    <Text style={textStyle.grayText} >, {formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
                                 </Text>
                             </View>
                             <View>
@@ -163,19 +155,25 @@ export default class ProposalListItem extends Component {
     }
 }
 
+// box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.19452);
+
 const styles = StyleSheet.create({
     blockWrapper: {
         padding: 10,
         borderWidth: 1,
         borderRadius: 5,
-        borderColor: '#ddd',
-        shadowColor: '#000',
+        borderColor: '#fff',
+        //
+        // boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.19452)",
+
+        shadowColor: 'rgba(0, 0, 0, 0.19452)',
         shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.8,
-        shadowRadius: 250,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 10,
+        shadowOpacity: 0.5,
+        shadowRadius: 30,
+
+        marginLeft: 15,
+        marginRight: 15,
+        marginTop: 15,
         marginBottom: 1,
 
         backgroundColor: 'white'

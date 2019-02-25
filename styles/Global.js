@@ -19,11 +19,21 @@ export const Styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         padding:15,
-        alignItems: 'center'
+        alignItems: 'center',
+
     },
     rootView: {
         maxWidth: 300,
         width:'100%'
-    }
+    },
+    rootViewBig: {
+        maxWidth: 400,
+        width:'100%'
+    },
+    grayText: {
+        color: 'rgba(0,0,0,0.5)'
+    },
+
+
 });
 

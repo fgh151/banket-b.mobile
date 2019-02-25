@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Share, Text, View} from "react-native";
+import {AsyncStorage, FlatList, Share, Text, View, TouchableOpacity} from "react-native";
 import Config, {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
 import moment from "moment";
 import Hyperlink from 'react-native-hyperlink'
-
 import CacheStore from "react-native-cache-store";
 import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {messagesObject2array} from "../../helpers/ArrayHelper";
@@ -71,7 +70,7 @@ export default class Messenger extends Component {
     static foreignMessage(model) {
         return (
             <View style={{paddingRight: 10, paddingBottom: 10, paddingTop: 10, alignItems: 'flex-start'}}>
-                <View
+                <TouchableOpacity
                     style={{
                         borderRadius: 15,
                         backgroundColor: '#F6F6F6',
@@ -90,7 +89,7 @@ export default class Messenger extends Component {
                     <View>
                         {this.renderTime(model.created_at, 'right')}
                     </View>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -135,14 +134,13 @@ export default class Messenger extends Component {
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
 
-                console.log(path);
 
                 let ref = db.ref(path);
+
 
                 ref.on('value', (snapshot) => {
                     const value = snapshot.val();
 
-                    console.log(value);
 
                     this.updateList(value);
                     AsyncStorage.setItem(this.cacheKey, JSON.stringify(value));
@@ -193,25 +191,32 @@ export default class Messenger extends Component {
 
         let messages = messagesObject2array(this.state.items);
 
-        console.log(messages, this.props);
-
         return (
 
-            <View style={[textStyle.rootViewWrapper, {}]}>
+            <View style={[textStyle.rootViewWrapper, {marginTop: -15, marginRight: -15, marginLeft: -15}]}>
                 <Organization organization={this.props.organization} proposal={this.props.proposal}/>
                 <FlatList
                     style={{flex: 1, flexDirection: 'column'}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}
                 />
-                <View>
+                <View style={{marginBottom: 10}}>
                     <Text style={{
                         borderRadius: 15,
                         borderWidth: 1,
                         borderColor: '#979797',
                         textAlign: 'center',
-                        padding: 10,
-                        opacity: .5
+                        paddingBottom: 5,
+                        paddingTop: 5,
+                        paddingRight:30,
+                        paddingLeft:30,
+
+                        opacity: .5,
+                        maxWidth:260,
+
+
+                        fontSize:12,
+                        lineHeight:15
                     }}>
                         Опишите для ресторана свои пожелания и дополнительные требования
                     </Text>

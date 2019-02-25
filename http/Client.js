@@ -1,5 +1,7 @@
 import config from '../Config';
 import {NetInfo} from 'react-native';
+import type {LoginResponse} from "../types/LoginResponse";
+import {Actions} from "react-native-router-flux";
 
 export default class Client {
 
@@ -16,6 +18,11 @@ export default class Client {
     login(phone, code) {
         // Returns a Promise with the response.
         return this.POST('/v2/auth/index', {phone: phone, code: code});
+    }
+
+    static sendCode(phone) : Promise<LoginResponse> {
+        const api = new Client();
+        return api.POST('/v2/auth/sendcode', {phone: this.state.phone})
     }
 
     getCurrentUser() {

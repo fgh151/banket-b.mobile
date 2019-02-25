@@ -16,20 +16,25 @@ const styles = StyleSheet.create({
     shadow: {
 
 
-        padding: 10,
+        // padding: 10,
         borderWidth: 1,
-        borderRadius: 5,
         borderColor: '#ddd',
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.8,
-        shadowRadius: 250,
-        marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
         marginBottom: 1,
 
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
+
+
+
+        shadowColor: 'rgba(0, 0, 0, 0.5)',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.5,
+        shadowRadius: 7,
+
     }
 });
 

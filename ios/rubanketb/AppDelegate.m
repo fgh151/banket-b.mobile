@@ -18,7 +18,7 @@
 #import "Firebase.h"
 #import "RNFirebaseNotifications.h"
 #import "RNFirebaseMessaging.h"
-#import "RNSplashScreen.h"
+//#import "RNSplashScreen.h"
 
 
 @implementation AppDelegate

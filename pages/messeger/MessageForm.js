@@ -50,12 +50,12 @@ export default class MessageForm extends Component {
                         style={style.textInput}
                         autoFocus={!__DEV__}
                         placeholderTextColor="#C4C4C4"
-                        placeholder="Новое сообщение"
+                        placeholder="Сообщение"
                         value={this.state.message}
                         onChangeText={(txt) => this.setState({message: txt})}
                     />
                 </View>
-                <View style={{width: '10%', paddingTop: 10, paddingRight: 10}}>
+                <View style={{width: '10%', paddingTop: 0, paddingRight: 10}}>
                     <TouchableHighlight transparent
                                         style={style.buttonWrapper}
                                         onPress={() => this.sendMessage()}>
@@ -73,9 +73,9 @@ const style = StyleSheet.create({
         borderTopWidth: 1,
         marginTop: 10,
         flexDirection: 'row',
-        marginBottom: -15,
-        marginLeft: -15,
-        marginRight: -15,
+        // marginBottom:15,
+        // marginLeft:15,
+        // marginRight:15,
         backgroundColor: '#F7F7F7'
     },
 
@@ -85,10 +85,14 @@ const style = StyleSheet.create({
         padding: 10,
         color: '#C4C4C4',
         borderWidth: 1,
+
+        fontSize:15,
+        lineHeight:18,
+
         borderColor: '#D8D8D8',
         ...Platform.select({
             ios: {
-                paddingTop:10,
+                paddingTop:3,
                 paddingBottom:5
             },
             android: {

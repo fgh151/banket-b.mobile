@@ -54,14 +54,15 @@ export default class Push {
         AsyncStorage.getItem('battle@id')
             .then((userId) => {
 
-                console.log(userId, token, Platform.OS);
+                // console.log(userId, token, Platform.OS);
 
                 const api = new Client();
-                api.POST(Push.url, {
+                api.POST('/v2/push', {
                     user: userId,
                     token: token,
                     device: Platform.OS,
-                })
+                }).then((s) => console.log(s))
+                    .catch((e) => console.log(e));
             })
     }
 
@@ -70,7 +71,7 @@ export default class Push {
 
             if (AppState.currentState !== 'active') {
 
-                console.log("notify recieved", notification);
+                // console.log("notify recieved", notification);
                 // Process your notification as required
                 notification
                     .android.setChannelId('test-channel')

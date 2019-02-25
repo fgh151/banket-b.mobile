@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
             textAlign: 'center',
             padding: 8,
             fontSize: 18,
+            fontWeight: 'bold'
         },
         android: {
             color: 'white',

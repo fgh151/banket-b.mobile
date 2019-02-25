@@ -84,6 +84,7 @@ export default class BattleList extends React.Component {
     }
 
     render() {
+
         if (!this.state.loaded) {
             return <Loading/>;
         }
@@ -98,9 +99,9 @@ export default class BattleList extends React.Component {
         if (this.state.items.length > 0) {
             //padding 10 - нужен для корректного отображения кружков новых сообщений
             return (
-                <View style={[textStyle.rootViewWrapper, {padding: 10}]}>
+                <View style={[textStyle.rootViewWrapper, {padding: 0}]}>
                     <FlatList
-                        style={textStyle.rootView}
+                        style={textStyle.rootViewBig}
                         ListEmptyComponent={<View/>}
                         data={this.state.items}
                         renderItem={this.renderProposal}
@@ -116,7 +117,7 @@ export default class BattleList extends React.Component {
 
     renderAd() {
         if (this.state.items.length < 4) {
-            return <Ad style={{marginBottom: -10}}/>
+            return <Ad style={{marginBottom: -15, padding: 15}}/>
         }
         return null;
     }

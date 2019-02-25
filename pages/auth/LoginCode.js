@@ -12,6 +12,8 @@ import {Actions} from "react-native-router-flux";
 
 import {firstLunchDone} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
+import ReSendCode from "./ReSendCode";
+import CodeInput from "./CodeInput";
 
 export default class LoginCode extends React.Component {
 
@@ -34,7 +36,7 @@ export default class LoginCode extends React.Component {
     nextPage = () => {
         const api = new Client();
         api.login(this.state.phone, this.state.code)
-            .then((response : LoginResponse) => {
+            .then((response: LoginResponse) => {
                 if (response.hasOwnProperty('error')) {
                     this.setState({showError: true})
                 } else {
@@ -50,10 +52,13 @@ export default class LoginCode extends React.Component {
                             firstLunchDone();
                             const push = new Push();
                             Push.saveToken();
-                            push.setRecieveHandler();
+                            // push.setRecieveHandler();
                             Actions.BattleList()
                         })
-                        .catch(err => {this.setState({showLoginBtn: true}); console.log(err)});  // Catch any error
+                        .catch(err => {
+                            this.setState({showLoginBtn: true});
+                            console.log(err)
+                        });  // Catch any error
                 }
                 this.setState({showLoginBtn: true});
             })   // Successfully logged in
@@ -64,40 +69,36 @@ export default class LoginCode extends React.Component {
         return (
             <View style={wrapperStyle}>
                 <View style={{flex: 1}}>
-                    <View style={{flex: 0.2}}>
-                    <Input
-                        component={<TextInputMask
-                            refInput={ref => {
-                                this.input = ref
-                            }}
-                            keyboardType="phone-pad"
-                            placeholder='Номер телефона'
-                            placeholderTextColor="#000"
-                            style={{color: '#0C20E3'}}
-                            mask={"+7 ([000]) [000] [00] [00]"}
-                            value={this.props.phone}
-                        />}
-                        description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                        active={false}
-                        valid={true}
-                    />
+                    <View style={{flex: 0.2, marginTop: 20}}>
+                        <Input
+                            component={<TextInputMask
+                                refInput={ref => {
+                                    this.input = ref
+                                }}
+                                keyboardType="phone-pad"
+                                placeholder='Номер телефона'
+                                placeholderTextColor="#000"
+                                style={{color: '#0C20E3'}}
+                                mask={"+7 ([000]) [000] [00] [00]"}
+                                value={this.props.phone}
+                            />}
+                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                            active={false}
+                            valid={true}
+                        />
                     </View>
                     <View style={{flex: 0.2}}>
-                    <Input
-                        component={<TextInput
-                            placeholder="Код подтверждения"
-                            onChangeText={this.codeChange}
-                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                        />}
-                    />
+                        <CodeInput phone={this.props.phone}/>
                     </View>
                 </View>
 
+                <View style={Styles.rootViewBig}>
                 <Button
                     disabled={this.state.buttonDisabled}
                     title="Продолжить"
                     onPress={this.nextPage}
                 />
+                </View>
             </View>
         );
     }

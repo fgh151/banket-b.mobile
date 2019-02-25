@@ -53,24 +53,31 @@ const style = StyleSheet.create({
     inactiveWrapper:{
         paddingLeft: 22,
         paddingRight:22,
-        paddingTop:11,
-        paddingBottom:11,
-        margin:10,
+        paddingTop:13,
+        paddingBottom:13,
+        margin:5,
         borderRadius:20,
         backgroundColor: '#E7E7E7',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+
+        fontSize:17,
+        lineHeight:20
     },
     inactiveText:{
     },
     activeWrapper:{
         paddingLeft: 22,
         paddingRight:22,
-        paddingTop:11,
-        paddingBottom:11,
-        margin:10,
+        paddingTop:13,
+        paddingBottom:13,
+        margin:5,
         borderRadius:20,
         backgroundColor: '#0C21E2',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+
+
+        fontSize:17,
+        lineHeight:20
     },
     activeText:{
         color:'#ffffff'

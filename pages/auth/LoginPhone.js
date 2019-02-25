@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, TextInput, View} from "react-native";
+import {Platform, StyleSheet, TextInput, View, ScrollView, TouchableOpacity,Keyboard} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -19,12 +19,8 @@ export default class LoginPhone extends React.Component{
     }
 
     nextPage = () => {
-
-        const api = new Client();
-        api.POST('/v2/auth/sendcode', {phone: this.state.phone})
-            .then((response : LoginResponse) => {
-            });
-        Actions.LoginCode({phone: this.state.phone});
+        Client.sendCode(this.state.phone)
+            .then(() => Actions.LoginCode({phone: this.state.phone}));
     };
 
     phoneChange = (formatted : string, extracted: string) => {
@@ -35,7 +31,8 @@ export default class LoginPhone extends React.Component{
 
     render() {
         return(
-            <View style={Styles.rootViewWrapper}>
+            <View style={[Styles.rootViewWrapper, {maxWidth: 350}]}>
+                <TouchableOpacity onPress={() => (Keyboard.dismiss())}>
                 <Input
                     inputStyle={styles.textInput}
                     component={<TextInputMask
@@ -56,6 +53,7 @@ export default class LoginPhone extends React.Component{
                     title="Продолжить"
                     onPress={this.nextPage}
                 />
+                </TouchableOpacity>
             </View>
         )
     }

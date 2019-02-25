@@ -1,94 +1,36 @@
 import React from "react";
 
-import {
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
-} from "react-native";
+import {Platform, ScrollView, StyleSheet, TextInput, View} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import Input from "../../components/Input";
 import {Button} from "../../components/Button";
-import DatePicker from 'react-native-datepicker'
 import moment from "moment";
-import RNPickerSelect from 'react-native-picker-select';
 
 import Proposal from '../../models/Proposal';
 import {Actions} from "react-native-router-flux";
-import {City} from "../../helpers/GeoLocation";
 
 import FormDatePicker from './FormDatePicker';
 import FormTimePicker from './FormTimePicker';
+import EventTypePicker from "./EventTypePicker";
+import CityPicker from "./CityPicker";
 
 export default class Form extends React.Component {
     state = {
         buttonDisabled: true,
         eventType: '',
-
-
         guests_count_error: '',
         amount_error: '',
-
     };
 
     proposal = new Proposal();
-
     now = moment();
-
     nextPage = () => {
         Actions.Services();
     };
 
-    getEventTypePicker() {
-
-        const placeholder = {
-            label: 'Вид мероприятия',
-            value: null,
-            color: '#9EA0A4',
-        };
-
-        const variants = [
-            {label: "Банкет", value: 1},
-            {label: "Корпоратив", value: 2},
-            {label: "Детский праздник", value: 3},
-            {label: "День рождения", value: 4},
-            {label: "Юбилей", value: 5},
-            {label: "Свадьба", value: 6},
-            {label: "Другое", value: 7}
-        ];
-
-        return (
-            <RNPickerSelect
-                placeholderTextColor = '#000000'
-                placeholder={placeholder}
-                items={variants}
-                onValueChange={(value) => {
-                    this.setProposalProperty('event_type', value)
-                }}
-                style={pickerSelectStyles}
-            />
-        );
-    }
-
-
-
-    getCityPicker() {
-        return (
-            <TouchableOpacity
-                style={{paddingTop: 10}}
-                onPress={() => Actions.CitySelector()}
-            >
-                <Text style={[textStyle.defaultFont, {paddingBottom: 5, fontSize:15, color:'#0C21E2'}]}>{(new City()).city.title}</Text>
-            </TouchableOpacity>
-        )
-    }
-
     setProposalProperty(propertyName, value) {
 
-        console.log("validate", value);
+        console.log("validate", propertyName, value);
 
         let valid = this.proposal.validateProperty(propertyName, value);
         let errorProp = propertyName + '_error';
@@ -116,54 +58,56 @@ export default class Form extends React.Component {
         return (
             <View style={textStyle.rootViewWrapper}>
                 <ScrollView
-                style={textStyle.rootView}
+                    style={textStyle.rootView}
                 >
                     <Input
-                        component={this.getCityPicker()}
+                        component={<CityPicker/>}
                         active={true}
                         valid={true}
-                        
+
                     />
                     <Input
-                        component={this.getEventTypePicker()}
+                        component={<EventTypePicker
+                            onValueChange={(value) => this.setProposalProperty('event_type', value)}/>}
                         active={true}
-                        
+
                     />
                     <Input
                         component={<FormDatePicker onDateChange={(date) => {
                             this.setProposalProperty('date', date)
-                        }} />}
+                        }}/>}
                         active={true}
 
                     />
                     <Input
                         component={<FormTimePicker onDateChange={(time) => {
                             this.setProposalProperty('time', time)
-                        }} />}
+                        }}/>}
                         active={true}
-                        
+
                     />
                     <Input
                         component={<TextInput
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={styles.textInput}
+                            style={[styles.textInput, valid.valid]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(count) => this.setProposalProperty('guests_count', count)}
                             keyboardType="numeric"
                             placeholder='Количество гостей'
                         />}
                         active={true}
+                        valid={true}
                         error={this.state.guests_count_error}
-                        
+
                     />
                     <Input
                         component={<TextInput
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={styles.textInput}
+                            style={[styles.textInput, valid.valid]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(amount) => this.setProposalProperty('amount', amount)}
                             keyboardType="numeric"
@@ -171,7 +115,7 @@ export default class Form extends React.Component {
                         />}
                         active={true}
                         error={this.state.amount_error}
-                        
+
                     />
 
                     <Input
@@ -180,26 +124,38 @@ export default class Form extends React.Component {
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={styles.textInput}
+                            style={[styles.textInput, valid.valid]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(notes) => this.setProposalProperty('notes', notes)}
                             placeholder='Дополнительно'
                         />}
                         active={true}
-                        
+
                     />
                 </ScrollView>
 
-                <Button
-                    disabled={this.state.buttonDisabled}
-                    title="Продолжить"
-                    onPress={this.nextPage}
-                />
+                <View style={{width: '100%'}}>
+                    <Button
+                        style={{fontSize: 17, lineHeight: 21}}
+                        disabled={this.state.buttonDisabled}
+                        title="Продолжить"
+                        onPress={this.nextPage}
+                    />
+                </View>
             </View>
         )
     }
 
 }
+
+const valid = StyleSheet.create({
+    valid: {
+        color: '#0C21E2'
+    },
+    invalid: {
+        color: '#000000'
+    }
+});
 
 const styles = StyleSheet.create({
     dateTouch: {
@@ -208,12 +164,14 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
 
-    textInput : {
-        fontSize:15,
+    textInput: {
+        fontSize: 15,
+        lineHeight: 18,
+        fontFamily: "Lato-Regular",
         ...Platform.select({
             ios: {
-                paddingTop:10,
-                paddingBottom:5
+                paddingTop: 10,
+                paddingBottom: 5
             },
             android: {
                 marginLeft: -5
@@ -221,18 +179,4 @@ const styles = StyleSheet.create({
         }),
     }
 
-});
-
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        color: '#0C21E2',
-        paddingRight: 30, // to ensure the text is never behind the icon
-        paddingBottom: 5,
-        paddingTop:10
-    },
-    inputAndroid: {
-        color: '#0C21E2',
-        paddingRight: 30, // to ensure the text is never behind the icon
-        marginLeft: -8
-    },
 });

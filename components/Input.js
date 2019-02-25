@@ -124,10 +124,13 @@ const styles = StyleSheet.create({
     },
     input: {
         borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0'
+        borderBottomColor: '#E0E0E0',
+        paddingBottom: 5
     },
     description: {
-        color: '#E0E0E0'
+        color: '#E0E0E0',
+
+        fontFamily: "Lato-Regular",
     },
     error: {
         color: '#ff1700'

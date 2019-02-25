@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native'
+import {Image, TouchableOpacity, View, StyleSheet, Platform} from 'react-native'
 import {Actions} from "react-native-router-flux";
 
 export default class BackButton extends Component{
@@ -7,7 +7,7 @@ export default class BackButton extends Component{
     render() {
         return(
             <TouchableOpacity
-                // style={{position: 'absolute', top: 5, backgroundColor:'green'}}
+                style={styles.wrapper}
                 onPress={() => {
                     Actions.pop();
                 }}
@@ -19,3 +19,18 @@ export default class BackButton extends Component{
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    wrapper: {
+        ...Platform.select({
+            ios: {
+                position: 'absolute',
+                top: 0
+            },
+            android: {
+
+            },
+        }),
+    },
+});
