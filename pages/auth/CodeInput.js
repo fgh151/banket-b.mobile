@@ -74,7 +74,7 @@ export default class CodeInput extends React.Component {
                     <View>
                         <TextInput
                             placeholder="Код подтверждения"
-                            onChangeText={this.codeChange}
+                            onChangeText={(code) => this.props.codeChange(code)}
                             keyboardType="numeric"
 
                         />

@@ -22,7 +22,7 @@ export default class Client {
 
     static sendCode(phone) : Promise<LoginResponse> {
         const api = new Client();
-        return api.POST('/v2/auth/sendcode', {phone: this.state.phone})
+        return api.POST('/v2/auth/sendcode', {phone: phone})
     }
 
     getCurrentUser() {

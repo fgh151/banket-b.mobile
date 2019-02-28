@@ -40,12 +40,12 @@ export default class Messenger extends Component {
                         padding: 10
                     }}
                 >
-                    <View >
+                    <View style={{ flex:95}}>
                         <Hyperlink linkDefault={true}>
                             <Text>{model.message}</Text>
                         </Hyperlink>
                     </View>
-                    <View >
+                    <View  style={{flex:5}}>
                         {this.renderTime(model.created_at, 'right')}
                     </View>
                 </View>
@@ -77,16 +77,17 @@ export default class Messenger extends Component {
                         flex: 1,
                         flexDirection: 'column',
                         maxWidth: '90%',
-                        padding: 10
+                        padding: 10,
+
                     }}
                     onPress={() => Messenger.shareMessage(model.message)}
                 >
-                    <View style={{}}>
+                    <View style={{ flex:95}}>
                         <Hyperlink linkDefault={true}>
                             <Text>{model.message}</Text>
                         </Hyperlink>
                     </View>
-                    <View>
+                    <View style={{ flex:5}}>
                         {this.renderTime(model.created_at, 'right')}
                     </View>
                 </TouchableOpacity>
@@ -193,10 +194,9 @@ export default class Messenger extends Component {
 
         return (
 
-            <View style={[textStyle.rootViewWrapper, {marginTop: -15, marginRight: -15, marginLeft: -15}]}>
+            <View style={[textStyle.rootViewWrapper, {margin: -15 }]}>
                 <Organization organization={this.props.organization} proposal={this.props.proposal}/>
                 <FlatList
-                    inverted
                     style={{flex: 1, flexDirection: 'column'}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}

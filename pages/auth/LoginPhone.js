@@ -24,8 +24,14 @@ export default class LoginPhone extends React.Component{
     };
 
     phoneChange = (formatted : string, extracted: string) => {
+
+        console.log(extracted, formatted);
+
         if (extracted.length === 10) {
             this.setState({phone: formatted, buttonDisabled: false});
+
+
+            console.log(this.state);
         }
     };
 
