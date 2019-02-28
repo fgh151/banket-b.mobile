@@ -196,6 +196,7 @@ export default class Messenger extends Component {
             <View style={[textStyle.rootViewWrapper, {marginTop: -15, marginRight: -15, marginLeft: -15}]}>
                 <Organization organization={this.props.organization} proposal={this.props.proposal}/>
                 <FlatList
+                    inverted
                     style={{flex: 1, flexDirection: 'column'}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}
@@ -210,11 +211,8 @@ export default class Messenger extends Component {
                         paddingTop: 5,
                         paddingRight:30,
                         paddingLeft:30,
-
                         opacity: .5,
                         maxWidth:260,
-
-
                         fontSize:12,
                         lineHeight:15
                     }}>

@@ -1,6 +1,5 @@
 import React from 'react';
 import {AsyncStorage, Platform, StyleSheet, TextInput, View} from "react-native";
-import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -72,7 +71,7 @@ export default class RegisterCode extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{justifyContent: 'flex-start'}} >
+                    <View style={{justifyContent: 'flex-start'}}>
                         <View style={{height: 100}}>
                             <Input
                                 component={<TextInput
@@ -131,9 +130,6 @@ RegisterCode.propTypes = {
     phone: PropTypes.string,
     name: PropTypes.string,
 };
-
-const wrapperStyle = [Styles.rootViewWrapper];
-
 
 const styles = StyleSheet.create({
     textInput: {

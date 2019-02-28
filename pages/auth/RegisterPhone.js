@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, TextInput, View, Text} from "react-native";
+import {Platform, StyleSheet, TextInput, View} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -35,7 +35,7 @@ export default class RegisterPhone extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{justifyContent: 'flex-start'}} >
+                    <View style={{justifyContent: 'flex-start'}}>
                         <View style={{height: 100}}>
                             <Input
                                 component={<TextInput

@@ -4,7 +4,7 @@ import Client from '../http/Client';
 import React from "react";
 
 
-import type {RemoteMessage} from 'react-native-firebase';
+// import type {RemoteMessage} from 'react-native-firebase';
 import firebase from "react-native-firebase";
 import {updateProposalList} from "../pages/BattleList/ProposalListItem";
 
@@ -53,9 +53,6 @@ export default class Push {
 
         AsyncStorage.getItem('battle@id')
             .then((userId) => {
-
-                // console.log(userId, token, Platform.OS);
-
                 const api = new Client();
                 api.POST('/v2/push', {
                     user: userId,
@@ -68,11 +65,7 @@ export default class Push {
 
     setRecieveHandler() {
         FN.onNotification((notification: Notification) => {
-
             if (AppState.currentState !== 'active') {
-
-                // console.log("notify recieved", notification);
-                // Process your notification as required
                 notification
                     .android.setChannelId('test-channel')
                     .android.setSmallIcon('ic_launcher');

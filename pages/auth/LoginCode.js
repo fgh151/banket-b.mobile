@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, TextInput, View} from "react-native";
+import {AsyncStorage, View} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -12,7 +12,6 @@ import {Actions} from "react-native-router-flux";
 
 import {firstLunchDone} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
-import ReSendCode from "./ReSendCode";
 import CodeInput from "./CodeInput";
 
 export default class LoginCode extends React.Component {
@@ -50,9 +49,7 @@ export default class LoginCode extends React.Component {
                                     if: response.id
                                 });
                             firstLunchDone();
-                            const push = new Push();
                             Push.saveToken();
-                            // push.setRecieveHandler();
                             Actions.BattleList()
                         })
                         .catch(err => {
@@ -63,7 +60,7 @@ export default class LoginCode extends React.Component {
                 this.setState({showLoginBtn: true});
             })   // Successfully logged in
         // .then(access_token => this.saveToken(access_token))    // Remember your credentials
-    }
+    };
 
     render() {
         return (
@@ -93,11 +90,11 @@ export default class LoginCode extends React.Component {
                 </View>
 
                 <View style={Styles.rootViewBig}>
-                <Button
-                    disabled={this.state.buttonDisabled}
-                    title="Продолжить"
-                    onPress={this.nextPage}
-                />
+                    <Button
+                        disabled={this.state.buttonDisabled}
+                        title="Продолжить"
+                        onPress={this.nextPage}
+                    />
                 </View>
             </View>
         );
@@ -109,4 +106,4 @@ LoginCode.propTypes = {
     phone: PropTypes.string,
 };
 
-const wrapperStyle = [Styles.rootViewWrapper]
+const wrapperStyle = [Styles.rootViewWrapper];
