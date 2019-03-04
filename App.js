@@ -14,6 +14,7 @@ import Services from "./pages/create/Services";
 import Finish from "./pages/create/Finish";
 import DialogList from './pages/messeger/DialogList'
 import ProposalBar, {getCurrentProposal} from "./components/ProposalBar";
+import ProposalMenu from './components/ProposalMenu';
 import BackButton from './components/BackButton';
 import Messenger from "./pages/messeger/Messenger";
 import GeoLocation from "./helpers/GeoLocation";
@@ -23,6 +24,8 @@ import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 import appsFlyer from 'react-native-appsflyer';
+import RestaurantCard from './pages/RestaurantCard';
+import RightButton from "./components/RightButton";
 
 export default class App extends React.Component {
     state = {
@@ -81,7 +84,6 @@ export default class App extends React.Component {
                 titleStyle={{textAlign: 'center', fontWeight: 'bold', fontSize: 15}}
             >
                 <Scene key="root" hideNavBar={false} title="Банкетный баттл">
-
                     <Scene
                         key={'router'}
                         component={AppRouter}
@@ -102,7 +104,6 @@ export default class App extends React.Component {
                         component={LoginPhone}
                         title="Вход"
                         renderBackButton={() => <BackButton/>}
-
                     />
                     <Scene
                         key="LoginCode"
@@ -144,19 +145,7 @@ export default class App extends React.Component {
                                 title: 'Выйти'
                             }
                         ]}/>}
-                        //TODO: убрать если список пуст
-                        renderRightButton={
-                            <TouchableOpacity
-                                style={{ height:60,  paddingTop:20}}
-                                onPress={() => Actions.Form()}
-                            >
-                                <Text style={{
-                                    color: '#0C20E3',
-                                    fontSize: 15,
-                                    textAlign: 'right', marginRight: 15
-                                }}>Новый батл</Text>
-                            </TouchableOpacity>
-                        }
+                        renderRightButton={<RightButton/>}
                     />
 
                     <Scene
@@ -187,7 +176,7 @@ export default class App extends React.Component {
                         renderTitle={<ProposalBar/>}
                         renderBackButton={() => <BackButton/>}
                         // renderRightButton={<ProposalMenu />}
-                        renderRightButton={<Menu image="dots" style={{position: 'absolute', top: 0, right: 0}}
+                        renderRightButton={<ProposalMenu image="dots" style={{position: 'absolute', top: 0, right: 0}} getProposal={getCurrentProposal}
                                                  buttons={[
                                                      {
                                                          action: () => {
@@ -227,6 +216,11 @@ export default class App extends React.Component {
                         component={CitySelector}
                         title="Выберите город"
                         renderBackButton={() => <BackButton/>}
+                    />
+                    <Scene
+                        key={'RestaurantCard'}
+                        component={RestaurantCard}
+                        hideNavBar={true}
                     />
 
                 </Scene>

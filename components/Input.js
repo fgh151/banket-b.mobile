@@ -125,11 +125,13 @@ const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
-        paddingBottom: 5
+        paddingBottom: 5,
+
     },
     description: {
         color: '#E0E0E0',
-
+        fontSize: 13,
+        lineHeight: 16,
         fontFamily: "Lato-Regular",
     },
     error: {

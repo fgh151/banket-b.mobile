@@ -78,13 +78,15 @@ const styles = StyleSheet.create({
             textAlign: 'center',
             padding: 8,
             fontSize: 18,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            fontFamily: "Lato-Bold",
         },
         android: {
             color: 'white',
             textAlign: 'center',
             padding: 8,
             fontWeight: '500',
+            fontFamily: "Lato-Bold",
         },
     }),
     buttonDisabled: Platform.select({
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
             backgroundColor: 'transparent',
             borderColor: '#CFCFCF',
             borderWidth:1,
-            color: '#CFCFCF'
+            color: '#CFCFCF',
         },
         android: {
             elevation: 0,

@@ -1,19 +1,18 @@
 import React from 'react';
-import {Image, Modal, StyleSheet, TouchableOpacity, View} from "react-native"
+import {ImageBackground, Modal, StyleSheet, TouchableOpacity, View} from "react-native"
 import {Button} from './Button';
 
 export default class Menu extends React.Component {
 
+    static defaultProps = {
+        image: 'menu'
+    };
     state = {
         modalVisible: false
     };
 
     toggleModal = () => {
         this.setState({modalVisible: !this.state.modalVisible});
-    };
-
-    static defaultProps = {
-        image: 'menu'
     };
 
     render() {
@@ -25,8 +24,10 @@ export default class Menu extends React.Component {
 
         return (
             <View style={this.props.style}>
-                <TouchableOpacity onPress={this.toggleModal}>
-                    <Image style={{margin: 15}} source={images[this.props.image]} on/>
+                <TouchableOpacity onPress={this.toggleModal} style={{height: '100%', alignItems: 'center', justifyContent: 'center', width: 50}}>
+                    <ImageBackground source={images[this.props.image]} resizeMode="stretch"
+                                     style={{width: 20, height: 20}}>
+                    </ImageBackground>
                 </TouchableOpacity>
                 <Modal
                     animationType="fade"
@@ -51,7 +52,10 @@ export default class Menu extends React.Component {
         return this.props.buttons.map((item, index) => {
             return (<Button
                 key={index}
-                onPress={() => {item.action(); this.toggleModal();}}
+                onPress={() => {
+                    item.action();
+                    this.toggleModal();
+                }}
                 title={item.title}
             />)
         })
@@ -76,5 +80,4 @@ const ModalStyle = StyleSheet.create({
         left: 0,
         bottom: 0
     },
-
 });

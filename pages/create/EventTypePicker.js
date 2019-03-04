@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet} from "react-native";
-import RNPickerSelect from 'react-native-picker-select';
+import PickerSelect from '../../components/PickerSelect';
 
 
 export default class EventTypePicker extends React.Component {
@@ -23,7 +23,7 @@ export default class EventTypePicker extends React.Component {
         ];
 
         return (
-            <RNPickerSelect
+            <PickerSelect
                 placeholderTextColor='#000000'
                 placeholder={placeholder}
                 items={variants}

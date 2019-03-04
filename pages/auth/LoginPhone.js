@@ -37,7 +37,7 @@ export default class LoginPhone extends React.Component{
 
     render() {
         return(
-            <View style={[Styles.rootViewWrapper, {maxWidth: 350}]}>
+            <View style={[Styles.rootViewWrapper]}>
                 <TouchableOpacity onPress={() => (Keyboard.dismiss())}>
                 <Input
                     inputStyle={styles.textInput}
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         color:'#0C20E3',
         ...Platform.select({
             ios: {
-                paddingTop:20,
+                // paddingTop:20,
                 paddingBottom:5
             },
             android: {

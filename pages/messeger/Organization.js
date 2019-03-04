@@ -4,7 +4,7 @@ import {Styles as textStyle} from "../../styles/Global";
 import {formatCost, trunc} from "../../helpers/StringHelper";
 import Rating from "../../components/Rating";
 import Profit from "../../components/Profit";
-
+import {Actions} from "react-native-router-flux";
 
 export default class Organization extends React.Component {
 
@@ -14,6 +14,7 @@ export default class Organization extends React.Component {
             <TouchableOpacity
                 style={styles.blockWrapper}
                 onPress={() => {
+                    Actions.RestaurantCard({restaurant: this.props.organization})
                 }}
             >
                 <View style={{flexDirection: 'column'}}>

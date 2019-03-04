@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Text, View} from "react-native";
+import {AsyncStorage, FlatList, Text, View, Image} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
@@ -12,7 +12,7 @@ import {changeTitle} from "../../components/ProposalBar";
 import Empty from './Empty';
 import type {Organization} from "../../types/Organization";
 import {Styles as textStyle} from "../../styles/Global";
-import RNPickerSelect from 'react-native-picker-select';
+import PickerSelect from '../../components/PickerSelect';
 
 export default class DialogList extends Component {
 
@@ -107,7 +107,8 @@ export default class DialogList extends Component {
         ];
 
         return (
-            <RNPickerSelect
+            <PickerSelect
+                Icon={<Image source={require('../../assets/images/down.png')} /> }
                 placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}
@@ -151,24 +152,26 @@ export default class DialogList extends Component {
                 <View style={textStyle.rootViewWrapper}>
                     <View style={textStyle.rootViewBig}>
 
-                    <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
+                        <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
 
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <View >
-                                <Text style={[textStyle.boldFont, {fontWeight: '800', fontSize:15, lineHeight:18}]}>Предложения ресторанов</Text>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <View>
+                                    <Text
+                                        style={[textStyle.boldFont, {fontWeight: '800', fontSize: 15, lineHeight: 18}]}>Предложения
+                                        ресторанов</Text>
+                                </View>
+                                <View>
+                                    {this.renderPicker()}
+                                </View>
                             </View>
-                            <View >
-                                {this.renderPicker()}
+
+                            <View style={{marginTop: 10}}>
+                                <FlatList
+                                    data={this.state.items}
+                                    renderItem={(item) => this.renderItem(item)}
+                                />
                             </View>
                         </View>
-
-                        <View style={{marginTop: 10}}>
-                            <FlatList
-                                data={this.state.items}
-                                renderItem={(item) => this.renderItem(item)}
-                            />
-                        </View>
-                    </View>
                     </View>
                 </View>
             );

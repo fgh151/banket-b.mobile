@@ -60,10 +60,11 @@ const style = StyleSheet.create({
         backgroundColor: '#E7E7E7',
         alignSelf: 'flex-start',
 
-        fontSize:17,
-        lineHeight:20
     },
     inactiveText:{
+        fontSize:15,
+        lineHeight:18,
+        fontFamily: "Lato-Regular",
     },
     activeWrapper:{
         paddingLeft: 22,
@@ -80,9 +81,12 @@ const style = StyleSheet.create({
         lineHeight:20
     },
     activeText:{
-        color:'#ffffff'
+        color:'#ffffff',
+        fontSize:15,
+        lineHeight:18,
+        fontFamily: "Lato-Regular",
     }
-})
+});
 
 ServiceInput.propTypes = {
     onPress: PropTypes.func

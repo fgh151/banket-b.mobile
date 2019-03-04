@@ -72,7 +72,7 @@ export default class Ad extends React.Component {
                     </Text>
                     </View>
                     <FlatList
-                        style={{marginTop: 10}}
+                        style={{marginTop: 0}}
                         horizontal={true}
                         renderItem={this.renderListItem}
                         data={this.state.items}
@@ -123,7 +123,8 @@ export default class Ad extends React.Component {
 const style = StyleSheet.create({
     block: {
         height: 200,
-        marginRight: -15
+        marginRight: -15,
+
     },
     wrapper: {
         height: 148,
@@ -162,7 +163,7 @@ const style = StyleSheet.create({
     promoText: {
         fontFamily: "Lato-Regular",
         fontSize: 15,
-        lineHeight: 18,
+        lineHeight: 16,
         color: '#000000'
     }
 });

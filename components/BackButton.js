@@ -4,22 +4,27 @@ import {Actions} from "react-native-router-flux";
 
 export default class BackButton extends Component{
 
+    image = require('../assets/images/back.png');
+
+
     render() {
+        if (this.props.image) {
+            this.image = require('../assets/images/back-white.png');
+        }
         return(
             <TouchableOpacity
-                style={styles.wrapper}
+                style={[styles.wrapper, this.props.style]}
                 onPress={() => {
                     Actions.pop();
                 }}
             >
                 <View style={{ alignItems: 'center', backgroundColor:'transparent', padding:16 }}>
-                    <Image source={require('../assets/images/back.png')} style={{height: 14, width: 22}} />
+                    <Image source={this.image} style={{height: 14, width: 22}} />
                 </View>
             </TouchableOpacity>
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -29,7 +34,6 @@ const styles = StyleSheet.create({
                 top: 0
             },
             android: {
-
             },
         }),
     },
