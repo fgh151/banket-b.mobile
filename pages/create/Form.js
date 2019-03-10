@@ -13,6 +13,7 @@ import FormDatePicker from './FormDatePicker';
 import FormTimePicker from './FormTimePicker';
 import EventTypePicker from "./EventTypePicker";
 import CityPicker from "./CityPicker";
+import AmountInput from "./AmountInput";
 
 export default class Form extends React.Component {
     state = {
@@ -29,6 +30,11 @@ export default class Form extends React.Component {
     nextPage = () => {
         Actions.Services();
     };
+
+    constructor(props) {
+        super(props);
+        this.setProposalProperty = this.setProposalProperty.bind(this);
+    }
 
     setProposalProperty(propertyName, value) {
 
@@ -109,25 +115,8 @@ export default class Form extends React.Component {
                     <Input
                         component={
 
-                            <TextInput
-                                refInput={ref => {
-                                    this.input = ref
-                                }}
-                                style={[styles.textInput, valid.valid]}
-                                placeholderTextColor={'#000000'}
-                                onChangeText={(amount) => {
-                                    this.setProposalProperty('amount', amount);
-                                    this.setState({amount_value: amount + ' на гостя'});
-                                }}
-                                onBlur={() => {
-                                    console.log('onBlur');
-                                    this.setState({amount_value: this.state.amount_value + 'fff'})
-                                }}
-                                value={this.state.amount_value}
-                                keyboardType="numeric"
-                                placeholder='Стоимость на гостя'
-                                returnKeyType={'done'}
-                            />
+                            <AmountInput onChange={this.setProposalProperty}/>
+
 
                         }
                         active={true}
