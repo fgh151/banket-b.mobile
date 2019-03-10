@@ -4140,6 +4140,11 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@2.22.0:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
+  integrity sha512-1muXCh8jb1N/gHRbn9VDUBr0GYb8A/aVcHlII9QSB68a50spqEVLIGN6KVmCOnSvJrUhC0edGgKU5ofnGXdYdg==
+
 moment@^2.22.0, moment@^2.23.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
@@ -5008,12 +5013,12 @@ react-native-hyperlink@^0.0.14:
     linkify-it "^1.2.0"
     mdurl "^1.0.0"
 
-react-native-picker-select@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-6.0.0.tgz#81b51022c31f5340e60d0f32c16da22db0ea711b"
-  integrity sha512-qvc3eisFvm6ZFZEZz3/by+yaAdWhlvWr/TKC19KZr27JZWm+TCOyo0647COCYs2zpO9LjANkSA3uhkuiinpqvQ==
+react-native-open-maps@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.3.3.tgz#5120a740dcbcf84d7205ede6ec308139a499c96f"
+  integrity sha512-Lr2eaGBq4U1Dbp6OjviJJjI4g0oB8/KIR0dkdi3jbA+9hiTMjpwaHUWojdOhXl4QFMvCohttFySXU9ZTtwDfGw==
   dependencies:
-    lodash.isequal "^4.5.0"
+    query-string "^6.1.0"
 
 react-native-router-flux@^4.0.6:
   version "4.0.6"
@@ -5076,6 +5081,13 @@ react-native-text-input-mask@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/react-native-text-input-mask/-/react-native-text-input-mask-0.8.0.tgz#30f0de0215644db10719c4b1d29610605fb57262"
   integrity sha512-AYsFS0AovXwaWOfSwg6QgtUTlnQ7r5pLi5pfomkaPj8qT56I0FQZL6CBU7Mcvz9SWSW2kF6ydfIZezCjdS2vDg==
+
+react-native-wheel-picker-android@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-picker-android/-/react-native-wheel-picker-android-2.0.5.tgz#ab1881640c7c4b64b878e519ea5fe82fbb9bde99"
+  integrity sha512-ee8MLSvFoi0uoy0QEPYSlmpwLYSJ4tBmdXARyj+EAevGB+m4CFqOfD6Ptsl+JtGkoNbXZMIZsdmQASfH8g0/gw==
+  dependencies:
+    moment "2.22.0"
 
 react-native@0.57.8:
   version "0.57.8"

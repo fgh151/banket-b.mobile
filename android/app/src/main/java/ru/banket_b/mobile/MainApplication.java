@@ -11,6 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.wheelpicker.WheelPickerPackage;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
@@ -22,7 +23,6 @@ import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.sentry.RNSentryPackage;
-
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -45,7 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNAppsFlyerPackage(),
                     new RNFirebaseMessagingPackage(),
                     new RNFirebaseNotificationsPackage(),
-                    new RNFirebaseDatabasePackage()
+                    new RNFirebaseDatabasePackage(),
+                    new WheelPickerPackage()
             );
         }
 

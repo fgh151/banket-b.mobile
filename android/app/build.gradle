@@ -156,6 +156,7 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
 
 
+    implementation project(':react-native-wheel-picker-android')
     // ...
 
     // Firebase dependencies
