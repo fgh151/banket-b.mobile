@@ -212,7 +212,7 @@ export default class Messenger extends Component {
             <View style={[textStyle.rootViewWrapper, {margin: -15 }]}>
                 {this.renderOrganization()}
                 <FlatList
-                    style={{flex: 1, flexDirection: 'column'}}
+                    style={{flex: 1, flexDirection: 'column', width:'100%', padding: 10}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}
                 />
