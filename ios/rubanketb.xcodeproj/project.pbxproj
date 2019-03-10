@@ -405,6 +405,13 @@
 			remoteGlobalIDString = 8A808ECA1D5B0FEC00A75B9C;
 			remoteInfo = InputMask;
 		};
+		6FE830F622314DA400535853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E63E0CFF0A164B369D2AAE4C /* InputMask.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A808ED51D5B0FEC00A75B9C;
+			remoteInfo = InputMaskTests;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -739,6 +746,7 @@
 			isa = PBXGroup;
 			children = (
 				6F1D0110221A8FC3009733BE /* InputMask.framework */,
+				6FE830F722314DA400535853 /* InputMaskTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1342,6 +1350,13 @@
 			fileType = archive.ar;
 			path = libProtobuf.a;
 			remoteRef = 6F1D0208221A9E8B009733BE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FE830F722314DA400535853 /* InputMaskTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = InputMaskTests.xctest;
+			remoteRef = 6FE830F622314DA400535853 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {

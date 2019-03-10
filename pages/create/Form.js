@@ -20,6 +20,8 @@ export default class Form extends React.Component {
         eventType: '',
         guests_count_error: '',
         amount_error: '',
+
+        amount_value: null
     };
 
     proposal = new Proposal();
@@ -36,10 +38,11 @@ export default class Form extends React.Component {
         let errorProp = propertyName + '_error';
         let state = {};
 
+        this.proposal[propertyName] = value;
+        this.setState(this.proposal);
+
         if (valid === true) {
             state[errorProp] = '';
-            this.proposal[propertyName] = value;
-            this.setState(this.proposal);
             console.log('Proposal changed ', this.proposal);
             if (this.proposal.validate()) {
                 state['buttonDisabled'] = false;
@@ -96,6 +99,7 @@ export default class Form extends React.Component {
                             onChangeText={(count) => this.setProposalProperty('guests_count', count)}
                             keyboardType="numeric"
                             placeholder='Количество гостей'
+                            returnKeyType={'done'}
                         />}
                         active={true}
                         valid={true}
@@ -103,16 +107,29 @@ export default class Form extends React.Component {
 
                     />
                     <Input
-                        component={<TextInput
-                            refInput={ref => {
-                                this.input = ref
-                            }}
-                            style={[styles.textInput, valid.valid]}
-                            placeholderTextColor={'#000000'}
-                            onChangeText={(amount) => this.setProposalProperty('amount', amount)}
-                            keyboardType="numeric"
-                            placeholder='Стоимость на гостя'
-                        />}
+                        component={
+
+                            <TextInput
+                                refInput={ref => {
+                                    this.input = ref
+                                }}
+                                style={[styles.textInput, valid.valid]}
+                                placeholderTextColor={'#000000'}
+                                onChangeText={(amount) => {
+                                    this.setProposalProperty('amount', amount);
+                                    this.setState({amount_value: amount + ' на гостя'});
+                                }}
+                                onBlur={() => {
+                                    console.log('onBlur');
+                                    this.setState({amount_value: this.state.amount_value + 'fff'})
+                                }}
+                                value={this.state.amount_value}
+                                keyboardType="numeric"
+                                placeholder='Стоимость на гостя'
+                                returnKeyType={'done'}
+                            />
+
+                        }
                         active={true}
                         error={this.state.amount_error}
 
@@ -128,6 +145,7 @@ export default class Form extends React.Component {
                             placeholderTextColor={'#000000'}
                             onChangeText={(notes) => this.setProposalProperty('notes', notes)}
                             placeholder='Дополнительно'
+                            returnKeyType={'done'}
                         />}
                         active={true}
 

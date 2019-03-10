@@ -44,7 +44,7 @@ export default class CitySelector extends React.Component {
         let c = new City();
         c.id = city.id;
         c.city = city;
-        Actions.Form();
+        Actions.popTo('Form');
     }
 
     renderCity(city) {

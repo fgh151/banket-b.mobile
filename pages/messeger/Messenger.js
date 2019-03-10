@@ -22,9 +22,13 @@ export default class Messenger extends Component {
             items: [],
             listTitle: '',
             loaded: false,
+
+            inputActive: false
         };
 
         this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
+
+        this.toggleInputActive = this.toggleInputActive.bind(this);
     }
 
     static myMessage(model) {
@@ -179,6 +183,17 @@ export default class Messenger extends Component {
 
     }
 
+    toggleInputActive() {
+        this.setState({inputActive: !this.state.inputActive})
+    }
+
+    renderOrganization() {
+        if (!this.state.inputActive) {
+            return <Organization organization={this.props.organization} proposal={this.props.proposal}/>
+        }
+        return null;
+    }
+
     render() {
 
         if (!this.state.loaded) {
@@ -195,31 +210,13 @@ export default class Messenger extends Component {
         return (
 
             <View style={[textStyle.rootViewWrapper, {margin: -15 }]}>
-                <Organization organization={this.props.organization} proposal={this.props.proposal}/>
+                {this.renderOrganization()}
                 <FlatList
                     style={{flex: 1, flexDirection: 'column'}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}
                 />
-                <View style={{marginBottom: 10}}>
-                    <Text style={{
-                        borderRadius: 15,
-                        borderWidth: 1,
-                        borderColor: '#979797',
-                        textAlign: 'center',
-                        paddingBottom: 5,
-                        paddingTop: 5,
-                        paddingRight:30,
-                        paddingLeft:30,
-                        opacity: .5,
-                        maxWidth:260,
-                        fontSize:12,
-                        lineHeight:15
-                    }}>
-                        Опишите для ресторана свои пожелания и дополнительные требования
-                    </Text>
-                </View>
-                <MessageForm proposalId={this.props.proposal.id} organizationId={this.props.organization.id}/>
+                <MessageForm onToggle={this.toggleInputActive} proposalId={this.props.proposal.id} organizationId={this.props.organization.id}/>
             </View>
         );
     }

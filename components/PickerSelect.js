@@ -388,8 +388,8 @@ export default class PickerSelect extends PureComponent {
                 <Modal
                     testID="ios_modal"
                     visible={this.state.showPicker}
-                    transparent
-                    animationType={this.state.animationType}
+                    animationType="fade"
+                    transparent={true}
                     supportedOrientations={['portrait', 'landscape']}
                     // onOrientationChange={TODO: use this to resize window}
                     {...modalProps}

@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         borderRadius: 5,
-        borderColor: '#fff',
+        borderColor: 'rgba(0, 0, 0, 0.19452)',
         //
         // boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.19452)",
 

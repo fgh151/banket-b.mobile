@@ -8,11 +8,16 @@ import Proposal from "../../models/Proposal";
 
 export default class Services extends React.Component {
 
+    state = {
+        buttonDisabled: false
+    };
 
     proposal = new Proposal();
 
     nextPage = () => {
-        this.proposal.save();
+        this.setState({buttonDisabled: true},
+            this.proposal.save()
+        );
     };
 
     toggleProp = (propertyName) => {
@@ -54,6 +59,7 @@ export default class Services extends React.Component {
                 <View style={{width: '100%'}}>
                     <Button
                         title="Продолжить"
+                        disabled={this.state.buttonDisabled}
                         onPress={this.nextPage}
                     />
                 </View>

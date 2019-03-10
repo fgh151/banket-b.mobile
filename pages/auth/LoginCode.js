@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, View} from "react-native";
+import {AsyncStorage, Keyboard, TouchableOpacity, View} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -65,6 +65,7 @@ export default class LoginCode extends React.Component {
     render() {
         return (
             <View style={wrapperStyle}>
+                <TouchableOpacity onPress={() => (Keyboard.dismiss())}>
                 <View style={{flex: 1}}>
                     <View style={{flex: 0.2, marginTop: 20}}>
                         <Input
@@ -96,6 +97,7 @@ export default class LoginCode extends React.Component {
                         onPress={this.nextPage}
                     />
                 </View>
+                </TouchableOpacity>
             </View>
         );
     }

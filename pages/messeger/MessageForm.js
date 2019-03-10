@@ -48,11 +48,13 @@ export default class MessageForm extends Component {
                 <View style={{width: '90%', padding: 10,}}>
                     <TextInput
                         style={style.textInput}
-                        autoFocus={!__DEV__}
+                        autoFocus={false}
                         placeholderTextColor="#C4C4C4"
                         placeholder="Сообщение"
                         value={this.state.message}
                         onChangeText={(txt) => this.setState({message: txt})}
+                        onFocus={() => this.props.onToggle()}
+                        onBlur={() => this.props.onToggle()}
                     />
                 </View>
                 <View style={{width: '10%', paddingTop: 0, paddingRight: 10}}>
