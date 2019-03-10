@@ -1,6 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Keyboard, TouchableOpacity, View} from "react-native";
-import {Styles} from "../../styles/Global";
+import {AsyncStorage, Keyboard, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -64,9 +63,8 @@ export default class LoginCode extends React.Component {
 
     render() {
         return (
-            <View style={wrapperStyle}>
-                <TouchableOpacity onPress={() => (Keyboard.dismiss())}>
-                <View style={{flex: 1}}>
+            <TouchableOpacity onPress={() => (Keyboard.dismiss())} style={styles.container}>
+                <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{flex: 0.2, marginTop: 20}}>
                         <Input
                             component={<TextInputMask
@@ -90,15 +88,14 @@ export default class LoginCode extends React.Component {
                     </View>
                 </View>
 
-                <View style={Styles.rootViewBig}>
+                <View style={{padding: 10, width: '100%'}}>
                     <Button
                         disabled={this.state.buttonDisabled}
                         title="Продолжить"
                         onPress={this.nextPage}
                     />
                 </View>
-                </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -108,4 +105,24 @@ LoginCode.propTypes = {
     phone: PropTypes.string,
 };
 
-const wrapperStyle = [Styles.rootViewWrapper];
+const styles = StyleSheet.create({
+    textInput: {
+        fontSize: 15,
+        ...Platform.select({
+            ios: {
+                paddingTop: 20,
+                paddingBottom: 5
+            },
+            android: {
+                marginLeft: -5
+            },
+        }),
+    },
+
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+});

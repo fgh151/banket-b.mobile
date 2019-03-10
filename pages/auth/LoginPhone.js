@@ -55,6 +55,7 @@ export default class LoginPhone extends React.Component{
                     valid={true}
                 />
                 <Button
+                    style={{width:'100%'}}
                     disabled={this.state.buttonDisabled}
                     title="Продолжить"
                     onPress={this.nextPage}
