@@ -15,9 +15,8 @@ export default class Services extends React.Component {
     proposal = new Proposal();
 
     nextPage = () => {
-        this.setState({buttonDisabled: true},
-            this.proposal.save()
-        );
+        this.setState({buttonDisabled: true});
+        this.proposal.save()
     };
 
     toggleProp = (propertyName) => {

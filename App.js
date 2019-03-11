@@ -34,7 +34,7 @@ export default class App extends React.Component {
 
     componentDidMount() {
 
-        AppState.addEventListener('change', this._handleAppStateChange);
+        // AppState.addEventListener('change', this._handleAppStateChange);
         new GeoLocation();
 
         SplashScreen.hide();
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     }
 
     componentWillUnmount() {
-        AppState.removeEventListener('change', this._handleAppStateChange);
+        // AppState.removeEventListener('change', this._handleAppStateChange);
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -72,7 +72,7 @@ export default class App extends React.Component {
                 appsFlyer.trackAppLaunch();
             }
             //App has come to the foreground!
-            SplashScreen.hide();
+            // SplashScreen.hide();
         }
         this.setState({appState: nextAppState});
     };

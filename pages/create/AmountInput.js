@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
                 paddingBottom: 5
             },
             android: {
-                marginLeft: -5
+                marginTop:15,
+                marginLeft: -100
             },
         }),
     },

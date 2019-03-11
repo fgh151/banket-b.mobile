@@ -22,7 +22,10 @@ export default class Form extends React.Component {
         guests_count_error: '',
         amount_error: '',
 
-        amount_value: null
+        amount_value: null,
+
+        guests_count: null,
+        notes: null
     };
 
     proposal = new Proposal();
@@ -95,50 +98,56 @@ export default class Form extends React.Component {
                         active={true}
 
                     />
-                    <Input
-                        component={<TextInput
+                    {/*<Input*/}
+                        {/*component={*/}
+                            <TextInput
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={[styles.textInput, valid.valid]}
+                            style={[styles.textInput, valid.valid, { borderBottomWidth: 1,
+                                borderBottomColor: '#E0E0E0',
+                                paddingBottom: 15,}]}
                             placeholderTextColor={'#000000'}
-                            onChangeText={(count) => this.setProposalProperty('guests_count', count)}
+                            onChangeText={(count) => {this.setProposalProperty('guests_count', count); this.setState({guests_count:count})}}
                             keyboardType="numeric"
                             placeholder='Количество гостей'
                             returnKeyType={'done'}
-                        />}
-                        active={true}
-                        valid={true}
-                        error={this.state.guests_count_error}
+                            value={333}
+                        />
+                        {/*}*/}
+                        {/*active={true}*/}
+                        {/*valid={true}*/}
+                        {/*error={this.state.guests_count_error}*/}
 
-                    />
+                    {/*/>*/}
                     <Input
                         component={
-
                             <AmountInput onChange={this.setProposalProperty}/>
-
-
                         }
                         active={true}
                         error={this.state.amount_error}
-
                     />
 
-                    <Input
-                        component={<TextInput
+                    {/*<Input*/}
+                        {/*component={*/}
+                            <TextInput
                             multiline
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={[styles.textInput, valid.valid]}
+                            style={[styles.textInput, valid.valid, { borderBottomWidth: 1,
+                                borderBottomColor: '#E0E0E0',
+                                paddingBottom: 15,}]}
                             placeholderTextColor={'#000000'}
-                            onChangeText={(notes) => this.setProposalProperty('notes', notes)}
+                            onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
                             placeholder='Дополнительно'
                             returnKeyType={'done'}
-                        />}
-                        active={true}
+                            value={this.state.notes}
+                        />
+                        {/*}*/}
+                        {/*active={true}*/}
 
-                    />
+                    {/*/>*/}
                 </ScrollView>
 
                 <View style={{width: '100%'}}>
