@@ -1,14 +1,38 @@
 import React from 'react';
 
-import {Image, Linking, StyleSheet, Text, TouchableOpacity, View, ImageBackground} from 'react-native';
+import {Image, ImageBackground, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Rating from "../components/Rating";
 import openMap from 'react-native-open-maps';
 import BackButton from "../components/BackButton";
 import {Styles} from '../styles/Global';
+import {isEmpty} from "../helpers/ArrayHelper";
 
 
-export default class RestaurantCard extends React.Component {
+export default class RestaurantCard extends React.PureComponent {
+
+
+    //MOC
+    // org = {
+    //     "id": 1,
+    //     "name": "Ресторанный рейтинг",
+    //     "contact": "Владимир",
+    //     "phone": "+7 (495) 788-06-00",
+    //     "email": "pr7880600@gmail.com",
+    //     "address": "Москва Славянская площадь 2/3",
+    //     "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/3.jpg", "https://banket-b.ru/upload/organization/1/bfccf0d7_1.jpg"],
+    //     "halls": [
+    //         {"title": "VIP", "size": 10000},
+    //         {"title": "Общий", "size": 200}
+    //     ],
+    //     "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
+    //         "id": 166,
+    //         "title": "Китай-город",
+    //         "color": "943E90"
+    //     }, {"id": 186, "title": "Киевская", "color": "915133"}],
+    //     "key": "1"
+    // };
+
 
     callNumber = (url) => {
         Linking.canOpenURL(`tel:${url}`).then(supported => {
@@ -35,9 +59,9 @@ export default class RestaurantCard extends React.Component {
                     >
                         {this.renderSlider(this.props.restaurant.images)}
                     </Swiper>
-                    <BackButton style={{position:'absolute', top:0, left:0}} image={'white'}/>
+                    <BackButton style={{position: 'absolute', top: 0, left: 0}} image={'white'}/>
                 </View>
-                <View style={{flex:70}}>
+                <View style={{flex: 70}}>
                     <View style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -49,11 +73,15 @@ export default class RestaurantCard extends React.Component {
                                 {this.props.restaurant.name}
                             </Text>
                         </View>
-                        <View style={{padding: 15, justifyContent:'center', alignItems: 'center'}}>
+                        <View style={{padding: 15, justifyContent: 'center', alignItems: 'center'}}>
                             <Rating rating={this.props.restaurant.rating}/>
                         </View>
                     </View>
-                    <View style={{flexDirection: 'row', padding: 15}}>
+                    <View style={{
+                        flexDirection: 'row', padding: 15,
+                        borderBottomColor: '#e0e0e0',
+                        borderBottomWidth: 1
+                    }}>
 
                         <View>
                             <Text>
@@ -64,22 +92,26 @@ export default class RestaurantCard extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity onPress={() => {
-                            openMap({latitude: this.props.restaurant.latitude, longitude: this.props.restaurant.longitude});
-                        }} style={{flex:1, alignItems: 'center', justifyContent:'center'}}>
+                            openMap({
+                                latitude: this.props.restaurant.latitude,
+                                longitude: this.props.restaurant.longitude
+                            });
+                        }} style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <ImageBackground
                                 source={require('../assets/images/geo_point.png')}
                                 style={{
 
-                                    flex:0,
+                                    flex: 0,
 
                                     alignSelf: 'center',
                                 }}
                                 resizeMode="stretch"
                             >
-                                <View style={{height:20, width:15}}/>
+                                <View style={{height: 20, width: 15}}/>
                             </ImageBackground>
                         </TouchableOpacity>
                     </View>
+                    {this.renderHalls()}
                 </View>
             </View>
         )
@@ -94,6 +126,36 @@ export default class RestaurantCard extends React.Component {
                 </View>
             );
         });
+    }
+
+    renderHalls() {
+        if (isEmpty(this.props.restaurant)) {
+            return null;
+        }
+        return (
+            <View style={{
+                padding: 15,
+                flex:1,
+                flexDirection:'column',
+                justifyContent: 'flex-start'
+            }}>
+                <View>
+                <Text style={Styles.boldFont}>Залы</Text>
+                </View>
+                <View style={{flex: 1, flexDirection:'column', alignSelf: 'auto', alignItems: 'flex-start', justifyContent: 'flex-start', flexWrap: 'wrap'}}>
+                    {this.props.restaurant.halls.map((hall, index) => (
+                        <View style={{flexDirection: 'row',height:30}} key={index}>
+                            <View style={{flex: 1, alignSelf: 'stretch'}}>
+                                <Text>{hall.title}</Text>
+                            </View>
+                            <View style={{flex: 2, alignSelf: 'stretch'}}>
+                                <Text>{hall.size}</Text>
+                            </View>
+                        </View>
+                    ))}
+                </View>
+            </View>
+        )
     }
 }
 
