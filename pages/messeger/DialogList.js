@@ -13,6 +13,7 @@ import Empty from './Empty';
 import type {Organization} from "../../types/Organization";
 import {Styles as textStyle} from "../../styles/Global";
 import PickerSelect from '../../components/PickerSelect';
+import GlobalState from "../../models/GlobalState";
 
 export default class DialogList extends Component {
 
@@ -27,6 +28,9 @@ export default class DialogList extends Component {
     componentDidMount() {
         this.fetchData();
         changeTitle(this.props.proposal);
+
+        let gs = new GlobalState();
+        gs.DialogList = this;
     }
 
     /**
@@ -47,6 +51,14 @@ export default class DialogList extends Component {
         this.getRemoteList();
 
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     let state = new GlobalState();
+    //     if (state.updateLists) {
+    //         this.getRemoteList();
+    //     }
+    //     return super.shouldComponentUpdate(nextProps, nextState)
+    // }
 
     getRemoteList() {
         const CACHE_KEY = 'dialog-list';
@@ -108,7 +120,7 @@ export default class DialogList extends Component {
 
         return (
             <PickerSelect
-                Icon={<Image source={require('../../assets/images/down.png')} /> }
+                // Icon={<Image source={require('../../assets/images/down.png')} /> }
                 placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}

@@ -3,6 +3,7 @@ import {StyleSheet, Text, TextInput, View} from "react-native";
 import ReSendCode from './ReSendCode';
 import {plural} from '../../helpers/StringHelper';
 import Client from "../../http/Client";
+import type {LoginResponse} from "../../types/LoginResponse";
 
 const SECONDS_COUNT = 60;
 
@@ -45,16 +46,22 @@ export default class CodeInput extends React.Component {
     }
 
     resend() {
-        Client.sendCode(this.state.phone)
-            .then(() => {
-                clearInterval(this.timer);
-                this.setState({
-                    timerText: 'Повторно код можно будет отправить через 1 минуту',
-                    showButton: false
-                });
-                this.timer = setInterval(this.secondTick, 1000);
-                this.seconds = SECONDS_COUNT;
-            })
+        clearInterval(this.timer);
+        this.setState({
+            timerText: 'Повторно код можно будет отправить через 1 минуту',
+            showButton: false
+        });
+        this.timer = setInterval(this.secondTick, 1000);
+        this.seconds = SECONDS_COUNT;
+
+        const api = new Client();
+        api.POST('/v2/auth/sendcode', {phone: this.props.phone, name: this.props.name})
+            .then((response: LoginResponse) => {
+
+            });
+
+
+
     }
 
     renderButton() {
@@ -65,8 +72,6 @@ export default class CodeInput extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.timerText);
 
         return (
             <View style={{flex: 1, flexDirection: 'column'}}>

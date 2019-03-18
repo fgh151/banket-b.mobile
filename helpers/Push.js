@@ -4,9 +4,11 @@ import Client from '../http/Client';
 import React from "react";
 
 
+
 // import type {RemoteMessage} from 'react-native-firebase';
 import firebase from "react-native-firebase";
 import {updateProposalList} from "../pages/BattleList/ProposalListItem";
+import GlobalState from "../models/GlobalState";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -75,6 +77,14 @@ export default class Push {
                         Vibration.vibrate(100, [1000, 2000, 3000]);
                         updateProposalList();
                     });
+            }
+
+            let state = new GlobalState();
+            if (state.DialogList !== null) {
+                state.DialogList.getRemoteList();
+            }
+            if (state.BattleList !== null) {
+                state.BattleList.getRemoteList();
             }
 
         });

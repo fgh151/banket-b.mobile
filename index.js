@@ -18,7 +18,7 @@ Sentry.config(Config.sentryDSN, {
 }).install();
 
 new Push();
-Push.saveToken();
+// Push.saveToken();
 
 YellowBox.ignoreWarnings([
     'Remote debugger', //In background

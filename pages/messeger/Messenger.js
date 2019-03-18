@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Share, Text, View, TouchableOpacity} from "react-native";
+import {AsyncStorage, FlatList, Share, Text, View, TouchableOpacity, SafeAreaView} from "react-native";
 import Config, {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
@@ -13,6 +13,8 @@ import {updateProposalList} from "../BattleList/ProposalListItem";
 import Organization from "./Organization";
 
 export default class Messenger extends Component {
+
+
 
     cacheKey = '';
 
@@ -179,8 +181,6 @@ export default class Messenger extends Component {
 
         const length = ArrayHelper.getKeys(items).length;
         CacheStore.set('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length, Config.lowCache);
-
-
     }
 
     toggleInputActive() {
@@ -209,15 +209,22 @@ export default class Messenger extends Component {
 
         return (
 
-            <View style={[textStyle.rootViewWrapper, {margin: -15 }]}>
+            <SafeAreaView style={[textStyle.rootViewWrapper, {margin: -15 }]}>
                 {this.renderOrganization()}
                 <FlatList
+
+                    ref={ref => this.flatList = ref}
+                    onContentSizeChange={() => this.flatList.scrollToEnd({animated: true})}
+                    onLayout={() => this.flatList.scrollToEnd({animated: true})}
+
+
+
                     style={{flex: 1, flexDirection: 'column', width:'100%', padding: 10}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}
                 />
                 <MessageForm onToggle={this.toggleInputActive} proposalId={this.props.proposal.id} organizationId={this.props.organization.id}/>
-            </View>
+            </SafeAreaView>
         );
     }
 

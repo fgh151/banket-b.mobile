@@ -41,7 +41,6 @@ export default class Client {
         if (!route) throw new Error('Route is undefined');
         let fullRoute = this._fullRoute(route);
 
-        console.log(fullRoute);
 
         if (isQuery && body) {
             let qs = require('qs');
@@ -71,7 +70,9 @@ export default class Client {
 
             // if (connectionInfo.type !== 'none') {
                 return fetchPromise()
-                    .then(response => {console.log(response); return response.json()})
+                    .then(response => {
+                        console.log(fullRoute, response); return response.json()
+                    })
             // }
             // return {};
         });

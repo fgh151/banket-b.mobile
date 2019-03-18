@@ -20,7 +20,6 @@ export class Router extends React.Component {
                         if (result === null) {
                             Actions.LoginPhone();
                         } else {
-                            Push.saveToken();
                             Actions.BattleList();
                         }
                     });

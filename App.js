@@ -27,6 +27,18 @@ import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
 import RightButton from "./components/RightButton";
 
+import {
+    setCustomTextInput,
+    setCustomText,
+} from 'react-native-global-props';
+
+const customFont = {
+    fontFamily: "Lato-Regular",
+};
+setCustomText(customFont);
+setCustomTextInput(customFont);
+
+
 export default class App extends React.Component {
     state = {
         appState: AppState.currentState,

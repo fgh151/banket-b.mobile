@@ -18,7 +18,8 @@ export default class FormTimePicker extends React.Component {
         endTime: null,
         selectedStart: null,
         selectedEnd: null,
-        valid: false
+        valid: false,
+        selectedItem:24
     };
 
     render() {
@@ -44,6 +45,13 @@ export default class FormTimePicker extends React.Component {
                         >
                         </TouchableOpacity>
                         <View style={ModalStyle.content}>
+                            <View style={ModalStyle.doneWrapper}>
+                                <TouchableOpacity style={ModalStyle.doneButton} onPress={() => this.setState({modalVisible: false})}>
+                                    <Text style={ModalStyle.doneButtonText}>
+                                    Готово
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                             {this.renderPicker()}
                         </View>
                     </Modal>
@@ -81,7 +89,7 @@ export default class FormTimePicker extends React.Component {
 
     renderPicker() {
         return (
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'center', paddingBottom:50}}>
                 <View style={ModalStyle.pickerColumn}>
                     <Text style={{textAlign: 'center'}}>Начало</Text>
                     <WheelPicker
@@ -105,6 +113,22 @@ export default class FormTimePicker extends React.Component {
 
 
 const ModalStyle = StyleSheet.create({
+    doneWrapper: {
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+
+
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(0,0,0, 0.5)'
+    },
+    doneButton: {
+        padding: 10,
+    },
+    doneButtonText: {
+        color: "#0C21E2",
+        fontSize: 16,
+        lineHeight:18,
+    },
     pickerColumn: {
         flexDirection: 'column',
         width: '50%',
@@ -122,9 +146,9 @@ const ModalStyle = StyleSheet.create({
     content: {
         width: '100%',
         backgroundColor: "#fff",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        paddingTop: 15,
+        // borderTopLeftRadius: 10,
+        // borderTopRightRadius: 10,
+        // paddingTop: 15,
         paddingBottom: 15,
         position: 'absolute',
         left: 0,

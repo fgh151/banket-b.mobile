@@ -48,7 +48,7 @@ export default class ProposalBar extends Component {
                         {this.renderProposalId()}
                     </Text>
                     <Text style={{textAlign:'center', paddingBottom: 10, fontSize:15, lineHeight:18}}>
-                        {formatDate(proposal.date, 'D MMMM')}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
+                        {formatDate(proposal.date, 'D MMMM')}, {proposal.time}
                     </Text>
                     <Text style={{textAlign:'center',opacity:.8, fontSize:13, lineHeight:16}}>
                         <Text>

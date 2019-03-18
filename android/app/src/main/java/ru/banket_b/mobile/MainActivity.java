@@ -24,4 +24,10 @@ public class MainActivity extends ReactActivity {
         super.onNewIntent(intent);
         setIntent(intent);
     }
+
+    @Override
+    public void onResume() {
+        SplashScreen.hide(this);
+        super.onResume();
+    }
 }

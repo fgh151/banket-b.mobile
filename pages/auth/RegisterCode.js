@@ -109,7 +109,7 @@ export default class RegisterCode extends React.Component {
 
                         <View style={{height: 100}}>
 
-                            <CodeInput phone={this.props.phone} codeChange={this.codeChange}/>
+                            <CodeInput phone={this.props.phone} name={this.props.name} codeChange={this.codeChange}/>
                         </View>
                     </View>
                 </View>

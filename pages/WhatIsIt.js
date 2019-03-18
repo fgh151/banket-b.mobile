@@ -36,16 +36,7 @@ export default class WhatIsIt extends React.PureComponent {
                                     fontSize: 15,
                                     lineHeight: 20
                                 }]}>
-                                    Мучительный выбор площадки для банкета, бесконечные звонки, переплата комиссионных
-                                    посредникам и в прошлом.
-                                </Text>
-                                <Text style={[textStyle.defaultFont, {
-                                    textAlign: 'center',
-                                    fontSize: 15,
-                                    lineHeight: 20,
-                                    paddingTop: 30
-                                }]}>
-                                    Теперь именно Вы устанавливаете справедливую цену на банкет.
+                                    Здесь рестораны соревнуются друг с другом, чтобы сделать для вас лучшийбанкет. Вам остается только выбрать победителя аукциона!
                                 </Text>
                             </View>
                         </View>
@@ -62,8 +53,7 @@ export default class WhatIsIt extends React.PureComponent {
                                     lineHeight: 20,
                                     paddingBottom: 50
                                 }]}>
-                                    Создаете новый батл. Ожидаете предложений от ресторанов. Выбираете самое лучшее и
-                                    договариваетесь с рестораном.
+                                    Заполняйте заявку. Запускайте аукцион. Получайте предложения от ресторанов.Выбирайте лучшее. Готово!
                                 </Text>
                             </View>
                         </View>

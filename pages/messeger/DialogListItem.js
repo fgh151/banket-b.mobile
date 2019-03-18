@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
-import {formatCost, trunc} from "../../helpers/StringHelper";
+import {formatCost, round10, trunc} from "../../helpers/StringHelper";
 
 import Rating from '../../components/Rating';
 import type {Organization} from "../../types/Organization";
@@ -83,6 +83,9 @@ export default class DialogListItem extends Component {
                             <View>
                                 <Text>{formatCost(this.props.proposal.amount)} {"\u20bd"} / чел</Text>
                             </View>
+                            <View>
+                                <Text>{ round10( this.props.dialog.item.minPrice / this.props.proposal.guests_count)} {"\u20bd"} / чел</Text>
+                            </View>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -117,7 +120,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
 
-        height:85
+        // height:85
     },
     itemAnnotation: {
         flexDirection: 'column',

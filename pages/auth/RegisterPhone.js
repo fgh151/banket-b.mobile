@@ -9,12 +9,13 @@ import type {LoginResponse} from "../../types/LoginResponse";
 
 export default class RegisterPhone extends React.Component {
     state = {
-        phone: '',
-        name: '',
+        phone: null,
+        name: null,
         buttonDisabled: true
     };
 
     nextPage = () => {
+        console.log(this.state);
         const api = new Client();
         api.POST('/v2/auth/sendcode', {phone: this.state.phone, name: this.state.name})
             .then((response: LoginResponse) => {

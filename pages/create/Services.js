@@ -6,7 +6,7 @@ import {Button} from "../../components/Button";
 import ServiceInput from '../../components/ServiceInput';
 import Proposal from "../../models/Proposal";
 
-export default class Services extends React.Component {
+export default class Services extends React.PureComponent {
 
     state = {
         buttonDisabled: false
@@ -25,6 +25,11 @@ export default class Services extends React.Component {
 
         console.log(this.proposal);
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        this.setState({buttonDisabled: false})
+    }
 
     render() {
         return (

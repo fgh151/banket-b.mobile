@@ -129,7 +129,7 @@ export default class ProposalListItem extends Component {
                         <View style={styles.rowWrapper}>
                             <View style={{marginBottom: 10}}>
                                 <Text>
-                                    {formatDate(proposal.date, 'D MMMM')}, { moment( proposal.time, "HH:mm:ss").format("hh:mm")}
+                                    {formatDate(proposal.date, 'D MMMM')}, {proposal.time}
                                 </Text>
                             </View>
                             <View>

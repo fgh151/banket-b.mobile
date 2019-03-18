@@ -83,7 +83,7 @@ export default class LoginCode extends React.Component {
                             valid={true}
                         />
                     </View>
-                    <View style={{flex: 0.2}}>
+                    <View style={{flex: 0.2, marginTop:25}}>
                         <CodeInput phone={this.props.phone} codeChange={this.codeChange}/>
                     </View>
                 </View>

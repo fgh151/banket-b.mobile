@@ -10,8 +10,9 @@ import Empty from './Empty';
 import {Styles as textStyle} from "../../styles/Global";
 import Ad from "../../components/Ad";
 import trackEvent from "../../helpers/AppsFlyer";
+import GlobalState from "../../models/GlobalState";
 
-export default class BattleList extends React.Component {
+export default class BattleList extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -19,6 +20,10 @@ export default class BattleList extends React.Component {
             items: [],
             loaded: false,
         };
+
+        let gs =new GlobalState();
+        gs.BattleList = this;
+
     }
 
     componentDidUpdate() {
@@ -28,7 +33,7 @@ export default class BattleList extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchData();
+        this.fetchData(true);
     }
 
     /**
@@ -44,12 +49,12 @@ export default class BattleList extends React.Component {
         CacheStore.get(CACHE_KEY).then((value) => {
             if (value !== null) {
                 this.updateList(value);
-            } else {
-                this.getRemoteList();
             }
         });
         this.getRemoteList();
     }
+
+
 
     getRemoteList() {
         const CACHE_KEY = 'proposal-list';
@@ -65,17 +70,30 @@ export default class BattleList extends React.Component {
                         .then(
                             (responseData) => {
 
+                                console.log('update to ', responseData);
 
                                 let items = responseData;
                                 this.updateList(items);
                                 CacheStore.set(CACHE_KEY, items, Config.lowCache);
+                                this.setState({
+                                    loaded: true,
+                                });
                             }
                         )
+                        .catch((e) => {
+                            console.log('catch', e)
+                        })
+                        .finally((ff) => {
+                            console.log('fail to update ', ff)
+                    })
                 }
             })
     }
 
     updateList(items) {
+
+        console.log('update')
+
         // noinspection JSAccessibilityCheck
         this.setState({
             items: items,
@@ -95,7 +113,6 @@ export default class BattleList extends React.Component {
             )
         }
 
-        console.log(this.state.items);
         if (this.state.items.length > 0) {
             //padding 10 - нужен для корректного отображения кружков новых сообщений
             return (
@@ -116,7 +133,7 @@ export default class BattleList extends React.Component {
     }
 
     renderAd() {
-        if (this.state.items.length < 4) {
+        if (this.state.items.length < 3) {
             return <Ad style={{marginBottom: -15, padding: 15}}/>
         }
         return null;
@@ -139,7 +156,6 @@ export default class BattleList extends React.Component {
                             trackEvent('proposalClose', dialogId);
                         });
                 }
-                this.fetchData(true);
             });
     }
 
