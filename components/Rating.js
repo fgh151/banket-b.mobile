@@ -17,7 +17,7 @@ export default class Rating extends React.Component{
     getStars = () => {
         this.stars=[];
         for (let i = 0; i < this.state.points; i++) {
-            this.stars.push(<Image key={i} source={require('../assets/images/star.png')} style={{width:12, height:12}}/>)
+            this.stars.push(<Image key={i} source={require('../assets/images/star.png')} style={{width:12, height:12, marginRight:3}}/>)
         }
         return this.stars;
     };

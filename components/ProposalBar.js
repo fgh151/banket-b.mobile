@@ -42,7 +42,7 @@ export default class ProposalBar extends Component {
         if (this.state.proposal) {
             let proposal = this.state.proposal;
             return (
-                <View style={{width: 250}}>
+                <View style={{width: 250, marginTop: -10}}>
                     <Text style={{fontWeight: '800', fontSize: 15, lineHeight:18, color: '#000', textAlign: 'center', paddingBottom: 10}}>
                         {Proposal.getEventTypeNames(this.state.proposal.event_type)}
                         {this.renderProposalId()}

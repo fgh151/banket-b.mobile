@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import * as ArrayHelper from '../../helpers/ArrayHelper';
 import {formatCost, formatDate, plural} from '../../helpers/StringHelper';
@@ -93,7 +93,7 @@ export default class ProposalListItem extends Component {
     renderAnswersCount(proposal: ProposalType){
 
         if (proposal.answers > 0) {
-            return(<Text>{proposal.answers} {plural(proposal.answers, 'ставка', 'ставки', 'ставок')}</Text>)
+            return(<Text style={{fontSize:13, lineHeight: 16}}>{proposal.answers} {plural(proposal.answers, 'ставка', 'ставки', 'ставок')}</Text>)
         }
         return null;
     }
@@ -101,6 +101,8 @@ export default class ProposalListItem extends Component {
     render() {
 
         const proposal = this.props.proposal;
+
+        console.log(proposal);
 
         return (
             <Shadow style={styles.blockWrapper}>
@@ -116,11 +118,11 @@ export default class ProposalListItem extends Component {
                                 </Text>
                             </View>
                             <View>
-                                <Text>
-                                    <Text style={textStyle.boldFont}>
+                                <Text style={{fontSize:15, lineHeight: 18}}>
+                                    <Text style={[textStyle.boldFont, {fontSize:15, lineHeight: 18}]}>
                                         {formatCost(proposal.amount * proposal.guests_count)}
                                     </Text>
-                                    <Text style={{fontSize:18}}>
+                                    <Text style={{fontSize:15, lineHeight: 18}}>
                                         &nbsp;{"\u20bd"}
                                     </Text>
                                 </Text>
@@ -128,8 +130,8 @@ export default class ProposalListItem extends Component {
                         </View>
                         <View style={styles.rowWrapper}>
                             <View style={{marginBottom: 10}}>
-                                <Text>
-                                    {formatDate(proposal.date, 'D MMMM')}, {proposal.time}
+                                <Text style={{fontSize:15, lineHeight: 18}}>
+                                    {formatDate(proposal.date, 'D MMM')}, {proposal.time}
                                 </Text>
                             </View>
                             <View>
@@ -139,8 +141,8 @@ export default class ProposalListItem extends Component {
                         <View style={[styles.rowWrapper, {marginBottom:5}]}>
                             <View>
                                 <Text>
-                                    <Text style={textStyle.grayText}>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
-                                    <Text style={textStyle.grayText} >, {formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
+                                    <Text style={{fontSize:13, lineHeight: 16}}>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
+                                    <Text style={{fontSize:13, lineHeight: 16}} >, {formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
                                 </Text>
                             </View>
                             <View>
@@ -160,23 +162,31 @@ export default class ProposalListItem extends Component {
 const styles = StyleSheet.create({
     blockWrapper: {
         padding: 10,
-        borderWidth: 1,
         borderRadius: 5,
-        borderColor: 'rgba(0, 0, 0, 0.19452)',
         //
         // boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.19452)",
 
-        shadowColor: 'rgba(0, 0, 0, 0.19452)',
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
         shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.5,
+        shadowOpacity: 1, //0.5,
         shadowRadius: 30,
 
         marginLeft: 15,
         marginRight: 15,
-        marginTop: 15,
-        marginBottom: 1,
+        marginTop: 10,
+        marginBottom: 0,
 
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+
+
+        ...Platform.select({
+            ios: {
+            },
+            android: {
+                borderWidth: 1,
+                borderColor: 'rgba(0, 0, 0, 0.19452)',
+            },
+        }),
     },
     rowWrapper: {
         flex: 1,
@@ -185,7 +195,8 @@ const styles = StyleSheet.create({
     },
     eventType: {
         fontFamily: "Lato-Bold",
-        fontSize: 18,
+        fontSize: 15,
+        lineHeight:18,
         color: '#1711E8'
     },
     time: {

@@ -67,7 +67,7 @@ export default class Ad extends React.Component {
             return (
                 <View style={[style.block, this.props.style]}>
                     <View>
-                    <Text style={[textStyle.defaultFont, {color:'rgba(0,0,0,0.5)'}]}>
+                    <Text style={[textStyle.defaultFont, {fontSize:15, lineHeight:18, color:'rgba(0,0,0,0.5)'}]}>
                         Предложения от партнеров
                     </Text>
                     </View>
@@ -109,7 +109,7 @@ export default class Ad extends React.Component {
                             <Text style={style.promoText}>{promo.item.title}</Text>
                         </View>
                         <View>
-                            <Text style={[textStyle.defaultFont, {color:'rgba(0, 0, 0, 0.5)', fontSize:15}]}>Подробнее</Text>
+                            <Text style={[textStyle.defaultFont, {color:'rgba(0, 0, 0, 0.5)', fontSize:13, lineHeight:16}]}>Подробнее</Text>
                         </View>
                     </View>
                 </View>
@@ -127,7 +127,7 @@ const style = StyleSheet.create({
 
     },
     wrapper: {
-        height: 148,
+        height: 118,
         width:286,
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
@@ -152,17 +152,17 @@ const style = StyleSheet.create({
     },
     image: {
         width: 91,
-        height: 148,
+        height: 118,
     },
     organizationName: {
         fontFamily: "Lato-Bold",
-        fontSize: 16,
+        fontSize: 13,
         lineHeight: 16,
         color: '#000000'
     },
     promoText: {
         fontFamily: "Lato-Regular",
-        fontSize: 15,
+        fontSize: 13,
         lineHeight: 16,
         color: '#000000'
     }

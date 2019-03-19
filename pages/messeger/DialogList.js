@@ -107,20 +107,20 @@ export default class DialogList extends Component {
 
     renderPicker() {
         const placeholder = {
-            label: 'Лучшее',
+            label: 'Лучшие',
             value: null,
             color: '#9EA0A4',
         };
 
         const variants = [
-            {label: "Лучшее", value: 1},
-            {label: "Последнее", value: 2},
+            {label: "Лучшие", value: 1},
+            {label: "Последние", value: 2},
             {label: "Рейтинг", value: 3},
         ];
 
         return (
             <PickerSelect
-                // Icon={<Image source={require('../../assets/images/down.png')} /> }
+                Icon={<Image source={require('../../assets/images/down.png')} /> }
                 placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}

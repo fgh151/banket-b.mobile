@@ -36,7 +36,7 @@ export default class DialogListItem extends Component {
     render() {
         const image = this.props.dialog.item.images[0];
 
-        console.log('ITEM', this.props.dialog.item);
+        console.log('ITEM', this.props.dialog.item, image);
 
         return (
             <Shadow style={styles.blockWrapper}>
@@ -47,15 +47,17 @@ export default class DialogListItem extends Component {
                         <View style={[styles.imageWrapper, {flex: 0.3}]}>
                             <Image style={styles.image} source={{uri: image}} resizeMode="cover"/>
                         </View>
-                        <View style={[styles.itemAnnotation, {padding: 10, flex: 0.5}]}>
+                        <View style={[styles.itemAnnotation, {padding: 10, flex: 0.6}]}>
                             <View style={{marginBottom: 5}}>
-                                <Text style={textStyle.boldFont}>
+                                <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
                                     {this.props.dialog.item.name}
                                 </Text>
                             </View>
                             <View style={{marginBottom: 5}}>
                                 <Text
-                                    style={[textStyle.defaultFont, {fontSize: 13, lineHeight:16}]}>{trunc(this.props.dialog.item.address, 15)}</Text>
+                                    style={[textStyle.defaultFont, {fontSize: 13, lineHeight:16}]}>
+                                    {this.props.dialog.item.address}
+                                </Text>
                             </View>
                             <View>
                                 <Rating rating={this.props.dialog.item.rating}/>
@@ -64,24 +66,23 @@ export default class DialogListItem extends Component {
                         <View style={[styles.itemAnnotation, {
                             paddingTop: 10,
                             paddingRight: 10,
-                            flex: 0.5,
+                            flex: 0.4,
                             alignItems: 'flex-end'
                         }]}>
                             <View style={{marginBottom: 5}}>
                                 <Text>
-                                    <Profit profit={this.props.dialog.item.profit}/>
                                     <Text>
-                                        <Text style={textStyle.boldFont}>
+                                        <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
                                             {formatCost(this.props.proposal.amount * this.props.proposal.guests_count)}
                                         </Text>
-                                        <Text style={{fontSize:18}}>
+                                        <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
                                             &nbsp;{"\u20bd"}
                                         </Text>
                                     </Text>
                                 </Text>
                             </View>
-                            <View>
-                                <Text>{formatCost(this.props.proposal.amount)} {"\u20bd"} / чел</Text>
+                            <View style={{marginBottom:6}}>
+                                <Profit profit={this.props.dialog.item.profit}/>
                             </View>
                             <View>
                                 <Text>{ round10( this.props.dialog.item.minPrice / this.props.proposal.guests_count)} {"\u20bd"} / чел</Text>

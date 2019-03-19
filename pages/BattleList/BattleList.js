@@ -26,14 +26,14 @@ export default class BattleList extends React.PureComponent {
 
     }
 
-    componentDidUpdate() {
-        let refresh = this.props.refresh;
-        this.props.refresh = false;
-        return refresh;
-    }
+    // componentDidUpdate() {
+    //     let refresh = this.props.refresh;
+    //     this.props.refresh = false;
+    //     return refresh;
+    // }
 
     componentDidMount() {
-        this.fetchData(true);
+        this.fetchData(false);
     }
 
     /**
@@ -61,8 +61,10 @@ export default class BattleList extends React.PureComponent {
         AsyncStorage.getItem('battle@token')
             .then((result) => {
 
-                // console.log('User token', result);
+
+                console.log('User token', result);
                 if (result === null) {
+
                     Actions.login();
                 } else {
                     const api = new Client(result);
@@ -80,12 +82,12 @@ export default class BattleList extends React.PureComponent {
                                 });
                             }
                         )
-                        .catch((e) => {
-                            console.log('catch', e)
-                        })
-                        .finally((ff) => {
-                            console.log('fail to update ', ff)
-                    })
+                        // .catch((e) => {
+                        //     console.log('catch', e)
+                        // })
+                        // .finally((ff) => {
+                        //     console.log('fail to update ', ff)
+                    // })
                 }
             })
     }
@@ -116,9 +118,9 @@ export default class BattleList extends React.PureComponent {
         if (this.state.items.length > 0) {
             //padding 10 - нужен для корректного отображения кружков новых сообщений
             return (
-                <View style={[textStyle.rootViewWrapper, {padding: 0}]}>
+                <View style={[textStyle.rootViewWrapper, {padding: 0, marginTop: -5}]}>
                     <FlatList
-                        style={textStyle.rootViewBig}
+                        style={[textStyle.rootViewBig, {paddingTop: 10}]}
                         ListEmptyComponent={<View/>}
                         data={this.state.items}
                         renderItem={this.renderProposal}
@@ -134,7 +136,7 @@ export default class BattleList extends React.PureComponent {
 
     renderAd() {
         if (this.state.items.length < 3) {
-            return <Ad style={{marginBottom: -15, padding: 15}}/>
+            return <Ad style={{marginBottom: -45, padding: 15}}/>
         }
         return null;
     }
