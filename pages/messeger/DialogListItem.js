@@ -85,7 +85,7 @@ export default class DialogListItem extends Component {
                                 <Profit profit={this.props.dialog.item.profit}/>
                             </View>
                             <View>
-                                <Text>{ round10( this.props.dialog.item.minPrice / this.props.proposal.guests_count)} {"\u20bd"} / чел</Text>
+                                <Text>{ round10( this.props.dialog.item.minPrice / this.props.proposal.guests_count)} {"\u20bd"} / чел.</Text>
                             </View>
                         </View>
                     </View>

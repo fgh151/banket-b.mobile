@@ -142,7 +142,7 @@ export default class ProposalListItem extends Component {
                             <View>
                                 <Text>
                                     <Text style={{fontSize:13, lineHeight: 16}}>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
-                                    <Text style={{fontSize:13, lineHeight: 16}} >, {formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
+                                    <Text style={{fontSize:13, lineHeight: 16}} >, {formatCost(proposal.amount)} {"\u20bd"} / чел.</Text>
                                 </Text>
                             </View>
                             <View>
