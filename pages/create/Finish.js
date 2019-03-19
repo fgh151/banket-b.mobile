@@ -8,7 +8,7 @@ export default class Finish extends React.Component {
 
     render() {
         return (
-            <View style={[textStyle.rootViewWrapper, {paddingTop: -15}]}>
+            <View style={[textStyle.rootViewWrapper]}>
                 <View style={WIIstyles.sliderItem}>
                     <Image source={require('../../assets/images/done.png')} style={{marginBottom:30}}/>
                     <View style={{marginBottom: 20}}>
@@ -45,12 +45,14 @@ const WIIstyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+
+        paddingBottom: 40
     },
     sliderHeader: {
         fontSize: 28,
 
         lineHeight:34,
-        fontWeight:'900',
+        fontWeight:'bold',
 
         color: '#000000'
     },
