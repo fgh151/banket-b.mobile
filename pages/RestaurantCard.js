@@ -12,7 +12,7 @@ import {isEmpty} from "../helpers/ArrayHelper";
 export default class RestaurantCard extends React.PureComponent {
 
 
-    //MOC
+    //MOC .props.restaurant
     // org = {
     //     "id": 1,
     //     "name": "Ресторанный рейтинг",
@@ -30,7 +30,8 @@ export default class RestaurantCard extends React.PureComponent {
     //         "title": "Китай-город",
     //         "color": "943E90"
     //     }, {"id": 186, "title": "Киевская", "color": "915133"}],
-    //     "key": "1"
+    //     "key": "1",
+    //     "rating":10
     // };
 
 
@@ -59,7 +60,7 @@ export default class RestaurantCard extends React.PureComponent {
                     >
                         {this.renderSlider(this.props.restaurant.images)}
                     </Swiper>
-                    <BackButton style={{position: 'absolute', top: 0, left: 0}} image={'white'}/>
+                    <BackButton style={{position: 'absolute', top: 10, left: 0}} image={'white'}/>
                 </View>
                 <View style={{flex: 70}}>
                     <View style={{
@@ -73,7 +74,7 @@ export default class RestaurantCard extends React.PureComponent {
                                 {this.props.restaurant.name}
                             </Text>
                         </View>
-                        <View style={{padding: 15, justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{padding: 15, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
                             <Rating rating={this.props.restaurant.rating}/>
                         </View>
                     </View>
@@ -82,34 +83,29 @@ export default class RestaurantCard extends React.PureComponent {
                         borderBottomColor: '#e0e0e0',
                         borderBottomWidth: 1
                     }}>
-
-                        <View>
-                            <Text>
-                                {this.props.restaurant.address}
-                            </Text>
-                            <TouchableOpacity onPress={() => this.callNumber('79778069428')}>
-                                <Text>{this.props.restaurant.phone}</Text>
-                            </TouchableOpacity>
-                        </View>
                         <TouchableOpacity onPress={() => {
                             openMap({
                                 latitude: this.props.restaurant.latitude,
                                 longitude: this.props.restaurant.longitude
                             });
-                        }} style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <ImageBackground
-                                source={require('../assets/images/geo_point.png')}
-                                style={{
-
-                                    flex: 0,
-
-                                    alignSelf: 'center',
-                                }}
-                                resizeMode="stretch"
-                            >
-                                <View style={{height: 20, width: 15}}/>
-                            </ImageBackground>
+                        }} style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
+                            <Text style={{color:'#1711E8'}}>
+                                {this.props.restaurant.address}
+                            </Text>
                         </TouchableOpacity>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row', padding: 15,
+                        borderBottomColor: '#e0e0e0',
+                        borderBottomWidth: 1
+                    }}>
+
+                        <View>
+
+                            <TouchableOpacity onPress={() => this.callNumber('79778069428')}>
+                                <Text style={{color:'#1711E8'}}>{this.props.restaurant.phone}</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     {this.renderHalls()}
                 </View>
@@ -139,17 +135,17 @@ export default class RestaurantCard extends React.PureComponent {
                 flexDirection:'column',
                 justifyContent: 'flex-start'
             }}>
-                <View>
-                <Text style={Styles.boldFont}>Залы</Text>
+                <View style={{marginBottom: 5}}>
+                <Text style={[Styles.boldFont, {fontSize:15, lineHeight:18}]}>Залы</Text>
                 </View>
                 <View style={{flex: 1, flexDirection:'column', alignSelf: 'auto', alignItems: 'flex-start', justifyContent: 'flex-start', flexWrap: 'wrap'}}>
                     {this.props.restaurant.halls.map((hall, index) => (
-                        <View style={{flexDirection: 'row',height:30}} key={index}>
+                        <View style={{flexDirection: 'row', marginBottom: 5}} key={index}>
                             <View style={{flex: 1, alignSelf: 'stretch'}}>
-                                <Text>{hall.title}</Text>
+                                <Text style={{fontSize:15, lineHeight:18}}>{hall.title}</Text>
                             </View>
                             <View style={{flex: 2, alignSelf: 'stretch'}}>
-                                <Text>{hall.size}</Text>
+                                <Text style={{fontSize:15, lineHeight:18}}>{hall.size} человек</Text>
                             </View>
                         </View>
                     ))}
