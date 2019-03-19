@@ -57,7 +57,8 @@ export default class LoginPhone extends React.Component {
                             valid={true}
                         />
                     </View>
-                    <View>
+                </TouchableOpacity>
+                    <View style={{width:'100%'}}>
                         <Button
                             style={{width: '100%'}}
                             disabled={this.state.buttonDisabled}
@@ -65,7 +66,6 @@ export default class LoginPhone extends React.Component {
                             onPress={this.nextPage}
                         />
                     </View>
-                </TouchableOpacity>
             </View>
         )
     }

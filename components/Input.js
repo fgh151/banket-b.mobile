@@ -66,7 +66,7 @@ export default class Input extends React.Component {
     }
 
     renderPlaceholder(text: string) {
-        if (isString(text) && this.state.focus) {
+        if ((isString(text) && this.state.focus) || this.props.showPlaceholder) {
             return <Text style={styles.activePlaceholder}>{text}</Text>
         }
     }

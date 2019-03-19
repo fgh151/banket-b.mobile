@@ -65,7 +65,7 @@ export default class LoginCode extends React.Component {
         return (
             <TouchableOpacity onPress={() => (Keyboard.dismiss())} style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{flex: 0.2, marginTop: 20}}>
+                    <View style={{flex: 0.3, marginTop: 20, marginLeft: 5}}>
                         <Input
                             component={<TextInputMask
                                 refInput={ref => {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
                 paddingBottom: 5
             },
             android: {
-                marginLeft: -5
+                marginLeft: 0
             },
         }),
     },
@@ -123,6 +123,15 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+
+
+        ...Platform.select({
+            ios: {
+            },
+            android: {
+                marginTop:0
+            },
+        }),
     },
 });
