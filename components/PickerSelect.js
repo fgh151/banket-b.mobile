@@ -76,7 +76,7 @@ export default class PickerSelect extends PureComponent {
         placeholderTextColor: '#C7C7CD',
         useNativeAndroidPickerStyle: true,
         hideDoneBar: false,
-        doneText: 'Done',
+        doneText: 'Готово',
         onDonePress: null,
         onUpArrow: null,
         onDownArrow: null,
