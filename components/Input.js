@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from "react-native"
+import {StyleSheet, Text, View, Platform} from "react-native"
 
 import {isString} from "../helpers/StringHelper";
 
@@ -67,7 +67,7 @@ export default class Input extends React.Component {
 
     renderPlaceholder(text: string) {
         if (isString(text) && this.state.focus) {
-            return <Text>{text}</Text>
+            return <Text style={styles.activePlaceholder}>{text}</Text>
         }
     }
 
@@ -108,6 +108,22 @@ Input.defaultProps = {
 };
 
 const styles = StyleSheet.create({
+    activePlaceholder :{
+
+        color:'#000000',
+        opacity:.5,
+        fontSize: 11,
+        lineHeight: 13,
+
+        ...Platform.select({
+            ios: {
+            },
+            android: {
+                marginLeft: -5,
+                marginBottom:-13,
+            },
+        })
+    },
     overlay: {
         opacity: .3,
         position: 'absolute',
@@ -125,14 +141,36 @@ const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
-        paddingBottom: 5,
+
+        ...Platform.select({
+            ios: {
+                paddingBottom: 0,
+                marginBottom: 10,
+            },
+            android: {
+                paddingBottom: 0,
+                marginBottom: 10,
+            },
+        })
 
     },
     description: {
-        color: '#E0E0E0',
+        // color: '#E0E0E0',
+
+        color:'#000000',
+        opacity:.5,
+
         fontSize: 13,
         lineHeight: 16,
         fontFamily: "Lato-Regular",
+
+        ...Platform.select({
+            ios: {
+            },
+            android: {
+                marginLeft: -5
+            },
+        })
     },
     error: {
         color: '#ff1700'

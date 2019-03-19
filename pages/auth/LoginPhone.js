@@ -1,16 +1,15 @@
 import React from 'react';
-import {Platform, StyleSheet, TextInput, View, ScrollView, TouchableOpacity,Keyboard} from "react-native";
+import {Keyboard, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
 import Client from '../../http/Client';
-import type {LoginResponse} from "../../types/LoginResponse";
 import {Actions} from "react-native-router-flux";
 
-export default class LoginPhone extends React.Component{
+export default class LoginPhone extends React.Component {
 
-    constructor () {
+    constructor() {
         super();
         this.state = {
             phone: '',
@@ -23,7 +22,7 @@ export default class LoginPhone extends React.Component{
             .then(() => Actions.LoginCode({phone: this.state.phone}));
     };
 
-    phoneChange = (formatted : string, extracted: string) => {
+    phoneChange = (formatted: string, extracted: string) => {
 
         console.log(extracted, formatted);
 
@@ -36,30 +35,36 @@ export default class LoginPhone extends React.Component{
     };
 
     render() {
-        return(
-            <View style={[Styles.rootViewWrapper]}>
-                <TouchableOpacity onPress={() => (Keyboard.dismiss())}>
-                <Input
-                    inputStyle={styles.textInput}
-                    component={<TextInputMask
-                        refInput={ref => { this.input = ref }}
-                        onChangeText={this.phoneChange}
-                        keyboardType="phone-pad"
-                        placeholder='Номер телефона'
-                        placeholderTextColor="#000"
-                        style={styles.textInput}
-                        mask={"+7 ([000]) [000] [00] [00]"}
-                    />}
-                    description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                    active={true}
-                    valid={true}
-                />
-                <Button
-                    style={{width:'100%'}}
-                    disabled={this.state.buttonDisabled}
-                    title="Продолжить"
-                    onPress={this.nextPage}
-                />
+        return (
+            <View style={[Styles.rootViewWrapper, {marginTop: 35}]}>
+                <TouchableOpacity onPress={() => (Keyboard.dismiss())} style={{flex: .92}}>
+                    <View style={{marginRight: 20, marginLeft: 20}}>
+                        <Input
+                            inputStyle={styles.textInput}
+                            component={<TextInputMask
+                                refInput={ref => {
+                                    this.input = ref
+                                }}
+                                onChangeText={this.phoneChange}
+                                keyboardType="phone-pad"
+                                placeholder='Номер телефона'
+                                placeholderTextColor="#000"
+                                style={styles.textInput}
+                                mask={"+7 ([000]) [000] [00] [00]"}
+                            />}
+                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                            active={true}
+                            valid={true}
+                        />
+                    </View>
+                    <View>
+                        <Button
+                            style={{width: '100%'}}
+                            disabled={this.state.buttonDisabled}
+                            title="Продолжить"
+                            onPress={this.nextPage}
+                        />
+                    </View>
                 </TouchableOpacity>
             </View>
         )
@@ -67,15 +72,19 @@ export default class LoginPhone extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    textInput : {
-        fontSize:15,
-        color:'#0C20E3',
+    textInput: {
+        fontSize: 15,
+        // marginRight:30,
+        // marginLeft:30,
+
+        color: '#0C20E3',
         ...Platform.select({
             ios: {
                 // paddingTop:20,
-                paddingBottom:5
+                paddingBottom: 4
             },
             android: {
+                paddingBottom: 0,
                 marginLeft: -5
             },
         }),
