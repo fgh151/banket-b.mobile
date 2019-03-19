@@ -59,8 +59,6 @@ const style = StyleSheet.create({
         marginBottom:6,
         borderRadius:20,
         backgroundColor: '#E7E7E7',
-        alignSelf: 'flex-start',
-
     },
     inactiveText:{
         fontSize:15,

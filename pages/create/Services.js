@@ -42,7 +42,7 @@ export default class Services extends React.PureComponent {
                         justifyContent: 'center',
                         alignItems: 'stretch',
                         flexWrap: 'wrap',
-                        width: 320,
+                        maxWidth: 320,
                         marginTop: 10
                     }}>
                         <ServiceInput text="Флористика" onPress={() => this.toggleProp('floristics')}/>
