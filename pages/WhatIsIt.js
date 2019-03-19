@@ -40,7 +40,7 @@ export default class WhatIsIt extends React.PureComponent {
                                 </Text>
                             </View>
                         </View>
-                        <View style={WIIstyles.sliderItem}>
+                        <View style={[WIIstyles.sliderItem, {paddingBottom:70}]}>
                             <Image source={require('../assets/images/how-it-work.png')} style={{marginBottom: 35}}/>
                             <View style={{marginBottom: 20}}>
                                 <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Как
@@ -101,6 +101,7 @@ const WIIstyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom:100,
     },
     sliderHeader: {
         lineHeight: 34,
