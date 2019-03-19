@@ -36,18 +36,20 @@ export default class RegisterPhone extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{justifyContent: 'flex-start'}}>
-                        <View style={{height: 100}}>
+                    <View style={{justifyContent: 'flex-start', marginTop: 25}}>
+                        <View style={{height: 60}}>
                             <Input
                                 component={<TextInput
+                                    placeholderTextColor={'#000000'}
                                     style={styles.textInput}
                                     placeholder="Имя"
+                                    value={this.state.name}
                                     onChangeText={this.nameChange}
                                 />}
-                                style={{marginBottom: 50}}
+                                style={{marginBottom: 0}}
                             />
                         </View>
-                        <View style={{height: 100}}>
+                        <View style={{height: 100, marginTop:10}}>
 
                             <Input
                                 component={<TextInputMask
@@ -58,7 +60,7 @@ export default class RegisterPhone extends React.Component {
                                     keyboardType="phone-pad"
                                     placeholder='Номер телефона'
                                     placeholderTextColor="#000"
-                                    style={{color: '#0C20E3', paddingBottom: 5}}
+                                    style={styles.maskInput}
                                     mask={"+7 ([000]) [000] [00] [00]"}
                                 />}
                                 style={{marginBottom: 50}}
@@ -84,13 +86,28 @@ export default class RegisterPhone extends React.Component {
 
 const styles = StyleSheet.create({
     textInput: {
+        color:'#000000',
         fontSize: 15,
         ...Platform.select({
             ios: {
-                paddingTop: 20,
-                paddingBottom: 5
+                paddingTop: 0,
+                paddingBottom: 7
             },
             android: {
+                marginLeft: -5
+            },
+        }),
+    },
+
+    maskInput: {
+        color: '#0C20E3',
+        ...Platform.select({
+            ios: {
+                // paddingTop:20,
+                paddingBottom: 4
+            },
+            android: {
+                paddingBottom: 0,
                 marginLeft: -5
             },
         }),
