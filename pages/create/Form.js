@@ -68,7 +68,7 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <View style={textStyle.rootViewWrapper}>
+            <View style={[textStyle.rootViewWrapper, {marginTop: 25}]}>
                 <ScrollView
                     style={textStyle.rootView}
                 >
@@ -98,15 +98,16 @@ export default class Form extends React.Component {
                         active={true}
 
                     />
-                    {/*<Input*/}
-                        {/*component={*/}
+                    <Input
+                        component={
                             <TextInput
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={[styles.textInput, valid.valid, { borderBottomWidth: 1,
-                                borderBottomColor: '#E0E0E0',
-                                paddingBottom: 15,}]}
+                            style={[styles.textInput, valid.valid, {
+                                marginTop:-10,
+
+                                paddingBottom: 5,}]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(count) => {this.setProposalProperty('guests_count', count); this.setState({guests_count:count})}}
                             keyboardType="numeric"
@@ -114,40 +115,43 @@ export default class Form extends React.Component {
                             returnKeyType={'done'}
                             value={333}
                         />
-                        {/*}*/}
-                        {/*active={true}*/}
-                        {/*valid={true}*/}
-                        {/*error={this.state.guests_count_error}*/}
-
-                    {/*/>*/}
+                        }
+                        active={true}
+                        valid={true}
+                        error={this.state.guests_count_error}
+                    />
                     <Input
                         component={
                             <AmountInput onChange={this.setProposalProperty}/>
                         }
+                        style={{marginTop:-10}}
                         active={true}
                         error={this.state.amount_error}
                     />
 
-                    {/*<Input*/}
-                        {/*component={*/}
+                    <Input
+                        component={
                             <TextInput
                             multiline
                             refInput={ref => {
                                 this.input = ref
                             }}
-                            style={[styles.textInput, valid.valid, { borderBottomWidth: 1,
-                                borderBottomColor: '#E0E0E0',
-                                paddingBottom: 15,}]}
+                            style={[styles.textInput, valid.valid, {
+                                marginTop:-10,
+
+                                paddingBottom: 5,
+
+                            }]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
                             placeholder='Дополнительно'
                             returnKeyType={'done'}
                             value={this.state.notes}
                         />
-                        {/*}*/}
-                        {/*active={true}*/}
+                        }
+                        active={true}
 
-                    {/*/>*/}
+                    />
                 </ScrollView>
 
                 <View style={{width: '100%'}}>

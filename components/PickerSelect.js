@@ -541,5 +541,8 @@ const defaultStyles = StyleSheet.create({
         height: '100%',
         color: 'transparent',
         opacity: 0,
+
+
+
     },
 });

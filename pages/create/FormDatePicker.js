@@ -25,8 +25,8 @@ export default class FormDatePicker extends React.Component{
                         alignItems: 'flex-start',
                         width: '100%',
                     },
-                    placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000'}],
-                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2'}],
+                    placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000', paddingTop: 5, marginBottom: -10}],
+                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2', paddingTop: 5}],
                     btnTextConfirm : {
                         color: '#0C21E2'
                     }
@@ -59,6 +59,10 @@ export default class FormDatePicker extends React.Component{
 
 const styles = StyleSheet.create({
     dateTouch: {
+
+
+        marginTop:-15,
+
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
