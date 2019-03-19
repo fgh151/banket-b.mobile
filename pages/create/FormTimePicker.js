@@ -1,7 +1,8 @@
 import React from 'react';
-import {Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Modal, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {WheelPicker} from 'react-native-wheel-picker-android'
 
+import {Button} from '../../components/Button';
 const timePeriod = [
     '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
     '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '10:00', '11:30',
@@ -45,14 +46,14 @@ export default class FormTimePicker extends React.Component {
                         >
                         </TouchableOpacity>
                         <View style={ModalStyle.content}>
-                            <View style={ModalStyle.doneWrapper}>
-                                <TouchableOpacity style={ModalStyle.doneButton} onPress={() => this.setState({modalVisible: false})}>
-                                    <Text style={ModalStyle.doneButtonText}>
-                                    Готово
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
                             {this.renderPicker()}
+                            <View style={ModalStyle.doneWrapper}>
+                                <Button
+                                    style={ModalStyle.doneButton}
+                                    onPress={() => this.setState({modalVisible: false})}
+                                    title={'Сохранить'}
+                                />
+                            </View>
                         </View>
                     </Modal>
                 </View>
@@ -89,7 +90,7 @@ export default class FormTimePicker extends React.Component {
 
     renderPicker() {
         return (
-            <View style={{flexDirection: 'row', justifyContent: 'center', paddingBottom:50}}>
+            <View style={ModalStyle.pickersWrapper}>
                 <View style={ModalStyle.pickerColumn}>
                     <Text style={{textAlign: 'center'}}>Начало</Text>
                     <WheelPicker
@@ -113,27 +114,50 @@ export default class FormTimePicker extends React.Component {
 
 
 const ModalStyle = StyleSheet.create({
-    doneWrapper: {
-        alignItems: 'flex-end',
+
+    pickersWrapper:{
+        flexDirection: 'row',
         justifyContent: 'center',
+        ...Platform.select({
+            ios: {
+                paddingBottom:50,
+            },
+            android: {},
+        }),
+    },
+    doneWrapper: {
+        // alignItems: 'center',
+        // justifyContent: 'center',
+
+        width: '100%',
+
+        paddingLeft:15,
+        paddingRight:15,
 
 
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0,0,0, 0.5)'
     },
     doneButton: {
         padding: 10,
+
+        backgroundColor: '#0C21E2',
+        color:'#ffffff',
+
+
     },
-    doneButtonText: {
-        color: "#0C21E2",
-        fontSize: 16,
-        lineHeight:18,
-    },
+
     pickerColumn: {
         flexDirection: 'column',
         width: '50%',
+        alignItems: 'center',
         margin: 10,
-        alignItems: 'center'
+
+        ...Platform.select({
+            ios: {
+            },
+            android: {
+                marginBottom: -20
+            },
+        }),
     },
 
     overlay: {
@@ -146,8 +170,8 @@ const ModalStyle = StyleSheet.create({
     content: {
         width: '100%',
         backgroundColor: "#fff",
-        // borderTopLeftRadius: 10,
-        // borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
         // paddingTop: 15,
         paddingBottom: 15,
         position: 'absolute',
