@@ -89,7 +89,7 @@ export default class CodeInput extends React.Component {
                     </View>
                 </View>
                 <View style={{marginTop: 10}}>
-                    <Text>{this.state.timerText}</Text>
+                    <Text style={{height: 40, flexWrap: 'wrap'}}>{this.state.timerText}</Text>
                 </View>
             </View>
         )
