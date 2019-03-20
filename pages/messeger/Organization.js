@@ -20,44 +20,51 @@ export default class Organization extends React.Component {
                 <View style={{flexDirection: 'column'}}>
                     <Image style={styles.image} source={{uri: image}} resizeMode="cover"/>
                 </View>
-                <View style={{flex: 1, flexDirection: 'column', paddingLeft: 10}}>
+                <View style={{flex: 1, flexDirection: 'column', paddingLeft: 15}}>
                     <View>
-                        <Text style={textStyle.boldFont}>
+                        <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18, paddingTop: 10}]}>
                             {this.props.organization.name}
                         </Text>
                     </View>
-                    <View>
+                    <View style={{paddingTop: 10}}>
                         <Text
                             style={[textStyle.defaultFont, {
-                                fontSize: 10,
+                                fontSize: 13,
+                                lineHeight:16,
                                 color: '#0C21E2'
-                            }]}>{trunc(this.props.organization.address, 15)}</Text>
+                            }]}>
+                            {this.props.organization.address}
+                        </Text>
                     </View>
-                    <View>
+                    <View style={{paddingTop: 10}}>
                         <Text
                             style={[textStyle.defaultFont, {
-                                fontSize: 10,
+                                fontSize: 13,
+                                lineHeight:16,
                                 color: '#0C21E2'
-                            }]}>{trunc(this.props.organization.phone, 15)}</Text>
+                            }]}>
+                            {this.props.organization.phone}
+                        </Text>
                     </View>
-                    <View>
+                    <View style={{paddingTop: 10}}>
                         <Rating rating={this.props.organization.rating}/>
                     </View>
                 </View>
-                <View style={{flex: 1, flexDirection: 'column', alignItems: 'flex-end', paddingRight: 10}}>
-
-                    <View>
+                <View style={{flex: .5, flexDirection: 'column', alignItems: 'flex-end', paddingRight: 10}}>
+                    <View style={{paddingTop: 10}}>
                         <Text style={{flexWrap: 'nowrap'}}>
-                            <Profit profit={this.props.organization.profit}/>
                             <Text>
-                                <Text style={textStyle.boldFont}>
+                                <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
                                     {formatCost(this.props.proposal.amount * this.props.proposal.guests_count)}
                                 </Text>
-                                <Text>
+                                <Text style={{fontSize:15, lineHeight:18}}>
                                     &nbsp;{"\u20bd"}
                                 </Text>
                             </Text>
                         </Text>
+                    </View>
+                    <View style={{paddingTop: 10}}>
+                        <Profit profit={this.props.organization.profit}/>
                     </View>
 
                 </View>
@@ -70,6 +77,7 @@ export default class Organization extends React.Component {
 const styles = StyleSheet.create({
     blockWrapper: {
         borderColor: '#E0E0E0',
+        borderBottomWidth: 1,
         elevation: 0,
         flexDirection: 'row',
         alignItems: 'stretch',
@@ -91,8 +99,8 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 5,
     },
     image: {
-        width: 100, //'100%',
-        height: 100,// '100%'
+        width: 65, //'100%',
+        height: 120,// '100%'
     },
     profit: {
         fontFamily: "Lato-Bold",

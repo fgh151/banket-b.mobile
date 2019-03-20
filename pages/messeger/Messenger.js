@@ -11,6 +11,7 @@ import {messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import {updateProposalList} from "../BattleList/ProposalListItem";
 import Organization from "./Organization";
+import Message from "./Message";
 
 export default class Messenger extends Component {
 
@@ -41,19 +42,14 @@ export default class Messenger extends Component {
                         borderRadius: 15,
                         backgroundColor: '#DFEAFF',
                         flex: 1,
-                        flexDirection: 'column',
+                        flexDirection: 'row',
                         maxWidth: '90%',
                         padding: 10
                     }}
                 >
-                    <View style={{ flex:95}}>
-                        <Hyperlink linkDefault={true}>
-                            <Text>{model.message}</Text>
-                        </Hyperlink>
-                    </View>
-                    <View  style={{flex:5}}>
-                        {this.renderTime(model.created_at, 'right')}
-                    </View>
+
+                    <Message message={model.message} created_at={model.created_at}/>
+
                 </View>
             </View>
         );
@@ -81,21 +77,15 @@ export default class Messenger extends Component {
                         borderRadius: 15,
                         backgroundColor: '#F6F6F6',
                         flex: 1,
-                        flexDirection: 'column',
+                        flexDirection: 'row',
                         maxWidth: '90%',
                         padding: 10,
 
                     }}
                     onPress={() => Messenger.shareMessage(model.message)}
                 >
-                    <View style={{ flex:95}}>
-                        <Hyperlink linkDefault={true}>
-                            <Text>{model.message}</Text>
-                        </Hyperlink>
-                    </View>
-                    <View style={{ flex:5}}>
-                        {this.renderTime(model.created_at, 'right')}
-                    </View>
+
+                    <Message message={model.message} created_at={model.created_at}/>
                 </TouchableOpacity>
             </View>
         );
@@ -108,7 +98,7 @@ export default class Messenger extends Component {
     static renderTime(timestamp, align) {
         const time = moment(timestamp * 1000);
         return (
-            <Text style={{paddingTop: 10, textAlign: align}}>{time.format('HH:mm')}</Text>
+            <Text style={{paddingTop: 10, textAlign: align, color: '#878787', fontSize:12, lineHeight:15}}>{time.format('HH:mm')}</Text>
         )
     }
 
@@ -209,7 +199,7 @@ export default class Messenger extends Component {
 
         return (
 
-            <SafeAreaView style={[textStyle.rootViewWrapper, {margin: -15 }]}>
+            <SafeAreaView style={[textStyle.rootViewWrapper, {margin: 0 }]}>
                 {this.renderOrganization()}
                 <FlatList
 
