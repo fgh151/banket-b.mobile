@@ -93,9 +93,13 @@ export default class App extends React.Component {
         return (
             <Router
                 sceneStyle={{backgroundColor: '#ffffff'}}
-                titleStyle={{textAlign: 'center', fontWeight: 'bold', fontSize: 15}}
             >
-                <Scene key="root" hideNavBar={false} title="Банкетный баттл">
+                <Scene
+                    key="root"
+                    hideNavBar={false}
+                    title="Банкетный баттл"
+                    titleStyle={{textAlign: 'center', fontWeight: 'bold', fontSize: 15}}
+                >
                     <Scene
                         key={'router'}
                         component={AppRouter}
@@ -184,7 +188,7 @@ export default class App extends React.Component {
                         key="DialogList"
                         component={DialogList}
                         title="DialogList"
-                        navigationBarStyle={{height: 109}}
+                        navigationBarStyle={{height: 90}}
                         renderTitle={<ProposalBar/>}
                         renderBackButton={() => <BackButton/>}
                         // renderRightButton={<ProposalMenu />}
