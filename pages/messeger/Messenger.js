@@ -44,7 +44,6 @@ export default class Messenger extends Component {
                         flex: 1,
                         flexDirection: 'row',
                         maxWidth: '90%',
-                        padding: 10
                     }}
                 >
 
@@ -79,7 +78,6 @@ export default class Messenger extends Component {
                         flex: 1,
                         flexDirection: 'row',
                         maxWidth: '90%',
-                        padding: 10,
 
                     }}
                     onPress={() => Messenger.shareMessage(model.message)}
@@ -93,13 +91,6 @@ export default class Messenger extends Component {
 
     static isMy(model) {
         return model.author_class === 'app\\common\\models\\MobileUser';
-    }
-
-    static renderTime(timestamp, align) {
-        const time = moment(timestamp * 1000);
-        return (
-            <Text style={{paddingTop: 10, textAlign: align, color: '#878787', fontSize:12, lineHeight:15}}>{time.format('HH:mm')}</Text>
-        )
     }
 
     componentDidMount() {

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import moment from "moment";
 import {db} from '../../Config';
 import {AsyncStorage, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class MessageForm extends Component {
 
@@ -102,7 +103,14 @@ const style = StyleSheet.create({
         // marginBottom:15,
         // marginLeft:15,
         // marginRight:15,
-        backgroundColor: '#F7F7F7'
+        backgroundColor: '#F7F7F7',
+
+
+        ...ifIphoneX({
+            marginBottom: -35,
+            paddingBottom:35
+        })
+
     },
 
     textInput: {
