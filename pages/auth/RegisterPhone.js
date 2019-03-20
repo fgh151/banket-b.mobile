@@ -6,6 +6,7 @@ import {Button} from "../../components/Button";
 import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import type {LoginResponse} from "../../types/LoginResponse";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class RegisterPhone extends React.Component {
     state = {
@@ -20,7 +21,7 @@ export default class RegisterPhone extends React.Component {
         api.POST('/v2/auth/sendcode', {phone: this.state.phone, name: this.state.name})
             .then((response: LoginResponse) => {
             });
-        Actions.RegisterCode({phone: this.state.phone, name: this.state.name});
+        Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
     };
     phoneChange = (formatted: string, extracted: string) => {
         if (extracted.length === 10) {
@@ -71,7 +72,7 @@ export default class RegisterPhone extends React.Component {
                         </View>
                     </View>
                 </View>
-                <View style={{padding: 10, width: '100%'}}>
+                <View style={styles.buttonWrapper}>
                     <Button
                         disabled={this.state.buttonDisabled}
                         title="Создать батл"
@@ -85,6 +86,15 @@ export default class RegisterPhone extends React.Component {
 }
 
 const styles = StyleSheet.create({
+
+    buttonWrapper: {
+        padding: 10,
+        width: '100%',
+        ...ifIphoneX({
+            marginBottom: 50
+        })
+    },
+
     textInput: {
         color:'#000000',
         fontSize: 15,

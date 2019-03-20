@@ -104,7 +104,8 @@ Input.defaultProps = {
     valid: false,
     active: true,
     style: {},
-    inputStyle: {}
+    inputStyle: {},
+    showPlaceholder:false
 };
 
 const styles = StyleSheet.create({

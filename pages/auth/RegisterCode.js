@@ -12,12 +12,13 @@ import {firstLunchDone} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class RegisterCode extends React.Component {
 
     state = {
         phone: this.props.phone,
-        name: this.props.name,
+        userName: this.props.userName,
         code: '',
         buttonDisabled: true
     };
@@ -72,27 +73,30 @@ export default class RegisterCode extends React.Component {
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{justifyContent: 'flex-start'}}>
-                        <View style={{height: 100}}>
+                        <View style={{height: 100, opacity:.5}}>
                             <Input
                                 component={<TextInput
                                     style={styles.textInput}
                                     placeholder="Имя"
-                                    value={this.props.name}
+                                    // value={this.state.userName}
+                                    value={'Test'}
                                     onChangeText={this.nameChange}
                                 />}
+                                showPlaceholder={true}
                                 style={{marginBottom: 50}}
                                 active={false}
                                 valid={true}
                             />
                         </View>
-                        <View style={{height: 100}}>
+                        <View style={{height: 100, opacity:.5}}>
 
                             <Input
                                 component={<TextInputMask
                                     refInput={ref => {
                                         this.input = ref
                                     }}
-                                    value={this.props.phone}
+                                    // value={this.props.phone}
+                                    value={'+7 (999) 999 99 99'}
                                     onChangeText={this.phoneChange}
                                     keyboardType="phone-pad"
                                     placeholder='Номер телефона'
@@ -100,6 +104,7 @@ export default class RegisterCode extends React.Component {
                                     style={{color: '#0C20E3', paddingBottom: 5}}
                                     mask={"+7 ([000]) [000] [00] [00]"}
                                 />}
+                                showPlaceholder={true}
                                 style={{marginBottom: 50}}
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                 active={false}
@@ -109,11 +114,11 @@ export default class RegisterCode extends React.Component {
 
                         <View style={{height: 100}}>
 
-                            <CodeInput phone={this.props.phone} name={this.props.name} codeChange={this.codeChange}/>
+                            <CodeInput phone={this.props.phone} name={this.state.userName} codeChange={this.codeChange}/>
                         </View>
                     </View>
                 </View>
-                <View style={{padding: 10, width: '100%'}}>
+                <View style={styles.buttonWrapper}>
                     <Button
                         disabled={this.state.buttonDisabled}
                         title="Создать батл"
@@ -128,12 +133,23 @@ export default class RegisterCode extends React.Component {
 
 RegisterCode.propTypes = {
     phone: PropTypes.string,
-    name: PropTypes.string,
+    userName: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
+
+    buttonWrapper: {
+        padding: 10,
+        width: '100%',
+        ...ifIphoneX({
+            marginBottom: 50
+        })
+    },
+
     textInput: {
+        color:'#0C20E3',
         fontSize: 15,
+        lineHeight:18,
         ...Platform.select({
             ios: {
                 paddingTop: 20,
@@ -146,6 +162,8 @@ const styles = StyleSheet.create({
     },
 
     container: {
+        paddingTop:30,
+
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',

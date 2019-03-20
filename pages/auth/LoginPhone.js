@@ -6,6 +6,7 @@ import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
 import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class LoginPhone extends React.Component {
 
@@ -58,7 +59,7 @@ export default class LoginPhone extends React.Component {
                         />
                     </View>
                 </TouchableOpacity>
-                    <View style={{width:'100%'}}>
+                    <View style={styles.buttonWrapper}>
                         <Button
                             style={{width: '100%'}}
                             disabled={this.state.buttonDisabled}
@@ -72,6 +73,15 @@ export default class LoginPhone extends React.Component {
 }
 
 const styles = StyleSheet.create({
+
+    buttonWrapper: {
+        padding: 10,
+        width: '100%',
+        ...ifIphoneX({
+            marginBottom: 50
+        })
+    },
+
     textInput: {
         fontSize: 15,
         // marginRight:30,

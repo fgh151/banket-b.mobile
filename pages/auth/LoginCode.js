@@ -12,6 +12,7 @@ import {Actions} from "react-native-router-flux";
 import {firstLunchDone} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class LoginCode extends React.Component {
 
@@ -88,7 +89,7 @@ export default class LoginCode extends React.Component {
                     </View>
                 </View>
 
-                <View style={{padding: 10, width: '100%'}}>
+                <View style={styles.buttonWrapper}>
                     <Button
                         disabled={this.state.buttonDisabled}
                         title="Продолжить"
@@ -106,6 +107,15 @@ LoginCode.propTypes = {
 };
 
 const styles = StyleSheet.create({
+
+    buttonWrapper: {
+        padding: 10,
+        width: '100%',
+        ...ifIphoneX({
+            marginBottom: 50
+        })
+    },
+
     textInput: {
         fontSize: 15,
         ...Platform.select({
