@@ -25,7 +25,7 @@ import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
-import RightButton from "./components/RightButton";
+import {RightButton} from "./pages/BattleList/BattleList";
 
 import {
     setCustomTextInput,
