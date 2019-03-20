@@ -12,6 +12,10 @@ export default class CitySelector extends React.Component {
         cities: []
     };
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         this.fetchData();
     }
@@ -36,25 +40,29 @@ export default class CitySelector extends React.Component {
                 </View>
             )
         } else {
-            return (<Loading />);
+            return (<Loading/>);
         }
     }
 
-    static setCity(city) {
+    setCity(city) {
         let c = new City();
         c.id = city.id;
         c.city = city;
+
+        this.props.onSelect(city);
+
+
         Actions.popTo('Form');
     }
 
-    renderCity(city) {
+    renderCity = (city) => {
         console.log(city);
         return (
             <TouchableOpacity
-                onPress={() => CitySelector.setCity(city.item)}
+                onPress={() => this.setCity(city.item)}
             >
-                <View style={{ borderColor: '#E0E0E0', borderBottomWidth: 1}}>
-                    <Text style={{fontSize: 15, lineHeight:50}}>
+                <View style={{borderColor: '#E0E0E0', borderBottomWidth: 1}}>
+                    <Text style={{fontSize: 15, lineHeight: 50}}>
                         {city.item.title}
                     </Text>
                 </View>
@@ -63,4 +71,3 @@ export default class CitySelector extends React.Component {
     }
 
 }
-

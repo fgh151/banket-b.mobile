@@ -120,8 +120,7 @@ const styles = StyleSheet.create({
             ios: {
             },
             android: {
-                marginLeft: -5,
-                marginBottom:-13,
+                // marginBottom:-13,
             },
         })
     },

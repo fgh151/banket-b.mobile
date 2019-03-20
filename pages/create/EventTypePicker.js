@@ -31,6 +31,7 @@ export default class EventTypePicker extends React.Component {
                     this.props.onValueChange(value);
                 }}
                 style={pickerSelectStyles}
+                useNativeAndroidPickerStyle={false}
             />
         );
     }
@@ -45,9 +46,16 @@ const pickerSelectStyles = StyleSheet.create({
         paddingTop: 5
     },
     inputAndroid: {
+        marginTop:-5,
+        paddingBottom: 0,
+
+        marginLeft:-5,
+
         color: '#0C21E2',
         paddingRight: 30, // to ensure the text is never behind the icon
-        marginLeft: -8,
+        // marginLeft: -8,
 
+        // fontSize:15,
+        // lineHeight:18,
     },
 });

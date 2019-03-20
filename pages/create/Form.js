@@ -14,6 +14,8 @@ import FormTimePicker from './FormTimePicker';
 import EventTypePicker from "./EventTypePicker";
 import CityPicker from "./CityPicker";
 import AmountInput from "./AmountInput";
+import {ifIphoneX} from "react-native-iphone-x-helper";
+import GuestsCountInput from "./GuestsCountInput";
 
 export default class Form extends React.Component {
     state = {
@@ -63,7 +65,7 @@ export default class Form extends React.Component {
         }
         this.setState(state);
 
-        console.log(this.state, state);
+        console.log(this.state);
     }
 
     render() {
@@ -98,26 +100,33 @@ export default class Form extends React.Component {
                         active={true}
 
                     />
+                    {/*<Input*/}
+                        {/*component={*/}
+                            {/*<TextInput*/}
+                            {/*refInput={ref => {*/}
+                                {/*this.input = ref*/}
+                            {/*}}*/}
+                            {/*style={[styles.textInput, valid.valid, {*/}
+                                {/*marginTop:-10,*/}
+
+                                {/*paddingBottom: 5,}, styles.textInputTmp]}*/}
+                            {/*placeholderTextColor={'#000000'}*/}
+                            {/*onChangeText={(count) => {this.setProposalProperty('guests_count', count); this.setState({guests_count:count})}}*/}
+                            {/*keyboardType="numeric"*/}
+                            {/*placeholder='Количество гостей'*/}
+                            {/*returnKeyType={'done'}*/}
+                        {/*/>*/}
+                        {/*}*/}
+                        {/*active={true}*/}
+                        {/*valid={true}*/}
+                        {/*error={this.state.guests_count_error}*/}
+                    {/*/>*/}
                     <Input
                         component={
-                            <TextInput
-                            refInput={ref => {
-                                this.input = ref
-                            }}
-                            style={[styles.textInput, valid.valid, {
-                                marginTop:-10,
-
-                                paddingBottom: 5,}]}
-                            placeholderTextColor={'#000000'}
-                            onChangeText={(count) => {this.setProposalProperty('guests_count', count); this.setState({guests_count:count})}}
-                            keyboardType="numeric"
-                            placeholder='Количество гостей'
-                            returnKeyType={'done'}
-                            value={333}
-                        />
+                            <GuestsCountInput onChange={this.setProposalProperty}/>
                         }
+                        style={{marginTop:-10}}
                         active={true}
-                        valid={true}
                         error={this.state.guests_count_error}
                     />
                     <Input
@@ -129,8 +138,8 @@ export default class Form extends React.Component {
                         error={this.state.amount_error}
                     />
 
-                    <Input
-                        component={
+                    {/*<Input*/}
+                        {/*component={*/}
                             <TextInput
                             multiline
                             refInput={ref => {
@@ -141,20 +150,21 @@ export default class Form extends React.Component {
 
                                 paddingBottom: 5,
 
-                            }]}
+                            }, styles.textInputTmp]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
                             placeholder='Дополнительно'
                             returnKeyType={'done'}
                             value={this.state.notes}
                         />
-                        }
-                        active={true}
-
-                    />
+                        {/*}*/}
+                        {/*active={true}*/}
+                        {/*valid={true}*/}
+                        {/*showPlaceholder={true}*/}
+                    {/*/>*/}
                 </ScrollView>
 
-                <View style={{width: '100%'}}>
+                <View style={styles.buttonWrapper}>
                     <Button
                         style={{fontSize: 17, lineHeight: 21}}
                         disabled={this.state.buttonDisabled}
@@ -178,6 +188,13 @@ const valid = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+    buttonWrapper: {
+        padding: 10,
+        width: '100%',
+        ...ifIphoneX({
+            marginBottom: 50
+        })
+    },
     dateTouch: {
         width: '100%',
         justifyContent: 'flex-end',
@@ -197,6 +214,12 @@ const styles = StyleSheet.create({
                 marginLeft: -5
             },
         }),
+    },
+
+    textInputTmp: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#E0E0E0',
+        marginBottom: 20
     }
 
 });

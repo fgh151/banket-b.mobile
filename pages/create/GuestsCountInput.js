@@ -2,9 +2,9 @@ import React from "react";
 import {Platform, StyleSheet, TextInput, View, Text} from "react-native";
 import {plural} from "../../helpers/StringHelper";
 
-const PLACEHOLDER_TEXT = 'Стоимость на гостя';
+const PLACEHOLDER_TEXT = 'Количество гостей';
 
-export default class AmountInput extends React.Component{
+export default class GuestsCountInput extends React.Component{
 
     state = {
         amount_value: null,
@@ -17,7 +17,8 @@ export default class AmountInput extends React.Component{
 
     onChange(amount) {
         console.log(amount);
-        this.props.onChange('amount', amount);
+        this.props.onChange('guests_count', amount);
+
         let state = {amount_value: amount};
         if (amount !== '') {
             state.placeholder = '';
@@ -44,7 +45,7 @@ export default class AmountInput extends React.Component{
                 placeholder={this.state.placeholder}
                 returnKeyType={'done'}
             />
-            <Text style={[styles.postfix, {opacity:this.state.amount_value?1:0}]}> {plural(this.state.amount_value, 'рубль', 'рубля', 'рублей')} на гостя</Text>
+            <Text style={[styles.postfix, {opacity:this.state.amount_value?1:0}]}> {plural(this.state.amount_value, 'гость', 'гостя', 'гостей')}</Text>
             </View>
         )
     }
@@ -60,11 +61,7 @@ const valid = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-    dateTouch: {
-        width: '100%',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-    },
+
 
     postfix: {
         color: '#0C21E2',
@@ -78,6 +75,7 @@ const styles = StyleSheet.create({
             },
             android: {
                 marginTop:15,
+                // marginLeft: -100
             },
         }),
     },
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
                 paddingBottom: 5
             },
             android: {
-                marginLeft: -5
+                // marginLeft: -5
             },
         }),
     }
