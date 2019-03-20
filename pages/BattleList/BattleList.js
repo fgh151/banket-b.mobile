@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, FlatList, View} from "react-native";
+import {AsyncStorage, FlatList, Text, TouchableOpacity, View} from "react-native";
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
 import ProposalListItem from "./ProposalListItem";
@@ -11,10 +11,49 @@ import {Styles as textStyle} from "../../styles/Global";
 import Ad from "../../components/Ad";
 import trackEvent from "../../helpers/AppsFlyer";
 import GlobalState from "../../models/GlobalState";
+import {Actions} from "react-native-router-flux";
+
+function updateState(state) {
+    this.setState(state);
+}
+
+export class RightButton extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: [],
+        };
+        updateState = updateState.bind(this);
+    }
+
+    render() {
+        if (this.state.items.length > 0) {
+            return (
+                <TouchableOpacity
+                    style={{height: 60, paddingTop: 20}}
+                    onPress={() => Actions.Form()}
+                >
+                    <Text style={{
+                        color: '#0C20E3',
+                        fontSize: 15,
+                        textAlign: 'right', marginRight: 15
+                    }}>
+                        Новый батл
+                    </Text>
+                </TouchableOpacity>
+            )
+        }
+        return null
+    }
+
+}
 
 export default class BattleList extends React.PureComponent {
 
     constructor(props) {
+
+
         super(props);
         this.state = {
             items: [],
@@ -23,6 +62,8 @@ export default class BattleList extends React.PureComponent {
 
         let gs =new GlobalState();
         gs.BattleList = this;
+
+
 
     }
 
@@ -33,7 +74,7 @@ export default class BattleList extends React.PureComponent {
     // }
 
     componentDidMount() {
-        this.fetchData(false);
+        this.fetchData(true);
     }
 
     /**
@@ -54,26 +95,20 @@ export default class BattleList extends React.PureComponent {
         this.getRemoteList();
     }
 
-
-
     getRemoteList() {
         const CACHE_KEY = 'proposal-list';
         AsyncStorage.getItem('battle@token')
             .then((result) => {
 
 
-                console.log('User token', result);
                 if (result === null) {
 
                     Actions.login();
                 } else {
                     const api = new Client(result);
-                    api.GET('/proposal/list')
+                    api.GET('/proposal/list', {}, 'from list')
                         .then(
                             (responseData) => {
-
-                                console.log('update to ', responseData);
-
                                 let items = responseData;
                                 this.updateList(items);
                                 CacheStore.set(CACHE_KEY, items, Config.lowCache);
@@ -82,25 +117,18 @@ export default class BattleList extends React.PureComponent {
                                 });
                             }
                         )
-                        // .catch((e) => {
-                        //     console.log('catch', e)
-                        // })
-                        // .finally((ff) => {
-                        //     console.log('fail to update ', ff)
-                    // })
                 }
             })
     }
 
     updateList(items) {
-
-        console.log('update')
-
         // noinspection JSAccessibilityCheck
         this.setState({
             items: items,
             loaded: true,
         });
+
+        updateState({items:items});
     }
 
     render() {

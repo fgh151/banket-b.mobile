@@ -36,7 +36,7 @@ export default class Client {
         return `${this.baseUrl}${url}`;
     }
 
-    _fetch(route, method, body, isQuery = false) {
+    _fetch(route, method, body, isQuery = false, debugInfo='') {
 
         if (!route) throw new Error('Route is undefined');
         let fullRoute = this._fullRoute(route);
@@ -57,11 +57,11 @@ export default class Client {
         }
 
 
-        return this.onlineFetch(fullRoute, opts);
+        return this.onlineFetch(fullRoute, opts, debugInfo);
 
     }
 
-    onlineFetch(fullRoute, opts) {
+    onlineFetch(fullRoute, opts, debugInfo='') {
         const fetchPromise = () => fetch(fullRoute, opts);
         return NetInfo.getConnectionInfo().then((connectionInfo) => {
 
@@ -71,7 +71,7 @@ export default class Client {
             // if (connectionInfo.type !== 'none') {
                 return fetchPromise()
                     .then(response => {
-                        console.log(fullRoute, response); return response.json()
+                        console.log(debugInfo, fullRoute, response); return response.json()
                     })
             // }
             // return {};
@@ -79,8 +79,8 @@ export default class Client {
     }
 
 
-    GET(route, query) {
-        return this._fetch(route, 'GET', query, true);
+    GET(route, query, debugInfo = '') {
+        return this._fetch(route, 'GET', query, true, debugInfo);
     }
 
     POST(route, body) {
