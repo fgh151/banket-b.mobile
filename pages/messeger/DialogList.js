@@ -25,6 +25,10 @@ export default class DialogList extends Component {
         refreshing: false,
     };
 
+    constructor(props) {
+        super(props);
+        this.onRefresh = this.onRefresh.bind(this);
+    }
 
     componentDidMount() {
         this.fetchData();
@@ -191,6 +195,8 @@ export default class DialogList extends Component {
                                     renderItem={(item) => this.renderItem(item)}
                                     refreshControl={
                                         <RefreshControl
+                                            colors={['#0C21E2', '#00D800', '#D0021B']}
+                                            tintColor={'#0C21E2'}
                                             refreshing={this.state.refreshing}
                                             onRefresh={this.onRefresh}
                                         />

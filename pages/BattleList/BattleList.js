@@ -161,6 +161,8 @@ export default class BattleList extends React.PureComponent {
                         renderItem={this.renderProposal}
                         refreshControl={
                             <RefreshControl
+                                colors={['#0C21E2', '#00D800', '#D0021B']}
+                                tintColor={'#0C21E2'}
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
                             />
