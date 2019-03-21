@@ -21,7 +21,7 @@ export default class DialogList extends Component {
         items: [],
         listTitle: '',
         loaded: false,
-        activeSort: 1
+        selectedSort: undefined
     };
 
 
@@ -124,9 +124,10 @@ export default class DialogList extends Component {
                 placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}
+                value={this.state.selectedSort}
                 selectedValue={variants[0]}
                 onValueChange={(itemValue) => {
-                    this.setState({activeSort: itemValue.value});
+                    this.setState({selectedSort: itemValue.value});
                     switch (itemValue) {
                         case 1 : {
                             this.state.items.sort(DialogList.comparePrice);
