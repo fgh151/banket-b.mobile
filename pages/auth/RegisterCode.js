@@ -95,8 +95,8 @@ export default class RegisterCode extends React.Component {
                                     refInput={ref => {
                                         this.input = ref
                                     }}
-                                    // value={this.props.phone}
-                                    value={'+7 (999) 999 99 99'}
+                                    value={this.props.phone}
+                                    // value={'+7 (999) 999 99 99'}
                                     onChangeText={this.phoneChange}
                                     keyboardType="phone-pad"
                                     placeholder='Номер телефона'
