@@ -80,7 +80,6 @@ export default class GeoLocation {
                 // alert("Location permission denied");
             }
         } catch (err) {
-            console.warn(err);
         }
     }
 
