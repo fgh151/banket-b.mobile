@@ -120,7 +120,7 @@ export default class DialogList extends Component {
 
         return (
             <PickerSelect
-                Icon={<Image source={require('../../assets/images/down.png')} /> }
+                Icon={() => <Image source={require('../../assets/images/down.png')} /> }
                 placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}

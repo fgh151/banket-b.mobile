@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-    ColorPropType,
+    ColorPropType, Image,
     Keyboard,
     Modal,
     Picker,
@@ -326,16 +326,16 @@ export default class PickerSelect extends PureComponent {
     renderIcon() {
         const { style, Icon } = this.props;
 
-        if (!Icon) {
-            return null;
-        }
+        // if (!Icon) {
+        //     return null;
+        // }
 
         return (
             <View
                 testID="icon_container"
                 style={[defaultStyles.iconContainer, style.iconContainer]}
             >
-                {Icon}
+                <Image source={require('../assets/images/down.png')} />
             </View>
         );
     }
