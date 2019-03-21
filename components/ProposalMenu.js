@@ -68,13 +68,14 @@ export default class Menu extends React.Component {
 
 
         return (
-            <View style={this.props.style}>
+            <View >
                 <TouchableOpacity onPress={this.toggleModal} style={{
                     height: '100%',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
                     width: 50,
-                    paddingTop: 15
+                    paddingTop: 20,
+                    paddingBottom:30,
                 }}>
                     <ImageBackground source={require('../assets/images/menu-dots.png')} resizeMode="contain"
                                      style={{width: 20, height: 5}}>
