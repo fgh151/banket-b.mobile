@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Text, View, Image} from "react-native";
+import {AsyncStorage, FlatList, Text, View, Image, RefreshControl} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
@@ -21,7 +21,8 @@ export default class DialogList extends Component {
         items: [],
         listTitle: '',
         loaded: false,
-        selectedSort: undefined
+        selectedSort: undefined,
+        refreshing: false,
     };
 
 
@@ -82,11 +83,17 @@ export default class DialogList extends Component {
             })
     }
 
+    onRefresh() {
+        const self = this;
+        this.setState({ refreshing: true }, function()  { self.getRemoteList() });
+    }
+
     updateList(items) {
         // noinspection JSAccessibilityCheck
         this.setState({
             items: items,
             loaded: true,
+            refreshing:false
         });
     }
 
@@ -182,6 +189,12 @@ export default class DialogList extends Component {
                                 <FlatList
                                     data={this.state.items}
                                     renderItem={(item) => this.renderItem(item)}
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={this.state.refreshing}
+                                            onRefresh={this.onRefresh}
+                                        />
+                                    }
                                 />
                             </View>
                         </View>

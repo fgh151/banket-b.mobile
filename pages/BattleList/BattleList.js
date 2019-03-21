@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, FlatList, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, FlatList, Text, TouchableOpacity, View, RefreshControl} from "react-native";
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
 import ProposalListItem from "./ProposalListItem";
@@ -58,13 +58,14 @@ export default class BattleList extends React.PureComponent {
         this.state = {
             items: [],
             loaded: false,
+            refreshing: false,
         };
 
         let gs =new GlobalState();
         gs.BattleList = this;
 
 
-
+        this.onRefresh = this.onRefresh.bind(this);
     }
 
     // componentDidUpdate() {
@@ -126,9 +127,15 @@ export default class BattleList extends React.PureComponent {
         this.setState({
             items: items,
             loaded: true,
+            refreshing:false
         });
 
         updateState({items:items});
+    }
+
+    onRefresh() {
+        const self = this;
+        this.setState({ refreshing: true }, function()  { self.getRemoteList() });
     }
 
     render() {
@@ -152,6 +159,12 @@ export default class BattleList extends React.PureComponent {
                         ListEmptyComponent={<View/>}
                         data={this.state.items}
                         renderItem={this.renderProposal}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
                     />
 
                     {this.renderAd()}
