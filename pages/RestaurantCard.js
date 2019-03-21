@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, StyleSheet, Text, TouchableOpacity, View, Platform} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Rating from "../components/Rating";
 import openMap from 'react-native-open-maps';
@@ -35,12 +35,20 @@ export default class RestaurantCard extends React.PureComponent {
     // };
 
 
-    callNumber = (url) => {
-        Linking.canOpenURL(`tel:${url}`).then(supported => {
+    callNumber = (phone) => {
+        let phoneNumber = phone;
+        if (Platform.OS !== 'android') {
+            phoneNumber = `telprompt:${phone}`;
+        }
+        else  {
+            phoneNumber = `tel:${phone}`;
+        }
+
+        Linking.canOpenURL(phoneNumber).then(supported => {
             if (!supported) {
-                console.log('Can\'t handle url: ' + url);
+                console.log('Can\'t handle url: ' + phoneNumber);
             } else {
-                return Linking.openURL(url);
+                return Linking.openURL(phoneNumber);
             }
         }).catch(err => console.error('An error occurred', err));
     };

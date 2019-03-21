@@ -129,15 +129,15 @@ export default class DialogList extends Component {
                     this.setState({activeSort: itemValue.value});
                     switch (itemValue) {
                         case 1 : {
-                            this.state.items.sort(this.comparePrice);
+                            this.state.items.sort(DialogList.comparePrice);
                             break
                         }
                         case 2 : {
-                            this.state.items.sort(this.compareLastMessage);
+                            this.state.items.sort(DialogList.compareLastMessage);
                             break
                         }
                         case 3 : {
-                            this.state.items.sort(this.compareRating);
+                            this.state.items.sort(DialogList.compareRating);
                             break
                         }
                     }
@@ -190,19 +190,19 @@ export default class DialogList extends Component {
         }
     }
 
-    compareRating(a: Organization, b: Organization) {
-        return this._compare(a, b, 'rating');
+    static compareRating(a: Organization, b: Organization) {
+        return DialogList._compare(a, b, 'rating');
     }
 
-    comparePrice(a: Organization, b: Organization) {
-        return this._compare(a, b, 'profit');
+    static comparePrice(a: Organization, b: Organization) {
+        return DialogList._compare(a, b, 'profit');
     }
 
-    compareLastMessage(a: Organization, b: Organization) {
-        return this._compare(a, b, 'lastMessage');
+    static compareLastMessage(a: Organization, b: Organization) {
+        return DialogList._compare(a, b, 'lastMessage');
     }
 
-    _compare(a: Organization, b: Organization, field: string) {
+    static _compare(a: Organization, b: Organization, field: string) {
         if (a[field] < b[field])
             return -1;
         if (a[field] > b[field])
