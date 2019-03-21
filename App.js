@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppState, AsyncStorage, Platform, Text, TouchableOpacity} from "react-native"
+import {AppState, AsyncStorage, Platform} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import BattleList from './pages/BattleList/BattleList'

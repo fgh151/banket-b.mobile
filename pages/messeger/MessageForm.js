@@ -67,7 +67,7 @@ export default class MessageForm extends Component {
         return (
             <View style={style.wrapper}>
 
-                <View style={{width: '90%', padding: 10,}}>
+                <View style={{width: '90%', padding: 10}}>
                     <TextInput
                         style={style.textInput}
                         autoFocus={false}
@@ -79,7 +79,7 @@ export default class MessageForm extends Component {
                         onBlur={() => this.props.onToggle()}
                     />
                 </View>
-                <View style={{width: '10%', paddingTop: 0, paddingRight: 10}}>
+                <View style={style.buttonWrapper}>
                     <TouchableOpacity
                         disabled={this.state.btnDisabled}
                         transparent
@@ -104,13 +104,10 @@ const style = StyleSheet.create({
         // marginLeft:15,
         // marginRight:15,
         backgroundColor: '#F7F7F7',
-
-
         ...ifIphoneX({
             marginBottom: -35,
             paddingBottom:35
         })
-
     },
 
     textInput: {
@@ -131,18 +128,31 @@ const style = StyleSheet.create({
                 paddingBottom: 5
             },
             android: {
-                marginLeft: -5
+                marginLeft: -5,
+                padding:5
+            },
+        }),
+    },
+    buttonWrapper: {
+        width: '10%',
+        paddingTop: 0,
+        paddingRight: 10,
+        ...Platform.select({
+            ios: {
+
+            },
+            android: {
+               paddingTop:5
             },
         }),
     },
 
     buttonWrapperInactive: {
-        marginTop: 10,
         width: 29,
         height: 29,
+        marginTop: 10,
         borderRadius: 15,
-        // backgroundColor: '#0C21E2'
-        backgroundColor: '#555'
+        backgroundColor: '#555',
     },
 
     buttonWrapperActive: {

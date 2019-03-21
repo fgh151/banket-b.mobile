@@ -1,7 +1,7 @@
 import React from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
-import {formatCost, trunc} from "../../helpers/StringHelper";
+import {formatCost, round10, trunc} from "../../helpers/StringHelper";
 import Rating from "../../components/Rating";
 import Profit from "../../components/Profit";
 import {Actions} from "react-native-router-flux";
@@ -9,6 +9,7 @@ import {Actions} from "react-native-router-flux";
 export default class Organization extends React.Component {
 
     render() {
+        console.log("BAR", this.props.organization);
         const image = this.props.organization.images[0];
         return (
             <TouchableOpacity
@@ -65,6 +66,9 @@ export default class Organization extends React.Component {
                     </View>
                     <View style={{paddingTop: 10}}>
                         <Profit profit={this.props.organization.profit}/>
+                    </View>
+                    <View style={{paddingTop: 10}}>
+                        <Text>{ round10( this.props.organization.minPrice / this.props.proposal.guests_count)} {"\u20bd"} / чел.</Text>
                     </View>
 
                 </View>

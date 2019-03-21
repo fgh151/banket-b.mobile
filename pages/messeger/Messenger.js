@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Share, Text, View, TouchableOpacity, SafeAreaView} from "react-native";
+import {AsyncStorage, FlatList, Share, Text, View, TouchableOpacity, SafeAreaView, StyleSheet, Platform} from "react-native";
 import Config, {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
@@ -190,7 +190,7 @@ export default class Messenger extends Component {
 
         return (
 
-            <SafeAreaView style={[textStyle.rootViewWrapper, {margin: 0 }]}>
+            <SafeAreaView style={[textStyle.rootViewWrapper, style.wrapper]}>
                 {this.renderOrganization()}
                 <FlatList
 
@@ -216,3 +216,16 @@ export default class Messenger extends Component {
     }
 
 }
+
+const style = StyleSheet.create({
+wrapper: {
+    margin: 0,
+    ...Platform.select({
+        ios: {
+        },
+        android: {
+            padding: 0
+        },
+    }),
+}
+})
