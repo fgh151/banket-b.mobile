@@ -16,6 +16,10 @@ Sentry.config(Config.sentryDSN, {
     // currently sentry is not reporting errors on android using the native module
     disableNativeIntegration: Platform.OS === 'android',
 }).install();
+const app = require('./package');
+Sentry.setExtraContext({
+    version:app.version
+});
 
 new Push();
 // Push.saveToken();

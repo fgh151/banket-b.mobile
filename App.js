@@ -31,6 +31,7 @@ import {
     setCustomTextInput,
     setCustomText,
 } from 'react-native-global-props';
+import Sentry from "react-native-sentry";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -68,6 +69,13 @@ export default class App extends React.Component {
                             // User has rejected permissions
                         });
                 }
+            });
+
+        AsyncStorage.getItem('battle@id')
+            .then((userId) => {
+                Sentry.setUserContext({
+                    id: userId
+                })
             });
     }
 
