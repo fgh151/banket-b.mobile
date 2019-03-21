@@ -94,6 +94,7 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+
 android {
     compileSdkVersion 28
 
@@ -101,8 +102,8 @@ android {
         applicationId "ru.banket_b.mobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 28
-        versionCode 18
-        versionName "2.0.3"
+//        versionCode 18
+//        versionName "2.0.3"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

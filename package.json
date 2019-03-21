@@ -1,6 +1,6 @@
 {
   "name": "rubanketb",
-  "version": "2.0.1",
+  "version": "2.0.4",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -8,7 +8,10 @@
     "android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/build/intermediates/res/merged/release/",
     "ios": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --assets-dest ios",
     "android-realize": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
-    "ios-realize": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle"
+    "ios-realize": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle",
+    "preversion": "./npm-version/pre-version.sh",
+    "version": "./npm-version/version-ios.sh",
+    "postversion": "./npm-version/post-version.sh"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
