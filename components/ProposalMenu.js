@@ -76,7 +76,7 @@ export default class Menu extends React.Component {
                     width: 50,
                     paddingTop: 15
                 }}>
-                    <ImageBackground source={require('../assets/images/menu-dots.png')} resizeMode="stretch"
+                    <ImageBackground source={require('../assets/images/menu-dots.png')} resizeMode="contain"
                                      style={{width: 20, height: 5}}>
                     </ImageBackground>
                 </TouchableOpacity>
