@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import groovy.json.JsonSlurper
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -94,6 +95,20 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+def getNpmVersion() {
+    def inputFile = new File("../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["version"]
+}
+/* calculated from git commits to give sequential integers */
+def getGitVersion() {
+    def process = "git rev-list master --first-parent --count".execute()
+    return process.text.toInteger()
+}
+
+
+def userVer = getNpmVersion()
+def googleVer = getGitVersion()
 
 android {
     compileSdkVersion 28
@@ -104,6 +119,8 @@ android {
         targetSdkVersion 28
 //        versionCode 18
 //        versionName "2.0.3"
+        versionCode googleVer
+        versionName userVer
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
