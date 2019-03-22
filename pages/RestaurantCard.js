@@ -110,7 +110,7 @@ export default class RestaurantCard extends React.PureComponent {
 
                         <View>
 
-                            <TouchableOpacity onPress={() => this.callNumber('79778069428')}>
+                            <TouchableOpacity onPress={() => this.callNumber(this.props.restaurant.phone)}>
                                 <Text style={{color:'#1711E8'}}>{this.props.restaurant.phone}</Text>
                             </TouchableOpacity>
                         </View>

@@ -77,6 +77,8 @@ export default class MessageForm extends Component {
                         onChangeText={(txt) => this.setText(txt)}
                         onFocus={() => this.props.onToggle()}
                         onBlur={() => this.props.onToggle()}
+                        underlineColorAndroid='transparent'
+                        autoCorrect={false}
                     />
                 </View>
                 <View style={style.buttonWrapper}>
