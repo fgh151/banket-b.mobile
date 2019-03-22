@@ -8,56 +8,19 @@ export default class Input extends React.Component {
     state = {
         focus: false,
         placeholder: '',
-        component: this.props.component
     };
-
-    component;
-
-    onInputFocus() {
-        const component = React.cloneElement(
-            this.state.component,
-            {placeholder: ''}
-        );
-        let newState = {focus:!this.state.focus, component: component};
-
-        this.setState(newState)
-    }
-
-    onInputFocusOut() {
-        const component = React.cloneElement(
-            this.state.component,
-            {placeholder: this.state.placeholder}
-        );
-        let newState = {focus:!this.state.focus, component: component};
-
-        this.setState(newState)
-    }
 
     constructor(props) {
         super(props);
-        this.component = React.cloneElement(
-            this.props.component,
-            {onFocus: () => this.onInputFocus(), onBlur:  () => this.onInputFocusOut()}
-        );
-    }
-
-    componentDidMount(): void {
-        let newState = {component: this.component, placeholder: ''};
-        const placeholder = this.component.props.placeholder;
-        if (isString(placeholder)) {
-            newState.placeholder =  this.component.props.placeholder;
-        }
-        this.setState(newState);
     }
 
     render() {
-
         return (
             <View style={[styles.wrapper, this.props.style]}>
-                {this.renderPlaceholder(this.state.placeholder)}
+                {this.renderPlaceholder(this.props.placeholder)}
                 {this.renderError()}
                 <View style={[styles.input, this.props.inputStyle]}>
-                    {this.state.component}
+                    {this.props.children}
                 </View>
                 <Text style={styles.description}>{this.props.description}</Text>
                 {this.renderOverlay()}
@@ -90,22 +53,14 @@ export default class Input extends React.Component {
 
 }
 
-Input.propTypes = {
-    // component: PropTypes.element,
-    // description: PropTypes.string,
-    // valid: PropTypes.bool,
-    // active: PropTypes.bool,
-    // style:PropTypes.any,
-    // inputStyle:PropTypes.any
-};
-
 Input.defaultProps = {
-    description: '',
-    valid: false,
-    active: true,
     style: {},
+    placeholder:'',
     inputStyle: {},
-    showPlaceholder:false
+    description: '',
+    showPlaceholder:false,
+    active: true,
+    error:undefined,
 };
 
 const styles = StyleSheet.create({
@@ -120,7 +75,7 @@ const styles = StyleSheet.create({
             ios: {
             },
             android: {
-                // marginBottom:-13,
+                // marginLeft: -5
             },
         })
     },
@@ -155,8 +110,6 @@ const styles = StyleSheet.create({
 
     },
     description: {
-        // color: '#E0E0E0',
-
         color:'#000000',
         opacity:.5,
 

@@ -7,12 +7,19 @@ import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import type {LoginResponse} from "../../types/LoginResponse";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import {isEmpty} from "../../helpers/StringHelper";
 
 export default class RegisterPhone extends React.Component {
     state = {
         phone: null,
         name: null,
-        buttonDisabled: true
+        buttonDisabled: true,
+        inputNameFocus: false,
+        showNamePlaceholder:false,
+        inputPhoneFocus:false,
+        showPhonePlaceholder:false,
+
+        currentPhoneValue:'',
     };
 
     nextPage = () => {
@@ -23,10 +30,18 @@ export default class RegisterPhone extends React.Component {
             });
         Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
     };
+
     phoneChange = (formatted: string, extracted: string) => {
+
+        let state = {currentPhoneValue: formatted};
+
         if (extracted.length === 10) {
-            this.setState({phone: formatted, buttonDisabled: false});
+            state.phone = formatted;
+            state.buttonDisabled = false;
+        } else  {
+            state.buttonDisabled = true;
         }
+        this.setState(state);
     };
 
     nameChange = (name) => {
@@ -40,35 +55,42 @@ export default class RegisterPhone extends React.Component {
                     <View style={{justifyContent: 'flex-start', marginTop: 25}}>
                         <View style={{height: 60}}>
                             <Input
-                                component={<TextInput
+                                style={{marginBottom: 0}}
+                                showPlaceholder={this.state.showNamePlaceholder}
+                                placeholder="Имя"
+                            >
+                                <TextInput
                                     placeholderTextColor={'#000000'}
                                     style={styles.textInput}
                                     placeholder="Имя"
                                     value={this.state.name}
                                     onChangeText={this.nameChange}
-                                />}
-                                style={{marginBottom: 0}}
-                            />
+                                    onFocus={() => {this.setState({inputNameFocus: true}, () => this.toggleNamePlaceHolder())}}
+                                    onBlur={()=>{this.setState({inputNameFocus: false}, () => this.toggleNamePlaceHolder())}}
+                                />
+                            </Input>
                         </View>
                         <View style={{height: 100, marginTop:10}}>
-
                             <Input
-                                component={<TextInputMask
+                                style={{marginBottom: 50}}
+                                description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                                placeholder='Номер телефона'
+                                showPlaceholder={this.state.showPhonePlaceholder}
+                            >
+                                <TextInputMask
                                     refInput={ref => {
                                         this.input = ref
                                     }}
                                     onChangeText={this.phoneChange}
+                                    onFocus={() => {this.setState({inputPhoneFocus: true}, () => this.togglePhonePlaceHolder())}}
+                                    onBlur={()=>{this.setState({inputPhoneFocus: false}, () => this.togglePhonePlaceHolder())}}
                                     keyboardType="phone-pad"
                                     placeholder='Номер телефона'
                                     placeholderTextColor="#000"
                                     style={styles.maskInput}
                                     mask={"+7 ([000]) [000] [00] [00]"}
-                                />}
-                                style={{marginBottom: 50}}
-                                description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                                active={true}
-                                valid={true}
-                            />
+                                />
+                            </Input>
                         </View>
                     </View>
                 </View>
@@ -83,6 +105,25 @@ export default class RegisterPhone extends React.Component {
         )
     }
 
+    toggleNamePlaceHolder() {
+        let show = false;
+        if (!isEmpty(this.state.name)) {
+            show = true;
+        } else if (this.state.inputNameFocus)  {
+            show = true;
+        }
+        this.setState({showNamePlaceholder: show})
+    }
+
+    togglePhonePlaceHolder() {
+        let show = false;
+        if (!isEmpty(this.state.currentPhoneValue)) {
+            show = true;
+        } else if (this.state.inputPhoneFocus)  {
+            show = true;
+        }
+        this.setState({showPhonePlaceholder: show})
+    }
 }
 
 const styles = StyleSheet.create({

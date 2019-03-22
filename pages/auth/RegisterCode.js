@@ -23,7 +23,6 @@ export default class RegisterCode extends React.Component {
         buttonDisabled: true
     };
 
-
     proposal = new Proposal();
 
     codeChange = (code: string) => {
@@ -73,25 +72,30 @@ export default class RegisterCode extends React.Component {
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{justifyContent: 'flex-start'}}>
-                        <View style={{height: 100, opacity:.5}}>
+                        <View style={{height: 100, opacity: .5}}>
                             <Input
-                                component={<TextInput
-                                    style={styles.textInput}
-                                    placeholder="Имя"
-                                    // value={this.state.userName}
-                                    value={'Test'}
-                                    onChangeText={this.nameChange}
-                                />}
-                                showPlaceholder={true}
                                 style={{marginBottom: 50}}
                                 active={false}
-                                valid={true}
-                            />
+                                showPlaceholder={true}
+                                placeholder={'Имя'}
+                            >
+                                <TextInput
+                                    style={styles.textInput}
+                                    value={this.props.userName}
+                                    // value={'Test'}
+                                    onChangeText={this.nameChange}
+                                />
+                            </Input>
                         </View>
-                        <View style={{height: 100, opacity:.5}}>
-
+                        <View style={{height: 100, opacity: .5}}>
                             <Input
-                                component={<TextInputMask
+                                showPlaceholder={true}
+                                style={{marginBottom: 50}}
+                                description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                                active={false}
+                                placeholder='Номер телефона'
+                            >
+                                <TextInputMask
                                     refInput={ref => {
                                         this.input = ref
                                     }}
@@ -103,18 +107,14 @@ export default class RegisterCode extends React.Component {
                                     placeholderTextColor="#000"
                                     style={{color: '#0C20E3', paddingBottom: 5}}
                                     mask={"+7 ([000]) [000] [00] [00]"}
-                                />}
-                                showPlaceholder={true}
-                                style={{marginBottom: 50}}
-                                description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                                active={false}
-                                valid={true}
-                            />
+                                />
+                            </Input>
                         </View>
 
                         <View style={{height: 100}}>
 
-                            <CodeInput phone={this.props.phone} name={this.state.userName} codeChange={this.codeChange}/>
+                            <CodeInput phone={this.props.phone} name={this.state.userName}
+                                       codeChange={this.codeChange}/>
                         </View>
                     </View>
                 </View>
@@ -136,6 +136,11 @@ RegisterCode.propTypes = {
     userName: PropTypes.string,
 };
 
+RegisterCode.defaultProps = {
+    userName: 'Андрей',
+    phone: '+7 (999) 999 99 99'
+};
+
 const styles = StyleSheet.create({
 
     buttonWrapper: {
@@ -147,9 +152,9 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
-        color:'#0C20E3',
+        color: '#0C20E3',
         fontSize: 15,
-        lineHeight:18,
+        lineHeight: 18,
         ...Platform.select({
             ios: {
                 paddingTop: 20,
@@ -162,7 +167,7 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        paddingTop:30,
+        paddingTop: 30,
 
         flex: 1,
         flexDirection: 'column',

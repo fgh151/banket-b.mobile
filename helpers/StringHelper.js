@@ -98,3 +98,7 @@ function decimalAdjust(type, value, exp) {
     value = value.toString().split('e');
     return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
 }
+
+export  function isEmpty(str) {
+    return str === '' && str !== null;
+}

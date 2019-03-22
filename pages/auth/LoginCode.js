@@ -68,7 +68,12 @@ export default class LoginCode extends React.Component {
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{flex: 0.3, marginTop: 20, marginLeft: 5}}>
                         <Input
-                            component={<TextInputMask
+                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                            active={false}
+                            showPlaceholder={true}
+                            placeholder={'Телефон'}
+                        >
+                            <TextInputMask
                                 refInput={ref => {
                                     this.input = ref
                                 }}
@@ -78,11 +83,9 @@ export default class LoginCode extends React.Component {
                                 style={{color: '#0C20E3'}}
                                 mask={"+7 ([000]) [000] [00] [00]"}
                                 value={this.props.phone}
-                            />}
-                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                            active={false}
-                            valid={true}
-                        />
+                                // value={'+7 (999) 999 99 99'}
+                            />
+                        </Input>
                     </View>
                     <View style={{flex: 0.2, marginTop:25}}>
                         <CodeInput phone={this.props.phone} codeChange={this.codeChange}/>

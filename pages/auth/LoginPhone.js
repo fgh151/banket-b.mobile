@@ -1,5 +1,5 @@
 import React from 'react';
-import {Keyboard, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Keyboard, Platform, StyleSheet, TouchableOpacity, View, Text} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -7,6 +7,7 @@ import {Button} from "../../components/Button";
 import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import {isEmpty} from "../../helpers/StringHelper";
 
 export default class LoginPhone extends React.Component {
 
@@ -14,7 +15,10 @@ export default class LoginPhone extends React.Component {
         super();
         this.state = {
             phone: '',
-            buttonDisabled: true
+            buttonDisabled: true,
+            showPlaceholder: false,
+            inputFocus: false,
+            currentValue:'',
         }
     }
 
@@ -25,15 +29,26 @@ export default class LoginPhone extends React.Component {
 
     phoneChange = (formatted: string, extracted: string) => {
 
-        console.log(extracted, formatted);
+        let state = {currentValue: formatted};
 
         if (extracted.length === 10) {
-            this.setState({phone: formatted, buttonDisabled: false});
-
-
-            console.log(this.state);
+            state.phone = formatted;
+            state.buttonDisabled = false;
+        } else  {
+            state.buttonDisabled = true;
         }
+        this.setState(state);
     };
+
+    togglePlaceHolder() {
+        let show = false;
+        if (!isEmpty(this.state.currentValue)) {
+            show = true;
+        } else if (this.state.inputFocus)  {
+            show = true;
+        }
+        this.setState({showPlaceholder: show})
+    }
 
     render() {
         return (
@@ -42,21 +57,27 @@ export default class LoginPhone extends React.Component {
                     <View style={{marginRight: 20, marginLeft: 20}}>
                         <Input
                             inputStyle={styles.textInput}
-                            component={<TextInputMask
+                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                            showPlaceholder={this.state.showPlaceholder}
+                            error={''}
+                            placeholder={'Номер телефона'}
+                        >
+                            <TextInputMask
                                 refInput={ref => {
                                     this.input = ref
                                 }}
+                                onFocus={() => {this.setState({inputFocus: true}, () => this.togglePlaceHolder())}}
+                                onBlur={()=>{this.setState({inputFocus: false}, () => this.togglePlaceHolder())}}
+
                                 onChangeText={this.phoneChange}
                                 keyboardType="phone-pad"
                                 placeholder='Номер телефона'
                                 placeholderTextColor="#000"
                                 style={styles.textInput}
                                 mask={"+7 ([000]) [000] [00] [00]"}
-                            />}
-                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                            active={true}
-                            valid={true}
-                        />
+                                value={this.state.phone}
+                            />
+                        </Input>
                     </View>
                 </TouchableOpacity>
                     <View style={styles.buttonWrapper}>

@@ -200,7 +200,7 @@ export default class App extends React.Component {
                         renderTitle={<ProposalBar/>}
                         renderBackButton={() => <BackButton/>}
                         // renderRightButton={<ProposalMenu />}
-                        renderRightButton={<ProposalMenu image="dots" style={{position: 'absolute', top: 0, right: 0}} getProposal={getCurrentProposal}
+                        renderRightButton={<ProposalMenu image="dots"  getProposal={getCurrentProposal}
                                                  buttons={[
                                                      {
                                                          action: () => {

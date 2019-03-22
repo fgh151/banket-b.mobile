@@ -5,17 +5,16 @@ import {Styles as textStyle} from "../../styles/Global";
 import Input from "../../components/Input";
 import {Button} from "../../components/Button";
 import moment from "moment";
-
 import Proposal from '../../models/Proposal';
 import {Actions} from "react-native-router-flux";
-
 import FormDatePicker from './FormDatePicker';
 import FormTimePicker from './FormTimePicker';
 import EventTypePicker from "./EventTypePicker";
 import CityPicker from "./CityPicker";
-import AmountInput from "./AmountInput";
+import AmountInput, {PLACEHOLDER_TEXT as AMOUNT_PLACEHOLDER_TEXT} from "./AmountInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
-import GuestsCountInput from "./GuestsCountInput";
+import GuestsCountInput, {PLACEHOLDER_TEXT as GUESTS_COUNT_PLACEHOLDER_TEXT} from "./GuestsCountInput";
+import {isEmpty} from "../../helpers/StringHelper";
 
 export default class Form extends React.Component {
     state = {
@@ -23,11 +22,15 @@ export default class Form extends React.Component {
         eventType: '',
         guests_count_error: '',
         amount_error: '',
-
         amount_value: null,
-
         guests_count: null,
-        notes: null
+        notes: null,
+        show_guests_count_placeholder: false,
+        inputGCFocus:false,
+        show_amount_placeholder: false,
+        inputAmountFocus: false,
+        show_notes_placeholder:false,
+        inputNotesFocus:false
     };
 
     proposal = new Proposal();
@@ -74,72 +77,53 @@ export default class Form extends React.Component {
                 <ScrollView
                     style={textStyle.rootView}
                 >
-                    <Input
-                        component={<CityPicker/>}
-                        active={true}
-                        valid={true}
-
-                    />
-                    <Input
-                        component={<EventTypePicker
-                            onValueChange={(value) => this.setProposalProperty('event_type', value)}/>}
-                        active={true}
-
-                    />
-                    <Input
-                        component={<FormDatePicker onDateChange={(date) => {
+                    <Input>
+                        <CityPicker/>
+                    </Input>
+                    <Input>
+                        <EventTypePicker onValueChange={(value) => this.setProposalProperty('event_type', value)}/>
+                    </Input>
+                    <Input>
+                        <FormDatePicker onDateChange={(date) => {
                             this.setProposalProperty('date', date)
-                        }}/>}
-                        active={true}
-
-                    />
-                    <Input
-                        component={<FormTimePicker onDateChange={(time) => {
+                        }}/>
+                    </Input>
+                    <Input>
+                        <FormTimePicker onDateChange={(time) => {
                             this.setProposalProperty('time', time)
-                        }}/>}
-                        active={true}
-
-                    />
-                    {/*<Input*/}
-                        {/*component={*/}
-                            {/*<TextInput*/}
-                            {/*refInput={ref => {*/}
-                                {/*this.input = ref*/}
-                            {/*}}*/}
-                            {/*style={[styles.textInput, valid.valid, {*/}
-                                {/*marginTop:-10,*/}
-
-                                {/*paddingBottom: 5,}, styles.textInputTmp]}*/}
-                            {/*placeholderTextColor={'#000000'}*/}
-                            {/*onChangeText={(count) => {this.setProposalProperty('guests_count', count); this.setState({guests_count:count})}}*/}
-                            {/*keyboardType="numeric"*/}
-                            {/*placeholder='Количество гостей'*/}
-                            {/*returnKeyType={'done'}*/}
-                        {/*/>*/}
-                        {/*}*/}
-                        {/*active={true}*/}
-                        {/*valid={true}*/}
-                        {/*error={this.state.guests_count_error}*/}
-                    {/*/>*/}
+                        }}/>
+                    </Input>
                     <Input
-                        component={
-                            <GuestsCountInput onChange={this.setProposalProperty}/>
-                        }
                         style={{marginTop:-10}}
-                        active={true}
                         error={this.state.guests_count_error}
-                    />
+                        // showPlaceholder={this.state.show_guests_count_placeholder}
+                        showPlaceholder={false}
+                        placeholder={GUESTS_COUNT_PLACEHOLDER_TEXT}
+                    >
+                        <GuestsCountInput
+                            onChange={this.setProposalProperty}
+                            // onFocus={() => {this.setState({inputGCFocus: true}, () => this.toggleGCPlaceHolder())}}
+                            // onBlur={()=>{this.setState({inputGCFocus: false}, () => this.toggleGCPlaceHolder())}}
+                        />
+                    </Input>
                     <Input
-                        component={
-                            <AmountInput onChange={this.setProposalProperty}/>
-                        }
                         style={{marginTop:-10}}
-                        active={true}
                         error={this.state.amount_error}
-                    />
-
-                    {/*<Input*/}
-                        {/*component={*/}
+                        // showPlaceholder={this.state.show_amount_placeholder}
+                        showPlaceholder={false}
+                        placeholder={AMOUNT_PLACEHOLDER_TEXT}
+                    >
+                        <AmountInput
+                            onChange={this.setProposalProperty}
+                            // onFocus={() => {this.setState({inputAmountFocus: true}, () => this.toggleAmountPlaceHolder())}}
+                            // onBlur={()=>{this.setState({inputAmountFocus: false}, () => this.toggleAmountPlaceHolder())}}
+                        />
+                    </Input>
+                    <Input
+                        // showPlaceholder={this.state.show_notes_placeholder}
+                        showPlaceholder={false}
+                        placeholder={'Дополнительно'}
+                    >
                             <TextInput
                             multiline
                             refInput={ref => {
@@ -147,21 +131,17 @@ export default class Form extends React.Component {
                             }}
                             style={[styles.textInput, valid.valid, {
                                 marginTop:-10,
-
                                 paddingBottom: 5,
-
-                            }, styles.textInputTmp]}
+                            }]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
+                            // onFocus={() => {this.setState({inputNotesFocus: true}, () => this.toggleNotesPlaceHolder())}}
+                            // onBlur={()=>{this.setState({inputNotesFocus: false}, () => this.toggleNotesPlaceHolder())}}
                             placeholder='Дополнительно'
                             returnKeyType={'done'}
                             value={this.state.notes}
                         />
-                        {/*}*/}
-                        {/*active={true}*/}
-                        {/*valid={true}*/}
-                        {/*showPlaceholder={true}*/}
-                    {/*/>*/}
+                    </Input>
                 </ScrollView>
 
                 <View style={styles.buttonWrapper}>
@@ -176,6 +156,35 @@ export default class Form extends React.Component {
         )
     }
 
+    // toggleGCPlaceHolder() {
+    //     let show = false;
+    //     if (!isEmpty(this.state.guests_count)) {
+    //         show = true;
+    //     } else if (this.state.inputFocus)  {
+    //         show = true;
+    //     }
+    //     this.setState({show_guests_count_placeholder: show})
+    // }
+    //
+    // toggleAmountPlaceHolder() {
+    //     let show = false;
+    //     if (!isEmpty(this.state.amount_value)) {
+    //         show = true;
+    //     } else if (this.state.inputAmountFocus)  {
+    //         show = true;
+    //     }
+    //     this.setState({show_amount_placeholder: show})
+    // }
+    //
+    // toggleNotesPlaceHolder() {
+    //     let show = false;
+    //     if (!isEmpty(this.state.notes)) {
+    //         show = true;
+    //     } else if (this.state.inputNotesFocus)  {
+    //         show = true;
+    //     }
+    //     this.setState({show_notes_placeholder: show})
+    // }
 }
 
 const valid = StyleSheet.create({
@@ -214,12 +223,6 @@ const styles = StyleSheet.create({
                 marginLeft: -5
             },
         }),
-    },
-
-    textInputTmp: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0',
-        marginBottom: 20
     }
 
 });

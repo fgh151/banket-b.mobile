@@ -326,9 +326,9 @@ export default class PickerSelect extends PureComponent {
     renderIcon() {
         const { style, Icon } = this.props;
 
-        // if (!Icon) {
-        //     return null;
-        // }
+        if (Platform.OS !== 'ios') {
+            return null;
+        }
 
         return (
             <View

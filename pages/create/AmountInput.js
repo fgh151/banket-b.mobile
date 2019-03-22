@@ -2,7 +2,7 @@ import React from "react";
 import {Platform, StyleSheet, TextInput, View, Text} from "react-native";
 import {plural} from "../../helpers/StringHelper";
 
-const PLACEHOLDER_TEXT = 'Стоимость на гостя';
+export const PLACEHOLDER_TEXT = 'Стоимость на гостя';
 
 export default class AmountInput extends React.Component{
 
@@ -39,6 +39,8 @@ export default class AmountInput extends React.Component{
                 style={[styles.textInput, valid.valid]}
                 placeholderTextColor={'#000000'}
                 onChangeText={(value) => this.onChange(value)}
+                onFocus={() => this.props.onFocus()}
+                onBlur={() => this.props.onBlur()}
                 value={this.state.amount_value}
                 keyboardType="numeric"
                 placeholder={this.state.placeholder}
