@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Text, View, Image, RefreshControl} from "react-native";
+import {AsyncStorage, FlatList, Text, View, Image, RefreshControl, StyleSheet} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
@@ -136,7 +136,9 @@ export default class DialogList extends Component {
                 placeholder={placeholder}
                 items={variants}
                 value={this.state.selectedSort}
+                useNativeAndroidPickerStyle={false}
                 selectedValue={variants[0]}
+                style={pickerStyle}
                 onValueChange={(itemValue) => {
                     this.setState({selectedSort: itemValue.value});
                     switch (itemValue) {
@@ -240,3 +242,13 @@ export default class DialogList extends Component {
         return <DialogListItem dialog={item} proposal={this.props.proposal}/>
     }
 }
+
+const pickerStyle = StyleSheet.create({
+    inputAndroidContainer: {
+    },
+    inputAndroid: {
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginTop: -5
+    }
+});

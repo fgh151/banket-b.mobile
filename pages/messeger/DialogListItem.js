@@ -35,9 +35,6 @@ export default class DialogListItem extends Component {
 
     render() {
         const image = this.props.dialog.item.images[0];
-
-        console.log('ITEM', this.props.dialog.item, image);
-
         return (
             <Shadow style={styles.blockWrapper}>
                 <TouchableOpacity

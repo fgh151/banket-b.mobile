@@ -60,6 +60,7 @@ export default class PickerSelect extends PureComponent {
 
         // Custom Icon
         Icon: PropTypes.func,
+        showIcon: PropTypes.bool
     };
 
     static defaultProps = {
@@ -86,6 +87,7 @@ export default class PickerSelect extends PureComponent {
         textInputProps: {},
         pickerProps: {},
         Icon: null,
+        showIcon:true
     };
 
     static handlePlaceholder({ placeholder }) {
@@ -324,9 +326,9 @@ export default class PickerSelect extends PureComponent {
     }
 
     renderIcon() {
-        const { style, Icon } = this.props;
+        const { style, Icon, showIcon } = this.props;
 
-        if (Platform.OS !== 'ios') {
+        if (showIcon === false) {
             return null;
         }
 
@@ -376,7 +378,6 @@ export default class PickerSelect extends PureComponent {
         return (
             <View style={[defaultStyles.viewContainer, style.viewContainer,]}>
                 <TouchableWithoutFeedback
-                    style={{backgroundColor:'red'}}
                     onPress={() => {
                         Keyboard.dismiss();
                         this.togglePicker(true);

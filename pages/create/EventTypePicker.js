@@ -27,6 +27,7 @@ export default class EventTypePicker extends React.Component {
                 placeholderTextColor='#000000'
                 placeholder={placeholder}
                 items={variants}
+                showIcon={false}
                 onValueChange={(value) => {
                     this.props.onValueChange(value);
                 }}
