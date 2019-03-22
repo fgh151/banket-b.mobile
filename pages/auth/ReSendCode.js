@@ -1,16 +1,31 @@
 import React from 'react';
-import {Text, TouchableOpacity, View,Image} from "react-native";
+import {Image, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 
 
-export default class ReSendCode extends React.Component{
+export default class ReSendCode extends React.Component {
 
     render() {
-        return(
-            <View>
+        return (
+            <View style={style.wrapper}>
                 <TouchableOpacity onPress={this.props.onPress}>
-                    <Image source={require('../../assets/images/refresh.png')}/>
+                    <Image source={require('../../assets/images/reload.png')} style={{width: 18, height: 18}}/>
                 </TouchableOpacity>
             </View>
         )
     }
 }
+
+const style = StyleSheet.create({
+    wrapper: {
+        padding: 15,
+        marginLeft: -30,
+        ...Platform.select({
+            ios: {
+                position: 'absolute',
+                right: 0,
+                top: -15
+            },
+            android: {},
+        })
+    }
+});
