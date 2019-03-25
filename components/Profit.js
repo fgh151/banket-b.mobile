@@ -9,7 +9,7 @@ export default class Profit extends React.PureComponent{
         console.log(this.props.profit);
 
         if (this.props.profit > 0) {
-            return <Text style={styles.profit}>-{this.props.profit}%&nbsp;выгода</Text>
+            return <Text style={styles.profit}>{this.props.profit}%&nbsp;выгода</Text>
         }
         return null;
     }
