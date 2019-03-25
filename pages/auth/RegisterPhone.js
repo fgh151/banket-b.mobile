@@ -97,7 +97,7 @@ export default class RegisterPhone extends React.Component {
                 <View style={styles.buttonWrapper}>
                     <Button
                         disabled={this.state.buttonDisabled}
-                        title="Создать батл"
+                        title="Продолжить"
                         onPress={this.nextPage}
                     />
                 </View>

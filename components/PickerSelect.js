@@ -207,13 +207,13 @@ export default class PickerSelect extends PureComponent {
             if (Icon) {
 
                 return {
-                    // color: placeholderTextColor,
+                    color: placeholderTextColor,
                     marginRight: 10
                 };
             }
             return {
-                marginRight: 10
-                // color: placeholderTextColor,
+                marginRight: 10,
+                color: placeholderTextColor,
             };
         }
         return {};
@@ -541,8 +541,9 @@ const defaultStyles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         height: '100%',
-        color: 'transparent',
+        color: '#000000',
         opacity: 0,
+        // color:''
 
 
 

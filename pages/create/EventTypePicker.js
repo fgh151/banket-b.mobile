@@ -44,7 +44,9 @@ const pickerSelectStyles = StyleSheet.create({
         color: '#0C21E2',
         paddingRight: 30, // to ensure the text is never behind the icon
         paddingBottom: 5,
-        paddingTop: 5
+        paddingTop: 5,
+        fontSize:15,
+        lineHeight:18
     },
     inputAndroid: {
         marginTop:-5,
@@ -56,7 +58,11 @@ const pickerSelectStyles = StyleSheet.create({
         paddingRight: 30, // to ensure the text is never behind the icon
         // marginLeft: -8,
 
-        // fontSize:15,
-        // lineHeight:18,
+        fontSize:15,
+        lineHeight:18,
+
     },
+    headlessAndroidContainer: {
+        // backgroundColor:'red'
+    }
 });
