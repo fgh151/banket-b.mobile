@@ -155,36 +155,6 @@ export default class Form extends React.Component {
             </View>
         )
     }
-
-    // toggleGCPlaceHolder() {
-    //     let show = false;
-    //     if (!isEmpty(this.state.guests_count)) {
-    //         show = true;
-    //     } else if (this.state.inputFocus)  {
-    //         show = true;
-    //     }
-    //     this.setState({show_guests_count_placeholder: show})
-    // }
-    //
-    // toggleAmountPlaceHolder() {
-    //     let show = false;
-    //     if (!isEmpty(this.state.amount_value)) {
-    //         show = true;
-    //     } else if (this.state.inputAmountFocus)  {
-    //         show = true;
-    //     }
-    //     this.setState({show_amount_placeholder: show})
-    // }
-    //
-    // toggleNotesPlaceHolder() {
-    //     let show = false;
-    //     if (!isEmpty(this.state.notes)) {
-    //         show = true;
-    //     } else if (this.state.inputNotesFocus)  {
-    //         show = true;
-    //     }
-    //     this.setState({show_notes_placeholder: show})
-    // }
 }
 
 const valid = StyleSheet.create({
