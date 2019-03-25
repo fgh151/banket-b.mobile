@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, Text, TouchableOpacity, View, Platform} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
@@ -8,6 +8,7 @@ import {formatCost, round10, trunc} from "../../helpers/StringHelper";
 import Rating from '../../components/Rating';
 import type {Organization} from "../../types/Organization";
 import Profit from "../../components/Profit";
+import AndroidVersion from "../../helpers/AndroidVersion";
 
 export default class DialogListItem extends Component {
 
@@ -95,24 +96,36 @@ export default class DialogListItem extends Component {
 
 const styles = StyleSheet.create({
     blockWrapper: {
-        borderWidth: 1,
         borderRadius: 5,
-        borderColor: '#E0E0E0',
-        // shadowColor: '#000',
-        // shadowOffset: {width: 0, height: 2},
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
-        elevation: 1,
+
         marginTop: 10,
         marginBottom: 1,
 
 
 
-        shadowColor: 'rgba(0, 0, 0, 0.19452)',
-        shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.5,
-        shadowRadius: 30,
+        // shadowColor: 'rgba(0, 0, 0, 0.19452)',
+        // shadowOffset: {width: 0, height: 0},
+        // shadowOpacity: 0.5,
+        // shadowRadius: 30,
         // height:345
+
+
+        borderColor: '#E0E0E0',
+        borderWidth: 1,
+
+        ...AndroidVersion.select({
+            28: {
+                // elevation: 1,
+            },
+            default: {
+
+                shadowColor: '#000',
+                shadowOffset: {width: 0, height: 2},
+                shadowOpacity: 0.8,
+                shadowRadius: 2,
+                elevation: 1,
+            }
+        })
     },
     adItem: {
         flex: 1,
@@ -131,7 +144,30 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+
+        ...Platform.select({
+            ios: {
+
+            },
+            android: {
+                paddingTop:5
+            },
+        }),
+        ...AndroidVersion.select({
+            28: {
+                width: 'auto',
+                height: 100,
+            },
+            '>=28': {
+                width: 'auto',
+                height: 100,
+            },
+            default: {
+                width: '100%',
+                height: '100%',
+            }
+        })
     },
     profit: {
         fontFamily: "Lato-Bold",

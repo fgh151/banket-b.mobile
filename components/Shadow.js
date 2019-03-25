@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from "react-native";
+import AndroidVersion from "../helpers/AndroidVersion";
 
 
 export default class Shadow extends React.Component {
@@ -34,6 +35,12 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.5,
         shadowRadius: 7,
+        ...AndroidVersion.select({
+            28: {
+                elevation: 1,
+                borderWidth:0
+            }
+        })
 
     }
 });
