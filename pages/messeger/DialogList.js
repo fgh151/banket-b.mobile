@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Text, View, Image, RefreshControl, StyleSheet} from "react-native";
+import {AsyncStorage, FlatList, Image, RefreshControl, StyleSheet, Text, View} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
@@ -30,6 +30,26 @@ export default class DialogList extends Component {
         this.onRefresh = this.onRefresh.bind(this);
     }
 
+    static compareRating(a: Organization, b: Organization) {
+        return DialogList._compare(a, b, 'rating');
+    }
+
+    static comparePrice(a: Organization, b: Organization) {
+        return DialogList._compare(a, b, 'profit');
+    }
+
+    static compareLastMessage(a: Organization, b: Organization) {
+        return DialogList._compare(a, b, 'lastMessage');
+    }
+
+    static _compare(a: Organization, b: Organization, field: string) {
+        if (a[field] < b[field])
+            return 1;
+        if (a[field] > b[field])
+            return -1;
+        return 0;
+    }
+
     componentDidMount() {
         this.fetchData();
         changeTitle(this.props.proposal);
@@ -57,14 +77,6 @@ export default class DialogList extends Component {
 
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     let state = new GlobalState();
-    //     if (state.updateLists) {
-    //         this.getRemoteList();
-    //     }
-    //     return super.shouldComponentUpdate(nextProps, nextState)
-    // }
-
     getRemoteList() {
         const CACHE_KEY = 'dialog-list';
         AsyncStorage.getItem('battle@token')
@@ -89,7 +101,9 @@ export default class DialogList extends Component {
 
     onRefresh() {
         const self = this;
-        this.setState({ refreshing: true }, function()  { self.getRemoteList() });
+        this.setState({refreshing: true}, function () {
+            self.getRemoteList()
+        });
     }
 
     updateList(items) {
@@ -97,7 +111,7 @@ export default class DialogList extends Component {
         this.setState({
             items: items,
             loaded: true,
-            refreshing:false
+            refreshing: false
         });
     }
 
@@ -115,23 +129,22 @@ export default class DialogList extends Component {
             });
     }
 
-
     renderPicker() {
         const placeholder = {
             label: 'Лучшие',
-            value: null
+            value: 1
         };
 
         const variants = [
-            {label: "Лучшие", value: 1},
+            // {label: "Лучшие", value: 1},
             {label: "Последние", value: 2},
             {label: "Рейтинг", value: 3},
         ];
 
         return (
             <PickerSelect
-                Icon={() => <Image source={require('../../assets/images/down.png')} /> }
-                placeholderTextColor='#9EA0A4'
+                Icon={() => <Image source={require('../../assets/images/down.png')}/>}
+                placeholderTextColor={'#9EA0A4'}
                 placeholder={placeholder}
                 items={variants}
                 value={this.state.selectedSort}
@@ -142,15 +155,15 @@ export default class DialogList extends Component {
                     this.setState({selectedSort: itemValue.value});
                     switch (itemValue) {
                         case 1 : {
-                            this.state.items.sort(DialogList.comparePrice);
+                            this.setState({items: this.state.items.sort(DialogList.comparePrice)});
                             break
                         }
                         case 2 : {
-                            this.state.items.sort(DialogList.compareLastMessage);
+                            this.setState({items: this.state.items.sort(DialogList.compareLastMessage)});
                             break
                         }
                         case 3 : {
-                            this.state.items.sort(DialogList.compareRating);
+                            this.setState({items: this.state.items.sort(DialogList.compareRating)});
                             break
                         }
                     }
@@ -211,40 +224,13 @@ export default class DialogList extends Component {
         }
     }
 
-    static compareRating(a: Organization, b: Organization) {
-        return DialogList._compare(a, b, 'rating');
-    }
-
-    static comparePrice(a: Organization, b: Organization) {
-        return DialogList._compare(a, b, 'profit');
-    }
-
-    static compareLastMessage(a: Organization, b: Organization) {
-        return DialogList._compare(a, b, 'lastMessage');
-    }
-
-    static _compare(a: Organization, b: Organization, field: string) {
-        if (a[field] < b[field])
-            return -1;
-        if (a[field] > b[field])
-            return 1;
-        return 0;
-    }
-
-
     renderItem(item) {
-
-        // console.log('props', this.props.proposal);
-
-        // return null;
-        // const deleteFunction = this.delete.bind(this);
         return <DialogListItem dialog={item} proposal={this.props.proposal}/>
     }
 }
 
 const pickerStyle = StyleSheet.create({
-    inputAndroidContainer: {
-    },
+    inputAndroidContainer: {},
     inputAndroid: {
         paddingTop: 0,
         paddingBottom: 0,

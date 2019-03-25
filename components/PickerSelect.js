@@ -207,12 +207,13 @@ export default class PickerSelect extends PureComponent {
             if (Icon) {
 
                 return {
-                    color: placeholderTextColor,
+                    // color: placeholderTextColor,
                     marginRight: 10
                 };
             }
             return {
-                color: placeholderTextColor,
+                marginRight: 10
+                // color: placeholderTextColor,
             };
         }
         return {};
@@ -260,7 +261,7 @@ export default class PickerSelect extends PureComponent {
                     label={item.label}
                     value={item.value}
                     key={item.key || item.label}
-                    color={item.color}
+                    // color={item.color}
                 />
             );
         });
