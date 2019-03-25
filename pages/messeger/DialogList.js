@@ -119,8 +119,7 @@ export default class DialogList extends Component {
     renderPicker() {
         const placeholder = {
             label: 'Лучшие',
-            value: null,
-            color: '#9EA0A4',
+            value: null
         };
 
         const variants = [
