@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppState, AsyncStorage, Platform} from "react-native"
+import {AppState, AsyncStorage, Platform, StyleSheet} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import BattleList from './pages/BattleList/BattleList'
@@ -198,8 +198,7 @@ export default class App extends React.Component {
                         title="DialogList"
                         navigationBarStyle={{height: 90}}
                         renderTitle={<ProposalBar/>}
-                        renderBackButton={() => <BackButton/>}
-                        // renderRightButton={<ProposalMenu />}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                         renderRightButton={<ProposalMenu image="dots"  getProposal={getCurrentProposal}
                                                  buttons={[
                                                      {
@@ -211,6 +210,7 @@ export default class App extends React.Component {
                                                                      api.GET('/proposal/close/' + p.id)
                                                                          .then(
                                                                              () => {
+                                                                                 Actions.refresh();
                                                                                  Actions.BattleList();
                                                                              }
                                                                          )
@@ -226,15 +226,8 @@ export default class App extends React.Component {
                         key="Messenger"
                         component={Messenger}
                         title="Чат"
-                        renderBackButton={() => <BackButton/>}
-                        // renderTitle={<ChangeableTitle/>}
-                        // renderRightButton={() => <DialogHelp/>}
-                        // renderBackButton={() => <BackButton/>}
-
-                        // initial={true}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
-
-
                     <Scene
                         key="CitySelector"
                         component={CitySelector}
@@ -252,3 +245,15 @@ export default class App extends React.Component {
         );
     }
 }
+
+const localStyle = StyleSheet.create({
+    androidBackButton: {
+        ...Platform.select({
+            ios: {
+            },
+            android: {
+                paddingTop: 5
+            },
+        }),
+    }
+})
