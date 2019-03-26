@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, FlatList, Text, TouchableOpacity, View, RefreshControl} from "react-native";
+import {AsyncStorage, FlatList, RefreshControl, Text, TouchableOpacity, View} from "react-native";
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
 import ProposalListItem from "./ProposalListItem";
@@ -17,7 +17,7 @@ function updateState(state) {
     this.setState(state);
 }
 
-export class RightButton extends React.Component{
+export class RightButton extends React.Component {
 
     constructor(props) {
         super(props);
@@ -25,6 +25,10 @@ export class RightButton extends React.Component{
             items: [],
         };
         updateState = updateState.bind(this);
+    }
+
+    componentWillUnmount() {
+        updateState.unbind()
     }
 
     render() {
@@ -61,7 +65,7 @@ export default class BattleList extends React.PureComponent {
             refreshing: false,
         };
 
-        let gs =new GlobalState();
+        let gs = new GlobalState();
         gs.BattleList = this;
 
 
@@ -124,18 +128,22 @@ export default class BattleList extends React.PureComponent {
 
     updateList(items) {
         // noinspection JSAccessibilityCheck
-        this.setState({
-            items: items,
-            loaded: true,
-            refreshing:false
-        });
+        this.setState(
+            {
+                items: items,
+                loaded: true,
+                refreshing: false
+            },
 
-        updateState({items:items});
+            updateState({items: items})
+        );
     }
 
     onRefresh() {
         const self = this;
-        this.setState({ refreshing: true }, function()  { self.getRemoteList() });
+        this.setState({refreshing: true}, function () {
+            self.getRemoteList()
+        });
     }
 
     render() {
