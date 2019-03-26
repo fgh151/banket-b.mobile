@@ -155,13 +155,9 @@ const styles = StyleSheet.create({
             },
         }),
         ...AndroidVersion.select({
-            28: {
+            '>=26': {
                 width: 'auto',
-                height: 100,
-            },
-            '>=28': {
-                width: 'auto',
-                height: 100,
+                height: 'auto',
             },
             default: {
                 width: '100%',

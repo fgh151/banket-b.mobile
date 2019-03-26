@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 7,
         ...AndroidVersion.select({
-            28: {
+            '>=26': {
                 elevation: 1,
                 borderWidth:0
             }
