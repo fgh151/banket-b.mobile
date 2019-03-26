@@ -2,5 +2,12 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">banket-b.ru</domain>
+        <domain includeSubdomains="true">sentry.io</domain>
+        <!--Local dev server-->
+        <domain includeSubdomains="true">10.0.2.2</domain> <!--Или IP сервера разработки-->
+        <!--Firebase-->
+        <domain includeSubdomains="true">firebaseio.com</domain>
+        <domain includeSubdomains="true">appspot.com</domain>
+        <domain includeSubdomains="true">googleusercontent.com</domain>
     </domain-config>
 </network-security-config>
