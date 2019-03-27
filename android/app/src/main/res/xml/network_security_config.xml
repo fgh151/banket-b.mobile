@@ -5,6 +5,8 @@
         <domain includeSubdomains="true">sentry.io</domain>
         <!--Local dev server-->
         <domain includeSubdomains="true">10.0.2.2</domain> <!--Или IP сервера разработки-->
+        <domain includeSubdomains="true">localhost</domain> <!--Или IP сервера разработки-->
+        <domain includeSubdomains="true">192.168.50.210</domain>
         <!--Firebase-->
         <domain includeSubdomains="true">firebaseio.com</domain>
         <domain includeSubdomains="true">appspot.com</domain>
