@@ -204,17 +204,19 @@ export default class PickerSelect extends PureComponent {
         const { placeholder, placeholderTextColor, Icon } = this.props;
 
         if (!isEqual(placeholder, {}) && this.state.selectedItem.label === placeholder.label) {
-            if (Icon) {
+            // if (Icon) {
 
-                return {
+                return Platform.OS === 'ios' ?
+
+                 {
                     color: placeholderTextColor,
                     marginRight: 10
-                };
-            }
-            return {
-                marginRight: 10,
-                color: placeholderTextColor,
-            };
+                } : {marginRight: 10, color: placeholderTextColor};
+            // }
+            // return {
+            //     marginRight: 10,
+            //     // color: placeholderTextColor,
+            // };
         }
         return {};
     }
@@ -367,6 +369,7 @@ export default class PickerSelect extends PureComponent {
                     ref={this.setInputRef}
                     editable={false}
                     {...textInputProps}
+                    autoCorrect={false}
                 />
                 {this.renderIcon()}
             </View>

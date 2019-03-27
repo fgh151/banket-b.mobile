@@ -4,6 +4,7 @@ import PickerSelect from '../../components/PickerSelect';
 
 
 export default class EventTypePicker extends React.Component {
+
     render() {
 
         const placeholder = {
@@ -49,7 +50,7 @@ const pickerSelectStyles = StyleSheet.create({
         lineHeight:18
     },
     inputAndroid: {
-        marginTop:-5,
+        marginTop:-10,
         paddingBottom: 0,
 
         marginLeft:-5,

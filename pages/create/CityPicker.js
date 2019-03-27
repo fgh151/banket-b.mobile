@@ -28,7 +28,7 @@ export default class CityPicker extends React.Component {
                 onPress={() => Actions.CitySelector({onSelect: (c) => this.onSelect(c)})}
             >
                 <Text style={[textStyle.defaultFont, {
-                    paddingBottom: 5,
+                    paddingBottom: 2,
                     fontSize: 15,
                     color: '#0C21E2'
                 }]}>{this.state.city.title}</Text>

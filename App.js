@@ -127,21 +127,21 @@ export default class App extends React.Component {
                         navigationBarStyle={Styles.navBar}
                         component={LoginPhone}
                         title="Вход"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
                         key="LoginCode"
                         navigationBarStyle={Styles.navBar}
                         component={LoginCode}
                         title="Вход"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
                         key="RegisterPhone"
                         navigationBarStyle={Styles.navBar}
                         component={RegisterPhone}
                         title="Регистрация"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
 
                     />
                     <Scene
@@ -149,13 +149,14 @@ export default class App extends React.Component {
                         navigationBarStyle={Styles.navBar}
                         component={RegisterCode}
                         title="Регистрация"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
                         key="Form"
                         component={Form}
                         title="Создать батл"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        initial={true}
                     />
                     <Scene
                         key="BattleList"
@@ -176,7 +177,7 @@ export default class App extends React.Component {
                         key="Services"
                         component={Services}
                         title="Выберите услуги"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
 
                     />
                     <Scene
@@ -198,7 +199,7 @@ export default class App extends React.Component {
                         title="DialogList"
                         navigationBarStyle={{height: 90}}
                         renderTitle={<ProposalBar/>}
-                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButtonTop}/>}
                         renderRightButton={
                             <ProposalMenu
                                 image="dots"
@@ -236,7 +237,7 @@ export default class App extends React.Component {
                         key="CitySelector"
                         component={CitySelector}
                         title="Выберите город"
-                        renderBackButton={() => <BackButton/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
                         key={'RestaurantCard'}
@@ -258,5 +259,13 @@ const localStyle = StyleSheet.create({
                 paddingTop: 5
             },
         }),
-    }
+    },
+    androidBackButtonTop: {
+        ...Platform.select({
+            ios: {},
+            android: {
+                paddingTop: 3
+            },
+        }),
+    },
 });

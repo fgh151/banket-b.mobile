@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Platform, StyleSheet, TextInput, View} from "react-native";
+import {AsyncStorage, Platform, StyleSheet, TextInput, View, ScrollView} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -20,7 +20,8 @@ export default class RegisterCode extends React.Component {
         phone: this.props.phone,
         userName: this.props.userName,
         code: '',
-        buttonDisabled: true
+        buttonDisabled: true,
+        showPlaceholder: false
     };
 
     proposal = new Proposal();
@@ -72,9 +73,9 @@ export default class RegisterCode extends React.Component {
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{justifyContent: 'flex-start'}}>
-                        <View style={{height: 100, opacity: .5}}>
+                        <View style={{height: 70, opacity: .5}}>
                             <Input
-                                style={{marginBottom: 50}}
+                                style={{marginBottom: 0}}
                                 active={false}
                                 showPlaceholder={true}
                                 placeholder={'Имя'}
@@ -84,6 +85,7 @@ export default class RegisterCode extends React.Component {
                                     value={this.props.userName}
                                     // value={'Test'}
                                     onChangeText={this.nameChange}
+                                    autoCorrect={false}
                                 />
                             </Input>
                         </View>
@@ -91,6 +93,7 @@ export default class RegisterCode extends React.Component {
                             <Input
                                 showPlaceholder={true}
                                 style={{marginBottom: 50}}
+                                descriptionStyle={styles.descriptionStyle}
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                 active={false}
                                 placeholder='Номер телефона'
@@ -105,16 +108,23 @@ export default class RegisterCode extends React.Component {
                                     keyboardType="phone-pad"
                                     placeholder='Номер телефона'
                                     placeholderTextColor="#000"
-                                    style={{color: '#0C20E3', paddingBottom: 5}}
+                                    // style={{color: '#0C20E3', paddingBottom: 5}}
+                                    style={styles.maskInput}
                                     mask={"+7 ([000]) [000] [00] [00]"}
+                                    autoCorrect={false}
                                 />
                             </Input>
                         </View>
 
                         <View style={{height: 100}}>
-
-                            <CodeInput phone={this.props.phone} name={this.state.userName}
-                                       codeChange={this.codeChange}/>
+                            {/*<Input*/}
+                                {/*showPlaceholder={this.state.showPlaceholder}*/}
+                                {/*descriptionStyle={styles.descriptionStyle}*/}
+                                {/*placeholder='Код подтверждения'*/}
+                            {/*>*/}
+                                <CodeInput phone={this.props.phone} name={this.state.userName}
+                                           codeChange={this.codeChange}/>
+                            {/*</Input>*/}
                         </View>
                     </View>
                 </View>
@@ -142,13 +152,34 @@ RegisterCode.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-
+    descriptionStyle: {
+        ...Platform.select({
+            ios: {},
+            android: {
+                marginLeft: 0,
+            },
+        }),
+    },
     buttonWrapper: {
         padding: 10,
         width: '100%',
         ...ifIphoneX({
             marginBottom: 50
         })
+    },
+    maskInput: {
+        color: '#0C20E3',
+        ...Platform.select({
+            ios: {
+                // paddingTop:20,
+                paddingBottom: 4
+            },
+            android: {
+                paddingBottom: 0,
+                marginLeft: -5,
+                paddingTop: 0
+            },
+        }),
     },
 
     textInput: {
@@ -161,7 +192,10 @@ const styles = StyleSheet.create({
                 paddingBottom: 5
             },
             android: {
-                marginLeft: -5
+                marginLeft: -5,
+                paddingBottom: 0,
+                // backgroundColor:'green',
+                paddingTop: 0
             },
         }),
     },

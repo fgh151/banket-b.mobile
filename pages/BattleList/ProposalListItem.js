@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
 
         marginLeft: 15,
         marginRight: 15,
-        marginTop: 10,
+        marginTop: 13,
         marginBottom: 0,
 
         backgroundColor: 'white',

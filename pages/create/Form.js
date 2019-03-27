@@ -14,7 +14,6 @@ import CityPicker from "./CityPicker";
 import AmountInput, {PLACEHOLDER_TEXT as AMOUNT_PLACEHOLDER_TEXT} from "./AmountInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import GuestsCountInput, {PLACEHOLDER_TEXT as GUESTS_COUNT_PLACEHOLDER_TEXT} from "./GuestsCountInput";
-import {isEmpty} from "../../helpers/StringHelper";
 
 export default class Form extends React.Component {
     state = {
@@ -30,7 +29,9 @@ export default class Form extends React.Component {
         show_amount_placeholder: false,
         inputAmountFocus: false,
         show_notes_placeholder:false,
-        inputNotesFocus:false
+        inputNotesFocus:false,
+
+        hideButton: false
     };
 
     proposal = new Proposal();
@@ -73,8 +74,9 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <View style={[textStyle.rootViewWrapper, {marginTop: 25}]}>
+            <View style={[textStyle.rootViewWrapper, {marginTop: 25, padding:0}]}>
                 <ScrollView
+                    showsVerticalScrollIndicator={false}
                     style={textStyle.rootView}
                 >
                     <Input>
@@ -102,8 +104,8 @@ export default class Form extends React.Component {
                     >
                         <GuestsCountInput
                             onChange={this.setProposalProperty}
-                            // onFocus={() => {this.setState({inputGCFocus: true}, () => this.toggleGCPlaceHolder())}}
-                            // onBlur={()=>{this.setState({inputGCFocus: false}, () => this.toggleGCPlaceHolder())}}
+                            onFocus={() => {this.setState({hideButton: true})}}
+                            onBlur={()=>{this.setState({hideButton: false})}}
                         />
                     </Input>
                     <Input
@@ -115,8 +117,8 @@ export default class Form extends React.Component {
                     >
                         <AmountInput
                             onChange={this.setProposalProperty}
-                            // onFocus={() => {this.setState({inputAmountFocus: true}, () => this.toggleAmountPlaceHolder())}}
-                            // onBlur={()=>{this.setState({inputAmountFocus: false}, () => this.toggleAmountPlaceHolder())}}
+                            onFocus={() => {this.setState({hideButton: true})}}
+                            onBlur={()=>{this.setState({hideButton: false})}}
                         />
                     </Input>
                     <Input
@@ -131,7 +133,7 @@ export default class Form extends React.Component {
                             }}
                             style={[styles.textInput, valid.valid, {
                                 marginTop:-10,
-                                paddingBottom: 5,
+                                paddingBottom: 2,
                             }]}
                             placeholderTextColor={'#000000'}
                             onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
@@ -140,11 +142,19 @@ export default class Form extends React.Component {
                             placeholder='Дополнительно'
                             returnKeyType={'done'}
                             value={this.state.notes}
+                            autoCorrect={false}
                         />
                     </Input>
                 </ScrollView>
+                {this.renderButton()}
+            </View>
+        )
+    }
 
-                <View style={styles.buttonWrapper}>
+    renderButton() {
+        if (!this.state.hideButton) {
+            return (
+                <View style={[styles.buttonWrapper, {visibility: this.state.hideButton}]}>
                     <Button
                         style={{fontSize: 17, lineHeight: 21}}
                         disabled={this.state.buttonDisabled}
@@ -152,8 +162,8 @@ export default class Form extends React.Component {
                         onPress={this.nextPage}
                     />
                 </View>
-            </View>
-        )
+            )
+        }
     }
 }
 
@@ -168,7 +178,7 @@ const valid = StyleSheet.create({
 
 const styles = StyleSheet.create({
     buttonWrapper: {
-        padding: 10,
+        padding: 15,
         width: '100%',
         ...ifIphoneX({
             marginBottom: 50

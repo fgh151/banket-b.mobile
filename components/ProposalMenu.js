@@ -74,7 +74,7 @@ export default class Menu extends React.Component {
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     width: 50,
-                    paddingTop: 20,
+                    paddingTop: 24,
                     paddingBottom:30,
                 }}>
                     <ImageBackground source={require('../assets/images/menu-dots.png')} resizeMode="contain"

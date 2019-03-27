@@ -22,7 +22,7 @@ export default class Input extends React.Component {
                 <View style={[styles.input, this.props.inputStyle]}>
                     {this.props.children}
                 </View>
-                <Text style={styles.description}>{this.props.description}</Text>
+                <Text style={[styles.description, this.props.descriptionStyle]}>{this.props.description}</Text>
                 {this.renderOverlay()}
             </View>
         )
@@ -30,7 +30,7 @@ export default class Input extends React.Component {
 
     renderPlaceholder(text: string) {
         if ((isString(text) && this.state.focus) || this.props.showPlaceholder) {
-            return <Text style={styles.activePlaceholder}>{text}</Text>
+            return <Text style={[styles.activePlaceholder, this.props.placeholderStyle]}>{text}</Text>
         }
     }
 
@@ -61,6 +61,8 @@ Input.defaultProps = {
     showPlaceholder:false,
     active: true,
     error:undefined,
+    placeholderStyle:{},
+    descriptionStyle:{}
 };
 
 const styles = StyleSheet.create({
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         flexDirection: 'column',
-        position: "relative"
+        position: "relative",
     },
     input: {
         borderBottomWidth: 1,

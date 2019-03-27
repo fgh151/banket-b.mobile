@@ -21,11 +21,15 @@ const style = StyleSheet.create({
         marginLeft: -30,
         ...Platform.select({
             ios: {
-                position: 'absolute',
-                right: 0,
-                top: -15
             },
-            android: {},
+            android: {
+
+                position: 'absolute',
+                right: -10,
+                top: -12,
+
+                // backgroundColor:'red'
+            },
         })
     }
 });

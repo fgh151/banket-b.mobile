@@ -144,7 +144,7 @@ export default class DialogList extends Component {
         return (
             <PickerSelect
                 Icon={() => <Image source={require('../../assets/images/down.png')}/>}
-                placeholderTextColor={'#9EA0A4'}
+                placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
                 items={variants}
                 value={this.state.selectedSort}
@@ -234,6 +234,7 @@ const pickerStyle = StyleSheet.create({
     inputAndroid: {
         paddingTop: 0,
         paddingBottom: 0,
-        marginTop: -5
+        marginTop: -5,
+        marginRight: 10
     }
 });

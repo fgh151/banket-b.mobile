@@ -26,7 +26,7 @@ export default class FormDatePicker extends React.Component{
                         width: '100%',
                     },
                     placeholderText: [textStyle.defaultFont, {fontSize:15, color: '#000000', paddingTop: 5, marginBottom: -10}],
-                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2', paddingTop: 5}],
+                    dateText: [textStyle.defaultFont, {fontSize:15, color:'#0C21E2', paddingTop: 5, marginBottom: -10}],
                     btnTextConfirm : {
                         color: '#0C21E2'
                     }

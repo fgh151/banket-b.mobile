@@ -38,7 +38,6 @@ export default class CodeInput extends React.Component {
                 timerText: "Повторно код можно будет отправить через " + this.seconds + " " + plural(this.seconds, 'секунду', 'секунды', 'секунд')
             })
         }
-
     }
 
     componentDidMount() {
@@ -59,9 +58,6 @@ export default class CodeInput extends React.Component {
             .then((response: LoginResponse) => {
 
             });
-
-
-
     }
 
     renderButton() {
@@ -76,13 +72,14 @@ export default class CodeInput extends React.Component {
         return (
             <View style={{flex: 1, flexDirection: 'column'}}>
                 <View style={style.inputWrapper}>
-                    <View>
+                    <View style={{}}>
                         <TextInput
                             placeholderTextColor={'#000000'}
                             placeholder="Код подтверждения"
                             onChangeText={(code) => this.props.codeChange(code)}
                             keyboardType="numeric"
-                            style={{fontSize:15, lineHeight:18}}
+                            style={{fontSize:15, lineHeight:18, padding: 0,fontFamily: "Lato-Regular"}}
+                            autoCorrect={false}
                         />
                     </View>
                     <View style={{width: 16,}}>
@@ -94,16 +91,15 @@ export default class CodeInput extends React.Component {
                 </View>
             </View>
         )
-
     }
-
 }
 
 const style = StyleSheet.create({
     inputWrapper: {
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
-        paddingBottom: 5,
+        paddingBottom: 0,
+
 
         flexDirection: 'row',
         justifyContent: 'space-between',

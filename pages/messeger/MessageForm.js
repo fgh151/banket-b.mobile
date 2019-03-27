@@ -131,7 +131,8 @@ const style = StyleSheet.create({
             },
             android: {
                 marginLeft: -5,
-                padding:5
+                padding:5,
+                paddingLeft: 12
             },
         }),
     },
@@ -154,7 +155,7 @@ const style = StyleSheet.create({
         height: 29,
         marginTop: 10,
         borderRadius: 15,
-        backgroundColor: '#555',
+        backgroundColor: '#ccc',
     },
 
     buttonWrapperActive: {

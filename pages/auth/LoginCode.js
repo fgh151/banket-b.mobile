@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Keyboard, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, Keyboard, Platform, StyleSheet, TextInput, TouchableOpacity, View} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -81,8 +81,9 @@ export default class LoginCode extends React.Component {
                                 placeholder='Номер телефона'
                                 placeholderTextColor="#000"
                                 style={{color: '#0C20E3'}}
-                                mask={"+7 ([000]) [000] [00] [00]"}
+                                mask={"+7 [000] [000] [00] [00]"}
                                 value={this.props.phone}
+                                autoCorrect={false}
                                 // value={'+7 (999) 999 99 99'}
                             />
                         </Input>

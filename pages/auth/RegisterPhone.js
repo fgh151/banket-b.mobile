@@ -20,6 +20,9 @@ export default class RegisterPhone extends React.Component {
         showPhonePlaceholder:false,
 
         currentPhoneValue:'',
+
+        namePlaceholder: 'Имя',
+        phonePlaceholder:'Номер телефона'
     };
 
     nextPage = () => {
@@ -53,7 +56,7 @@ export default class RegisterPhone extends React.Component {
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{justifyContent: 'flex-start', marginTop: 25}}>
-                        <View style={{height: 60}}>
+                        <View style={{height: 50}}>
                             <Input
                                 style={{marginBottom: 0}}
                                 showPlaceholder={this.state.showNamePlaceholder}
@@ -62,17 +65,19 @@ export default class RegisterPhone extends React.Component {
                                 <TextInput
                                     placeholderTextColor={'#000000'}
                                     style={styles.textInput}
-                                    placeholder="Имя"
+                                    placeholder={this.state.namePlaceholder}
                                     value={this.state.name}
                                     onChangeText={this.nameChange}
-                                    onFocus={() => {this.setState({inputNameFocus: true}, () => this.toggleNamePlaceHolder())}}
-                                    onBlur={()=>{this.setState({inputNameFocus: false}, () => this.toggleNamePlaceHolder())}}
+                                    onFocus={() => {this.setState({inputNameFocus: true, namePlaceholder:''}, () => this.toggleNamePlaceHolder())}}
+                                    onBlur={()=>{this.setState({inputNameFocus: false, namePlaceholder:'Имя'}, () => this.toggleNamePlaceHolder())}}
+                                    autoCorrect={false}
                                 />
                             </Input>
                         </View>
                         <View style={{height: 100, marginTop:10}}>
                             <Input
                                 style={{marginBottom: 50}}
+                                descriptionStyle={styles.descriptionStyle}
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                 placeholder='Номер телефона'
                                 showPlaceholder={this.state.showPhonePlaceholder}
@@ -82,13 +87,15 @@ export default class RegisterPhone extends React.Component {
                                         this.input = ref
                                     }}
                                     onChangeText={this.phoneChange}
-                                    onFocus={() => {this.setState({inputPhoneFocus: true}, () => this.togglePhonePlaceHolder())}}
-                                    onBlur={()=>{this.setState({inputPhoneFocus: false}, () => this.togglePhonePlaceHolder())}}
+                                    onFocus={() => {this.setState({inputPhoneFocus: true, phonePlaceholder:'',  currentPhoneValue: this.state.currentPhoneValue ? this.state.currentPhoneValue: '+7 ('}, () => this.togglePhonePlaceHolder())}}
+                                    onBlur={()=>{this.setState({inputPhoneFocus: false, phonePlaceholder:'Номер телефона'}, () => this.togglePhonePlaceHolder())}}
                                     keyboardType="phone-pad"
-                                    placeholder='Номер телефона'
+                                    placeholder={this.state.phonePlaceholder}
                                     placeholderTextColor="#000"
                                     style={styles.maskInput}
-                                    mask={"+7 ([000]) [000] [00] [00]"}
+                                    mask={"+7 [000] [000] [00] [00]"}
+                                    autoCorrect={false}
+                                    value={this.state.currentPhoneValue}
                                 />
                             </Input>
                         </View>
@@ -128,6 +135,17 @@ export default class RegisterPhone extends React.Component {
 
 const styles = StyleSheet.create({
 
+    descriptionStyle:{
+        ...Platform.select({
+            ios: {
+
+            },
+            android: {
+                marginLeft: 0,
+            },
+        }),
+    },
+
     buttonWrapper: {
         padding: 10,
         width: '100%',
@@ -145,7 +163,10 @@ const styles = StyleSheet.create({
                 paddingBottom: 7
             },
             android: {
-                marginLeft: -5
+                marginLeft: -5,
+                paddingBottom:0,
+                // backgroundColor:'green',
+                paddingTop: 0
             },
         }),
     },
@@ -159,7 +180,8 @@ const styles = StyleSheet.create({
             },
             android: {
                 paddingBottom: 0,
-                marginLeft: -5
+                marginLeft: -5,
+                paddingTop: 0
             },
         }),
     },

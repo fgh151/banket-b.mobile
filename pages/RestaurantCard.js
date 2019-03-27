@@ -144,7 +144,7 @@ export default class RestaurantCard extends React.PureComponent {
                 justifyContent: 'flex-start'
             }}>
                 <View style={{marginBottom: 5}}>
-                <Text style={[Styles.boldFont, {fontSize:15, lineHeight:18}]}>Залы</Text>
+                <Text style={[Styles.boldFont, {fontSize:15, lineHeight:18, marginBottom:5}]}>Залы</Text>
                 </View>
                 <View style={{flex: 1, flexDirection:'column', alignSelf: 'auto', alignItems: 'flex-start', justifyContent: 'flex-start', flexWrap: 'wrap'}}>
                     {this.props.restaurant.halls.map((hall, index) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Keyboard, Platform, StyleSheet, TouchableOpacity, View, Text} from "react-native";
+import {Keyboard, Platform, StyleSheet, TouchableOpacity, View, Text, TextInput} from "react-native";
 import {Styles} from "../../styles/Global";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
@@ -61,6 +61,7 @@ export default class LoginPhone extends React.Component {
                             showPlaceholder={this.state.showPlaceholder}
                             error={''}
                             placeholder={'Номер телефона'}
+                            placeholderStyle={{marginLeft:-5}}
                         >
                             <TextInputMask
                                 refInput={ref => {
@@ -76,6 +77,7 @@ export default class LoginPhone extends React.Component {
                                 style={styles.textInput}
                                 mask={"+7 ([000]) [000] [00] [00]"}
                                 value={this.state.phone}
+                                autoCorrect={false}
                             />
                         </Input>
                     </View>

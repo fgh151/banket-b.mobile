@@ -102,10 +102,10 @@ export default class Ad extends React.Component {
                                 {promo.item.organizationName}
                             </Text>
                         </View>
-                        <View style={{marginBottom: 10}}>
+                        <View style={{marginBottom: 10, marginRight: 5}}>
                             <Text style={style.promoText}>{promo.item.title}</Text>
                         </View>
-                        <View>
+                        <View style={{ marginBottom:8}}>
                             <Text style={[textStyle.defaultFont, {color:'rgba(0, 0, 0, 0.5)', fontSize:13, lineHeight:16}]}>Подробнее</Text>
                         </View>
                     </View>
@@ -140,6 +140,7 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         borderTopRightRadius: 5,
+        justifyContent:'flex-start',
         width: 200,
     },
     imageWrapper: {
@@ -155,12 +156,14 @@ const style = StyleSheet.create({
         fontFamily: "Lato-Bold",
         fontSize: 13,
         lineHeight: 16,
-        color: '#000000'
+        color: '#000000',
+
     },
     promoText: {
         fontFamily: "Lato-Regular",
         fontSize: 13,
         lineHeight: 16,
-        color: '#000000'
+        color: '#000000',
+
     }
 });

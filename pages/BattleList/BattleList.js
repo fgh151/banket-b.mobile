@@ -28,7 +28,7 @@ export class RightButton extends React.Component {
     }
 
     componentWillUnmount() {
-        updateState.unbind()
+        // updateState.unbind()
     }
 
     render() {
@@ -161,7 +161,7 @@ export default class BattleList extends React.PureComponent {
         if (this.state.items.length > 0) {
             //padding 10 - нужен для корректного отображения кружков новых сообщений
             return (
-                <View style={[textStyle.rootViewWrapper, {padding: 0, marginTop: -5}]}>
+                <View style={[textStyle.rootViewWrapper, {padding: 0, marginTop: 9}]}>
                     <FlatList
                         style={[textStyle.rootViewBig, {paddingTop: 10}]}
                         ListEmptyComponent={<View/>}

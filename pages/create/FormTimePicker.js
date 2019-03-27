@@ -26,11 +26,13 @@ export default class FormTimePicker extends React.Component {
     render() {
         return (
             <SafeAreaView>
-                <View>
+                <View style={{marginTop: 2}}>
                     <TouchableOpacity onPress={() => this.setState({modalVisible: true})}>
                         <Text style={[{
                             paddingBottom: 5,
                             fontSize: 15,
+                            lineHeight:18,
+                            fontFamily: "Lato-Regular",
                             color: this.state.valid ? '#0C21E2' : '#000000'
                         }]}>{this.state.viewText}</Text>
                     </TouchableOpacity>

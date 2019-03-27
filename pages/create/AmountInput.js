@@ -39,12 +39,13 @@ export default class AmountInput extends React.Component{
                 style={[styles.textInput, valid.valid]}
                 placeholderTextColor={'#000000'}
                 onChangeText={(value) => this.onChange(value)}
-                // onFocus={() => this.props.onFocus()}
-                // onBlur={() => this.props.onBlur()}
+                onFocus={() => this.props.onFocus()}
+                onBlur={() => this.props.onBlur()}
                 value={this.state.amount_value}
                 keyboardType="numeric"
                 placeholder={this.state.placeholder}
                 returnKeyType={'done'}
+                autoCorrect={false}
             />
             <Text style={[styles.postfix, {opacity:this.state.amount_value?1:0}]}> {plural(this.state.amount_value, 'рубль', 'рубля', 'рублей')} на гостя</Text>
             </View>
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
+        width:'100%',
         fontSize: 15,
         lineHeight: 18,
         fontFamily: "Lato-Regular",
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
             },
             android: {
                 marginLeft: -5,
-                paddingBottom: 0
+                paddingBottom: 0,
             },
         }),
     }
