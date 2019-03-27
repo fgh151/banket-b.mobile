@@ -66,7 +66,7 @@ export default class LoginCode extends React.Component {
         return (
             <TouchableOpacity onPress={() => (Keyboard.dismiss())} style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{flex: 0.3, marginTop: 20, marginLeft: 5}}>
+                    <View style={{flex: 0.4, marginTop: 20, marginLeft: 5}}>
                         <Input
                             description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                             active={false}
@@ -87,7 +87,7 @@ export default class LoginCode extends React.Component {
                             />
                         </Input>
                     </View>
-                    <View style={{flex: 0.2, marginTop:25}}>
+                    <View style={{flex: 0.3, marginTop:25}}>
                         <CodeInput phone={this.props.phone} codeChange={this.codeChange}/>
                     </View>
                 </View>
