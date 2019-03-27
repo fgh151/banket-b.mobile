@@ -199,27 +199,31 @@ export default class App extends React.Component {
                         navigationBarStyle={{height: 90}}
                         renderTitle={<ProposalBar/>}
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
-                        renderRightButton={<ProposalMenu image="dots"  getProposal={getCurrentProposal}
-                                                 buttons={[
-                                                     {
-                                                         action: () => {
-                                                             let p = getCurrentProposal();
-                                                             AsyncStorage.getItem('battle@token')
-                                                                 .then((result) => {
-                                                                     const api = new Client(result);
-                                                                     api.GET('/proposal/close/' + p.id)
-                                                                         .then(
-                                                                             () => {
-                                                                                 Actions.refresh();
-                                                                                 Actions.BattleList();
-                                                                             }
-                                                                         )
-                                                                 });
-                                                             Actions.BattleList();
-                                                         },
-                                                         title: 'Закончить батл'
-                                                     }
-                                                 ]}/>}
+                        renderRightButton={
+                            <ProposalMenu
+                                image="dots"
+                                getProposal={getCurrentProposal}
+                                buttons={[
+                                    {
+                                        action: () => {
+                                            let p = getCurrentProposal();
+                                            AsyncStorage.getItem('battle@token')
+                                                .then((result) => {
+                                                    const api = new Client(result);
+                                                    api.GET('/proposal/close/' + p.id)
+                                                        .then(
+                                                            () => {
+                                                                Actions.refresh();
+                                                                Actions.BattleList();
+                                                            }
+                                                        )
+                                                });
+                                            Actions.BattleList();
+                                        },
+                                        title: 'Закончить батл'
+                                    }
+                                ]}/>
+                        }
                     />
 
                     <Scene
@@ -249,11 +253,10 @@ export default class App extends React.Component {
 const localStyle = StyleSheet.create({
     androidBackButton: {
         ...Platform.select({
-            ios: {
-            },
+            ios: {},
             android: {
                 paddingTop: 5
             },
         }),
     }
-})
+});
