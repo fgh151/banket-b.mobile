@@ -10,7 +10,7 @@ export default class Ad extends React.Component {
 
     categories = [];
 
-    debug = __DEV__;
+    debug = false; //__DEV__;
 
     constructor(props) {
         super(props);

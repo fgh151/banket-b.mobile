@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, FlatList, RefreshControl, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, FlatList, Platform, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
 import ProposalListItem from "./ProposalListItem";
@@ -12,6 +12,7 @@ import Ad from "../../components/Ad";
 import trackEvent from "../../helpers/AppsFlyer";
 import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 function updateState(state) {
     this.setState(state);
@@ -146,7 +147,7 @@ export default class BattleList extends React.PureComponent {
 
         if (this.state.items.length > 0) {
             return (
-                <View style={[textStyle.rootViewWrapper, {padding: 0, marginTop: 9}]}>
+                <View style={[textStyle.rootViewWrapper, style.root]}>
                     <FlatList
                         style={[textStyle.rootViewBig, {paddingTop: 10}]}
                         ListEmptyComponent={<View/>}
@@ -172,7 +173,7 @@ export default class BattleList extends React.PureComponent {
 
     renderAd() {
         if (this.state.items.length < 3) {
-            return <Ad style={{marginBottom: -18, padding: 15}}/>
+            return <Ad style={style.ad}/>
         }
         return null;
     }
@@ -203,3 +204,24 @@ export default class BattleList extends React.PureComponent {
         );
     }
 }
+
+const style = StyleSheet.create({
+    root: {
+        padding: 0,
+        ...Platform.select({
+            ios: {
+                marginTop: 0
+            },
+            android: {
+                marginTop: 9
+            },
+        }),
+    },
+    ad: {
+        marginBottom: -18,
+        padding: 15,
+        ...ifIphoneX({
+            marginBottom: 15,
+        })
+    }
+})

@@ -1,6 +1,7 @@
 import React from 'react';
-import {ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {ImageBackground, Modal, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import {Button} from './Button';
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class Menu extends React.Component {
 
@@ -107,14 +108,7 @@ export default class Menu extends React.Component {
     render() {
         return (
             <View>
-                <TouchableOpacity onPress={this.toggleModal} style={{
-                    height: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    width: 50,
-                    paddingTop: 24,
-                    paddingBottom: 30,
-                }}>
+                <TouchableOpacity onPress={this.toggleModal} style={style.buttonWrapper}>
                     <ImageBackground source={require('../assets/images/menu-dots.png')} resizeMode="contain"
                                      style={{width: 20, height: 5}}>
                     </ImageBackground>
@@ -167,6 +161,21 @@ class Service extends React.Component {
 }
 
 const style = StyleSheet.create({
+    buttonWrapper: {
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        width: 50,
+        paddingBottom: 30,
+        ...Platform.select({
+            ios: {
+                paddingTop: 20,
+            },
+            android: {
+                paddingTop: 24,
+            },
+        }),
+    },
     overlay: {
         flex: 1,
         flexDirection: 'column',
@@ -185,9 +194,6 @@ const style = StyleSheet.create({
         bottom: 0
     },
     inactiveWrapper: {
-        // alignSelf: 'flex-start',
-
-
         paddingLeft: 22,
         paddingRight: 22,
         paddingTop: 11,
@@ -215,6 +221,9 @@ const ModalStyle = StyleSheet.create({
         padding: 15,
         position: 'absolute',
         left: 0,
-        bottom: 0
+        bottom: 0,
+        ...ifIphoneX({
+            paddingBottom: 50,
+        })
     },
 });

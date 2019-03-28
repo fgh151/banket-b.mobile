@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {Image, StyleSheet, Text, TouchableOpacity, View, Platform} from "react-native";
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
-import {formatCost, round10, trunc} from "../../helpers/StringHelper";
+import {formatCost, round10} from "../../helpers/StringHelper";
 
 import Rating from '../../components/Rating';
 import type {Organization} from "../../types/Organization";
@@ -119,11 +119,11 @@ const styles = StyleSheet.create({
             },
             default: {
 
-                shadowColor: '#000',
-                shadowOffset: {width: 0, height: 2},
-                shadowOpacity: 0.8,
-                shadowRadius: 2,
-                elevation: 1,
+                // shadowColor: '#000',
+                // shadowOffset: {width: 0, height: 2},
+                // shadowOpacity: 0.8,
+                // shadowRadius: 2,
+                // elevation: 1,
             }
         })
     },

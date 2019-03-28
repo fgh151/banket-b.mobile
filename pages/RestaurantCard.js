@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {Image, Linking, StyleSheet, Text, TouchableOpacity, View, Platform} from 'react-native';
+import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Rating from "../components/Rating";
 import openMap from 'react-native-open-maps';
 import BackButton from "../components/BackButton";
 import {Styles} from '../styles/Global';
 import {isEmpty} from "../helpers/ArrayHelper";
+import {ifIphoneX} from "react-native-iphone-x-helper";
 
 
 export default class RestaurantCard extends React.PureComponent {
@@ -68,7 +69,7 @@ export default class RestaurantCard extends React.PureComponent {
                     >
                         {this.renderSlider(this.props.restaurant.images)}
                     </Swiper>
-                    <BackButton style={{position: 'absolute', top: 10, left: 0}} image={'white'}/>
+                    <BackButton style={local.backButton} image={'white'}/>
                 </View>
                 <View style={{flex: 70}}>
                     <View style={{
@@ -164,6 +165,14 @@ export default class RestaurantCard extends React.PureComponent {
 }
 
 const local = StyleSheet.create({
+    backButton: {
+        position: 'absolute',
+        top: 10,
+        left: 0,
+        ...ifIphoneX({
+            top: 40,
+        })
+    },
     wrapper: {
         flex: 1,
         flexDirection: 'column',
@@ -177,6 +186,7 @@ const local = StyleSheet.create({
         alignItems: 'center',
 
         height: 352,
+
     },
     sliderActiveDot: {
         backgroundColor: '#ffffff',
