@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Keyboard, Platform, StyleSheet, TextInput, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, Platform, ScrollView, StyleSheet, View} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -13,13 +13,15 @@ import {firstLunchDone} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import {Styles} from "../../styles/Global";
 
 export default class LoginCode extends React.Component {
 
     state = {
         phone: this.props.phone,
         code: '',
-        buttonDisabled: true
+        buttonDisabled: true,
+        showPlaceholder: false
     };
 
     codeChange = (code: string) => {
@@ -64,35 +66,56 @@ export default class LoginCode extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => (Keyboard.dismiss())} style={styles.container}>
-                <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{flex: 0.4, marginTop: 20, marginLeft: 5}}>
-                        <Input
-                            description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                            active={false}
-                            showPlaceholder={true}
-                            placeholder={'Телефон'}
-                        >
-                            <TextInputMask
-                                refInput={ref => {
-                                    this.input = ref
-                                }}
-                                keyboardType="phone-pad"
-                                placeholder='Номер телефона'
-                                placeholderTextColor="#000"
-                                style={{color: '#0C20E3'}}
-                                mask={"+7 [000] [000] [00] [00]"}
-                                value={this.props.phone}
-                                autoCorrect={false}
-                                // value={'+7 (999) 999 99 99'}
-                            />
-                        </Input>
-                    </View>
-                    <View style={{flex: 0.3, marginTop:25}}>
-                        <CodeInput phone={this.props.phone} codeChange={this.codeChange}/>
-                    </View>
-                </View>
+            <View style={styles.container}>
+                <ScrollView style={Styles.rootView}>
+                    <View style={{margin: 10, maxWidth: 300}}>
+                        <View style={{justifyContent: 'flex-start'}}>
+                            <View style={{height: 100, opacity: .5}}>
+                                <Input
+                                    showPlaceholder={true}
+                                    style={{marginBottom: 50}}
+                                    descriptionStyle={styles.descriptionStyle}
+                                    description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                                    active={false}
+                                    placeholder='Номер телефона'
+                                >
+                                    <TextInputMask
+                                        refInput={ref => {
+                                            this.input = ref
+                                        }}
+                                        value={this.props.phone}
+                                        // value={'+7 (999) 999 99 99'}
+                                        onChangeText={this.phoneChange}
+                                        keyboardType="phone-pad"
+                                        placeholder='Номер телефона'
+                                        placeholderTextColor="#000"
+                                        // style={{color: '#0C20E3', paddingBottom: 5}}
+                                        style={styles.maskInput}
+                                        mask={"+7 ([000]) [000] [00] [00]"}
+                                        autoCorrect={false}
+                                    />
+                                </Input>
+                            </View>
 
+                            <View style={{height: 100}}>
+                                <Input
+                                    style={{}}
+                                    showPlaceholder={this.state.showPlaceholder}
+                                    descriptionStyle={styles.descriptionStyle}
+                                    placeholder='Код подтверждения'
+                                >
+                                    <CodeInput
+                                        onFocus={() => this.setState({showPlaceholder: true})}
+                                        onBlur={() => this.setState({showPlaceholder: false})}
+                                        phone={this.props.phone}
+                                        name={this.state.userName}
+                                        codeChange={this.codeChange}
+                                    />
+                                </Input>
+                            </View>
+                        </View>
+                    </View>
+                </ScrollView>
                 <View style={styles.buttonWrapper}>
                     <Button
                         disabled={this.state.buttonDisabled}
@@ -100,8 +123,8 @@ export default class LoginCode extends React.Component {
                         onPress={this.nextPage}
                     />
                 </View>
-            </TouchableOpacity>
-        );
+            </View>
+        )
     }
 }
 
@@ -111,7 +134,14 @@ LoginCode.propTypes = {
 };
 
 const styles = StyleSheet.create({
-
+    descriptionStyle: {
+        ...Platform.select({
+            ios: {},
+            android: {
+                marginLeft: 0,
+            },
+        }),
+    },
     buttonWrapper: {
         padding: 10,
         width: '100%',
@@ -119,33 +149,47 @@ const styles = StyleSheet.create({
             marginBottom: 50
         })
     },
+    maskInput: {
+        color: '#0C20E3',
+        ...Platform.select({
+            ios: {
+                // paddingTop:20,
+                paddingBottom: 4
+            },
+            android: {
+                paddingBottom: 0,
+                marginLeft: -5,
+                paddingTop: 0
+            },
+        }),
+    },
 
     textInput: {
+        color: '#0C20E3',
         fontSize: 15,
+        lineHeight: 18,
         ...Platform.select({
             ios: {
                 paddingTop: 20,
                 paddingBottom: 5
             },
             android: {
-                marginLeft: 0
+                marginLeft: -5,
+                paddingBottom: 0,
+                // backgroundColor:'green',
+                paddingTop: 0
             },
         }),
     },
 
     container: {
+        paddingTop: 30,
+
         flex: 1,
         flexDirection: 'column',
+
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'center'
 
-
-        ...Platform.select({
-            ios: {
-            },
-            android: {
-                marginTop:0
-            },
-        }),
     },
 });

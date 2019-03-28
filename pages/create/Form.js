@@ -127,22 +127,23 @@ export default class Form extends React.Component {
                         placeholder={'Дополнительно'}
                     >
                             <TextInput
-                            multiline
-                            refInput={ref => {
+                                multiline
+                                refInput={ref => {
                                 this.input = ref
                             }}
-                            style={[styles.textInput, valid.valid, {
+                                style={[styles.textInput, valid.valid, {
                                 marginTop:-10,
                                 paddingBottom: 2,
                             }]}
-                            placeholderTextColor={'#000000'}
-                            onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
+                                placeholderTextColor={'#000000'}
+                                onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
                             // onFocus={() => {this.setState({inputNotesFocus: true}, () => this.toggleNotesPlaceHolder())}}
                             // onBlur={()=>{this.setState({inputNotesFocus: false}, () => this.toggleNotesPlaceHolder())}}
-                            placeholder='Дополнительно'
-                            returnKeyType={'done'}
-                            value={this.state.notes}
-                            autoCorrect={false}
+                                placeholder='Дополнительно'
+                                returnKeyType={'done'}
+                                value={this.state.notes}
+                                autoCorrect={false}
+                                underlineColorAndroid="transparent"
                         />
                     </Input>
                 </ScrollView>

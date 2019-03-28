@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     textInput: {
         color:'#000000',
         fontSize: 15,
+        borderBottomWidth: 0,
         ...Platform.select({
             ios: {
                 paddingTop: 0,

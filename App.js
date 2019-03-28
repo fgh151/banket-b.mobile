@@ -2,7 +2,7 @@ import React from 'react';
 import {AppState, AsyncStorage, Platform, StyleSheet} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
-import BattleList from './pages/BattleList/BattleList'
+import BattleList, {RightButton} from './pages/BattleList/BattleList'
 import SplashScreen from 'react-native-splash-screen'
 import firebase from 'react-native-firebase';
 import {Styles} from "./styles/Global";
@@ -25,12 +25,8 @@ import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
-import {RightButton} from "./pages/BattleList/BattleList";
 
-import {
-    setCustomTextInput,
-    setCustomText,
-} from 'react-native-global-props';
+import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
 import Sentry from "react-native-sentry";
 
 const customFont = {
@@ -142,7 +138,7 @@ export default class App extends React.Component {
                         component={RegisterPhone}
                         title="Регистрация"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
-
+                        // initial={true}
                     />
                     <Scene
                         key="RegisterCode"
@@ -156,7 +152,6 @@ export default class App extends React.Component {
                         component={Form}
                         title="Создать батл"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
-                        initial={true}
                     />
                     <Scene
                         key="BattleList"

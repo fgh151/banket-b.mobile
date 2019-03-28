@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Platform, StyleSheet, TextInput, View, ScrollView} from "react-native";
+import {AsyncStorage, Platform, ScrollView, StyleSheet, TextInput, View} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -13,6 +13,7 @@ import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import {Styles} from "../../styles/Global";
 
 export default class RegisterCode extends React.Component {
 
@@ -71,6 +72,7 @@ export default class RegisterCode extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <ScrollView style={Styles.rootView}>
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{justifyContent: 'flex-start'}}>
                         <View style={{height: 70, opacity: .5}}>
@@ -117,17 +119,24 @@ export default class RegisterCode extends React.Component {
                         </View>
 
                         <View style={{height: 100}}>
-                            {/*<Input*/}
-                                {/*showPlaceholder={this.state.showPlaceholder}*/}
-                                {/*descriptionStyle={styles.descriptionStyle}*/}
-                                {/*placeholder='Код подтверждения'*/}
-                            {/*>*/}
-                                <CodeInput phone={this.props.phone} name={this.state.userName}
-                                           codeChange={this.codeChange}/>
-                            {/*</Input>*/}
+                            <Input
+                                style={{}}
+                                showPlaceholder={this.state.showPlaceholder}
+                                descriptionStyle={styles.descriptionStyle}
+                                placeholder='Код подтверждения'
+                            >
+                                <CodeInput
+                                    onFocus={() => this.setState({showPlaceholder: true})}
+                                    onBlur={() => this.setState({showPlaceholder: false})}
+                                    phone={this.props.phone}
+                                    name={this.state.userName}
+                                    codeChange={this.codeChange}
+                                />
+                            </Input>
                         </View>
                     </View>
                 </View>
+                </ScrollView>
                 <View style={styles.buttonWrapper}>
                     <Button
                         disabled={this.state.buttonDisabled}
@@ -205,7 +214,9 @@ const styles = StyleSheet.create({
 
         flex: 1,
         flexDirection: 'column',
+
         justifyContent: 'space-between',
         alignItems: 'center'
+
     },
 });

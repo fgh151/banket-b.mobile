@@ -1,7 +1,6 @@
 import {FlatList, Image, Linking, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 import Client from "../http/Client";
-
 import Config from '../Config'
 import CacheStore from "react-native-cache-store";
 import {Styles as textStyle} from "../styles/Global";
@@ -11,22 +10,18 @@ export default class Ad extends React.Component {
 
     categories = [];
 
-    debug = false; //__DEV__;
+    debug = __DEV__;
 
     constructor(props) {
         super(props);
         this.state = {
-
             items: [],
-
             loaded: false,
         };
     }
 
     componentDidMount() {
-
         if (this.debug !== true) {
-
             this.fetchData();
         }
     }
@@ -64,9 +59,9 @@ export default class Ad extends React.Component {
             return (
                 <View style={[style.block, this.props.style]}>
                     <View>
-                    <Text style={[textStyle.defaultFont, {fontSize:15, lineHeight:18, color:'rgba(0,0,0,0.5)'}]}>
-                        Предложения от партнеров
-                    </Text>
+                        <Text style={[textStyle.defaultFont, {fontSize: 15, lineHeight: 18, color: 'rgba(0,0,0,0.5)'}]}>
+                            Предложения от партнеров
+                        </Text>
                     </View>
                     <FlatList
                         style={{marginTop: 0}}
@@ -87,30 +82,34 @@ export default class Ad extends React.Component {
 
         return (
             <Shadow>
-            <TouchableOpacity
-                style={style.wrapper}
-                elevation={5}
-                onPress={() => Linking.openURL(url)}
-            >
-                <View style={style.adItem}>
-                    <View style={style.imageWrapper}>
-                        <Image style={style.image} source={{uri: image}} resizeMode="cover"/>
+                <TouchableOpacity
+                    style={style.wrapper}
+                    elevation={5}
+                    onPress={() => Linking.openURL(url)}
+                >
+                    <View style={style.adItem}>
+                        <View style={style.imageWrapper}>
+                            <Image style={style.image} source={{uri: image}} resizeMode="cover"/>
+                        </View>
+                        <View style={style.adItemAnnotation}>
+                            <View style={{marginBottom: 8, marginTop: 8}}>
+                                <Text style={style.organizationName}>
+                                    {promo.item.organizationName}
+                                </Text>
+                            </View>
+                            <View style={{marginBottom: 10, marginRight: 5}}>
+                                <Text style={style.promoText}>{promo.item.title}</Text>
+                            </View>
+                            <View style={{marginBottom: 8, position: 'absolute', bottom: 0, left: 0}}>
+                                <Text style={[textStyle.defaultFont, {
+                                    color: 'rgba(0, 0, 0, 0.5)',
+                                    fontSize: 13,
+                                    lineHeight: 16
+                                }]}>Подробнее</Text>
+                            </View>
+                        </View>
                     </View>
-                    <View style={style.adItemAnnotation}>
-                        <View style={{marginBottom: 8, marginTop: 8}}>
-                            <Text style={style.organizationName}>
-                                {promo.item.organizationName}
-                            </Text>
-                        </View>
-                        <View style={{marginBottom: 10, marginRight: 5}}>
-                            <Text style={style.promoText}>{promo.item.title}</Text>
-                        </View>
-                        <View style={{ marginBottom:8}}>
-                            <Text style={[textStyle.defaultFont, {color:'rgba(0, 0, 0, 0.5)', fontSize:13, lineHeight:16}]}>Подробнее</Text>
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
             </Shadow>
         );
     }
@@ -119,13 +118,13 @@ export default class Ad extends React.Component {
 
 const style = StyleSheet.create({
     block: {
-        height: 200,
+        height: 180,
         marginRight: -15,
 
     },
     wrapper: {
         height: 118,
-        width:286,
+        width: 286,
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
     },
@@ -140,11 +139,11 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         borderTopRightRadius: 5,
-        justifyContent:'flex-start',
+        justifyContent: 'flex-start',
         width: 200,
     },
     imageWrapper: {
-        flex:.6,
+        flex: .6,
         overflow: 'hidden',
         borderTopLeftRadius: 5,
     },
@@ -157,7 +156,6 @@ const style = StyleSheet.create({
         fontSize: 13,
         lineHeight: 16,
         color: '#000000',
-
     },
     promoText: {
         fontFamily: "Lato-Regular",

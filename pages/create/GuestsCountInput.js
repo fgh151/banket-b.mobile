@@ -1,5 +1,5 @@
 import React from "react";
-import {Platform, StyleSheet, Text, TextInput, View} from "react-native";
+import {Platform, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 import {plural} from "../../helpers/StringHelper";
 
 export const PLACEHOLDER_TEXT = 'Количество гостей';
@@ -32,11 +32,14 @@ export default class GuestsCountInput extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-start'}}>
+            <TouchableOpacity onPress={() => this.refs.Input.focus()}
+                              style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-start', width: '100%'}}>
                 <TextInput
                     refInput={ref => {
                         this.input = ref
                     }}
+
+                    ref='Input'
                     style={[styles.textInput, valid.valid]}
                     placeholderTextColor={'#000000'}
                     onChangeText={(value) => this.onChange(value)}
@@ -50,7 +53,7 @@ export default class GuestsCountInput extends React.Component {
                 />
                 <Text
                     style={[styles.postfix, {opacity: this.state.amount_value ? 1 : 0}]}> {plural(this.state.amount_value, 'гость', 'гостя', 'гостей')}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 }
@@ -65,8 +68,6 @@ const valid = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-
-
     postfix: {
         color: '#0C21E2',
         fontSize: 15,
@@ -79,13 +80,11 @@ const styles = StyleSheet.create({
             },
             android: {
                 marginTop: 15,
-                // marginLeft: -100
             },
         }),
     },
 
     textInput: {
-        width:'100%',
         fontSize: 15,
         lineHeight: 18,
         fontFamily: "Lato-Regular",
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
             },
             android: {
                 marginLeft: -5,
-                paddingBottom:0
+                paddingBottom: 0
             },
         }),
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet} from "react-native";
+import {Image, StyleSheet} from "react-native";
 import PickerSelect from '../../components/PickerSelect';
 
 
@@ -25,6 +25,7 @@ export default class EventTypePicker extends React.Component {
 
         return (
             <PickerSelect
+                Icon={() => <Image source={require('../../assets/images/down.png')}/>}
                 placeholderTextColor='#000000'
                 placeholder={placeholder}
                 items={variants}

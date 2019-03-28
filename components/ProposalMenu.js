@@ -19,63 +19,101 @@ export default class Menu extends React.Component {
         this.setState({proposal: this.props.getProposal()})
     }
 
-    renderServices() {
+    renderServiceItems() {
 
         if (this.state.proposal) {
             let services = [];
             if (this.state.proposal.floristics) {
-                services.push(<Service text="Флористика"/>)
+                services.push(<Service text="Флористика" key={1}/>)
             }
             if (this.state.proposal.hall) {
-                services.push(<Service text="Оформление зала"/>)
+                services.push(<Service text="Оформление зала" key={2}/>)
             }
             if (this.state.proposal.photo) {
-                services.push(<Service text="Фото и видео"/>)
+                services.push(<Service text="Фото и видео" key={3}/>)
             }
             if (this.state.proposal.stylists) {
-                services.push(<Service text="Стилисты"/>)
+                services.push(<Service text="Стилисты" key={4}/>)
             }
             if (this.state.proposal.cake) {
-                services.push(<Service text="Торты"/>)
+                services.push(<Service text="Торты" key={5}/>)
             }
             if (this.state.proposal.transport) {
-                services.push(<Service text="Транспорт"/>)
+                services.push(<Service text="Транспорт" key={6}/>)
             }
             if (this.state.proposal.entertainment) {
-                services.push(<Service text="Развлекательная программа"/>)
+                services.push(<Service text="Развлекательная программа" key={7}/>)
             }
             if (this.state.proposal.present) {
-                services.push(<Service text="Подарки"/>)
+                services.push(<Service text="Подарки" key={8}/>)
             }
             if (this.state.proposal.parking) {
-                services.push(<Service text="Парковка"/>)
+                services.push(<Service text="Парковка" key={9}/>)
             }
             if (this.state.proposal.private) {
-                services.push(<Service text="Отдельный зал"/>)
+                services.push(<Service text="Отдельный зал" key={10}/>)
             }
             if (this.state.proposal.dance) {
-                services.push(<Service text="Танцпол"/>)
+                services.push(<Service text="Танцпол" key={11}/>)
             }
             if (this.state.proposal.own_alcohol) {
-                services.push(<Service text="Свой алкоголь"/>)
+                services.push(<Service text="Свой алкоголь" key={12}/>)
             }
             return services;
         }
         return null;
     }
 
+    /**
+     * @returns {boolean}
+     */
+    hasServices() {
+        if (this.state.proposal) {
+            return this.state.proposal.floristics === true || this.state.proposal.hall === true || this.state.proposal.photo === true || this.state.proposal.stylists === true || this.state.proposal.cake === true || this.state.proposal.transport === true ||
+                this.state.proposal.entertainment === true || this.state.proposal.present === true || this.state.proposal.parking === true || this.state.proposal.private === true || this.state.proposal.dance === true || this.state.proposal.own_alcohol === true;
+        }
+        return false;
+    }
+
+    /**
+     * @returns {*}
+     */
+    renderServices() {
+        if (this.hasServices()) {
+            return (
+                <View style={{marginBottom: 10}}>
+                    <Text style={{textAlign: 'center'}}>Дополнительные услуги</Text>
+
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'stretch',
+                        flexWrap: 'wrap',
+                        maxWidth: 320,
+                    }}>
+                        {this.renderServiceItems()}
+                    </View>
+
+                </View>
+            )
+        }
+        return null;
+    }
+
+    /**
+     * @returns {*}
+     */
     render() {
-
-
         return (
-            <View >
+            <View>
                 <TouchableOpacity onPress={this.toggleModal} style={{
                     height: '100%',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     width: 50,
                     paddingTop: 24,
-                    paddingBottom:30,
+                    paddingBottom: 30,
                 }}>
                     <ImageBackground source={require('../assets/images/menu-dots.png')} resizeMode="contain"
                                      style={{width: 20, height: 5}}>
@@ -92,20 +130,7 @@ export default class Menu extends React.Component {
                                       onPress={this.toggleModal}
                     >
                         <View style={ModalStyle.content}>
-                            <View style={{marginBottom: 10}}>
-                                <Text style={{textAlign: 'center'}}>Дополнительные услуги</Text>
-
-                                <View style={{
-                                    flex: 1,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'stretch',
-                                    flexWrap: 'wrap'
-                                }}>
-                                    {this.renderServices()}
-                                </View>
-
-                            </View>
+                            {this.renderServices()}
                             {this.renderButtons()}
                         </View>
                     </TouchableOpacity>
@@ -160,14 +185,17 @@ const style = StyleSheet.create({
         bottom: 0
     },
     inactiveWrapper: {
+        // alignSelf: 'flex-start',
+
+
         paddingLeft: 22,
         paddingRight: 22,
         paddingTop: 11,
         paddingBottom: 11,
-        margin: 10,
+        margin: 5,
+        marginBottom: 6,
         borderRadius: 20,
         backgroundColor: '#E7E7E7',
-        alignSelf: 'flex-start'
     },
 });
 

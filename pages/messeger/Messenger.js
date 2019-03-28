@@ -1,22 +1,17 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Share, Text, View, TouchableOpacity, SafeAreaView, StyleSheet, Platform} from "react-native";
+import {AsyncStorage, FlatList, Platform, SafeAreaView, StyleSheet, View} from "react-native";
 import Config, {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
-import moment from "moment";
-import Hyperlink from 'react-native-hyperlink'
 import CacheStore from "react-native-cache-store";
 import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import {updateProposalList} from "../BattleList/ProposalListItem";
 import Organization from "./Organization";
-import Message from "./Message";
+import MessageWrapper from "./MessageWrapper";
 
 export default class Messenger extends Component {
-
-
-
     cacheKey = '';
 
     constructor(props) {
@@ -32,61 +27,6 @@ export default class Messenger extends Component {
         this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
 
         this.toggleInputActive = this.toggleInputActive.bind(this);
-    }
-
-    static myMessage(model) {
-        return (
-            <View style={{paddingRight: 10, paddingBottom: 10, paddingTop: 10, alignItems: 'flex-end'}}>
-                <View
-                    style={{
-                        borderRadius: 15,
-                        backgroundColor: '#DFEAFF',
-                        flex: 1,
-                        flexDirection: 'row',
-                        maxWidth: '90%',
-                    }}
-                >
-
-                    <Message message={model.message} created_at={model.created_at}/>
-
-                </View>
-            </View>
-        );
-    }
-
-    static shareMessage(message) {
-        Share.share({
-            message: message,
-            title: 'Поделиться с другом'
-        }, {
-            // Android only:
-            dialogTitle: 'Поделиться с другом',
-            // iOS only:
-            excludedActivityTypes: [
-                'com.apple.UIKit.activity.PostToTwitter'
-            ]
-        })
-    }
-
-    static foreignMessage(model) {
-        return (
-            <View style={{paddingRight: 10, paddingBottom: 10, paddingTop: 10, alignItems: 'flex-start'}}>
-                <TouchableOpacity
-                    style={{
-                        borderRadius: 15,
-                        backgroundColor: '#F6F6F6',
-                        flex: 1,
-                        flexDirection: 'row',
-                        maxWidth: '90%',
-
-                    }}
-                    onPress={() => Messenger.shareMessage(model.message)}
-                >
-
-                    <Message message={model.message} created_at={model.created_at}/>
-                </TouchableOpacity>
-            </View>
-        );
     }
 
     static isMy(model) {
@@ -175,6 +115,8 @@ export default class Messenger extends Component {
         return null;
     }
 
+    previusMessage = null;
+
     render() {
 
         if (!this.state.loaded) {
@@ -199,33 +141,45 @@ export default class Messenger extends Component {
                     onLayout={() => this.flatList.scrollToEnd({animated: true})}
 
 
-
-                    style={{flex: 1, flexDirection: 'column', width:'100%', padding: 10}}
+                    style={{flex: 1, flexDirection: 'column', width: '100%', padding: 10}}
                     data={messages}
                     renderItem={(item) => this.renderMessage(item)}
                 />
-                <MessageForm onToggle={this.toggleInputActive} proposalId={this.props.proposal.id} organizationId={this.props.organization.id}/>
+                <MessageForm onToggle={this.toggleInputActive} proposalId={this.props.proposal.id}
+                             organizationId={this.props.organization.id}/>
             </SafeAreaView>
         );
     }
 
-    renderMessage(listItem) {
-        var message = listItem.item;
-        const render = Messenger.isMy(message) ? Messenger.myMessage(message) : Messenger.foreignMessage(message);
-        return (render);
+    isSenderSame(message) {
+        if (this.previusMessage === null) {
+            this.previusMessage = message;
+            return false
+        }
+        let result = this.previusMessage.author_class === message.author_class;
+        this.previusMessage = message;
+        return result;
     }
 
+    renderMessage(listItem, index) {
+        var message = listItem.item;
+        return Messenger.isMy(message) ?
+            <MessageWrapper model={message} bubbleColor={'#DFEAFF'} align={'flex-end'} share={false}
+                            same={this.isSenderSame(message)}/>
+            :
+            <MessageWrapper model={message} bubbleColor={'#F6F6F6'} align={'flex-start'} share={true}
+                            same={this.isSenderSame(message)}/>
+    }
 }
 
 const style = StyleSheet.create({
-wrapper: {
-    margin: 0,
-    ...Platform.select({
-        ios: {
-        },
-        android: {
-            padding: 0
-        },
-    }),
-}
-})
+    wrapper: {
+        margin: 0,
+        ...Platform.select({
+            ios: {},
+            android: {
+                padding: 0
+            },
+        }),
+    }
+});

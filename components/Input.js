@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Platform} from "react-native"
+import {Platform, StyleSheet, Text, View} from "react-native"
 
 import {isString} from "../helpers/StringHelper";
 
@@ -32,6 +32,7 @@ export default class Input extends React.Component {
         if ((isString(text) && this.state.focus) || this.props.showPlaceholder) {
             return <Text style={[styles.activePlaceholder, this.props.placeholderStyle]}>{text}</Text>
         }
+        return (<View style={{height: 13, width: '100%'}}/>)
     }
 
     renderOverlay() {

@@ -27,10 +27,6 @@ export class RightButton extends React.Component {
         updateState = updateState.bind(this);
     }
 
-    componentWillUnmount() {
-        // updateState.unbind()
-    }
-
     render() {
         if (this.state.items.length > 0) {
             return (
@@ -72,12 +68,6 @@ export default class BattleList extends React.PureComponent {
         this.onRefresh = this.onRefresh.bind(this);
     }
 
-    // componentDidUpdate() {
-    //     let refresh = this.props.refresh;
-    //     this.props.refresh = false;
-    //     return refresh;
-    // }
-
     componentDidMount() {
         this.fetchData(true);
     }
@@ -104,10 +94,7 @@ export default class BattleList extends React.PureComponent {
         const CACHE_KEY = 'proposal-list';
         AsyncStorage.getItem('battle@token')
             .then((result) => {
-
-
                 if (result === null) {
-
                     Actions.login();
                 } else {
                     const api = new Client(result);
@@ -134,7 +121,6 @@ export default class BattleList extends React.PureComponent {
                 loaded: true,
                 refreshing: false
             },
-
             updateState({items: items})
         );
     }
@@ -159,7 +145,6 @@ export default class BattleList extends React.PureComponent {
         }
 
         if (this.state.items.length > 0) {
-            //padding 10 - нужен для корректного отображения кружков новых сообщений
             return (
                 <View style={[textStyle.rootViewWrapper, {padding: 0, marginTop: 9}]}>
                     <FlatList
@@ -187,7 +172,7 @@ export default class BattleList extends React.PureComponent {
 
     renderAd() {
         if (this.state.items.length < 3) {
-            return <Ad style={{marginBottom: -45, padding: 15}}/>
+            return <Ad style={{marginBottom: -18, padding: 15}}/>
         }
         return null;
     }

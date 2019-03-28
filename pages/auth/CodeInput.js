@@ -15,7 +15,8 @@ export default class CodeInput extends React.Component {
 
     state = {
         timerText: 'Повторно код можно будет отправить через 1 минуту',
-        showButton: false
+        showButton: false,
+        placeholderText: 'Код подтверждения'
     };
 
     constructor(props) {
@@ -67,28 +68,45 @@ export default class CodeInput extends React.Component {
         return null;
     }
 
+    renderTimerText() {
+        if (this.state.timerText !== '') {
+            return (
+                <View>
+                    <Text>{this.state.timerText}</Text>
+                </View>
+            );
+        }
+        return null;
+    }
+
     render() {
 
         return (
-            <View style={{flex: 1, flexDirection: 'column'}}>
+            <View>
                 <View style={style.inputWrapper}>
-                    <View style={{}}>
+                    <View>
                         <TextInput
+                            onFocus={() => {
+                                this, this.setState({placeholderText: ''});
+                                this.props.onFocus()
+                            }}
+                            onBlur={() => {
+                                this, this.setState({placeholderText: 'Код подтверждения'});
+                                this.props.onBlur()
+                            }}
                             placeholderTextColor={'#000000'}
-                            placeholder="Код подтверждения"
+                            placeholder={this.state.placeholderText}
                             onChangeText={(code) => this.props.codeChange(code)}
                             keyboardType="numeric"
-                            style={{fontSize:15, lineHeight:18, padding: 0,fontFamily: "Lato-Regular"}}
+                            style={{fontSize: 15, lineHeight: 18, padding: 0, fontFamily: "Lato-Regular", width: 280}}
                             autoCorrect={false}
                         />
                     </View>
-                    <View style={{width: 16,}}>
+                    <View>
                         {this.renderButton()}
                     </View>
                 </View>
-                <View style={{marginTop: 10}}>
-                    <Text style={{height: 40, flexWrap: 'wrap'}}>{this.state.timerText}</Text>
-                </View>
+                {this.renderTimerText()}
             </View>
         )
     }
@@ -99,10 +117,7 @@ const style = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
         paddingBottom: 0,
-
-
         flexDirection: 'row',
-        justifyContent: 'space-between',
-
+        justifyContent: 'space-between'
     }
 });
