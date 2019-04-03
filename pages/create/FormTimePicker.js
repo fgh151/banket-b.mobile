@@ -3,6 +3,7 @@ import {Modal, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View}
 import {WheelPicker} from 'react-native-wheel-picker-android'
 
 import {Button} from '../../components/Button';
+
 const timePeriod = [
     '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
     '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '10:00', '11:30',
@@ -20,7 +21,8 @@ export default class FormTimePicker extends React.Component {
         selectedStart: null,
         selectedEnd: null,
         valid: false,
-        selectedItem:24
+        selectedItemStart: 24,
+        selectedItemEnd: 24,
     };
 
     render() {
@@ -66,7 +68,7 @@ export default class FormTimePicker extends React.Component {
 
     onstartSelected = selectedItem => {
         let value = timePeriod[selectedItem];
-        let state = {startTime: value, selectedStart: selectedItem};
+        let state = {startTime: value, selectedStart: selectedItem, selectedItemStart: selectedItem};
         if (this.state.endTime !== null) {
             state.viewText = value + ' - ' + this.state.endTime;
             state.valid = true;
@@ -77,7 +79,7 @@ export default class FormTimePicker extends React.Component {
 
     onEndSelected = selectedItem => {
         let value = timePeriod[selectedItem];
-        let state = {endTime: value, selectedEnd: selectedItem};
+        let state = {endTime: value, selectedEnd: selectedItem, selectedItemEnd: selectedItem};
         if (this.state.startTime !== null) {
             state.viewText = this.state.startTime + ' - ' + value;
             state.valid = true;
@@ -97,7 +99,7 @@ export default class FormTimePicker extends React.Component {
                     <Text style={{textAlign: 'center'}}>Начало</Text>
                     <WheelPicker
                         selectedValue={this.state.selectedStart}
-                        selectedItem={this.state.selectedItem}
+                        selectedItem={this.state.selectedItemStart}
                         data={timePeriod}
                         onItemSelected={this.onstartSelected}/>
                 </View>
@@ -105,7 +107,7 @@ export default class FormTimePicker extends React.Component {
                     <Text style={{textAlign: 'center'}}>Окончание</Text>
                     <WheelPicker
                         selectedValue={this.state.selectedEnd}
-                        selectedItem={this.state.selectedItem}
+                        selectedItem={this.state.selectedItemEnd}
                         data={timePeriod}
                         onItemSelected={this.onEndSelected}/>
                 </View>
