@@ -89,6 +89,7 @@ export default class LoginPhone extends React.Component {
                                     mask={"+7 [000] [000] [00] [00]"}
                                     autoCorrect={false}
                                     value={this.state.currentPhoneValue}
+                                    returnKeyType={'done'}
                                 />
                             </Input>
                         </View>
