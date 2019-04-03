@@ -1,7 +1,7 @@
 import React from 'react';
-import {ImageBackground, Modal, StyleSheet, TouchableOpacity, View, SafeAreaView} from "react-native"
+import {ImageBackground, Modal, StyleSheet, TouchableOpacity, View} from "react-native"
 import {Button} from './Button';
-import { ifIphoneX } from 'react-native-iphone-x-helper'
+import {ifIphoneX} from 'react-native-iphone-x-helper'
 
 export default class Menu extends React.Component {
 
@@ -23,11 +23,22 @@ export default class Menu extends React.Component {
             dots: require('../assets/images/menu-dots.png')
         };
 
+        const styles = {
+            menu: {
+                width: 23, height: 15
+            },
+            dots: {
+                width: 20, height: 20
+            }
+        }
+
         return (
             <View style={this.props.style}>
                 <TouchableOpacity onPress={this.toggleModal} style={{height: '100%', alignItems: 'center', justifyContent: 'center', width: 50}}>
-                    <ImageBackground source={images[this.props.image]} resizeMode="stretch"
-                                     style={{width: 20, height: 20}}>
+                    <ImageBackground
+                        source={images[this.props.image]}
+                        resizeMode="stretch"
+                        style={styles[this.props.image]}>
                     </ImageBackground>
                 </TouchableOpacity>
                 <Modal

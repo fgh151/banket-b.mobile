@@ -37,6 +37,7 @@ export default class FormDatePicker extends React.Component{
                 placeholder={this.state.datePlaceholder}
                 format="DD MMMM YYYY"
                 minDate={this.now.format('DD MMMM YYYY')}
+                mxDate={this.now.add(1, 'year').format('DD MMMM YYYY')}
                 confirmBtnText="Выбрать"
                 cancelBtnText="Отмена"
                 showIcon={false}

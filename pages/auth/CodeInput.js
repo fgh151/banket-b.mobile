@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {Platform, StyleSheet, Text, TextInput, View} from "react-native";
 import ReSendCode from './ReSendCode';
 import {plural} from '../../helpers/StringHelper';
 import Client from "../../http/Client";
@@ -71,8 +71,12 @@ export default class CodeInput extends React.Component {
     renderTimerText() {
         if (this.state.timerText !== '') {
             return (
-                <View>
-                    <Text>{this.state.timerText}</Text>
+                <View style={{marginTop: 10}}>
+                    <Text style={{
+                        fontSize: 13,
+                        lineHeight: 16,
+                        fontFamily: "Lato-Regular", opacity: .5
+                    }}>{this.state.timerText}</Text>
                 </View>
             );
         }
@@ -91,7 +95,7 @@ export default class CodeInput extends React.Component {
                                 this.props.onFocus()
                             }}
                             onBlur={() => {
-                                this, this.setState({placeholderText: 'Код подтверждения'});
+                                this.setState({placeholderText: 'Код подтверждения'});
                                 this.props.onBlur()
                             }}
                             placeholderTextColor={'#000000'}
@@ -100,6 +104,7 @@ export default class CodeInput extends React.Component {
                             keyboardType="numeric"
                             style={{fontSize: 15, lineHeight: 18, padding: 0, fontFamily: "Lato-Regular", width: 280}}
                             autoCorrect={false}
+                            returnKeyType={'done'}
                         />
                     </View>
                     <View>
@@ -118,6 +123,13 @@ const style = StyleSheet.create({
         borderBottomColor: '#E0E0E0',
         paddingBottom: 0,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+
+        ...Platform.select({
+            ios: {
+                paddingBottom: 5
+            },
+            android: {},
+        }),
     }
 });

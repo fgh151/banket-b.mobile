@@ -54,9 +54,7 @@ export default class RegisterCode extends React.Component {
                                     if: response.id
                                 });
                             firstLunchDone();
-                            const push = new Push();
                             Push.saveToken();
-                            // push.setRecieveHandler();
                             this.proposal.save();
                         })
                         .catch(err => {

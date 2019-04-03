@@ -21,6 +21,10 @@ const style = StyleSheet.create({
         marginLeft: -30,
         ...Platform.select({
             ios: {
+
+                position: 'absolute',
+                right: -12,
+                top: -15,
             },
             android: {
 
