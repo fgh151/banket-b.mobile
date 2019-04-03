@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from 'react-native-datepicker'
 import {Styles as textStyle} from "../../styles/Global";
-import {Platform, StyleSheet, View, Text} from "react-native";
+import {StyleSheet} from "react-native";
 import moment from "moment";
 
 export default class FormDatePicker extends React.Component{
@@ -11,7 +11,6 @@ export default class FormDatePicker extends React.Component{
         datePlaceholder: 'Выберите дату',
         dateValue: ''
     };
-
 
     now = moment();
 
@@ -37,7 +36,7 @@ export default class FormDatePicker extends React.Component{
                 value={this.state.dateValue}
                 placeholder={this.state.datePlaceholder}
                 format="DD MMMM YYYY"
-                minDate={this.now.format('YYYY-MM-DD')}
+                minDate={this.now.format('DD MMMM YYYY')}
                 confirmBtnText="Выбрать"
                 cancelBtnText="Отмена"
                 showIcon={false}
@@ -59,10 +58,7 @@ export default class FormDatePicker extends React.Component{
 
 const styles = StyleSheet.create({
     dateTouch: {
-
-
         marginTop:-15,
-
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
