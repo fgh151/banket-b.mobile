@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Platform, ScrollView, StyleSheet, TextInput, View} from "react-native";
+import {Platform, StyleSheet, TextInput, View} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import Input from "../../components/Input";
 import {Button} from "../../components/Button";
@@ -14,6 +14,7 @@ import CityPicker from "./CityPicker";
 import AmountInput, {PLACEHOLDER_TEXT as AMOUNT_PLACEHOLDER_TEXT} from "./AmountInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import GuestsCountInput, {PLACEHOLDER_TEXT as GUESTS_COUNT_PLACEHOLDER_TEXT} from "./GuestsCountInput";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 export default class Form extends React.Component {
     state = {
@@ -74,10 +75,16 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <View style={[textStyle.rootViewWrapper, {marginTop: 25, padding:0}]}>
-                <ScrollView
+            <KeyboardAwareScrollView style={{
+                padding: 15, flex: 1,
+                flexDirection: 'column',
+            }}
+                                     contentContainerStyle={{alignItems: 'center',}}
+            >
+                <View
                     showsVerticalScrollIndicator={false}
-                    style={textStyle.rootView}
+                    style={[textStyle.rootView, {paddingTop: 25}]}
+                    scrollEnabled={true}
                 >
                     <Input>
                         <CityPicker/>
@@ -141,21 +148,26 @@ export default class Form extends React.Component {
                             // onBlur={()=>{this.setState({inputNotesFocus: false}, () => this.toggleNotesPlaceHolder())}}
                                 placeholder='Дополнительно'
                                 returnKeyType={'done'}
+                                blurOnSubmit={true}
                                 value={this.state.notes}
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
                         />
                     </Input>
-                </ScrollView>
+                </View>
                 {this.renderButton()}
-            </View>
+            </KeyboardAwareScrollView>
         )
     }
 
     renderButton() {
         if (!this.state.hideButton) {
             return (
-                <View style={[styles.buttonWrapper, {visibility: this.state.hideButton}]}>
+                <View style={[styles.buttonWrapper, {
+                    visibility: this.state.hideButton,
+                    position: 'absolute',
+                    bottom: -120
+                }]}>
                     <Button
                         style={{fontSize: 17, lineHeight: 21}}
                         disabled={this.state.buttonDisabled}
