@@ -8,7 +8,6 @@ import {db} from '../../Config';
 import Proposal from "../../models/Proposal";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
-import moment from 'moment';
 import type {ProposalType} from "../../types/ProposalType";
 
 let shouldUpdate = false;
@@ -181,6 +180,8 @@ const styles = StyleSheet.create({
 
         ...Platform.select({
             ios: {
+                paddingLeft: 15,
+                paddingRight: 15
             },
             android: {
                 borderWidth: 1,

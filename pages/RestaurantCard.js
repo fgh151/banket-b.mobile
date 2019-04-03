@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ImageBackground, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Rating from "../components/Rating";
 import openMap from 'react-native-open-maps';
@@ -9,31 +9,30 @@ import {Styles} from '../styles/Global';
 import {isEmpty} from "../helpers/ArrayHelper";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 
-
 export default class RestaurantCard extends React.PureComponent {
 
 
-    //MOC .props.restaurant
-    // org = {
-    //     "id": 1,
-    //     "name": "Ресторанный рейтинг",
-    //     "contact": "Владимир",
-    //     "phone": "+7 (495) 788-06-00",
-    //     "email": "pr7880600@gmail.com",
-    //     "address": "Москва Славянская площадь 2/3",
-    //     "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/3.jpg", "https://banket-b.ru/upload/organization/1/bfccf0d7_1.jpg"],
-    //     "halls": [
-    //         {"title": "VIP", "size": 10000},
-    //         {"title": "Общий", "size": 200}
-    //     ],
-    //     "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
-    //         "id": 166,
-    //         "title": "Китай-город",
-    //         "color": "943E90"
-    //     }, {"id": 186, "title": "Киевская", "color": "915133"}],
-    //     "key": "1",
-    //     "rating":10
-    // };
+    //MOC .org
+    org = {
+        "id": 1,
+        "name": "Ресторанный рейтинг",
+        "contact": "Владимир",
+        "phone": "+7 (495) 788-06-00",
+        "email": "pr7880600@gmail.com",
+        "address": "Москва Славянская площадь 2/3",
+        "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/3.jpg", "https://banket-b.ru/upload/organization/1/bfccf0d7_1.jpg"],
+        "halls": [
+            {"title": "VIP", "size": 10000},
+            {"title": "Общий", "size": 200}
+        ],
+        "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
+            "id": 166,
+            "title": "Китай-город",
+            "color": "943E90"
+        }, {"id": 186, "title": "Киевская", "color": "915133"}],
+        "key": "1",
+        "rating": 10
+    };
 
 
     callNumber = (phone) => {
@@ -57,11 +56,11 @@ export default class RestaurantCard extends React.PureComponent {
     render() {
         return (
             <View style={[local.wrapper]}>
-                <View style={{flex: 30, overflow: 'hidden'}}>
+                <View style={{flex: 30}}>
                     <Swiper
                         loop={true}
                         showsButtons={false}
-                        style={{flex: 1}}
+                        style={{flex: 1, backgroundColor: '#ccc'}}
                         activeDot={<View style={local.sliderActiveDot}/>}
                         dot={<View style={local.dotStyle}/>}
                         scrollsToTop={true}
@@ -69,6 +68,8 @@ export default class RestaurantCard extends React.PureComponent {
                     >
                         {this.renderSlider(this.props.restaurant.images)}
                     </Swiper>
+                    <ImageBackground resizeMode={'stretch'} style={local.gradient}
+                                     source={require('../assets/images/gradient.png')}/>
                     <BackButton style={local.backButton} image={'white'}/>
                 </View>
                 <View style={{flex: 70}}>
@@ -165,13 +166,30 @@ export default class RestaurantCard extends React.PureComponent {
 }
 
 const local = StyleSheet.create({
+    gradient: {
+        height: 60,
+        width: '100%',
+        // backgroundColor:'green',
+        position: 'absolute',
+        top: 0,
+        left: 0
+    },
     backButton: {
         position: 'absolute',
         top: 10,
         left: 0,
         ...ifIphoneX({
             top: 40,
-        })
+        }),
+        ...Platform.select({
+            ios: {
+                top: 19,
+
+            },
+            android: {
+                top: 10,
+            },
+        }),
     },
     wrapper: {
         flex: 1,
@@ -195,6 +213,13 @@ const local = StyleSheet.create({
         borderRadius: 4,
         marginLeft: 4,
         marginRight: 4,
+        ...Platform.select({
+            ios: {
+                top: -4,
+
+            },
+            android: {},
+        }),
     },
     dotStyle: {
         backgroundColor: 'transparent',
@@ -204,6 +229,13 @@ const local = StyleSheet.create({
         marginLeft: 4,
         marginRight: 4,
         borderColor: '#ffffff',
-        borderWidth: 1
+        borderWidth: 1,
+        ...Platform.select({
+            ios: {
+                top: -4,
+
+            },
+            android: {},
+        }),
     }
 });

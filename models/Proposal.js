@@ -112,6 +112,8 @@ export default class Proposal {
     save() {
         AsyncStorage.getItem('battle@token')
             .then((result) => {
+                console.log('token', result);
+
                 if (result === null) {
                     Actions.RegisterPhone();
                 } else {
@@ -131,6 +133,6 @@ export default class Proposal {
                         });
 
                 }
-            });
+            }).catch((e) => console.log('cathc', e));
     }
 }

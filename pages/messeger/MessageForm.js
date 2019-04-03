@@ -109,7 +109,15 @@ const style = StyleSheet.create({
         ...ifIphoneX({
             marginBottom: -35,
             paddingBottom:35
-        })
+        }),
+        ...Platform.select({
+            ios: {
+                height: 60
+                // paddingTop:2,
+                // paddingBottom:2
+            },
+            android: {},
+        }),
     },
 
     textInput: {
@@ -126,8 +134,10 @@ const style = StyleSheet.create({
         borderColor: '#D8D8D8',
         ...Platform.select({
             ios: {
-                paddingTop: 3,
-                paddingBottom: 5
+                paddingTop: 2,
+                paddingBottom: 2,
+
+                height: 35
             },
             android: {
                 marginLeft: -5,
@@ -142,6 +152,10 @@ const style = StyleSheet.create({
         paddingRight: 10,
         ...Platform.select({
             ios: {
+                height: 35,
+                marginTop: 10,
+                // backgroundColor:'red',
+                paddingTop: 0,
 
             },
             android: {
@@ -151,11 +165,27 @@ const style = StyleSheet.create({
     },
 
     buttonWrapperInactive: {
-        width: 29,
-        height: 29,
-        marginTop: 10,
-        borderRadius: 15,
+
+
         backgroundColor: '#ccc',
+
+        ...Platform.select({
+            ios: {
+                borderRadius: 17,
+                height: 35,
+                width: 35,
+                marginTop: 0,
+                marginRight: 5,
+
+                // backgroundColor:'red'
+            },
+            android: {
+                borderRadius: 15,
+                width: 29,
+                height: 29,
+                marginTop: 10,
+            },
+        }),
     },
 
     buttonWrapperActive: {
@@ -163,7 +193,16 @@ const style = StyleSheet.create({
         width: 29,
         height: 29,
         borderRadius: 15,
-        backgroundColor: '#0C21E2'
+        backgroundColor: '#0C21E2',
+
+        ...Platform.select({
+            ios: {
+                height: 35,
+                marginTop: 0,
+            },
+            android: {},
+        }),
+
     },
     button: {
         color: '#ffffff',
@@ -172,6 +211,7 @@ const style = StyleSheet.create({
         ...Platform.select({
             ios: {
                 fontSize: 20,
+                marginTop: 5,
             },
             android: {
                 marginTop: -9,

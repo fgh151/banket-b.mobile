@@ -22,6 +22,8 @@ export default class Menu extends React.Component {
 
     renderServiceItems() {
 
+        console.log(this.state.proposal);
+
         if (this.state.proposal) {
             let services = [];
             if (this.state.proposal.floristics) {
@@ -82,8 +84,8 @@ export default class Menu extends React.Component {
     renderServices() {
         if (this.hasServices()) {
             return (
-                <View style={{marginBottom: 10}}>
-                    <Text style={{textAlign: 'center'}}>Дополнительные услуги</Text>
+                <View style={{marginBottom: 20, marginTop: 10}}>
+                    <Text style={{textAlign: 'center', marginBottom: 20}}>Дополнительные услуги</Text>
 
                     <View style={{
                         flex: 1,
@@ -91,7 +93,12 @@ export default class Menu extends React.Component {
                         justifyContent: 'center',
                         alignItems: 'stretch',
                         flexWrap: 'wrap',
-                        maxWidth: 320,
+                        ...Platform.select({
+                            ios: {},
+                            android: {
+                                maxWidth: 320,
+                            },
+                        }),
                     }}>
                         {this.renderServiceItems()}
                     </View>

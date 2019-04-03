@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, StyleSheet} from "react-native"
+import {StyleSheet, Text, View} from "react-native"
 import Hyperlink from 'react-native-hyperlink'
 import moment from "moment";
 
@@ -26,7 +26,12 @@ const style = StyleSheet.create({
          flexDirection: 'row',
         alignItems:'flex-end',
         justifyContent: 'center',
-        padding: 15
+        paddingTop: 8,
+        paddingBottom: 8,
+
+        paddingLeft: 15,
+        paddingRight: 15
+
     },
     messageWrapper: {
         maxWidth:'90%'

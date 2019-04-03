@@ -138,7 +138,7 @@ export default class DialogList extends Component {
         const variants = [
             // {label: "Лучшие", value: 1},
             {label: "Последние", value: 2},
-            {label: "Рейтинг", value: 3},
+            {label: "Рейтинг ресторана", value: 3},
         ];
 
         return (

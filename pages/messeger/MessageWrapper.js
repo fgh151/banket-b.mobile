@@ -52,7 +52,7 @@ const style = StyleSheet.create({
         marginBottom: 10,
     },
     wrapper: {
-        borderRadius: 15,
+        borderRadius: 25,
         flex: 1,
         flexDirection: 'row',
         maxWidth: '90%',

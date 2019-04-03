@@ -135,15 +135,15 @@ export default class Messenger extends Component {
             <SafeAreaView style={[textStyle.rootViewWrapper, style.wrapper]}>
                 {this.renderOrganization()}
                 <FlatList
-
                     ref={ref => this.flatList = ref}
                     onContentSizeChange={() => this.flatList.scrollToEnd({animated: true})}
                     onLayout={() => this.flatList.scrollToEnd({animated: true})}
 
 
                     style={{flex: 1, flexDirection: 'column', width: '100%', padding: 10}}
-                    data={messages}
+                    data={messages.reverse()}
                     renderItem={(item) => this.renderMessage(item)}
+                    inverted={true}
                 />
                 <MessageForm onToggle={this.toggleInputActive} proposalId={this.props.proposal.id}
                              organizationId={this.props.organization.id}/>

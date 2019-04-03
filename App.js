@@ -111,14 +111,17 @@ export default class App extends React.Component {
                     />
 
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         renderBackButton={() => {
                         }}
                         hideNavBar={true}
                         key="WhatIsIt"
                         component={WhatIsIt}
                         title="Что это"
+                        // initial={true}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="LoginPhone"
                         navigationBarStyle={Styles.navBar}
                         component={LoginPhone}
@@ -126,21 +129,24 @@ export default class App extends React.Component {
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="LoginCode"
                         navigationBarStyle={Styles.navBar}
                         component={LoginCode}
                         title="Вход"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        // initial={true}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="RegisterPhone"
                         navigationBarStyle={Styles.navBar}
                         component={RegisterPhone}
                         title="Регистрация"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
-                        // initial={true}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="RegisterCode"
                         navigationBarStyle={Styles.navBar}
                         component={RegisterCode}
@@ -148,6 +154,7 @@ export default class App extends React.Component {
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="Form"
                         component={Form}
                         title="Создать батл"
@@ -157,6 +164,7 @@ export default class App extends React.Component {
                         key="BattleList"
                         component={BattleList}
                         title="Ваши батлы"
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         renderLeftButton={<Menu image="menu" buttons={[
                             {
                                 action: () => {
@@ -169,6 +177,7 @@ export default class App extends React.Component {
                     />
 
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="Services"
                         component={Services}
                         title="Выберите услуги"
@@ -176,6 +185,7 @@ export default class App extends React.Component {
 
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="Finish"
                         component={Finish}
                         title="Батл создан"
@@ -189,6 +199,7 @@ export default class App extends React.Component {
 
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="DialogList"
                         component={DialogList}
                         title="DialogList"
@@ -223,21 +234,25 @@ export default class App extends React.Component {
                     />
 
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="Messenger"
                         component={Messenger}
                         title="Чат"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key="CitySelector"
                         component={CitySelector}
                         title="Выберите город"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
+                        titleStyle={{fontFamily: "Lato-Bold"}}
                         key={'RestaurantCard'}
                         component={RestaurantCard}
                         hideNavBar={true}
+                        // initial={true}
                     />
 
                 </Scene>
