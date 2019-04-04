@@ -1,7 +1,18 @@
 import React, {Component} from "react";
 import moment from "moment";
 import {db} from '../../Config';
-import {AsyncStorage, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {
+    Animated,
+    AsyncStorage,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 
 export default class MessageForm extends Component {
@@ -21,7 +32,9 @@ export default class MessageForm extends Component {
 
             btnDisabled: true,
             btnStyle: style.buttonWrapperInactive
-        }
+        };
+
+        this.paddingInput = new Animated.Value(0);
     }
 
     sendMessage() {
@@ -63,35 +76,63 @@ export default class MessageForm extends Component {
         this.setState(state)
     }
 
+    componentWillMount() {
+        this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+        this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+    }
+
+    componentWillUnmount() {
+        this.keyboardWillShowSub.remove();
+        this.keyboardWillHideSub.remove();
+    }
+
+    keyboardWillShow = (event) => {
+        Animated.timing(this.paddingInput, {
+            duration: event.duration,
+            toValue: 60,
+        }).start();
+    };
+
+    keyboardWillHide = (event) => {
+        Animated.timing(this.paddingInput, {
+            duration: event.duration,
+            toValue: 0,
+        }).start();
+    };
+
     render() {
         return (
-            <View style={style.wrapper}>
+            <KeyboardAvoidingView behavior='padding'>
+                <Animated.View style={{marginBottom: this.paddingInput}}>
+                    <View style={style.wrapper}>
 
-                <View style={{width: '90%', padding: 10}}>
-                    <TextInput
-                        style={style.textInput}
-                        autoFocus={false}
-                        placeholderTextColor="#C4C4C4"
-                        placeholder="Сообщение..."
-                        value={this.state.message}
-                        onChangeText={(txt) => this.setText(txt)}
-                        onFocus={() => this.props.onToggle()}
-                        onBlur={() => this.props.onToggle()}
-                        underlineColorAndroid='transparent'
-                        autoCorrect={false}
-                    />
-                </View>
-                <View style={style.buttonWrapper}>
-                    <TouchableOpacity
-                        disabled={this.state.btnDisabled}
-                        transparent
-                        style={this.state.btnStyle}
-                        onPress={() => this.sendMessage()}
-                    >
-                        <Text style={style.button}>{"\u2191"}</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                        <View style={{width: '90%', padding: 10}}>
+                            <TextInput
+                                style={style.textInput}
+                                autoFocus={false}
+                                placeholderTextColor="#C4C4C4"
+                                placeholder="Сообщение..."
+                                value={this.state.message}
+                                onChangeText={(txt) => this.setText(txt)}
+                                onFocus={() => this.props.onToggle()}
+                                onBlur={() => this.props.onToggle()}
+                                underlineColorAndroid='transparent'
+                                autoCorrect={false}
+                            />
+                        </View>
+                        <View style={style.buttonWrapper}>
+                            <TouchableOpacity
+                                disabled={this.state.btnDisabled}
+                                transparent
+                                style={this.state.btnStyle}
+                                onPress={() => this.sendMessage()}
+                            >
+                                <Text style={style.button}>{"\u2191"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Animated.View>
+            </KeyboardAvoidingView>
         )
     }
 }
