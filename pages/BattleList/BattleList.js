@@ -159,6 +159,7 @@ export default class BattleList extends React.PureComponent {
                                 tintColor={'#0C21E2'}
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
+                                size={'large'}
                             />
                         }
                     />

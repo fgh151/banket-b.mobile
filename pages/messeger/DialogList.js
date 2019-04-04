@@ -213,6 +213,7 @@ export default class DialogList extends Component {
                                             tintColor={'#0C21E2'}
                                             refreshing={this.state.refreshing}
                                             onRefresh={this.onRefresh}
+                                            size={'large'}
                                         />
                                     }
                                 />
