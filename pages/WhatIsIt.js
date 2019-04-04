@@ -5,9 +5,7 @@ import {Styles as textStyle} from '../styles/Global';
 import {Button} from '../components/Button';
 import Swiper from 'react-native-swiper';
 
-export default class WhatIsIt extends React.PureComponent {
-
-    render() {
+export default function WhatIsIt() {
         return (
             <SafeAreaView style={[textStyle.rootViewWrapper, WIIstyles.rootView]}>
                 <View style={{marginTop: 0, alignItems: 'flex-end', width: '100%'}}>
@@ -22,9 +20,10 @@ export default class WhatIsIt extends React.PureComponent {
                         showsButtons={false}
                         dot={<View style={WIIstyles.sliderDot}/>}
                         activeDot={<View style={WIIstyles.sliderActiveDot}/>}
-                        containerStyle={{flex: 1}}
+                        containerStyle={{flex: 1, backgroundColor: 'green'}}
                     >
-                        <View style={WIIstyles.sliderItem}>
+
+                        <View style={[WIIstyles.sliderItem, {backgroundColor: 'yellow'}]}>
                             <Image source={require('../assets/images/what_is_it.png')} style={{marginBottom: 35}}/>
                             <View style={{marginBottom: 20}}>
                                 <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Что
@@ -64,7 +63,6 @@ export default class WhatIsIt extends React.PureComponent {
                 </View>
             </SafeAreaView>
         );
-    }
 }
 
 const WIIstyles = StyleSheet.create({

@@ -2,7 +2,6 @@ import React from "react";
 import {Actions} from "react-native-router-flux";
 import {isFirstLunch} from "../helpers/Luncher";
 import {AsyncStorage} from "react-native";
-import Push from "../helpers/Push";
 
 export class Router extends React.Component {
 

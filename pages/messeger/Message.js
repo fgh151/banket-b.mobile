@@ -3,22 +3,20 @@ import {StyleSheet, Text, View} from "react-native"
 import Hyperlink from 'react-native-hyperlink'
 import moment from "moment";
 
-export default class Message extends React.PureComponent {
-    render() {
-        const time = moment(this.props.created_at * 1000);
-        return (
-            <View style={style.wrapper}>
-                <View style={style.messageWrapper}>
-                    <Hyperlink linkDefault={true}>
-                        <Text>{this.props.message}</Text>
-                    </Hyperlink>
-                </View>
-                <View style={style.timeWrapper}>
-                    <Text style={style.time}>{time.format('HH:mm')}</Text>
-                </View>
+export default function Message() {
+    const time = moment(this.props.created_at * 1000);
+    return (
+        <View style={style.wrapper}>
+            <View style={style.messageWrapper}>
+                <Hyperlink linkDefault={true}>
+                    <Text>{this.props.message}</Text>
+                </Hyperlink>
             </View>
-        )
-    }
+            <View style={style.timeWrapper}>
+                <Text style={style.time}>{time.format('HH:mm')}</Text>
+            </View>
+        </View>
+    )
 }
 
 const style = StyleSheet.create({

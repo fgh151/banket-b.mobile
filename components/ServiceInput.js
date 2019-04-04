@@ -1,20 +1,18 @@
 import React from "react";
-
-import {Text, View, StyleSheet, ScrollView, TouchableOpacity} from "react-native"
+import {StyleSheet, Text, TouchableOpacity} from "react-native"
 import PropTypes from "prop-types";
 
-
-export default class ServiceInput extends React.Component{
+export default class ServiceInput extends React.Component {
 
     state = {
         wrapperStyle: style.inactiveWrapper,
-        textStyle:style.inactiveText,
-        active:false
+        textStyle: style.inactiveText,
+        active: false
     };
 
     pressHandler = () => {
-      this.toggleStyle();
-      this.props.onPress();
+        this.toggleStyle();
+        this.props.onPress();
     };
 
     toggleStyle = () => {
@@ -28,14 +26,13 @@ export default class ServiceInput extends React.Component{
             this.setState({
                 wrapperStyle: style.activeWrapper,
                 textStyle: style.activeText,
-                active:true
+                active: true
             });
         }
     };
 
-
     render() {
-        return(
+        return (
             <TouchableOpacity
                 onPress={this.pressHandler}
                 style={this.state.wrapperStyle}
@@ -46,44 +43,41 @@ export default class ServiceInput extends React.Component{
             </TouchableOpacity>
         )
     }
-
 }
 
 const style = StyleSheet.create({
-    inactiveWrapper:{
+    inactiveWrapper: {
         paddingLeft: 22,
-        paddingRight:22,
-        paddingTop:11,
-        paddingBottom:11,
-        margin:5,
-        marginBottom:6,
-        borderRadius:20,
+        paddingRight: 22,
+        paddingTop: 11,
+        paddingBottom: 11,
+        margin: 5,
+        marginBottom: 6,
+        borderRadius: 20,
         backgroundColor: '#E7E7E7',
     },
-    inactiveText:{
-        fontSize:15,
-        lineHeight:18,
+    inactiveText: {
+        fontSize: 15,
+        lineHeight: 18,
         fontFamily: "Lato-Regular",
     },
-    activeWrapper:{
+    activeWrapper: {
         paddingLeft: 22,
-        paddingRight:22,
-        paddingTop:11,
-        paddingBottom:11,
-        margin:5,
-        marginBottom:6,
-        borderRadius:20,
+        paddingRight: 22,
+        paddingTop: 11,
+        paddingBottom: 11,
+        margin: 5,
+        marginBottom: 6,
+        borderRadius: 20,
         backgroundColor: '#0C21E2',
         alignSelf: 'flex-start',
-
-
-        fontSize:17,
-        lineHeight:20
+        fontSize: 17,
+        lineHeight: 20
     },
-    activeText:{
-        color:'#ffffff',
-        fontSize:15,
-        lineHeight:18,
+    activeText: {
+        color: '#ffffff',
+        fontSize: 15,
+        lineHeight: 18,
         fontFamily: "Lato-Regular",
     }
 });

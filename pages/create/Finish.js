@@ -4,30 +4,26 @@ import {Styles as textStyle} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import {Actions} from "react-native-router-flux";
 
-export default class Finish extends React.Component {
-
-    render() {
-        return (
-            <View style={[textStyle.rootViewWrapper]}>
-                <View style={WIIstyles.sliderItem}>
-                    <Image source={require('../../assets/images/done.png')} style={{marginBottom:30}}/>
-                    <View style={{marginBottom: 20}}>
+export default function Finish() {
+    return (
+        <View style={[textStyle.rootViewWrapper]}>
+            <View style={WIIstyles.sliderItem}>
+                <Image source={require('../../assets/images/done.png')} style={{marginBottom: 30}}/>
+                <View style={{marginBottom: 20}}>
                     <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>
-                    </View>
-                        <View style={WIIstyles.sliderTextWrapper}>
-                        <Text style={[textStyle.defaultFont, {textAlign: 'center', fontSize:15, lineHeight: 20 }]}>
-                            Батл успешно создан и отправлен в рестораны. Ожидайте ответов от ресторанов.
-                        </Text>
-                    </View>
                 </View>
-                <View style={WIIstyles.createButtonWrapper}>
-                    <Button onPress={() => Actions.BattleList()} title="Перейти к батлам"/>
+                <View style={WIIstyles.sliderTextWrapper}>
+                    <Text style={[textStyle.defaultFont, {textAlign: 'center', fontSize: 15, lineHeight: 20}]}>
+                        Батл успешно создан и отправлен в рестораны. Ожидайте ответов от ресторанов.
+                    </Text>
                 </View>
             </View>
-        )
-    }
+            <View style={WIIstyles.createButtonWrapper}>
+                <Button onPress={() => Actions.BattleList()} title="Перейти к батлам"/>
+            </View>
+        </View>
+    )
 }
-
 
 const WIIstyles = StyleSheet.create({
     sliderDot: {
@@ -51,8 +47,8 @@ const WIIstyles = StyleSheet.create({
     sliderHeader: {
         fontSize: 28,
 
-        lineHeight:34,
-        fontWeight:'bold',
+        lineHeight: 34,
+        fontWeight: 'bold',
 
         color: '#000000'
     },
@@ -65,6 +61,6 @@ const WIIstyles = StyleSheet.create({
         color: '#000000'
     },
     createButtonWrapper: {
-        width:'100%'
+        width: '100%'
     }
 });
