@@ -34,6 +34,11 @@ export default class RestaurantCard extends React.PureComponent {
         "rating": 10
     };
 
+    constructor(props) {
+        super(props);
+        this.restaurant = this.org; //this.props.restaurant
+    }
+
 
     callNumber = (phone) => {
         let phoneNumber = phone;
@@ -60,13 +65,13 @@ export default class RestaurantCard extends React.PureComponent {
                     <Swiper
                         loop={true}
                         showsButtons={false}
-                        style={{flex: 1, backgroundColor: '#ccc'}}
+                        style={{backgroundColor: '#ccc'}}
                         activeDot={<View style={local.sliderActiveDot}/>}
                         dot={<View style={local.dotStyle}/>}
                         scrollsToTop={true}
                         paginationStyle={{position: 'absolute', top: -100}}
                     >
-                        {this.renderSlider(this.props.restaurant.images)}
+                        {this.renderSlider(this.restaurant.images)}
                     </Swiper>
                     <ImageBackground resizeMode={'stretch'} style={local.gradient}
                                      source={require('../assets/images/gradient.png')}/>
@@ -81,11 +86,11 @@ export default class RestaurantCard extends React.PureComponent {
                     }}>
                         <View style={{padding: 15}}>
                             <Text style={Styles.boldFont}>
-                                {this.props.restaurant.name}
+                                {this.restaurant.name}
                             </Text>
                         </View>
                         <View style={{padding: 15, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
-                            <Rating rating={this.props.restaurant.rating}/>
+                            <Rating rating={this.restaurant.rating}/>
                         </View>
                     </View>
                     <View style={{
@@ -95,12 +100,12 @@ export default class RestaurantCard extends React.PureComponent {
                     }}>
                         <TouchableOpacity onPress={() => {
                             openMap({
-                                latitude: this.props.restaurant.latitude,
-                                longitude: this.props.restaurant.longitude
+                                latitude: this.restaurant.latitude,
+                                longitude: this.restaurant.longitude
                             });
                         }} style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
                             <Text style={{color:'#1711E8'}}>
-                                {this.props.restaurant.address}
+                                {this.restaurant.address}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -112,8 +117,8 @@ export default class RestaurantCard extends React.PureComponent {
 
                         <View>
 
-                            <TouchableOpacity onPress={() => this.callNumber(this.props.restaurant.phone)}>
-                                <Text style={{color:'#1711E8'}}>{this.props.restaurant.phone}</Text>
+                            <TouchableOpacity onPress={() => this.callNumber(this.restaurant.phone)}>
+                                <Text style={{color: '#1711E8'}}>{this.restaurant.phone}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -127,7 +132,7 @@ export default class RestaurantCard extends React.PureComponent {
         return images.map(function (image, i) {
             console.log(image);
             return (
-                <View style={local.slideItem} key={i}>
+                <View style={{flex: 1}} key={i}>
                     <Image source={{uri: image}} style={{width: '100%', height: 300}}/>
                 </View>
             );
@@ -135,7 +140,7 @@ export default class RestaurantCard extends React.PureComponent {
     }
 
     renderHalls() {
-        if (isEmpty(this.props.restaurant)) {
+        if (isEmpty(this.restaurant)) {
             return null;
         }
         return (
@@ -149,7 +154,7 @@ export default class RestaurantCard extends React.PureComponent {
                 <Text style={[Styles.boldFont, {fontSize:15, lineHeight:18, marginBottom:5}]}>Залы</Text>
                 </View>
                 <View style={{flex: 1, flexDirection:'column', alignSelf: 'auto', alignItems: 'flex-start', justifyContent: 'flex-start', flexWrap: 'wrap'}}>
-                    {this.props.restaurant.halls.map((hall, index) => (
+                    {this.restaurant.halls.map((hall, index) => (
                         <View style={{flexDirection: 'row', marginBottom: 5}} key={index}>
                             <View style={{flex: 1, alignSelf: 'stretch'}}>
                                 <Text style={{fontSize:15, lineHeight:18}}>{hall.title}</Text>
@@ -166,6 +171,36 @@ export default class RestaurantCard extends React.PureComponent {
 }
 
 const local = StyleSheet.create({
+
+
+    slide1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#9DD6EB',
+    },
+    slide2: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#97CAE5',
+    },
+    slide3: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#92BBD9',
+    },
+    text: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+
+
+
+
+
     gradient: {
         height: 60,
         width: '100%',
@@ -198,13 +233,16 @@ const local = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     slideItem: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+        // flex: 1,
+        // flexDirection: 'column',
+        // justifyContent: 'flex-start',
+        // alignItems: 'center',
 
         height: 352,
 
+        width: '100%',
+
+        backgroundColor: 'green'
     },
     sliderActiveDot: {
         backgroundColor: '#ffffff',
