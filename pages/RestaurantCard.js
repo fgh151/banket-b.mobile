@@ -1,6 +1,16 @@
 import React from 'react';
 
-import {Image, ImageBackground, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+    Image,
+    ImageBackground,
+    Linking,
+    Platform,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Rating from "../components/Rating";
 import openMap from 'react-native-open-maps';
@@ -13,32 +23,31 @@ export default class RestaurantCard extends React.PureComponent {
 
 
     //MOC .org
-    org = {
-        "id": 1,
-        "name": "Ресторанный рейтинг",
-        "contact": "Владимир",
-        "phone": "+7 (495) 788-06-00",
-        "email": "pr7880600@gmail.com",
-        "address": "Москва Славянская площадь 2/3",
-        "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/3.jpg", "https://banket-b.ru/upload/organization/1/bfccf0d7_1.jpg"],
-        "halls": [
-            {"title": "VIP", "size": 10000},
-            {"title": "Общий", "size": 200}
-        ],
-        "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
-            "id": 166,
-            "title": "Китай-город",
-            "color": "943E90"
-        }, {"id": 186, "title": "Киевская", "color": "915133"}],
-        "key": "1",
-        "rating": 10
-    };
+    // org = {
+    //     "id": 1,
+    //     "name": "Ресторанный рейтинг",
+    //     "contact": "Владимир",
+    //     "phone": "+7 (495) 788-06-00",
+    //     "email": "pr7880600@gmail.com",
+    //     "address": "Москва Славянская площадь 2/3",
+    //     "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/3.jpg", "https://banket-b.ru/upload/organization/1/bfccf0d7_1.jpg"],
+    //     "halls": [
+    //         {"title": "VIP", "size": 10000},
+    //         {"title": "Общий", "size": 200}
+    //     ],
+    //     "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
+    //         "id": 166,
+    //         "title": "Китай-город",
+    //         "color": "943E90"
+    //     }, {"id": 186, "title": "Киевская", "color": "915133"}],
+    //     "key": "1",
+    //     "rating": 10
+    // };
 
     constructor(props) {
         super(props);
-        this.restaurant = this.org; //this.props.restaurant
+        this.restaurant = this.props.restaurant;
     }
-
 
     callNumber = (phone) => {
         let phoneNumber = phone;
@@ -61,6 +70,7 @@ export default class RestaurantCard extends React.PureComponent {
     render() {
         return (
             <View style={[local.wrapper]}>
+                <StatusBar barStyle="light-content"/>
                 <View style={{flex: 30}}>
                     <Swiper
                         loop={true}
