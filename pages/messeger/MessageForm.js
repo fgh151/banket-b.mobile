@@ -106,7 +106,7 @@ export default class MessageForm extends Component {
                 <Animated.View style={{marginBottom: this.paddingInput}}>
                     <View style={style.wrapper}>
 
-                        <View style={{width: '90%', padding: 10}}>
+                        <View style={{width: '88%', padding: 10}}>
                             <TextInput
                                 style={style.textInput}
                                 autoFocus={false}
