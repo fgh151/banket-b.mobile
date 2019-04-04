@@ -134,7 +134,7 @@ export default class BattleList extends React.PureComponent {
                 loaded: true,
                 refreshing: false
             },
-            showButton(true)
+            showButton(items.length > 0)
         );
     }
 
