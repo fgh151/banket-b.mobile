@@ -86,3 +86,15 @@ export function messagesObject2array(obj) {
     });
 return result;
 }
+
+export function extractMessageCount(value) {
+    let messagesCount = 0;
+    let messagesTime = ArrayHelper.getKeys(value);
+    messagesTime.forEach((messageTime) => {
+        let message = value[organization][messageTime];
+        if (message.author_class === 'app\\common\\models\\Organization') {
+            messagesCount++;
+        }
+    });
+    return messagesCount;
+}

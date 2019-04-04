@@ -7,8 +7,6 @@ import CacheStore from 'react-native-cache-store';
 import DialogListItem from './DialogListItem';
 import Config from "../../Config";
 import {changeTitle} from "../../components/ProposalBar";
-
-
 import Empty from './Empty';
 import type {Organization} from "../../types/Organization";
 import {Styles as textStyle} from "../../styles/Global";
@@ -203,7 +201,7 @@ export default class DialogList extends Component {
                                 </View>
                             </View>
 
-                            <View style={{marginTop: 10}}>
+                            <View style={{marginTop: 10, marginLeft: -11, marginRight: -11}}>
                                 <FlatList
                                     data={this.state.items}
                                     renderItem={(item) => this.renderItem(item)}

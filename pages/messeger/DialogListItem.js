@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
@@ -9,6 +9,9 @@ import Rating from '../../components/Rating';
 import type {Organization} from "../../types/Organization";
 import Profit from "../../components/Profit";
 import AndroidVersion from "../../helpers/AndroidVersion";
+import NewMessagesNotify from "../../components/NewMessagesNotify";
+import {db} from "../../Config";
+import {extractMessageCount} from "../../helpers/ArrayHelper";
 
 export default class DialogListItem extends Component {
 
@@ -32,12 +35,29 @@ export default class DialogListItem extends Component {
     }
 
     componentDidMount() {
+        AsyncStorage.getItem('battle@id')
+            .then((id) => {
+                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.dialog.item.id + '/';
+                db.ref(path).once('value', (snapshot) => {
+                    const value = snapshot.val();
+                    if (extractMessageCount(value) > 0) {
+                        AsyncStorage.getItem('answers-count-read' + this.props.proposal.id + '_' + this.props.dialog.item.id)
+                            .then((readedAnswersCount) => {
+
+                                if (parseInt(readedAnswersCount) < messagesCount) {
+                                    this.setState({newMessages: true});
+                                }
+                            });
+                    }
+                });
+            })
     }
 
     render() {
         const image = this.props.dialog.item.images[0];
         return (
             <Shadow style={styles.blockWrapper}>
+                <NewMessagesNotify newMessages={this.state.newMessages}/>
                 <TouchableOpacity
                     onPress={() => DialogListItem.goToMessenger(this.props.dialog.item, this.props.proposal)}
                 >
@@ -100,6 +120,9 @@ const styles = StyleSheet.create({
 
         marginTop: 10,
         marginBottom: 1,
+
+        marginRight: 11,
+        marginLeft: 11,
 
 
 

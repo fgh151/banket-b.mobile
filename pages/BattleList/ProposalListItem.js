@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {AsyncStorage, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import * as ArrayHelper from '../../helpers/ArrayHelper';
+import {extractMessageCount} from '../../helpers/ArrayHelper';
 import {formatCost, formatDate, plural} from '../../helpers/StringHelper';
 import {db} from '../../Config';
 
@@ -9,6 +10,7 @@ import Proposal from "../../models/Proposal";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
 import type {ProposalType} from "../../types/ProposalType";
+import NewMessagesNotify from "../../components/NewMessagesNotify";
 
 let shouldUpdate = false;
 
@@ -39,7 +41,6 @@ export default class ProposalListItem extends Component {
     }
 
     componentDidMount() {
-
         AsyncStorage.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/';
@@ -48,13 +49,7 @@ export default class ProposalListItem extends Component {
                     const value = snapshot.val();
                     let organizations = ArrayHelper.getKeys(value);
                     organizations.forEach((organization) => {
-                        let messagesTime = ArrayHelper.getKeys(value[organization]);
-                        messagesTime.forEach((messageTime) => {
-                            let message = value[organization][messageTime];
-                            if (message.author_class === 'app\\common\\models\\Organization') {
-                                messagesCount++;
-                            }
-                        })
+                        messagesCount = extractMessageCount(value);
                     });
                     if (messagesCount > 0) {
                         AsyncStorage.getItem('answers-count-read' + this.props.proposal.id)
@@ -68,19 +63,6 @@ export default class ProposalListItem extends Component {
                 });
             })
     }
-
-
-    renderNewMessages() {
-        if (this.state.newMessages) {
-            return (
-                <View style={styles.round}>
-
-                </View>
-            )
-        }
-        return null;
-    }
-
 
     renderProfit(proposal: ProposalType) {
         if (proposal.answers > 0) {
@@ -98,14 +80,10 @@ export default class ProposalListItem extends Component {
     }
 
     render() {
-
         const proposal = this.props.proposal;
-
-        console.log(proposal);
-
         return (
             <Shadow style={styles.blockWrapper}>
-                {this.renderNewMessages()}
+                <NewMessagesNotify newMessages={this.state.newMessages}/>
                 <TouchableOpacity
                     onPress={() => ProposalListItem.goToDialogs(proposal)}
                 >
@@ -206,20 +184,5 @@ const styles = StyleSheet.create({
     profit: {
         fontFamily: "Lato-Bold",
         color: '#00D800'
-    },
-    round: {
-        height: 22,
-        width: 22,
-        backgroundColor: '#D0021B',
-        borderRadius: 11,
-
-
-        borderWidth: 5,
-        borderColor: '#ec9aa4',
-
-
-        position: 'absolute',
-        top: -11,
-        right: -11
     }
 });
