@@ -229,6 +229,9 @@ export default class DialogList extends Component {
 }
 
 const pickerStyle = StyleSheet.create({
+    inputIOS: {
+        marginRight: 10
+    },
     inputAndroidContainer: {},
     inputAndroid: {
         paddingTop: 0,
