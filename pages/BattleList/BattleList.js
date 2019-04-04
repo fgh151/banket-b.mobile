@@ -14,22 +14,26 @@ import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 
-function updateState(state) {
-    this.setState(state);
+let showButtonState = false;
+
+function showButton(show) {
+    showButtonState = show;
+    this.setState({show: show});
 }
 
 export class RightButton extends React.Component {
+    _mounted = false;
+    state = {
+        show: showButtonState,
+    };
 
     constructor(props) {
         super(props);
-        this.state = {
-            items: [],
-        };
-        updateState = updateState.bind(this);
+        showButton = showButton.bind(this);
     }
 
     render() {
-        if (this.state.items.length > 0) {
+        if (this.state.show) {
             return (
                 <TouchableOpacity
                     style={{height: 60, paddingTop: 20}}
@@ -46,6 +50,14 @@ export class RightButton extends React.Component {
             )
         }
         return null
+    }
+
+    componentDidMount() {
+        this._mounted = true;
+    }
+
+    componentWillUnmount() {
+        this._mounted = false;
     }
 
 }
@@ -122,7 +134,7 @@ export default class BattleList extends React.PureComponent {
                 loaded: true,
                 refreshing: false
             },
-            updateState({items: items})
+            showButton(true)
         );
     }
 
