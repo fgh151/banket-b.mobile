@@ -88,7 +88,7 @@ export default class FormTimePicker extends React.Component {
     };
 
     onEndSelected = selectedItem => {
-        let value = timePeriod[selectedItem];
+        let value = this.state.endTimePeriod[selectedItem];
         let state = {
             endTime: value,
             selectedEnd: selectedItem,
