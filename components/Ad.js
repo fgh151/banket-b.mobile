@@ -64,7 +64,7 @@ export default class Ad extends React.Component {
                         </Text>
                     </View>
                     <FlatList
-                        style={{marginTop: 0}}
+                        style={{marginTop: 0, marginLeft: -10}}
                         horizontal={true}
                         renderItem={this.renderListItem}
                         data={this.state.items}

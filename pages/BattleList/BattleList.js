@@ -222,7 +222,7 @@ const style = StyleSheet.create({
         padding: 0,
         ...Platform.select({
             ios: {
-                marginTop: 0
+                marginTop: 0,
             },
             android: {
                 marginTop: 9
