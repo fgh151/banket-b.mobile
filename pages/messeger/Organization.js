@@ -6,14 +6,14 @@ import Rating from "../../components/Rating";
 import Profit from "../../components/Profit";
 import {Actions} from "react-native-router-flux";
 
-export default function Organization() {
+export default function Organization(props) {
 
-    const image = this.props.organization.images[0];
+    const image = props.organization.images[0];
     return (
         <TouchableOpacity
             style={styles.blockWrapper}
             onPress={() => {
-                Actions.RestaurantCard({restaurant: this.props.organization})
+                Actions.RestaurantCard({restaurant: props.organization})
             }}
         >
             <View style={{flexDirection: 'column'}}>
@@ -22,7 +22,7 @@ export default function Organization() {
             <View style={{flex: 1, flexDirection: 'column', paddingLeft: 15}}>
                 <View>
                     <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18, paddingTop: 10}]}>
-                        {this.props.organization.name}
+                        {props.organization.name}
                     </Text>
                 </View>
                 <View style={{paddingTop: 10}}>
@@ -32,7 +32,7 @@ export default function Organization() {
                             lineHeight: 16,
                             color: '#0C21E2'
                         }]}>
-                        {this.props.organization.address}
+                        {props.organization.address}
                     </Text>
                 </View>
                 <View style={{paddingTop: 10}}>
@@ -42,11 +42,11 @@ export default function Organization() {
                             lineHeight: 16,
                             color: '#0C21E2'
                         }]}>
-                        {this.props.organization.phone}
+                        {props.organization.phone}
                     </Text>
                 </View>
                 <View style={{paddingTop: 10}}>
-                    <Rating rating={this.props.organization.rating}/>
+                    <Rating rating={props.organization.rating}/>
                 </View>
             </View>
             <View style={{flex: .5, flexDirection: 'column', alignItems: 'flex-end', paddingRight: 10}}>
@@ -54,7 +54,7 @@ export default function Organization() {
                     <Text style={{flexWrap: 'nowrap'}}>
                         <Text>
                             <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
-                                {formatCost(this.props.proposal.amount * this.props.proposal.guests_count)}
+                                {formatCost(props.proposal.amount * props.proposal.guests_count)}
                             </Text>
                             <Text style={{fontSize: 15, lineHeight: 18}}>
                                 &nbsp;{"\u20bd"}
@@ -63,10 +63,10 @@ export default function Organization() {
                     </Text>
                 </View>
                 <View style={{paddingTop: 10}}>
-                    <Profit profit={this.props.organization.profit}/>
+                    <Profit profit={props.organization.profit}/>
                 </View>
                 <View style={{paddingTop: 10}}>
-                    <Text>{round10(this.props.organization.minPrice / this.props.proposal.guests_count)} {"\u20bd"} /
+                    <Text>{round10(props.organization.minPrice / props.proposal.guests_count)} {"\u20bd"} /
                         чел.</Text>
                 </View>
 

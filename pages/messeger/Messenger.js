@@ -119,6 +119,9 @@ export default class Messenger extends Component {
 
     render() {
 
+        console.log(this.props);
+        // return null;
+
         if (!this.state.loaded) {
             return (
 
@@ -169,6 +172,7 @@ export default class Messenger extends Component {
             :
             <MessageWrapper model={message} bubbleColor={'#F6F6F6'} align={'flex-start'} share={true}
                             same={this.isSenderSame(message)}/>
+
     }
 }
 

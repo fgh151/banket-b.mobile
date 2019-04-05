@@ -3,13 +3,13 @@ import {StyleSheet, Text, View} from "react-native"
 import Hyperlink from 'react-native-hyperlink'
 import moment from "moment";
 
-export default function Message() {
-    const time = moment(this.props.created_at * 1000);
+export default function Message(props) {
+    const time = moment(props.created_at * 1000);
     return (
         <View style={style.wrapper}>
             <View style={style.messageWrapper}>
                 <Hyperlink linkDefault={true}>
-                    <Text>{this.props.message}</Text>
+                    <Text>{props.message}</Text>
                 </Hyperlink>
             </View>
             <View style={style.timeWrapper}>

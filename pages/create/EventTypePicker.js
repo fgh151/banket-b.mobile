@@ -3,7 +3,7 @@ import {Image, StyleSheet} from "react-native";
 import PickerSelect from '../../components/PickerSelect';
 
 
-export default function EventTypePicker() {
+export default function EventTypePicker(props) {
     const placeholder = {
         label: 'Вид мероприятия',
         value: null,
@@ -28,7 +28,7 @@ export default function EventTypePicker() {
             items={variants}
             showIcon={false}
             onValueChange={(value) => {
-                this.props.onValueChange(value);
+                props.onValueChange(value);
             }}
             style={pickerSelectStyles}
             useNativeAndroidPickerStyle={false}
