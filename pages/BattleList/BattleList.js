@@ -16,21 +16,17 @@ import {ifIphoneX} from "react-native-iphone-x-helper";
 
 let showButtonState = false;
 
-function showButton(show) {
+function showButtonFunction(show) {
     showButtonState = show;
     this.setState({show: show});
 }
 
+let showButton = null;
+
 export class RightButton extends React.Component {
-    _mounted = false;
     state = {
         show: showButtonState,
     };
-
-    constructor(props) {
-        super(props);
-        showButton = showButton.bind(this);
-    }
 
     render() {
         if (this.state.show) {
@@ -53,13 +49,12 @@ export class RightButton extends React.Component {
     }
 
     componentDidMount() {
-        this._mounted = true;
+        showButton = showButtonFunction.bind(this);
     }
 
     componentWillUnmount() {
-        this._mounted = false;
+        showButton = null;
     }
-
 }
 
 export default class BattleList extends React.PureComponent {
@@ -134,7 +129,11 @@ export default class BattleList extends React.PureComponent {
                 loaded: true,
                 refreshing: false
             },
-            showButton(items.length > 0)
+            () => {
+                if (showButton.call) {
+                    showButton(items.length > 0)
+                }
+            }
         );
     }
 
