@@ -191,8 +191,6 @@ const styles = StyleSheet.create({
         ...ifIphoneX({
             marginBottom: 50
         }),
-
-        backgroundColor: 'blue'
     },
     dateTouch: {
         width: '100%',
