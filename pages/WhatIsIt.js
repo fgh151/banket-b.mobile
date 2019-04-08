@@ -3,7 +3,7 @@ import {Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View}
 import {Actions} from "react-native-router-flux";
 import {Styles as textStyle} from '../styles/Global';
 import {Button} from '../components/Button';
-import Swiper from 'react-native-swiper';
+import Swiper from '../components/Swiper/Swiper';
 
 export default function WhatIsIt() {
         return (
@@ -16,46 +16,10 @@ export default function WhatIsIt() {
                 </View>
                 <View style={{flex: 1, width:'100%'}}>
                     <Swiper
-                        loop={false}
-                        showsButtons={false}
-                        dot={<View style={WIIstyles.sliderDot}/>}
-                        activeDot={<View style={WIIstyles.sliderActiveDot}/>}
-                        containerStyle={{flex: 1}}
+                        showPagination
                     >
-
-                        <View style={[WIIstyles.sliderItem, {}]}>
-                            <Image source={require('../assets/images/what_is_it.png')} style={{marginBottom: 35}}/>
-                            <View style={{marginBottom: 20}}>
-                                <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Что
-                                    такое{"\n"}банкет-батл?</Text>
-                            </View>
-                            <View style={WIIstyles.sliderTextWrapper}>
-                                <Text style={[textStyle.defaultFont, {
-                                    textAlign: 'center',
-                                    fontSize: 15,
-                                    lineHeight: 20
-                                }]}>
-                                    Здесь рестораны соревнуются друг с другом, чтобы сделать для вас лучший банкет. Вам остается только выбрать победителя аукциона!
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={[WIIstyles.sliderItem, {paddingBottom:70}]}>
-                            <Image source={require('../assets/images/how-it-work.png')} style={{marginBottom: 35}}/>
-                            <View style={{marginBottom: 20}}>
-                                <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Как
-                                    работает{"\n"}банкет-батл</Text>
-                            </View>
-                            <View style={WIIstyles.sliderTextWrapper}>
-                                <Text style={[textStyle.defaultFont, {
-                                    textAlign: 'center',
-                                    fontSize: 15,
-                                    lineHeight: 20,
-                                    paddingBottom: 50
-                                }]}>
-                                    Заполняйте заявку. Запускайте аукцион. Получайте предложения от ресторанов.Выбирайте лучшее. Готово!
-                                </Text>
-                            </View>
-                        </View>
+                        <Slide1/>
+                        <Slide2/>
                     </Swiper>
                 </View>
                 <View style={WIIstyles.createButtonWrapper}>
@@ -63,6 +27,50 @@ export default function WhatIsIt() {
                 </View>
             </SafeAreaView>
         );
+}
+
+function Slide1() {
+    return (
+        <View key={1} style={[WIIstyles.sliderItem]}>
+            <Image source={require('../assets/images/what_is_it.png')} style={{marginBottom: 35}}/>
+            <View style={{marginBottom: 20}}>
+                <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Что
+                    такое{"\n"}банкет-батл?</Text>
+            </View>
+            <View style={WIIstyles.sliderTextWrapper}>
+                <Text style={[textStyle.defaultFont, {
+                    textAlign: 'center',
+                    fontSize: 15,
+                    lineHeight: 20
+                }]}>
+                    Здесь рестораны соревнуются друг с другом, чтобы сделать для вас лучший банкет. Вам остается только
+                    выбрать победителя аукциона!
+                </Text>
+            </View>
+        </View>
+    )
+}
+
+function Slide2() {
+    return (
+        <View key={2} style={[WIIstyles.sliderItem, {paddingBottom: 70}]}>
+            <Image source={require('../assets/images/how-it-work.png')} style={{marginBottom: 35}}/>
+            <View style={{marginBottom: 20}}>
+                <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Как
+                    работает{"\n"}банкет-батл</Text>
+            </View>
+            <View style={WIIstyles.sliderTextWrapper}>
+                <Text style={[textStyle.defaultFont, {
+                    textAlign: 'center',
+                    fontSize: 15,
+                    lineHeight: 20,
+                    paddingBottom: 50
+                }]}>
+                    Заполняйте заявку. Запускайте аукцион. Получайте предложения от ресторанов.Выбирайте лучшее. Готово!
+                </Text>
+            </View>
+        </View>
+    )
 }
 
 const WIIstyles = StyleSheet.create({
@@ -73,26 +81,6 @@ const WIIstyles = StyleSheet.create({
             },
             android: {},
         }),
-    },
-    sliderDot: {
-        backgroundColor: 'transparent',
-        borderColor: '#0C21E2',
-        borderWidth: 1,
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        marginLeft: 4,
-        marginRight: 4,
-        marginBottom: -20
-    },
-    sliderActiveDot: {
-        backgroundColor: '#0C21E2',
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        marginLeft: 4,
-        marginRight: 4,
-        marginBottom: -20
     },
     sliderItem: {
         flex: 100,

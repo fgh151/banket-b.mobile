@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         fontFamily: "Lato-Regular",
         ...Platform.select({
             ios: {
-                paddingTop: 10,
+                paddingTop: 5,
                 paddingBottom: 5
             },
             android: {
