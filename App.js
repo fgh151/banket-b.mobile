@@ -118,7 +118,7 @@ export default class App extends React.Component {
                         key="WhatIsIt"
                         component={WhatIsIt}
                         title="Что это"
-                        // initial={true}
+                        initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
@@ -135,7 +135,6 @@ export default class App extends React.Component {
                         component={LoginCode}
                         title="Вход"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
-                        // initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
@@ -152,6 +151,7 @@ export default class App extends React.Component {
                         component={RegisterCode}
                         title="Регистрация"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        // initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
@@ -197,7 +197,6 @@ export default class App extends React.Component {
                         }}
                         renderRightButton={() => {
                         }}
-
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}

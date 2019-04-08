@@ -122,6 +122,7 @@ export default class RegisterCode extends React.Component {
                                 showPlaceholder={this.state.showPlaceholder}
                                 descriptionStyle={styles.descriptionStyle}
                                 placeholder='Код подтверждения'
+                                inputStyle={{borderBottomWidth: 0}}
                             >
                                 <CodeInput
                                     onFocus={() => this.setState({showPlaceholder: true})}

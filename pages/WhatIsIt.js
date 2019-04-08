@@ -20,10 +20,10 @@ export default function WhatIsIt() {
                         showsButtons={false}
                         dot={<View style={WIIstyles.sliderDot}/>}
                         activeDot={<View style={WIIstyles.sliderActiveDot}/>}
-                        containerStyle={{flex: 1, backgroundColor: 'green'}}
+                        containerStyle={{flex: 1}}
                     >
 
-                        <View style={[WIIstyles.sliderItem, {backgroundColor: 'yellow'}]}>
+                        <View style={[WIIstyles.sliderItem, {}]}>
                             <Image source={require('../assets/images/what_is_it.png')} style={{marginBottom: 35}}/>
                             <View style={{marginBottom: 20}}>
                                 <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Что

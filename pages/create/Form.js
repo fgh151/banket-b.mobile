@@ -26,25 +26,26 @@ export default class Form extends React.Component {
         guests_count: null,
         notes: null,
         show_guests_count_placeholder: false,
-        inputGCFocus:false,
+        inputGCFocus: false,
         show_amount_placeholder: false,
         inputAmountFocus: false,
-        show_notes_placeholder:false,
-        inputNotesFocus:false,
+        show_notes_placeholder: false,
+        inputNotesFocus: false,
 
         hideButton: false
     };
 
     proposal = new Proposal();
     now = moment();
-    nextPage = () => {
-        Actions.Services();
-    };
 
     constructor(props) {
         super(props);
         this.setProposalProperty = this.setProposalProperty.bind(this);
     }
+
+    nextPage = () => {
+        Actions.Services();
+    };
 
     setProposalProperty(propertyName, value) {
 
@@ -75,108 +76,103 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <KeyboardAwareScrollView style={{
-                padding: 15, flex: 1,
-                flexDirection: 'column',
-            }}
-                                     contentContainerStyle={{alignItems: 'center',}}
+            <KeyboardAwareScrollView
+                contentContainerStyle={{flexDirection: 'column', flex: 1, justifyContent: 'space-between'}}
             >
-                <View
-                    showsVerticalScrollIndicator={false}
-                    style={[textStyle.rootView, {paddingTop: 25}]}
-                    scrollEnabled={true}
-                >
-                    <Input>
-                        <CityPicker/>
-                    </Input>
-                    <Input>
-                        <EventTypePicker onValueChange={(value) => this.setProposalProperty('event_type', value)}/>
-                    </Input>
-                    <Input>
-                        <FormDatePicker onDateChange={(date) => {
-                            this.setProposalProperty('date', date)
-                        }}/>
-                    </Input>
-                    <Input>
-                        <FormTimePicker onDateChange={(time) => {
-                            this.setProposalProperty('time', time)
-                        }}/>
-                    </Input>
-                    <Input
-                        style={{marginTop:-10}}
-                        error={this.state.guests_count_error}
-                        // showPlaceholder={this.state.show_guests_count_placeholder}
-                        showPlaceholder={false}
-                        placeholder={GUESTS_COUNT_PLACEHOLDER_TEXT}
+                <View style={{flex: 1, alignItems: 'center'}}>
+
+                    <View
+                        style={[textStyle.rootView, {
+                            paddingTop: 25,
+                            flexDirection: 'column',
+                            flex: 1
+                        }]}
                     >
-                        <GuestsCountInput
-                            onChange={this.setProposalProperty}
-                            onFocus={() => {this.setState({hideButton: true})}}
-                            onBlur={()=>{this.setState({hideButton: false})}}
-                        />
-                    </Input>
-                    <Input
-                        style={{marginTop:-10}}
-                        error={this.state.amount_error}
-                        // showPlaceholder={this.state.show_amount_placeholder}
-                        showPlaceholder={false}
-                        placeholder={AMOUNT_PLACEHOLDER_TEXT}
-                    >
-                        <AmountInput
-                            onChange={this.setProposalProperty}
-                            onFocus={() => {this.setState({hideButton: true})}}
-                            onBlur={()=>{this.setState({hideButton: false})}}
-                        />
-                    </Input>
-                    <Input
-                        // showPlaceholder={this.state.show_notes_placeholder}
-                        showPlaceholder={false}
-                        placeholder={'Дополнительно'}
-                    >
+                        <Input>
+                            <CityPicker/>
+                        </Input>
+                        <Input>
+                            <EventTypePicker onValueChange={(value) => this.setProposalProperty('event_type', value)}/>
+                        </Input>
+                        <Input>
+                            <FormDatePicker onDateChange={(date) => {
+                                this.setProposalProperty('date', date)
+                            }}/>
+                        </Input>
+                        <Input>
+                            <FormTimePicker onDateChange={(time) => {
+                                this.setProposalProperty('time', time)
+                            }}/>
+                        </Input>
+                        <Input
+                            style={{marginTop: -10}}
+                            error={this.state.guests_count_error}
+                            // showPlaceholder={this.state.show_guests_count_placeholder}
+                            showPlaceholder={false}
+                            placeholder={GUESTS_COUNT_PLACEHOLDER_TEXT}
+                            inputStyle={{flex: 1}}
+                        >
+                            <GuestsCountInput
+                                onChange={this.setProposalProperty}
+                            />
+                        </Input>
+                        <Input
+                            style={{marginTop: -10}}
+                            error={this.state.amount_error}
+                            // showPlaceholder={this.state.show_amount_placeholder}
+                            showPlaceholder={false}
+                            placeholder={AMOUNT_PLACEHOLDER_TEXT}
+                            inputStyle={{flex: 1}}
+                        >
+                            <AmountInput
+                                onChange={this.setProposalProperty}
+                            />
+                        </Input>
+                        <Input
+                            // showPlaceholder={this.state.show_notes_placeholder}
+                            showPlaceholder={false}
+                            placeholder={'Дополнительно'}
+                        >
                             <TextInput
                                 multiline
                                 refInput={ref => {
-                                this.input = ref
-                            }}
+                                    this.input = ref
+                                }}
                                 style={[styles.textInput, valid.valid, {
-                                marginTop:-10,
-                                paddingBottom: 2,
-                            }]}
+                                    marginTop: -10,
+                                    paddingBottom: 2,
+                                }]}
                                 placeholderTextColor={'#000000'}
-                                onChangeText={(notes) => {this.setProposalProperty('notes', notes); this.setState({notes:notes});}}
-                            // onFocus={() => {this.setState({inputNotesFocus: true}, () => this.toggleNotesPlaceHolder())}}
-                            // onBlur={()=>{this.setState({inputNotesFocus: false}, () => this.toggleNotesPlaceHolder())}}
+                                onChangeText={(notes) => {
+                                    this.setProposalProperty('notes', notes);
+                                    this.setState({notes: notes});
+                                }}
                                 placeholder='Дополнительно'
                                 returnKeyType={'done'}
                                 blurOnSubmit={true}
                                 value={this.state.notes}
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
-                        />
-                    </Input>
+                            />
+                        </Input>
+                    </View>
                 </View>
-                {this.renderButton()}
+                <View style={{padding: 15}}>
+
+                    <View style={[styles.buttonWrapper, {
+                        visibility: this.state.hideButton,
+                    }]}>
+                        <Button
+                            style={{fontSize: 17, lineHeight: 21}}
+                            disabled={this.state.buttonDisabled}
+                            title="Продолжить"
+                            onPress={this.nextPage}
+                        />
+                    </View>
+
+                </View>
             </KeyboardAwareScrollView>
         )
-    }
-
-    renderButton() {
-        if (!this.state.hideButton) {
-            return (
-                <View style={[styles.buttonWrapper, {
-                    visibility: this.state.hideButton,
-                    position: 'absolute',
-                    bottom: -120
-                }]}>
-                    <Button
-                        style={{fontSize: 17, lineHeight: 21}}
-                        disabled={this.state.buttonDisabled}
-                        title="Продолжить"
-                        onPress={this.nextPage}
-                    />
-                </View>
-            )
-        }
     }
 }
 
@@ -191,11 +187,12 @@ const valid = StyleSheet.create({
 
 const styles = StyleSheet.create({
     buttonWrapper: {
-        padding: 15,
         width: '100%',
         ...ifIphoneX({
             marginBottom: 50
-        })
+        }),
+
+        backgroundColor: 'blue'
     },
     dateTouch: {
         width: '100%',

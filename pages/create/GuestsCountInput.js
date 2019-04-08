@@ -43,8 +43,8 @@ export default class GuestsCountInput extends React.Component {
                     style={[styles.textInput, valid.valid]}
                     placeholderTextColor={'#000000'}
                     onChangeText={(value) => this.onChange(value)}
-                    onFocus={() => this.props.onFocus()}
-                    onBlur={() => this.props.onBlur()}
+                    // onFocus={() => this.props.onFocus()}
+                    // onBlur={() => this.props.onBlur()}
                     value={this.state.amount_value}
                     keyboardType="numeric"
                     placeholder={this.state.placeholder}
