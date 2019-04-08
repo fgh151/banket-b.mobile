@@ -118,21 +118,25 @@ export default class Proposal {
                     Actions.RegisterPhone();
                 } else {
 
+                    this.saveWithToken(result);
 
-                    const api = new Client(result);
-                    api.POST('/proposal/create', this)
-                        .then(response => {
-                            if (ArrayHelper.isEmpty(response)) {
-                                this.afterSave();
-                            } else {
-                                let keys = ArrayHelper.getKeys(response);
-                                keys.forEach((val) => {
-                                    this.errors.push(response[val].join('; '))
-                                })
-                            }
-                        });
 
                 }
             }).catch((e) => console.log('cathc', e));
+    }
+
+    saveWithToken(token) {
+        const api = new Client(token);
+        api.POST('/proposal/create', this)
+            .then(response => {
+                if (ArrayHelper.isEmpty(response)) {
+                    this.afterSave();
+                } else {
+                    let keys = ArrayHelper.getKeys(response);
+                    keys.forEach((val) => {
+                        this.errors.push(response[val].join('; '))
+                    })
+                }
+            });
     }
 }

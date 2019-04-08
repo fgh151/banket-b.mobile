@@ -38,11 +38,12 @@ export default class RegisterCode extends React.Component {
     };
 
     nextPage = () => {
+        this.setState({buttonDisabled: true});
         const api = new Client();
         api.login(this.state.phone, this.state.code)
             .then((response: LoginResponse) => {
                 if (response.hasOwnProperty('error')) {
-                    this.setState({showError: true})
+                    this.setState({showError: true, buttonDisabled: false})
                 } else {
                     console.log(response);
 
@@ -55,7 +56,7 @@ export default class RegisterCode extends React.Component {
                                 });
                             firstLunchDone();
                             Push.saveToken();
-                            this.proposal.save();
+                            this.proposal.saveWithToken(response.access_token);
                         })
                         .catch(err => {
                             this.setState({showLoginBtn: true});
