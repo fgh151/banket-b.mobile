@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import {Styles as textStyle} from '../styles/Global';
 import {Button} from '../components/Button';
@@ -8,7 +8,7 @@ import Swiper from '../components/Swiper/Swiper';
 export default function WhatIsIt() {
         return (
             <SafeAreaView style={[textStyle.rootViewWrapper, WIIstyles.rootView]}>
-                <View style={{marginTop: 0, alignItems: 'flex-end', width: '100%'}}>
+                <View style={{marginTop: 0, paddingRight: 15, alignItems: 'flex-end', width: '100%'}}>
                     <TouchableOpacity style={{width: 100, height: 60, paddingTop: 5}}
                                       onPress={() => Actions.LoginPhone()}>
                         <Text style={WIIstyles.loginButton}>Войти</Text>
@@ -73,21 +73,25 @@ function Slide2() {
     )
 }
 
+var {height, width} = Dimensions.get('window');
+
 const WIIstyles = StyleSheet.create({
     rootView: {
         ...Platform.select({
             ios: {
-                margin: 10
+                // margin: 15
             },
             android: {},
         }),
     },
     sliderItem: {
-        flex: 100,
+        // flex: 100,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom:100,
+
+        width: width
     },
     sliderHeader: {
         lineHeight: 34,
@@ -103,7 +107,8 @@ const WIIstyles = StyleSheet.create({
         color: '#000000'
     },
     createButtonWrapper: {
-        width: '100%'
+        width: width - 30,
+        margin: 15
     },
     loginButton: {
         color: '#0C20E3',
