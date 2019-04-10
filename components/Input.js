@@ -30,7 +30,7 @@ export default class Input extends React.Component {
 
     renderPlaceholder(text: string) {
         if ((isString(text) && this.state.focus) || this.props.showPlaceholder) {
-            return <Text style={[styles.activePlaceholder, this.props.placeholderStyle]}>{text}</Text>
+            return <View><Text style={[styles.activePlaceholder, this.props.placeholderStyle]}>{text}</Text></View>
         }
         return (<View style={{height: 13, width: '100%'}}/>)
     }
@@ -47,9 +47,12 @@ export default class Input extends React.Component {
 
     renderError() {
         if (this.props.error) {
-            return <Text style={styles.error}>{this.props.error}</Text>
+            return (
+                <View style={{flex: 1}}>
+                    <Text style={styles.error}>{this.props.error}</Text>
+                </View>)
         }
-        return null;
+        return <View style={{flex: 1}}/>;
     }
 
 }
@@ -102,8 +105,8 @@ const styles = StyleSheet.create({
 
         ...Platform.select({
             ios: {
-                paddingBottom: 0,
-                marginBottom: 10,
+                // paddingBottom: 0,
+                // marginBottom: 10,
             },
             android: {
                 paddingBottom: 0,

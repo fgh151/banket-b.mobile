@@ -195,7 +195,6 @@ const style = StyleSheet.create({
             ios: {
                 height: 35,
                 marginTop: 10,
-                // backgroundColor:'red',
                 paddingTop: 0,
 
             },
@@ -206,10 +205,7 @@ const style = StyleSheet.create({
     },
 
     buttonWrapperInactive: {
-
-
         backgroundColor: '#ccc',
-
         ...Platform.select({
             ios: {
                 borderRadius: 17,
@@ -235,13 +231,20 @@ const style = StyleSheet.create({
         height: 29,
         borderRadius: 15,
         backgroundColor: '#0C21E2',
-
         ...Platform.select({
             ios: {
+                borderRadius: 17,
                 height: 35,
+                width: 35,
                 marginTop: 0,
+                marginRight: 5,
             },
-            android: {},
+            android: {
+                borderRadius: 15,
+                width: 29,
+                height: 29,
+                marginTop: 10,
+            },
         }),
 
     },

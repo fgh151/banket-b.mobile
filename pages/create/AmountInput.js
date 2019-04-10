@@ -31,8 +31,10 @@ export default class AmountInput extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => this.refs.Input.focus()}
-                              style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-start', width: '100%'}}>
+            <TouchableOpacity
+                onPress={() => this.refs.Input.focus()}
+                style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-start', width: '100%'}}
+            >
                 <TextInput
                     refInput={ref => {
                         this.input = ref
@@ -41,8 +43,6 @@ export default class AmountInput extends React.Component {
                     style={[styles.textInput, valid.valid]}
                     placeholderTextColor={'#000000'}
                     onChangeText={(value) => this.onChange(value)}
-                    // onFocus={() => this.props.onFocus()}
-                    // onBlur={() => this.props.onBlur()}
                     value={this.state.amount_value}
                     keyboardType="numeric"
                     placeholder={this.state.placeholder}
@@ -72,16 +72,16 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
     },
-
     postfix: {
         color: '#0C21E2',
         fontSize: 15,
         lineHeight: 18,
+
+        alignSelf: 'center',
+
         fontFamily: "Lato-Regular",
         ...Platform.select({
             ios: {
-                paddingTop: 5,
-                paddingBottom: 5
             },
             android: {
                 marginTop: 15,
@@ -95,8 +95,6 @@ const styles = StyleSheet.create({
         fontFamily: "Lato-Regular",
         ...Platform.select({
             ios: {
-                paddingTop: 10,
-                paddingBottom: 5
             },
             android: {
                 marginLeft: -5,
@@ -104,5 +102,4 @@ const styles = StyleSheet.create({
             },
         }),
     }
-
 });

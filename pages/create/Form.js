@@ -105,28 +105,22 @@ export default class Form extends React.Component {
                             }}/>
                         </Input>
                         <Input
-                            style={{marginTop: -10}}
+                            style={{}}
                             error={this.state.guests_count_error}
-                            // showPlaceholder={this.state.show_guests_count_placeholder}
                             showPlaceholder={false}
                             placeholder={GUESTS_COUNT_PLACEHOLDER_TEXT}
                             inputStyle={{flex: 1}}
                         >
-                            <GuestsCountInput
-                                onChange={this.setProposalProperty}
-                            />
+                            <GuestsCountInput onChange={this.setProposalProperty}/>
                         </Input>
                         <Input
-                            style={{marginTop: -10}}
+                            style={{padding: 0, margin: 0}}
                             error={this.state.amount_error}
-                            // showPlaceholder={this.state.show_amount_placeholder}
                             showPlaceholder={false}
                             placeholder={AMOUNT_PLACEHOLDER_TEXT}
                             inputStyle={{flex: 1}}
                         >
-                            <AmountInput
-                                onChange={this.setProposalProperty}
-                            />
+                            <AmountInput onChange={this.setProposalProperty}/>
                         </Input>
                         <Input
                             // showPlaceholder={this.state.show_notes_placeholder}
@@ -158,7 +152,6 @@ export default class Form extends React.Component {
                     </View>
                 </View>
                 <View style={{padding: 15}}>
-
                     <View style={[styles.buttonWrapper, {
                         visibility: this.state.hideButton,
                     }]}>

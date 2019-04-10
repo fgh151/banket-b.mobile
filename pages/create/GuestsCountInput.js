@@ -38,13 +38,10 @@ export default class GuestsCountInput extends React.Component {
                     refInput={ref => {
                         this.input = ref
                     }}
-
                     ref='Input'
                     style={[styles.textInput, valid.valid]}
                     placeholderTextColor={'#000000'}
                     onChangeText={(value) => this.onChange(value)}
-                    // onFocus={() => this.props.onFocus()}
-                    // onBlur={() => this.props.onBlur()}
                     value={this.state.amount_value}
                     keyboardType="numeric"
                     placeholder={this.state.placeholder}
@@ -75,23 +72,18 @@ const styles = StyleSheet.create({
         fontFamily: "Lato-Regular",
         ...Platform.select({
             ios: {
-                paddingTop: 5,
-                paddingBottom: 5
             },
             android: {
                 marginTop: 15,
             },
         }),
     },
-
     textInput: {
         fontSize: 15,
         lineHeight: 18,
         fontFamily: "Lato-Regular",
         ...Platform.select({
             ios: {
-                paddingTop: 10,
-                paddingBottom: 5
             },
             android: {
                 marginLeft: -5,

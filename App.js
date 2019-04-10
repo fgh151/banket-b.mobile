@@ -118,7 +118,6 @@ export default class App extends React.Component {
                         key="WhatIsIt"
                         component={WhatIsIt}
                         title="Что это"
-                        initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
