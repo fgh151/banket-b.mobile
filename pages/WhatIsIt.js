@@ -32,7 +32,8 @@ export default function WhatIsIt() {
 function Slide1() {
     return (
         <View key={1} style={[WIIstyles.sliderItem]}>
-            <Image source={require('../assets/images/what_is_it.png')} style={{marginBottom: 35}}/>
+            <Image source={require('../assets/images/what_is_it.png')}
+                   style={{marginBottom: 35, width: 100, height: 100}}/>
             <View style={{marginBottom: 20}}>
                 <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Что
                     такое{"\n"}банкет-батл?</Text>
@@ -54,7 +55,8 @@ function Slide1() {
 function Slide2() {
     return (
         <View key={2} style={[WIIstyles.sliderItem, {paddingBottom: 70}]}>
-            <Image source={require('../assets/images/how-it-work.png')} style={{marginBottom: 35}}/>
+            <Image source={require('../assets/images/how-it-work.png')}
+                   style={{marginBottom: 35, width: 100, height: 100}}/>
             <View style={{marginBottom: 20}}>
                 <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Как
                     работает{"\n"}банкет-батл</Text>

@@ -8,7 +8,8 @@ export default function Finish() {
     return (
         <View style={[textStyle.rootViewWrapper]}>
             <View style={WIIstyles.sliderItem}>
-                <Image source={require('../../assets/images/done.png')} style={{marginBottom: 30}}/>
+                <Image source={require('../../assets/images/done.png')}
+                       style={{marginBottom: 30, width: 100, height: 100}}/>
                 <View style={{marginBottom: 20}}>
                     <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>
                 </View>

@@ -7,7 +7,8 @@ export default function Empty() {
 
         <View style={textStyle.rootViewWrapper}>
             <View style={WIIstyles.sliderItem}>
-                <Image source={require('../../assets/images/waiting_answers.png')} style={{marginBottom: 15}}/>
+                <Image source={require('../../assets/images/waiting_answers.png')}
+                       style={{marginBottom: 15, width: 100, height: 100}}/>
                 <View style={WIIstyles.sliderTextWrapper}>
                     <Text style={[textStyle.defaultFont, {
                         textAlign: 'center',
