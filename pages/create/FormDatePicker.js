@@ -9,12 +9,12 @@ export default class FormDatePicker extends React.Component{
     state = {
         date: '',
         datePlaceholder: 'Выберите дату',
-        dateValue: ''
+        dateValue: moment().format('DD MMMM YYYY')
     };
 
-    now = moment();
-
     render() {
+        const minDate = moment().format('DD MMMM YYYY');
+        const maxDate = moment().add(1, 'year').format('DD MMMM YYYY');
         return (
             <DatePicker
                 customStyles={{
@@ -36,8 +36,8 @@ export default class FormDatePicker extends React.Component{
                 value={this.state.dateValue}
                 placeholder={this.state.datePlaceholder}
                 format="DD MMMM YYYY"
-                minDate={this.now.format('DD MMMM YYYY')}
-                mxDate={this.now.add(1, 'year').format('DD MMMM YYYY')}
+                minDate={minDate}
+                maxDate={maxDate}
                 confirmBtnText="Выбрать"
                 cancelBtnText="Отмена"
                 showIcon={false}
@@ -54,7 +54,6 @@ export default class FormDatePicker extends React.Component{
     {
         this.setState({dateValue:date, date:date, datePlaceholder:''})
     }
-
 }
 
 const styles = StyleSheet.create({
