@@ -14,7 +14,7 @@ export default class Proposal {
 
     static instance;
     cityId = (new City()).id; // 1; //Москва
-    event_type = 7;
+    event_type = null;
     date = null;
     time = null;
     guests_count = 0;
@@ -70,20 +70,21 @@ export default class Proposal {
 
         switch (property) {
             case 'event_type' : {
-                return true;
+                console.log('Type valid ', value !== null, value);
+                return value !== null;
             }
             case 'time' : {
-                return true;
+                return value !== null;
             }
             case 'date' : {
                 //Запрет выбора меньшей даты
-                return true;
+                return value !== null;
             }
             case 'guests_count' : {
                 return this.countValid(value, MIN_GUEST_COUNT) ? true : 'Минимальное количество гостей ' + MIN_GUEST_COUNT;
             }
             case 'amount' : {
-                return this.countValid(value, MIN_AMOUNT) ? true : 'Минимальная стоимость ' + MIN_AMOUNT;
+                return this.countValid(value, MIN_AMOUNT) ? true : 'Минимальная стоимость ' + MIN_AMOUNT + ' рублей';
             }
             case 'notes' :{
                 return true;
