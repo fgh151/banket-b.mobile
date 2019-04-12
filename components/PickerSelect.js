@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {
-    ColorPropType, Image,
+    ColorPropType,
+    Image,
     Keyboard,
     Modal,
     Picker,
@@ -393,7 +394,7 @@ export default class PickerSelect extends PureComponent {
                 <Modal
                     testID="ios_modal"
                     visible={this.state.showPicker}
-                    animationType="fade"
+                    // animationType="fade"
                     transparent={true}
                     supportedOrientations={['portrait', 'landscape']}
                     // onOrientationChange={TODO: use this to resize window}

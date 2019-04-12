@@ -45,7 +45,7 @@ export default class FormTimePicker extends React.Component {
                         }]}>{this.state.viewText}</Text>
                     </TouchableOpacity>
                     <Modal
-                        animationType="fade"
+                        // animationType="slide"
                         transparent={true}
                         visible={this.state.modalVisible}
                     >

@@ -42,7 +42,7 @@ export default class Menu extends React.Component {
                     </ImageBackground>
                 </TouchableOpacity>
                 <Modal
-                    animationType="fade"
+                    // animationType="fade"
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
