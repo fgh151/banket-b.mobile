@@ -11,6 +11,8 @@ const timePeriod = [
     '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30',
 ];
 
+const defaultValue = timePeriod[23] + ' - ' + timePeriod[24];
+
 export default class FormTimePicker extends React.Component {
 
     state = {
@@ -46,11 +48,9 @@ export default class FormTimePicker extends React.Component {
                         animationType="fade"
                         transparent={true}
                         visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                        }}
                     >
                         <TouchableOpacity style={ModalStyle.overlay}
-                                          onPress={() => this.setState({modalVisible: false})}
+                                          onPress={() => this.onClose()}
                         >
                         </TouchableOpacity>
                         <View style={ModalStyle.content}>
@@ -58,7 +58,7 @@ export default class FormTimePicker extends React.Component {
                             <View style={ModalStyle.doneWrapper}>
                                 <Button
                                     style={ModalStyle.doneButton}
-                                    onPress={() => this.setState({modalVisible: false})}
+                                    onPress={() => this.onClose()}
                                     title={'Сохранить'}
                                 />
                             </View>
@@ -67,6 +67,16 @@ export default class FormTimePicker extends React.Component {
                 </View>
             </SafeAreaView>
         )
+    }
+
+    onClose() {
+        let newSate = {modalVisible: false};
+        if (!this.state.valid) {
+            this.onDateChange(defaultValue);
+            newSate.viewText = defaultValue;
+            newSate.valid = true;
+        }
+        this.setState(newSate);
     }
 
     onstartSelected = selectedItem => {
@@ -129,7 +139,6 @@ export default class FormTimePicker extends React.Component {
         )
     }
 }
-
 
 const ModalStyle = StyleSheet.create({
 
