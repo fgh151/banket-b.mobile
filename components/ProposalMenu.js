@@ -21,9 +21,6 @@ export default class Menu extends React.Component {
     }
 
     renderServiceItems() {
-
-        console.log(this.state.proposal);
-
         if (this.state.proposal) {
             let services = [];
             if (this.state.proposal.floristics) {
@@ -121,20 +118,14 @@ export default class Menu extends React.Component {
                     </ImageBackground>
                 </TouchableOpacity>
                 <Modal
-                    // animationType="fade"
                     transparent={true}
                     visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                    }}
                 >
-                    <TouchableOpacity style={ModalStyle.overlay}
-                                      onPress={this.toggleModal}
-                    >
-                        <View style={ModalStyle.content}>
-                            {this.renderServices()}
-                            {this.renderButtons()}
-                        </View>
-                    </TouchableOpacity>
+                    <TouchableOpacity style={ModalStyle.overlay} onPress={this.toggleModal}/>
+                    <View style={ModalStyle.content}>
+                        {this.renderServices()}
+                        {this.renderButtons()}
+                    </View>
                 </Modal>
             </View>
         )
@@ -154,17 +145,14 @@ export default class Menu extends React.Component {
     }
 }
 
-class Service extends React.Component {
-    render() {
-        return (
-            <View style={style.inactiveWrapper}>
-                <Text>
-                    {this.props.text}
-                </Text>
-            </View>
-        )
-    }
-
+function Service(props) {
+    return (
+        <View style={style.inactiveWrapper}>
+            <Text>
+                {props.text}
+            </Text>
+        </View>
+    )
 }
 
 const style = StyleSheet.create({
