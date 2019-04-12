@@ -98,14 +98,15 @@ export default class Messenger extends Component {
         this.setState({
             items: items,
             loaded: true,
-        });
+        }, () => this.flatList.scrollToEnd({animated: true}));
 
         const length = ArrayHelper.getKeys(items).length;
         CacheStore.set('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length, Config.lowCache);
     }
 
     toggleInputActive() {
-        this.setState({inputActive: !this.state.inputActive})
+        this.setState({inputActive: !this.state.inputActive});
+        this.flatList.scrollToEnd({animated: true});
     }
 
     renderOrganization() {
@@ -118,9 +119,6 @@ export default class Messenger extends Component {
     previusMessage = null;
 
     render() {
-
-        console.log(this.props);
-        // return null;
 
         if (!this.state.loaded) {
             return (
@@ -143,13 +141,18 @@ export default class Messenger extends Component {
                     onLayout={() => this.flatList.scrollToEnd({animated: true})}
 
 
-                    style={{flex: 1, flexDirection: 'column', width: '100%', padding: 10}}
-                    data={messages.reverse()}
+                    style={{flex: 1, flexDirection: 'column', width: '100%', padding: 10, transform: [{scaleY: -1}],}}
+                    contentContainerStyle={{justifyContent: 'flex-end', transform: [{scaleY: -1}],}}
+
+
+                    data={messages}
                     renderItem={(item) => this.renderMessage(item)}
-                    inverted={true}
                 />
-                <MessageForm onToggle={this.toggleInputActive} proposalId={this.props.proposal.id}
-                             organizationId={this.props.organization.id}/>
+                <MessageForm
+                    onToggle={this.toggleInputActive}
+                    proposalId={this.props.proposal.id}
+                    organizationId={this.props.organization.id}
+                />
             </SafeAreaView>
         );
     }
@@ -166,6 +169,7 @@ export default class Messenger extends Component {
 
     renderMessage(listItem, index) {
         var message = listItem.item;
+
         return Messenger.isMy(message) ?
             <MessageWrapper model={message} bubbleColor={'#DFEAFF'} align={'flex-end'} share={false}
                             same={this.isSenderSame(message)}/>
@@ -182,7 +186,8 @@ const style = StyleSheet.create({
         ...Platform.select({
             ios: {},
             android: {
-                padding: 0
+                padding: 0,
+                justifyContent: 'space-between',
             },
         }),
     }

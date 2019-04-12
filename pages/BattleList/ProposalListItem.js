@@ -8,7 +8,7 @@ import {db} from '../../Config';
 
 import Proposal from "../../models/Proposal";
 import Shadow from "../../components/Shadow";
-import {Styles as textStyle} from "../../styles/Global";
+import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import type {ProposalType} from "../../types/ProposalType";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
 
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 1, //0.5,
         shadowRadius: 30,
 
-        marginLeft: 15,
-        marginRight: 15,
+        marginLeft: windowPadding,
+        marginRight: windowPadding,
         marginTop: 13,
         marginBottom: 0,
 
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
 
         ...Platform.select({
             ios: {
-                paddingLeft: 15,
-                paddingRight: 15
+                paddingLeft: windowPadding,
+                paddingRight: windowPadding
             },
             android: {
                 borderWidth: 1,

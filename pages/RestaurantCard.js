@@ -15,7 +15,7 @@ import Swiper from 'react-native-swiper';
 import Rating from "../components/Rating";
 import openMap from 'react-native-open-maps';
 import BackButton from "../components/BackButton";
-import {Styles} from '../styles/Global';
+import {Styles, windowPadding} from '../styles/Global';
 import {isEmpty} from "../helpers/ArrayHelper";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 
@@ -68,17 +68,18 @@ export default function RestaurantCard(props) {
                     borderBottomColor: '#e0e0e0',
                     borderBottomWidth: 1
                 }}>
-                    <View style={{padding: 15}}>
+                    <View style={{padding: windowPadding}}>
                         <Text style={Styles.boldFont}>
                             {this.restaurant.name}
                         </Text>
                     </View>
-                    <View style={{padding: 15, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
+                    <View
+                        style={{padding: windowPadding, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
                         <Rating rating={this.restaurant.rating}/>
                     </View>
                 </View>
                 <View style={{
-                    flexDirection: 'row', padding: 15,
+                    flexDirection: 'row', padding: windowPadding,
                     borderBottomColor: '#e0e0e0',
                     borderBottomWidth: 1
                 }}>
@@ -94,7 +95,7 @@ export default function RestaurantCard(props) {
                     </TouchableOpacity>
                 </View>
                 <View style={{
-                    flexDirection: 'row', padding: 15,
+                    flexDirection: 'row', padding: windowPadding,
                     borderBottomColor: '#e0e0e0',
                     borderBottomWidth: 1
                 }}>
@@ -145,7 +146,7 @@ function renderHalls(restaurant) {
     }
     return (
         <View style={{
-            padding: 15,
+            padding: windowPadding,
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'flex-start'

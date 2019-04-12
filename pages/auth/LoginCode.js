@@ -8,7 +8,6 @@ import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
 import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
-
 import {firstLunchDone} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
@@ -54,10 +53,6 @@ export default class LoginCode extends React.Component {
                             Push.saveToken();
                             Actions.BattleList()
                         })
-                        .catch(err => {
-                            this.setState({showLoginBtn: true});
-                            console.log(err)
-                        });  // Catch any error
                 }
                 this.setState({showLoginBtn: true});
             })   // Successfully logged in
@@ -78,6 +73,7 @@ export default class LoginCode extends React.Component {
                                     description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                     active={false}
                                     placeholder='Номер телефона'
+                                    showError={false}
                                 >
                                     <TextInputMask
                                         refInput={ref => {
@@ -89,7 +85,6 @@ export default class LoginCode extends React.Component {
                                         keyboardType="phone-pad"
                                         placeholder='Номер телефона'
                                         placeholderTextColor="#000"
-                                        // style={{color: '#0C20E3', paddingBottom: 5}}
                                         style={styles.maskInput}
                                         mask={"+7 ([000]) [000] [00] [00]"}
                                         autoCorrect={false}
@@ -104,6 +99,7 @@ export default class LoginCode extends React.Component {
                                     descriptionStyle={styles.descriptionStyle}
                                     placeholder='Код подтверждения'
                                     inputStyle={{borderBottomWidth: 0}}
+                                    showError={false}
                                 >
                                     <CodeInput
                                         onFocus={() => this.setState({showPlaceholder: true})}
@@ -129,7 +125,6 @@ export default class LoginCode extends React.Component {
     }
 }
 
-
 LoginCode.propTypes = {
     phone: PropTypes.string,
 };
@@ -154,7 +149,6 @@ const styles = StyleSheet.create({
         color: '#0C20E3',
         ...Platform.select({
             ios: {
-                // paddingTop:20,
                 paddingBottom: 4
             },
             android: {
@@ -177,7 +171,6 @@ const styles = StyleSheet.create({
             android: {
                 marginLeft: -5,
                 paddingBottom: 0,
-                // backgroundColor:'green',
                 paddingTop: 0
             },
         }),
@@ -185,12 +178,9 @@ const styles = StyleSheet.create({
 
     container: {
         paddingTop: 30,
-
         flex: 1,
         flexDirection: 'column',
-
         justifyContent: 'space-between',
         alignItems: 'center'
-
     },
 });

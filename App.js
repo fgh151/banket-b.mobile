@@ -134,6 +134,7 @@ export default class App extends React.Component {
                         component={LoginCode}
                         title="Вход"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        // initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
@@ -142,6 +143,7 @@ export default class App extends React.Component {
                         component={RegisterPhone}
                         title="Регистрация"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        // initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
@@ -159,6 +161,7 @@ export default class App extends React.Component {
                         title="Создать батл"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                         // initial={true}
+
                     />
                     <Scene
                         key="BattleList"

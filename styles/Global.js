@@ -18,7 +18,7 @@ export const Styles = StyleSheet.create({
     rootViewWrapper: {
         flex: 1,
         flexDirection: 'column',
-        padding:15,
+        padding: windowPadding,
         alignItems: 'center',
 
     },
@@ -33,7 +33,6 @@ export const Styles = StyleSheet.create({
     grayText: {
         color: 'rgba(0,0,0,0.5)'
     },
-
-
 });
 
+export const windowPadding = 15;

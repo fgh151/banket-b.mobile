@@ -69,10 +69,6 @@ export default class MessageForm extends Component {
             state.btnDisabled = true;
             state.btnStyle = style.buttonWrapperInactive
         }
-
-
-        console.log(state, text.replace(/\s/g, '').length);
-
         this.setState(state)
     }
 
@@ -102,7 +98,7 @@ export default class MessageForm extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView behavior='padding'>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <Animated.View style={{marginBottom: this.paddingInput}}>
                     <View style={style.wrapper}>
 
@@ -143,9 +139,6 @@ const style = StyleSheet.create({
         borderTopWidth: 1,
         marginTop: 10,
         flexDirection: 'row',
-        // marginBottom:15,
-        // marginLeft:15,
-        // marginRight:15,
         backgroundColor: '#F7F7F7',
         ...ifIphoneX({
             marginBottom: -35,
@@ -154,10 +147,11 @@ const style = StyleSheet.create({
         ...Platform.select({
             ios: {
                 height: 60
-                // paddingTop:2,
-                // paddingBottom:2
             },
-            android: {},
+            android: {
+                marginLeft: -4,
+                marginRight: -8
+            },
         }),
     },
 

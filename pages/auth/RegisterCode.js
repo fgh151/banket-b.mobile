@@ -58,10 +58,7 @@ export default class RegisterCode extends React.Component {
                             Push.saveToken();
                             this.proposal.saveWithToken(response.access_token);
                         })
-                        .catch(err => {
-                            this.setState({showLoginBtn: true});
-                            console.log(err)
-                        });  // Catch any error
+
                 }
                 this.setState({showLoginBtn: true});
             })   // Successfully logged in
@@ -74,12 +71,13 @@ export default class RegisterCode extends React.Component {
                 <ScrollView style={Styles.rootView}>
                 <View style={{margin: 10, maxWidth: 300}}>
                     <View style={{justifyContent: 'flex-start'}}>
-                        <View style={{height: 70, opacity: .5}}>
+                        <View style={{height: 50, opacity: .5}}>
                             <Input
                                 style={{marginBottom: 0}}
                                 active={false}
                                 showPlaceholder={true}
                                 placeholder={'Имя'}
+                                showError={false}
                             >
                                 <TextInput
                                     style={styles.textInput}
@@ -98,6 +96,7 @@ export default class RegisterCode extends React.Component {
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                 active={false}
                                 placeholder='Номер телефона'
+                                showError={false}
                             >
                                 <TextInputMask
                                     refInput={ref => {
@@ -124,6 +123,7 @@ export default class RegisterCode extends React.Component {
                                 descriptionStyle={styles.descriptionStyle}
                                 placeholder='Код подтверждения'
                                 inputStyle={{borderBottomWidth: 0}}
+                                showError={false}
                             >
                                 <CodeInput
                                     onFocus={() => this.setState({showPlaceholder: true})}
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         color: '#0C20E3',
         ...Platform.select({
             ios: {
-                // paddingTop:20,
+                paddingTop: 5,
                 paddingBottom: 4
             },
             android: {
@@ -190,33 +190,27 @@ const styles = StyleSheet.create({
             },
         }),
     },
-
     textInput: {
         color: '#0C20E3',
         fontSize: 15,
         lineHeight: 18,
         ...Platform.select({
             ios: {
-                paddingTop: 20,
-                paddingBottom: 5
+                paddingTop: 7,
+                paddingBottom: 5,
             },
             android: {
                 marginLeft: -5,
                 paddingBottom: 0,
-                // backgroundColor:'green',
                 paddingTop: 0
             },
         }),
     },
-
     container: {
         paddingTop: 30,
-
         flex: 1,
         flexDirection: 'column',
-
         justifyContent: 'space-between',
         alignItems: 'center'
-
     },
 });

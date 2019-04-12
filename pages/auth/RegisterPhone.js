@@ -61,6 +61,7 @@ export default class RegisterPhone extends React.Component {
                                 style={{marginBottom: 0}}
                                 showPlaceholder={this.state.showNamePlaceholder}
                                 placeholder="Имя"
+                                showError={false}
                             >
                                 <TextInput
                                     placeholderTextColor={'#000000'}
@@ -81,6 +82,7 @@ export default class RegisterPhone extends React.Component {
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                 placeholder='Номер телефона'
                                 showPlaceholder={this.state.showPhonePlaceholder}
+                                showError={false}
                             >
                                 <TextInputMask
                                     refInput={ref => {
@@ -135,18 +137,15 @@ export default class RegisterPhone extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
     descriptionStyle:{
         ...Platform.select({
             ios: {
-
             },
             android: {
                 marginLeft: 0,
             },
         }),
     },
-
     buttonWrapper: {
         padding: 10,
         width: '100%',
@@ -154,7 +153,6 @@ const styles = StyleSheet.create({
             marginBottom: 50
         })
     },
-
     textInput: {
         color:'#000000',
         fontSize: 15,
@@ -167,17 +165,14 @@ const styles = StyleSheet.create({
             android: {
                 marginLeft: -5,
                 paddingBottom:0,
-                // backgroundColor:'green',
                 paddingTop: 0
             },
         }),
     },
-
     maskInput: {
         color: '#0C20E3',
         ...Platform.select({
             ios: {
-                // paddingTop:20,
                 paddingBottom: 4
             },
             android: {
@@ -187,7 +182,6 @@ const styles = StyleSheet.create({
             },
         }),
     },
-
     container: {
         flex: 1,
         flexDirection: 'column',

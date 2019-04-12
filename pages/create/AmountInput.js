@@ -1,6 +1,7 @@
 import React from "react";
 import {Platform, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 import {plural} from "../../helpers/StringHelper";
+import {windowPadding} from "../../styles/Global";
 
 export const PLACEHOLDER_TEXT = 'Стоимость на гостя';
 
@@ -33,7 +34,7 @@ export default class AmountInput extends React.Component {
         return (
             <TouchableOpacity
                 onPress={() => this.refs.Input.focus()}
-                style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-start', width: '100%'}}
+                style={styles.button}
             >
                 <TextInput
                     refInput={ref => {
@@ -48,10 +49,13 @@ export default class AmountInput extends React.Component {
                     placeholder={this.state.placeholder}
                     returnKeyType={'done'}
                     autoCorrect={false}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
                 />
                 <Text
-                    style={[styles.postfix, {opacity: this.state.amount_value ? 1 : 0}]}> {plural(this.state.amount_value, 'рубль', 'рубля', 'рублей')} на
-                    гостя</Text>
+                    style={[styles.postfix, {opacity: this.state.amount_value ? 1 : 0}]}>
+                    &nbsp;{plural(this.state.amount_value, 'рубль', 'рубля', 'рублей')} на гостя
+                </Text>
             </TouchableOpacity>
         )
     }
@@ -67,6 +71,26 @@ const valid = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+    button: {
+        flexDirection: 'row',
+        alignSelf: 'flex-start',
+        width: '100%',
+
+
+        paddingBottom: 5,
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1,
+
+        ...Platform.select({
+            ios: {
+                paddingTop: 1
+            },
+            android: {
+                paddingTop: 0,
+                marginTop: -10
+            },
+        }),
+    },
     dateTouch: {
         width: '100%',
         justifyContent: 'flex-end',
@@ -84,7 +108,7 @@ const styles = StyleSheet.create({
             ios: {
             },
             android: {
-                marginTop: 15,
+                marginTop: windowPadding / 2,
             },
         }),
     },

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Image, RefreshControl, StyleSheet, Text, View} from "react-native";
+import {AsyncStorage, FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
@@ -9,7 +9,7 @@ import Config from "../../Config";
 import {changeTitle} from "../../components/ProposalBar";
 import Empty from './Empty';
 import type {Organization} from "../../types/Organization";
-import {Styles as textStyle} from "../../styles/Global";
+import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import PickerSelect from '../../components/PickerSelect';
 import GlobalState from "../../models/GlobalState";
 
@@ -141,6 +141,7 @@ export default class DialogList extends Component {
 
         return (
             <PickerSelect
+                androidMargin={10}
                 Icon={() => <Image source={require('../../assets/images/down.png')}/>}
                 placeholderTextColor='#9EA0A4'
                 placeholder={placeholder}
@@ -185,7 +186,7 @@ export default class DialogList extends Component {
 
         if (this.state.items.length > 0) {
             return (
-                <View style={textStyle.rootViewWrapper}>
+                <View style={[textStyle.rootViewWrapper, style.root]}>
                     <View style={textStyle.rootViewBig}>
 
                         <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
@@ -211,7 +212,6 @@ export default class DialogList extends Component {
                                             tintColor={'#0C21E2'}
                                             refreshing={this.state.refreshing}
                                             onRefresh={this.onRefresh}
-                                            size={'large'}
                                         />
                                     }
                                 />
@@ -227,7 +227,16 @@ export default class DialogList extends Component {
         return <DialogListItem dialog={item} proposal={this.props.proposal}/>
     }
 }
-
+const style = StyleSheet.create({
+    root: {
+        ...Platform.select({
+            ios: {},
+            android: {
+                padding: windowPadding
+            },
+        }),
+    }
+});
 const pickerStyle = StyleSheet.create({
     inputIOS: {
         marginRight: 10
@@ -237,6 +246,6 @@ const pickerStyle = StyleSheet.create({
         paddingTop: 0,
         paddingBottom: 0,
         marginTop: -5,
-        marginRight: 10
+        marginRight: 0
     }
 });

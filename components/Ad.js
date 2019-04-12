@@ -3,7 +3,7 @@ import React from "react";
 import Client from "../http/Client";
 import Config from '../Config'
 import CacheStore from "react-native-cache-store";
-import {Styles as textStyle} from "../styles/Global";
+import {Styles as textStyle, windowPadding} from "../styles/Global";
 import Shadow from './Shadow'
 
 export default class Ad extends React.Component {
@@ -119,7 +119,7 @@ export default class Ad extends React.Component {
 const style = StyleSheet.create({
     block: {
         height: 180,
-        marginRight: -15,
+        marginRight: -windowPadding,
 
     },
     wrapper: {

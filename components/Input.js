@@ -1,6 +1,5 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View} from "react-native"
-
 import {isString} from "../helpers/StringHelper";
 
 export default class Input extends React.Component {
@@ -52,9 +51,8 @@ export default class Input extends React.Component {
                     <Text style={styles.error}>{this.props.error}</Text>
                 </View>)
         }
-        return <View style={{flex: 1}}/>;
+        return this.props.showError ? <View style={{flex: 1, backgroundColor: 'yellow'}}/> : null;
     }
-
 }
 
 Input.defaultProps = {
@@ -66,22 +64,20 @@ Input.defaultProps = {
     active: true,
     error:undefined,
     placeholderStyle:{},
-    descriptionStyle:{}
+    descriptionStyle: {},
+    showError: true
 };
 
 const styles = StyleSheet.create({
     activePlaceholder :{
-
         color:'#000000',
         opacity:.5,
         fontSize: 11,
         lineHeight: 13,
-
         ...Platform.select({
             ios: {
             },
             android: {
-                // marginLeft: -5
             },
         })
     },
@@ -105,15 +101,12 @@ const styles = StyleSheet.create({
 
         ...Platform.select({
             ios: {
-                // paddingBottom: 0,
-                // marginBottom: 10,
             },
             android: {
                 paddingBottom: 0,
                 marginBottom: 10,
             },
         })
-
     },
     description: {
         color:'#000000',
@@ -125,6 +118,7 @@ const styles = StyleSheet.create({
 
         ...Platform.select({
             ios: {
+                marginTop: 10,
             },
             android: {
                 marginLeft: -5

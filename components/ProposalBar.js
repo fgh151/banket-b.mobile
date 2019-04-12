@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {ProposalType} from '../types/ProposalType'
 import Proposal from "../models/Proposal";
 import {formatCost, formatDate, plural} from "../helpers/StringHelper";
+import {windowPadding} from "../styles/Global";
 
 let currentProposal;
 
@@ -85,7 +86,7 @@ const style = StyleSheet.create({
         backgroundColor: "#fff",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-        padding: 15,
+        padding: windowPadding,
         position: 'absolute',
         left: 0,
         bottom: 0

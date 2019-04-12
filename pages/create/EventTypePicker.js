@@ -1,6 +1,7 @@
 import React from "react";
 import {Image, StyleSheet} from "react-native";
 import PickerSelect from '../../components/PickerSelect';
+import {windowPadding} from "../../styles/Global";
 
 
 export default function EventTypePicker(props) {
@@ -22,6 +23,7 @@ export default function EventTypePicker(props) {
 
     return (
         <PickerSelect
+            androidMargin={0}
             Icon={() => <Image source={require('../../assets/images/down.png')}/>}
             placeholderTextColor='#000000'
             placeholder={placeholder}
@@ -39,21 +41,36 @@ export default function EventTypePicker(props) {
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
         color: '#0C21E2',
-        paddingRight: 30, // to ensure the text is never behind the icon
         paddingBottom: 5,
         paddingTop: 5,
         fontSize: 15,
-        lineHeight: 18
+        lineHeight: 18,
+
+        width: '100%',
+
+        marginTop: windowPadding,
+
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1
+    },
+    inputAndroidContainer: {
     },
     inputAndroid: {
-        marginTop: -10,
-        paddingBottom: 0,
+        marginTop: 0,
+        paddingBottom: 5,
+        paddingTop: 25,
 
-        marginLeft: -5,
+        paddingLeft: 0,
+
+        // marginLeft: -5,
 
         color: '#0C21E2',
         paddingRight: 30, // to ensure the text is never behind the icon
         // marginLeft: -8,
+
+
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1,
 
         fontSize: 15,
         lineHeight: 18,

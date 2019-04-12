@@ -1,6 +1,7 @@
 import React from "react";
 import {Platform, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 import {plural} from "../../helpers/StringHelper";
+import {windowPadding} from "../../styles/Global";
 
 export const PLACEHOLDER_TEXT = 'Количество гостей';
 
@@ -32,8 +33,7 @@ export default class GuestsCountInput extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => this.refs.Input.focus()}
-                              style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-start', width: '100%'}}>
+            <TouchableOpacity onPress={() => this.refs.Input.focus()} style={styles.button}>
                 <TextInput
                     refInput={ref => {
                         this.input = ref
@@ -47,9 +47,12 @@ export default class GuestsCountInput extends React.Component {
                     placeholder={this.state.placeholder}
                     returnKeyType={'done'}
                     autoCorrect={false}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
                 />
-                <Text
-                    style={[styles.postfix, {opacity: this.state.amount_value ? 1 : 0}]}> {plural(this.state.amount_value, 'гость', 'гостя', 'гостей')}</Text>
+                <Text style={[styles.postfix, {opacity: this.state.amount_value ? 1 : 0}]}>
+                    &nbsp;{plural(this.state.amount_value, 'гость', 'гостя', 'гостей')}
+                </Text>
             </TouchableOpacity>
         )
     }
@@ -65,6 +68,28 @@ const valid = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+    button: {
+        // flex: 1,
+        flexDirection: 'row',
+        alignSelf: 'flex-start',
+        width: '100%',
+
+
+        paddingBottom: 5,
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1,
+
+        ...Platform.select({
+            ios: {
+                paddingTop: 28,
+            },
+            android: {
+                paddingTop: 15,
+            },
+        }),
+
+    },
+
     postfix: {
         color: '#0C21E2',
         fontSize: 15,
@@ -74,7 +99,7 @@ const styles = StyleSheet.create({
             ios: {
             },
             android: {
-                marginTop: 15,
+                marginTop: windowPadding,
             },
         }),
     },

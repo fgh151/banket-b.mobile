@@ -2,6 +2,7 @@ import React from 'react';
 import {ImageBackground, Modal, StyleSheet, TouchableOpacity, View} from "react-native"
 import {Button} from './Button';
 import {ifIphoneX} from 'react-native-iphone-x-helper'
+import {windowPadding} from "../styles/Global";
 
 export default class Menu extends React.Component {
 
@@ -87,7 +88,7 @@ const ModalStyle = StyleSheet.create({
         backgroundColor: "#fff",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-        padding: 15,
+        padding: windowPadding,
         position: 'absolute',
         left: 0,
         bottom: 0,

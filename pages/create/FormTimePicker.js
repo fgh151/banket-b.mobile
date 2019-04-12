@@ -3,6 +3,7 @@ import {Modal, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View}
 import {WheelPicker} from 'react-native-wheel-picker-android'
 
 import {Button} from '../../components/Button';
+import {windowPadding} from "../../styles/Global";
 
 const timePeriod = [
     '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
@@ -35,19 +36,16 @@ export default class FormTimePicker extends React.Component {
         return (
             <SafeAreaView>
                 <View style={{marginTop: 2}}>
-                    <TouchableOpacity onPress={() => this.setState({modalVisible: true})}>
-                        <Text style={[{
-                            paddingBottom: 5,
-                            fontSize: 15,
-                            lineHeight:18,
-                            fontFamily: "Lato-Regular",
-                            color: this.state.valid ? '#0C21E2' : '#000000'
-                        }]}>{this.state.viewText}</Text>
+                    <TouchableOpacity style={ModalStyle.button} onPress={() => this.setState({modalVisible: true})}>
+                        <Text style={[ModalStyle.buttonText, {color: this.state.valid ? '#0C21E2' : '#000000'}]}>
+                            {this.state.viewText}
+                        </Text>
                     </TouchableOpacity>
                     <Modal
-                        // animationType="slide"
                         transparent={true}
                         visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                        }}
                     >
                         <TouchableOpacity style={ModalStyle.overlay}
                                           onPress={() => this.onClose()}
@@ -141,7 +139,24 @@ export default class FormTimePicker extends React.Component {
 }
 
 const ModalStyle = StyleSheet.create({
-
+    button: {
+        paddingBottom: 5,
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1,
+        ...Platform.select({
+            ios: {
+                paddingTop: 35,
+            },
+            android: {
+                paddingTop: 45
+            },
+        }),
+    },
+    buttonText: {
+        fontSize: 15,
+        lineHeight: 18,
+        fontFamily: "Lato-Regular",
+    },
     pickersWrapper:{
         flexDirection: 'row',
         justifyContent: 'center',
@@ -153,23 +168,14 @@ const ModalStyle = StyleSheet.create({
         }),
     },
     doneWrapper: {
-        // alignItems: 'center',
-        // justifyContent: 'center',
-
         width: '100%',
-
-        paddingLeft:15,
-        paddingRight:15,
-
-
+        paddingLeft: windowPadding,
+        paddingRight: windowPadding,
     },
     doneButton: {
         padding: 10,
-
         backgroundColor: '#0C21E2',
         color:'#ffffff',
-
-
     },
 
     pickerColumn: {
@@ -186,7 +192,6 @@ const ModalStyle = StyleSheet.create({
             },
         }),
     },
-
     overlay: {
         flex: 1,
         flexDirection: 'column',
@@ -199,8 +204,7 @@ const ModalStyle = StyleSheet.create({
         backgroundColor: "#fff",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-        // paddingTop: 15,
-        paddingBottom: 15,
+        paddingBottom: windowPadding,
         position: 'absolute',
         left: 0,
         bottom: 0

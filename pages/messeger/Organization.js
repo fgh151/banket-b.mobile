@@ -1,6 +1,6 @@
 import React from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {Styles as textStyle} from "../../styles/Global";
+import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import {formatCost, round10} from "../../helpers/StringHelper";
 import Rating from "../../components/Rating";
 import Profit from "../../components/Profit";
@@ -19,7 +19,7 @@ export default function Organization(props) {
             <View style={{flexDirection: 'column'}}>
                 <Image style={styles.image} source={{uri: image}} resizeMode="cover"/>
             </View>
-            <View style={{flex: 1, flexDirection: 'column', paddingLeft: 15}}>
+            <View style={{flex: 1, flexDirection: 'column', paddingLeft: windowPadding}}>
                 <View>
                     <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18, paddingTop: 10}]}>
                         {props.organization.name}

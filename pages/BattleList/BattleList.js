@@ -7,7 +7,7 @@ import CacheStore from 'react-native-cache-store';
 import Client from '../../http/Client';
 import Config from '../../Config';
 import Empty from './Empty';
-import {Styles as textStyle} from "../../styles/Global";
+import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import Ad from "../../components/Ad";
 import trackEvent from "../../helpers/AppsFlyer";
 import GlobalState from "../../models/GlobalState";
@@ -38,7 +38,7 @@ export class RightButton extends React.Component {
                     <Text style={{
                         color: '#0C20E3',
                         fontSize: 15,
-                        textAlign: 'right', marginRight: 15
+                        textAlign: 'right', marginRight: windowPadding
                     }}>
                         Новый батл
                     </Text>
@@ -170,7 +170,6 @@ export default class BattleList extends React.PureComponent {
                                 tintColor={'#0C21E2'}
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
-                                size={'large'}
                             />
                         }
                     />
@@ -225,15 +224,16 @@ const style = StyleSheet.create({
                 marginTop: 0,
             },
             android: {
-                marginTop: 9
+                marginTop: 9,
+                marginBottom: windowPadding
             },
         }),
     },
     ad: {
         marginBottom: -18,
-        padding: 15,
+        padding: windowPadding,
         ...ifIphoneX({
-            marginBottom: 15,
+            marginBottom: windowPadding,
         })
     }
 })

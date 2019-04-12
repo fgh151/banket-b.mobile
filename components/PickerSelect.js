@@ -212,7 +212,7 @@ export default class PickerSelect extends PureComponent {
                  {
                     color: placeholderTextColor,
                     marginRight: 10
-                } : {marginRight: 10, color: placeholderTextColor};
+                 } : {marginRight: this.props.androidMargin, color: placeholderTextColor};
             // }
             // return {
             //     marginRight: 10,

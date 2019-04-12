@@ -2,6 +2,7 @@ import React from "react";
 import {StyleSheet, Text, View} from "react-native"
 import Hyperlink from 'react-native-hyperlink'
 import moment from "moment";
+import {windowPadding} from "../../styles/Global";
 
 export default function Message(props) {
     const time = moment(props.created_at * 1000);
@@ -27,8 +28,8 @@ const style = StyleSheet.create({
         paddingTop: 8,
         paddingBottom: 8,
 
-        paddingLeft: 15,
-        paddingRight: 15
+        paddingLeft: windowPadding,
+        paddingRight: windowPadding
 
     },
     messageWrapper: {

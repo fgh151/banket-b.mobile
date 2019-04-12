@@ -1,9 +1,7 @@
 import React from "react";
-import {Text, TouchableOpacity} from "react-native";
+import {StyleSheet, Text, TouchableOpacity} from "react-native";
 import {Actions} from "react-native-router-flux";
 import {Styles as textStyle} from "../../styles/Global";
-import {City} from "../../helpers/GeoLocation";
-
 
 export default class CityPicker extends React.Component {
 
@@ -15,7 +13,7 @@ export default class CityPicker extends React.Component {
     };
 
     onSelect(city) {
-        console.log('select', city)
+        console.log('select', city);
         this.setState({
             city: city
         })
@@ -24,16 +22,27 @@ export default class CityPicker extends React.Component {
     render() {
         return (
             <TouchableOpacity
-                style={{paddingTop: 10}}
+                style={style.wrapper}
                 onPress={() => Actions.CitySelector({onSelect: (c) => this.onSelect(c)})}
             >
-                <Text style={[textStyle.defaultFont, {
-                    paddingBottom: 2,
-                    fontSize: 15,
-                    color: '#0C21E2'
-                }]}>{this.state.city.title}</Text>
+                <Text style={[textStyle.defaultFont, style.text]}>{this.state.city.title}</Text>
             </TouchableOpacity>
         )
     }
-
 }
+
+const style = StyleSheet.create({
+    wrapper: {
+        paddingTop: 10,
+        paddingBottom: 5,
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1
+    },
+    text: {
+        paddingBottom: 2,
+        fontSize: 15,
+        lineHeight: 18,
+        color: '#0C21E2',
+        fontFamily: "Lato-Regular",
+    }
+});

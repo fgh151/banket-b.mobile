@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {windowPadding} from "../../styles/Global";
 
 
 export default class ReSendCode extends React.Component {
@@ -17,14 +18,14 @@ export default class ReSendCode extends React.Component {
 
 const style = StyleSheet.create({
     wrapper: {
-        padding: 15,
-        marginLeft: -30,
+        padding: windowPadding,
+        marginLeft: -(windowPadding * 2),
         ...Platform.select({
             ios: {
 
                 position: 'absolute',
                 right: -12,
-                top: -15,
+                top: -windowPadding,
             },
             android: {
 

@@ -40,7 +40,6 @@ export default class LoginPhone extends React.Component {
         this.setState(state);
     };
 
-
     togglePhonePlaceHolder() {
         let show = false;
         if (!isEmpty(this.state.currentPhoneValue)) {
@@ -63,6 +62,7 @@ export default class LoginPhone extends React.Component {
                                 description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
                                 placeholder='Номер телефона'
                                 showPlaceholder={this.state.showPhonePlaceholder}
+                                showError={false}
                             >
                                 <TextInputMask
                                     refInput={ref => {
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
             },
         }),
     },
-
     buttonWrapper: {
         padding: 10,
         width: '100%',
@@ -137,7 +136,6 @@ const styles = StyleSheet.create({
             },
         }),
     },
-
     container: {
         flex: 1,
         flexDirection: 'column',

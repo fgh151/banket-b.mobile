@@ -1,14 +1,14 @@
 import React from 'react';
 import {Dimensions, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
-import {Styles as textStyle} from '../styles/Global';
+import {Styles as textStyle, windowPadding} from '../styles/Global';
 import {Button} from '../components/Button';
 import Swiper from '../components/Swiper/Swiper';
 
 export default function WhatIsIt() {
         return (
             <SafeAreaView style={[textStyle.rootViewWrapper, WIIstyles.rootView]}>
-                <View style={{marginTop: 0, paddingRight: 15, alignItems: 'flex-end', width: '100%'}}>
+                <View style={{marginTop: 0, paddingRight: windowPadding, alignItems: 'flex-end', width: '100%'}}>
                     <TouchableOpacity style={{width: 100, height: 60, paddingTop: 5}}
                                       onPress={() => Actions.LoginPhone()}>
                         <Text style={WIIstyles.loginButton}>Войти</Text>
@@ -61,7 +61,7 @@ function Slide2() {
                 <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Как
                     работает{"\n"}банкет-батл</Text>
             </View>
-            <View style={WIIstyles.sliderTextWrapper}>
+            <View style={[WIIstyles.sliderTextWrapper]}>
                 <Text style={[textStyle.defaultFont, {
                     textAlign: 'center',
                     fontSize: 15,
@@ -80,20 +80,22 @@ var {height, width} = Dimensions.get('window');
 const WIIstyles = StyleSheet.create({
     rootView: {
         ...Platform.select({
-            ios: {
-                // margin: 15
-            },
+            ios: {},
             android: {},
         }),
     },
     sliderItem: {
-        // flex: 100,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom:100,
-
-        width: width
+        width: width,
+        ...Platform.select({
+            ios: {},
+            android: {
+                width: width - (windowPadding * 2),
+            },
+        }),
     },
     sliderHeader: {
         lineHeight: 34,
@@ -102,15 +104,15 @@ const WIIstyles = StyleSheet.create({
         textAlign: 'center'
     },
     sliderTextWrapper: {
-        width: 300
+        width: 300,
     },
     sliderText: {
         fontSize: 20,
         color: '#000000'
     },
     createButtonWrapper: {
-        width: width - 30,
-        margin: 15
+        width: width - (windowPadding * 2),
+        margin: windowPadding
     },
     loginButton: {
         color: '#0C20E3',

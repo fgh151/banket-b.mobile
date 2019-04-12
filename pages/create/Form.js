@@ -1,8 +1,6 @@
 import React from "react";
-
-import {Platform, StyleSheet, TextInput, View} from "react-native";
-import {Styles as textStyle} from "../../styles/Global";
-import Input from "../../components/Input";
+import ReactNative, {Platform, StyleSheet, Text, View} from "react-native";
+import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import moment from "moment";
 import Proposal from '../../models/Proposal';
@@ -11,10 +9,11 @@ import FormDatePicker from './FormDatePicker';
 import FormTimePicker from './FormTimePicker';
 import EventTypePicker from "./EventTypePicker";
 import CityPicker from "./CityPicker";
-import AmountInput, {PLACEHOLDER_TEXT as AMOUNT_PLACEHOLDER_TEXT} from "./AmountInput";
+import AmountInput from "./AmountInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
-import GuestsCountInput, {PLACEHOLDER_TEXT as GUESTS_COUNT_PLACEHOLDER_TEXT} from "./GuestsCountInput";
+import GuestsCountInput from "./GuestsCountInput";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import AdditionalInput from './AdditionalInput'
 
 export default class Form extends React.Component {
     state = {
@@ -47,6 +46,11 @@ export default class Form extends React.Component {
         Actions.Services();
     };
 
+    _scrollToInput(reactNode: any) {
+        // Add a 'scroll' ref to your ScrollView
+        this.scroll.props.scrollToFocusedInput(reactNode)
+    }
+
     setProposalProperty(propertyName, value) {
 
         console.log("validate", propertyName, value);
@@ -77,108 +81,106 @@ export default class Form extends React.Component {
     render() {
         return (
             <KeyboardAwareScrollView
-                contentContainerStyle={{flexDirection: 'column', flex: 1, justifyContent: 'space-between'}}
+                enableOnAndroid={true}
+                contentContainerStyle={styles.contentContainerStyle}
+                innerRef={ref => {
+                    this.scroll = ref
+                }}
             >
                 <View style={{flex: 1, alignItems: 'center'}}>
-
-                    <View
-                        style={[textStyle.rootView, {
-                            paddingTop: 25,
-                            flexDirection: 'column',
-                            flex: 1
-                        }]}
-                    >
-                        <Input>
-                            <CityPicker/>
-                        </Input>
-                        <Input>
-                            <EventTypePicker onValueChange={(value) => this.setProposalProperty('event_type', value)}/>
-                        </Input>
-                        <Input>
-                            <FormDatePicker onDateChange={(date) => {
-                                this.setProposalProperty('date', date)
-                            }}/>
-                        </Input>
-                        <Input>
-                            <FormTimePicker onDateChange={(time) => {
+                    <View style={[textStyle.rootView, styles.formWrapper]}>
+                        <CityPicker/>
+                        <EventTypePicker onValueChange={(value) => this.setProposalProperty('event_type', value)}/>
+                        <FormDatePicker onDateChange={(date) => {
+                            this.setProposalProperty('date', date)
+                        }}/>
+                        <FormTimePicker
+                            onRequestClose={() => {
+                                if (this.proposal.time === null) {
+                                    this.proposal.time = '12:00 - 12:30'
+                                }
+                            }}
+                            onDateChange={(time) => {
                                 this.setProposalProperty('time', time)
                             }}/>
-                        </Input>
-                        <Input
-                            style={{}}
-                            error={this.state.guests_count_error}
-                            showPlaceholder={false}
-                            placeholder={GUESTS_COUNT_PLACEHOLDER_TEXT}
-                            inputStyle={{flex: 1}}
-                        >
-                            <GuestsCountInput onChange={this.setProposalProperty}/>
-                        </Input>
-                        <Input
-                            style={{padding: 0, margin: 0}}
-                            error={this.state.amount_error}
-                            showPlaceholder={false}
-                            placeholder={AMOUNT_PLACEHOLDER_TEXT}
-                            inputStyle={{flex: 1}}
-                        >
-                            <AmountInput onChange={this.setProposalProperty}/>
-                        </Input>
-                        <Input
-                            // showPlaceholder={this.state.show_notes_placeholder}
-                            showPlaceholder={false}
-                            placeholder={'Дополнительно'}
-                        >
-                            <TextInput
-                                multiline
-                                refInput={ref => {
-                                    this.input = ref
-                                }}
-                                style={[styles.textInput, valid.valid, {
-                                    marginTop: -10,
-                                    paddingBottom: 2,
-                                }]}
-                                placeholderTextColor={'#000000'}
-                                onChangeText={(notes) => {
-                                    this.setProposalProperty('notes', notes);
-                                    this.setState({notes: notes});
-                                }}
-                                placeholder='Дополнительно'
-                                returnKeyType={'done'}
-                                blurOnSubmit={true}
-                                value={this.state.notes}
-                                autoCorrect={false}
-                                underlineColorAndroid="transparent"
-                            />
-                        </Input>
+
+                        <GuestsCountInput
+                            onChange={this.setProposalProperty}
+                            onFocus={() => this.setState({hideButton: true})}
+                            onBlur={() => this.setState({hideButton: false})}
+                        />
+
+                        <Text style={styles.error}>{this.state.amount_error}</Text>
+                        <AmountInput
+                            onChange={this.setProposalProperty}
+                            onFocus={() => this.setState({hideButton: true})}
+                            onBlur={() => this.setState({hideButton: false})}
+                        />
+
+                        <AdditionalInput
+                            onChangeText={(notes) => {
+                                this.setProposalProperty('notes', notes);
+                                this.setState({notes: notes});
+                            }}
+                            value={this.state.notes}
+                            onHeightChange={(newHeight) => this._scrollToInput(ReactNative.findNodeHandle(this.marker))}
+                            onFocus={() => this.setState({hideButton: true})}
+                            onBlur={() => this.setState({hideButton: false})}
+                        />
+                        <View ref={ref => {
+                            this.marker = ref
+                        }}/>
                     </View>
                 </View>
-                <View style={{padding: 15}}>
-                    <View style={[styles.buttonWrapper, {
-                        visibility: this.state.hideButton,
-                    }]}>
-                        <Button
-                            style={{fontSize: 17, lineHeight: 21}}
-                            disabled={this.state.buttonDisabled}
-                            title="Продолжить"
-                            onPress={this.nextPage}
-                        />
-                    </View>
-
+                <View style={{padding: windowPadding}}>
+                    {this.renderButton()}
                 </View>
             </KeyboardAwareScrollView>
         )
     }
+
+
+    renderButton() {
+        if (!this.state.hideButton) {
+            return (
+                <View style={[styles.buttonWrapper, {visibility: this.state.hideButton,}]}>
+                    <Button
+                        style={{fontSize: 17, lineHeight: 21}}
+                        disabled={this.state.buttonDisabled}
+                        title="Продолжить"
+                        onPress={this.nextPage}
+                    />
+                </View>
+            )
+        }
+        return null;
+    }
 }
 
-const valid = StyleSheet.create({
-    valid: {
-        color: '#0C21E2'
-    },
-    invalid: {
-        color: '#000000'
-    }
-});
-
 const styles = StyleSheet.create({
+    error: {
+        color: 'red',
+        marginTop: 8,
+        height: 18,
+    },
+    contentContainerStyle: {
+        flexDirection: 'column',
+        flex: 1,
+        justifyContent: 'space-between'
+    },
+    formWrapper: {
+        flexDirection: 'column',
+        flex: 1,
+        justifyContent: 'flex-start',
+        ...Platform.select({
+            ios: {
+                paddingTop: 45
+            },
+            android: {
+                paddingTop: 30
+            },
+        }),
+    },
     buttonWrapper: {
         width: '100%',
         ...ifIphoneX({
@@ -190,20 +192,4 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
     },
-
-    textInput: {
-        fontSize: 15,
-        lineHeight: 18,
-        fontFamily: "Lato-Regular",
-        ...Platform.select({
-            ios: {
-                paddingTop: 10,
-                paddingBottom: 5
-            },
-            android: {
-                marginLeft: -5
-            },
-        }),
-    }
-
 });
