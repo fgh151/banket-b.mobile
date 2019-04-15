@@ -16,7 +16,8 @@ export default class CodeInput extends React.Component {
     state = {
         timerText: 'Повторно код можно будет отправить через 1 минуту',
         showButton: false,
-        placeholderText: 'Код подтверждения'
+        placeholderText: 'Код подтверждения',
+        currentCode: ''
     };
 
     constructor(props) {
@@ -91,16 +92,21 @@ export default class CodeInput extends React.Component {
                     <View>
                         <TextInput
                             onFocus={() => {
-                                this, this.setState({placeholderText: ''});
+                                let placeholder = '';
+                                this.setState({placeholderText: placeholder});
                                 this.props.onFocus()
                             }}
                             onBlur={() => {
-                                this.setState({placeholderText: 'Код подтверждения'});
+                                let placeholder = this.state.currentCode !== '' ? this.state.currentCode : 'Код подтверждения';
+                                this.setState({placeholderText: placeholder});
                                 this.props.onBlur()
                             }}
+                            value={this.state.currentCode}
                             placeholderTextColor={'#000000'}
                             placeholder={this.state.placeholderText}
-                            onChangeText={(code) => this.props.codeChange(code)}
+                            onChangeText={(code) => {
+                                this.props.codeChange(code), this.setState({currentCode: code})
+                            }}
                             keyboardType="numeric"
                             style={{fontSize: 15, lineHeight: 18, padding: 0, fontFamily: "Lato-Regular", width: 280}}
                             autoCorrect={false}
