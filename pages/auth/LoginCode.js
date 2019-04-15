@@ -28,7 +28,7 @@ export default class LoginCode extends React.Component {
         console.log(code);
         console.log(code.length);
 
-        if (code.length === 6) {
+        if (code.length > 4) {
             this.setState({code: code, buttonDisabled: false});
         }
     };
@@ -47,11 +47,11 @@ export default class LoginCode extends React.Component {
                             console.log('added');
                             trackEvent(
                                 'login', {
-                                    if: response.id
+                                    id: response.id
                                 });
                             firstLunchDone();
                             Push.saveToken();
-                            Actions.BattleList()
+                            Actions.BattleList({token: response.access_token})
                         })
                 }
                 this.setState({showLoginBtn: true});

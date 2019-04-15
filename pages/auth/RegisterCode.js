@@ -51,8 +51,8 @@ export default class RegisterCode extends React.Component {
                         .then(() => {
                             console.log('added');
                             trackEvent(
-                                'login', {
-                                    if: response.id
+                                'register', {
+                                    id: response.id
                                 });
                             firstLunchDone();
                             Push.saveToken();

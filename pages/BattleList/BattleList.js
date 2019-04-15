@@ -99,26 +99,42 @@ export default class BattleList extends React.PureComponent {
     }
 
     getRemoteList() {
+
         const CACHE_KEY = 'proposal-list';
-        AsyncStorage.getItem('battle@token')
-            .then((result) => {
-                if (result === null) {
-                    Actions.login();
-                } else {
-                    const api = new Client(result);
-                    api.GET('/proposal/list', {}, 'from list')
-                        .then(
-                            (responseData) => {
-                                let items = responseData;
-                                this.updateList(items);
-                                CacheStore.set(CACHE_KEY, items, Config.lowCache);
-                                this.setState({
-                                    loaded: true,
-                                });
-                            }
-                        )
-                }
-            })
+        if (this.props.token) {
+            const api = new Client(this.props.token);
+            api.GET('/proposal/list', {}, 'from list')
+                .then(
+                    (responseData) => {
+                        let items = responseData;
+                        this.updateList(items);
+                        CacheStore.set(CACHE_KEY, items, Config.lowCache);
+                        this.setState({
+                            loaded: true,
+                        });
+                    }
+                )
+        } else {
+            AsyncStorage.getItem('battle@token')
+                .then((result) => {
+                    if (result === null) {
+                        Actions.login();
+                    } else {
+                        const api = new Client(result);
+                        api.GET('/proposal/list', {}, 'from list')
+                            .then(
+                                (responseData) => {
+                                    let items = responseData;
+                                    this.updateList(items);
+                                    CacheStore.set(CACHE_KEY, items, Config.lowCache);
+                                    this.setState({
+                                        loaded: true,
+                                    });
+                                }
+                            )
+                    }
+                })
+        }
     }
 
     updateList(items) {
