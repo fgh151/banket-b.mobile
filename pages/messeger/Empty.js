@@ -8,7 +8,7 @@ export default function Empty() {
         <View style={textStyle.rootViewWrapper}>
             <View style={WIIstyles.sliderItem}>
                 <Image source={require('../../assets/images/waiting_answers.png')}
-                       style={{marginBottom: windowPadding, width: 100, height: 100}}/>
+                       style={{marginBottom: windowPadding, width: 130, height: 130}}/>
                 <View style={WIIstyles.sliderTextWrapper}>
                     <Text style={[textStyle.defaultFont, {
                         textAlign: 'center',
@@ -31,6 +31,7 @@ const WIIstyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom: 90
     },
     sliderTextWrapper: {
         width: 300

@@ -87,8 +87,9 @@ export default class FormTimePicker extends React.Component {
             selectedItemStart: selectedItem,
             endTimePeriod: endTime
         };
+        let end = endTime[0] === undefined ? '12:00' : endTime[0];
         if (endTime[0]) {
-            state.viewText = value + ' - ' + endTime[0];
+            state.viewText = value + ' - ' + end;
             state.valid = true;
             this.onDateChange(state.viewText);
         }
@@ -97,6 +98,7 @@ export default class FormTimePicker extends React.Component {
 
     onEndSelected = selectedItem => {
         let value = this.state.endTimePeriod[selectedItem];
+        value = value === undefined ? '12:00' : value;
         let state = {
             endTime: value,
             selectedEnd: selectedItem,

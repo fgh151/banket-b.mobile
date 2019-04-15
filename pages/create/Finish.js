@@ -9,7 +9,7 @@ export default function Finish() {
         <View style={[textStyle.rootViewWrapper]}>
             <View style={WIIstyles.sliderItem}>
                 <Image source={require('../../assets/images/done.png')}
-                       style={{marginBottom: 30, width: 100, height: 100}}/>
+                       style={{marginBottom: 30, width: 120, height: 120}}/>
                 <View style={{marginBottom: 20}}>
                     <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>
                 </View>
@@ -43,7 +43,7 @@ const WIIstyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-        paddingBottom: 40
+        paddingBottom: 140
     },
     sliderHeader: {
         fontSize: 28,
