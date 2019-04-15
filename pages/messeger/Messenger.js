@@ -165,14 +165,14 @@ export default class Messenger extends Component {
     }
 
     renderMessage(listItem, index) {
-        var message = listItem.item;
-        let ismy = Messenger.isMy(message);
+        let message = listItem.item;
+        let isMy = Messenger.isMy(message);
 
         return <MessageWrapper
             model={message}
-            bubbleColor={ismy ? '#DFEAFF' : '#F6F6F6'}
-            align={ismy ? 'flex-end' : 'flex-start'}
-            share={!ismy}
+            bubbleColor={isMy ? '#DFEAFF' : '#F6F6F6'}
+            align={isMy ? 'flex-end' : 'flex-start'}
+            share={!isMy}
             same={this.isSenderSame(message)}
         />
     }
