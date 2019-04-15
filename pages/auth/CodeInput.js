@@ -105,7 +105,8 @@ export default class CodeInput extends React.Component {
                             placeholderTextColor={'#000000'}
                             placeholder={this.state.placeholderText}
                             onChangeText={(code) => {
-                                this.props.codeChange(code), this.setState({currentCode: code})
+                                this.props.codeChange(code);
+                                this.setState({currentCode: code})
                             }}
                             keyboardType="numeric"
                             style={{fontSize: 15, lineHeight: 18, padding: 0, fontFamily: "Lato-Regular", width: 280}}
