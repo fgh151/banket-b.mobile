@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
 
 
+export const windowPadding = 15;
+
 export const Styles = StyleSheet.create({
     defaultFont: {
         fontFamily: "Lato-Regular",
@@ -34,5 +36,3 @@ export const Styles = StyleSheet.create({
         color: 'rgba(0,0,0,0.5)'
     },
 });
-
-export const windowPadding = 15;

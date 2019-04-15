@@ -98,7 +98,7 @@ export default class Messenger extends Component {
         this.setState({
             items: items,
             loaded: true,
-        }, () => this.flatList.scrollToEnd({animated: true}));
+        }, () => this.scroll(true));
 
         const length = ArrayHelper.getKeys(items).length;
         CacheStore.set('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length, Config.lowCache);
@@ -106,7 +106,11 @@ export default class Messenger extends Component {
 
     toggleInputActive() {
         this.setState({inputActive: !this.state.inputActive});
-        this.flatList.scrollToEnd({animated: true});
+        this.scroll();
+    }
+
+    scroll(animated = false) {
+        this.flatList.scrollToOffset({offset: 0, animated: animated});
     }
 
     renderOrganization() {
@@ -119,10 +123,8 @@ export default class Messenger extends Component {
     previusMessage = null;
 
     render() {
-
         if (!this.state.loaded) {
             return (
-
                 <View style={textStyle.rootViewWrapper}>
                     <Loading/>
                 </View>
@@ -130,23 +132,18 @@ export default class Messenger extends Component {
         }
 
         let messages = messagesObject2array(this.state.items);
-
         return (
-
             <SafeAreaView style={[textStyle.rootViewWrapper, style.wrapper]}>
                 {this.renderOrganization()}
                 <FlatList
                     ref={ref => this.flatList = ref}
-                    onContentSizeChange={() => this.flatList.scrollToEnd({animated: true})}
-                    onLayout={() => this.flatList.scrollToEnd({animated: true})}
-
-
-                    style={{flex: 1, flexDirection: 'column', width: '100%', padding: 10, transform: [{scaleY: -1}],}}
-                    contentContainerStyle={{justifyContent: 'flex-end', transform: [{scaleY: -1}],}}
-
-
-                    data={messages}
+                    onContentSizeChange={() => this.scroll()}
+                    onLayout={() => this.scroll()}
+                    style={style.list}
+                    contentContainerStyle={style.messagesContainer}
+                    data={messages.reverse()}
                     renderItem={(item) => this.renderMessage(item)}
+                    inverted={true}
                 />
                 <MessageForm
                     onToggle={this.toggleInputActive}
@@ -169,18 +166,29 @@ export default class Messenger extends Component {
 
     renderMessage(listItem, index) {
         var message = listItem.item;
+        let ismy = Messenger.isMy(message);
 
-        return Messenger.isMy(message) ?
-            <MessageWrapper model={message} bubbleColor={'#DFEAFF'} align={'flex-end'} share={false}
-                            same={this.isSenderSame(message)}/>
-            :
-            <MessageWrapper model={message} bubbleColor={'#F6F6F6'} align={'flex-start'} share={true}
-                            same={this.isSenderSame(message)}/>
-
+        return <MessageWrapper
+            model={message}
+            bubbleColor={ismy ? '#DFEAFF' : '#F6F6F6'}
+            align={ismy ? 'flex-end' : 'flex-start'}
+            share={!ismy}
+            same={this.isSenderSame(message)}
+        />
     }
 }
 
 const style = StyleSheet.create({
+    list: {
+        flex: 1,
+        flexDirection: 'column',
+        width: '100%',
+        padding: 10,
+        transform: [{scaleY: -1}]
+    },
+    messagesContainer: {
+        justifyContent: 'center'
+    },
     wrapper: {
         margin: 0,
         ...Platform.select({
