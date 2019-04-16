@@ -51,7 +51,13 @@ export default class LoginCode extends React.Component {
                                 });
                             firstLunchDone();
                             Push.saveToken();
-                            Actions.BattleList({token: response.access_token})
+                            if (Platform.OS === 'ios') {
+                                setTimeout(function () {
+                                    Actions.BattleList({token: response.access_token});
+                                }, 2000);
+                            } else {
+                                Actions.BattleList({token: response.access_token})
+                            }
                         })
                 }
                 this.setState({showLoginBtn: true});
