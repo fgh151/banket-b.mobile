@@ -150,7 +150,7 @@ const ModalStyle = StyleSheet.create({
                 paddingTop: 35,
             },
             android: {
-                paddingTop: 45
+                paddingTop: 25
             },
         }),
     },

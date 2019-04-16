@@ -60,7 +60,8 @@ const pickerStyle = {
                 marginTop: 25
             },
             android: {
-                marginTop: 35
+                paddingTop: 0,
+                paddingBottom: 5
             },
         }),
     },
@@ -77,6 +78,16 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
+
+
+        ...Platform.select({
+            ios: {},
+            android: {
+                height: 50
+            },
+        }),
+
+
 
 
     },
