@@ -94,7 +94,7 @@ export default class Menu extends React.Component {
                         ...Platform.select({
                             ios: {},
                             android: {
-                                maxWidth: 320,
+                                // maxWidth: 320,
                             },
                         }),
                     }}>
