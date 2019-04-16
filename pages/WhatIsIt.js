@@ -4,6 +4,7 @@ import {Actions} from "react-native-router-flux";
 import {Styles as textStyle, windowPadding} from '../styles/Global';
 import {Button} from '../components/Button';
 import Swiper from '../components/Swiper/Swiper';
+import Pagination from "../components/Swiper/Pagination";
 
 export default function WhatIsIt() {
         return (
@@ -17,6 +18,7 @@ export default function WhatIsIt() {
                 <View style={{flex: 1, width:'100%'}}>
                     <Swiper
                         showPagination
+                        PaginationComponent={Pagination}
                     >
                         <Slide1/>
                         <Slide2/>
