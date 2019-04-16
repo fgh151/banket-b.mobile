@@ -1,7 +1,6 @@
 package ru.banket_b.mobile;
 
 import android.app.Application;
-
 import com.RNTextInputMask.RNTextInputMaskPackage;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.appsflyer.reactnative.RNAppsFlyerPackage;
@@ -12,12 +11,10 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.wheelpicker.WheelPickerPackage;
-
+import net.zubricky.AndroidKeyboardAdjust.AndroidKeyboardAdjustPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-
 import java.util.Arrays;
 import java.util.List;
-
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
@@ -46,7 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNFirebaseMessagingPackage(),
                     new RNFirebaseNotificationsPackage(),
                     new RNFirebaseDatabasePackage(),
-                    new WheelPickerPackage()
+                    new WheelPickerPackage(),
+                    new AndroidKeyboardAdjustPackage()
             );
         }
 

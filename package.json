@@ -1,6 +1,6 @@
 {
   "name": "rubanketb",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -20,6 +20,7 @@
     "prop-types": "^15.6.2",
     "react": "16.6.3",
     "react-native": "0.57.8",
+    "react-native-android-keyboard-adjust": "^1.2.0",
     "react-native-appsflyer": "^1.2.13",
     "react-native-cache-store": "^1.0.2",
     "react-native-datepicker": "^1.7.2",

@@ -187,6 +187,8 @@ dependencies {
     implementation "com.google.firebase:firebase-database:16.0.5"
     implementation 'com.appsflyer:af-android-sdk:4+@aar'
     implementation 'com.android.installreferrer:installreferrer:1.0'
+
+    implementation project(":react-native-android-keyboard-adjust")
 }
 
 

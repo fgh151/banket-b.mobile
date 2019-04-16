@@ -14,6 +14,7 @@ import {ifIphoneX} from "react-native-iphone-x-helper";
 import GuestsCountInput from "./GuestsCountInput";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import AdditionalInput from './AdditionalInput'
+import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 
 export default class Form extends React.Component {
     state = {
@@ -79,6 +80,10 @@ export default class Form extends React.Component {
     }
 
     render() {
+
+        if (Platform.OS === 'android') {
+            AndroidKeyboardAdjust.setAdjustPan();
+        }
         return (
             <KeyboardAwareScrollView
                 enableOnAndroid={true}

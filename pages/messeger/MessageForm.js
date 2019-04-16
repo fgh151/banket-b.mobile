@@ -14,6 +14,7 @@ import {
     View
 } from "react-native";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 
 export default class MessageForm extends Component {
 
@@ -97,6 +98,9 @@ export default class MessageForm extends Component {
     };
 
     render() {
+        if (Platform.OS === 'android') {
+            AndroidKeyboardAdjust.setAdjustResize();
+        }
         return (
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <Animated.View style={{marginBottom: this.paddingInput}}>
