@@ -32,11 +32,7 @@ export default class LoginCode extends React.Component {
     }
 
     codeChange = (code: string) => {
-
-        console.log(code);
-        console.log(code.length);
-
-        if (code.length > config.smsCodeLength) {
+        if (code.length >= config.smsCodeLength) {
             this.setState({code: code, buttonDisabled: false});
         }
     };
