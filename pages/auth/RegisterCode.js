@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage, Platform, ScrollView, StyleSheet, TextInput, View} from "react-native";
+import {Alert, AsyncStorage, Platform, ScrollView, StyleSheet, TextInput, View} from "react-native";
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -7,13 +7,13 @@ import PropTypes from "prop-types";
 import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
 import Client from '../../http/Client';
-
 import {firstLunchDone} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
+import config from "../../Config";
 
 export default class RegisterCode extends React.Component {
 
@@ -25,6 +25,9 @@ export default class RegisterCode extends React.Component {
         showPlaceholder: false
     };
 
+
+    code = null;
+
     proposal = new Proposal();
 
     codeChange = (code: string) => {
@@ -32,37 +35,41 @@ export default class RegisterCode extends React.Component {
         console.log(code);
         console.log(code.length);
 
-        if (code.length === 6) {
+        if (code.length === config.smsCodeLength) {
             this.setState({code: code, buttonDisabled: false});
         }
     };
 
     nextPage = () => {
-        this.setState({buttonDisabled: true});
-        const api = new Client();
-        api.login(this.state.phone, this.state.code)
-            .then((response: LoginResponse) => {
-                if (response.hasOwnProperty('error')) {
-                    this.setState({showError: true, buttonDisabled: false})
-                } else {
-                    console.log(response);
+        if (this.code !== this.state.code) {
+            Alert.alert('Неверный код');
+        } else {
+            this.setState({buttonDisabled: true});
+            const api = new Client();
+            api.login(this.state.phone, this.state.code)
+                .then((response: LoginResponse) => {
+                    if (response.hasOwnProperty('error')) {
+                        this.setState({showError: true, buttonDisabled: false})
+                    } else {
+                        console.log(response);
 
-                    AsyncStorage.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
-                        .then(() => {
-                            console.log('added');
-                            trackEvent(
-                                'register', {
-                                    id: response.id
-                                });
-                            firstLunchDone();
-                            Push.saveToken();
-                            this.proposal.saveWithToken(response.access_token);
-                        })
+                        AsyncStorage.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
+                            .then(() => {
+                                console.log('added');
+                                trackEvent(
+                                    'register', {
+                                        id: response.id
+                                    });
+                                firstLunchDone();
+                                Push.saveToken();
+                                this.proposal.saveWithToken(response.access_token);
+                            })
 
-                }
-                this.setState({showLoginBtn: true});
-            })   // Successfully logged in
-        // .then(access_token => this.saveToken(access_token))    // Remember your credentials
+                    }
+                    this.setState({showLoginBtn: true});
+                })   // Successfully logged in
+            // .then(access_token => this.saveToken(access_token))    // Remember your credentials
+        }
     };
 
     render() {

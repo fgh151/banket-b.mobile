@@ -1,7 +1,7 @@
 import config from '../Config';
-import {NetInfo} from 'react-native';
-import type {LoginResponse} from "../types/LoginResponse";
-import {Actions} from "react-native-router-flux";
+import {AsyncStorage, NetInfo} from 'react-native';
+
+export const LOGIN_CODE_KEY = 'login_code_key';
 
 export default class Client {
 
@@ -20,9 +20,14 @@ export default class Client {
         return this.POST('/v2/auth/index', {phone: phone, code: code});
     }
 
-    static sendCode(phone) : Promise<LoginResponse> {
+    static sendCode(params: Object): void {
         const api = new Client();
-        return api.POST('/v2/auth/sendcode', {phone: phone})
+        api.POST('/v2/auth/sendcode', params)
+            .then(response => {
+                if (response.hasOwnProperty('code')) {
+                    AsyncStorage.setItem(LOGIN_CODE_KEY, response.code);
+                }
+            })
     }
 
     getCurrentUser() {

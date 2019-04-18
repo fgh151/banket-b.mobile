@@ -5,7 +5,6 @@ import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
 import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
-import type {LoginResponse} from "../../types/LoginResponse";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {isEmpty} from "../../helpers/StringHelper";
 
@@ -26,11 +25,7 @@ export default class RegisterPhone extends React.Component {
     };
 
     nextPage = () => {
-        console.log(this.state);
-        const api = new Client();
-        api.POST('/v2/auth/sendcode', {phone: this.state.phone, name: this.state.name})
-            .then((response: LoginResponse) => {
-            });
+        Client.sendCode({phone: this.state.phone, name: this.state.name})
         Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
     };
 

@@ -23,7 +23,7 @@ export default class LoginPhone extends React.Component {
     }
 
     nextPage = () => {
-        Client.sendCode(this.state.phone);
+        Client.sendCode({phone: this.state.phone});
         Actions.LoginCode({phone: this.state.phone});
     };
 
