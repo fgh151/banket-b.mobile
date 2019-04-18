@@ -37,6 +37,7 @@ export default class RegisterCode extends React.Component {
     };
 
     nextPage = () => {
+        console.log(this.code, this.state.code);
         if (this.code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {

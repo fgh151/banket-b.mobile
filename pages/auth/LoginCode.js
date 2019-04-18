@@ -38,6 +38,8 @@ export default class LoginCode extends React.Component {
     };
 
     nextPage = () => {
+        console.log(this.code, this.state.code);
+
         if (this.code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {
