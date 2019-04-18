@@ -114,7 +114,13 @@ const WIIstyles = StyleSheet.create({
     },
     createButtonWrapper: {
         width: width - (windowPadding * 2),
-        margin: windowPadding
+        margin: windowPadding,
+        ...Platform.select({
+            ios: {},
+            android: {
+                marginBottom: 0,
+            },
+        }),
     },
     loginButton: {
         color: '#0C20E3',
