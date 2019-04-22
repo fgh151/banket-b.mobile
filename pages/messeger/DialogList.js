@@ -129,7 +129,7 @@ export default class DialogList extends Component {
 
     renderPicker() {
         const placeholder = {
-            label: 'Лучшие',
+            label: 'По скидке',
             value: 1
         };
 

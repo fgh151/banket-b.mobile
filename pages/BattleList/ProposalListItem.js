@@ -11,6 +11,7 @@ import Shadow from "../../components/Shadow";
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import type {ProposalType} from "../../types/ProposalType";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
+import Profit from "../../components/Profit";
 
 let shouldUpdate = false;
 
@@ -66,7 +67,7 @@ export default class ProposalListItem extends Component {
 
     renderProfit(proposal: ProposalType) {
         if (proposal.answers > 0) {
-            return(<Text style={styles.profit}>{proposal.profit}% выгода</Text>)
+            return (<Profit profit={proposal.profit}/>)
         }
         return null;
     }

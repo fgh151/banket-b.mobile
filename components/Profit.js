@@ -6,7 +6,7 @@ import {StyleSheet, Text} from "react-native";
  */
 export default function Profit(props) {
     if (props.profit > 0) {
-        return <Text style={styles.profit}>{props.profit}%&nbsp;выгода</Text>
+        return <Text style={styles.profit}>{props.profit}%&nbsp;скидка</Text>
         }
         return null;
 }
