@@ -7,8 +7,8 @@
     "test": "jest",
     "android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/build/intermediates/res/merged/release/",
     "ios": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --assets-dest ios",
-    "android-realize": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
-    "ios-realize": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle",
+    "android-realize": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output ./sourcemap/android.map",
+    "ios-realize": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --sourcemap-output ./sourcemap/ios.map",
     "preversion": "./npm-version/pre-version.sh",
     "version": "./npm-version/version-ios.sh",
     "postversion": "./npm-version/post-version.sh"
