@@ -24,7 +24,7 @@ export default class LoginCode extends React.Component {
         showPlaceholder: false
     };
 
-    code = null;
+    code = this.props.code;
 
     componentDidMount() {
         AsyncStorage.getItem(LOGIN_CODE_KEY)

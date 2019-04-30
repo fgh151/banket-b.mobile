@@ -26,7 +26,7 @@ export default class RegisterCode extends React.Component {
     };
 
 
-    code = null;
+    code = this.props.code;
 
     proposal = new Proposal();
 
