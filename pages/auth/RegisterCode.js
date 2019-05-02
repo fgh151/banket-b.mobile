@@ -6,7 +6,7 @@ import {Button} from "../../components/Button";
 import PropTypes from "prop-types";
 import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
-import Client from '../../http/Client';
+import Client, {LOGIN_CODE_KEY} from '../../http/Client';
 import {firstLunchDone} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
@@ -17,6 +17,8 @@ import config from "../../Config";
 
 export default class RegisterCode extends React.Component {
 
+    code = this.props.code;
+
     state = {
         phone: this.props.phone,
         userName: this.props.userName,
@@ -25,8 +27,16 @@ export default class RegisterCode extends React.Component {
         showPlaceholder: false
     };
 
+    constructor(props) {
+        super(props);
 
-    code = this.props.code;
+        console.log(props);
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem(LOGIN_CODE_KEY)
+            .then(code => this.code = code);
+    }
 
     proposal = new Proposal();
 
@@ -37,7 +47,6 @@ export default class RegisterCode extends React.Component {
     };
 
     nextPage = () => {
-        console.log(this.code, this.state.code);
         if (this.code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {
