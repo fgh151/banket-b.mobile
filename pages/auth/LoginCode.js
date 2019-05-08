@@ -6,7 +6,7 @@ import {Button} from "../../components/Button";
 import PropTypes from "prop-types";
 import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
-import Client, {LOGIN_CODE_KEY} from '../../http/Client';
+import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import {firstLunchDone} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
@@ -14,6 +14,7 @@ import CodeInput from "./CodeInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
 import config from "../../Config";
+import GlobalState from "../../models/GlobalState";
 
 export default class LoginCode extends React.Component {
 
@@ -24,13 +25,6 @@ export default class LoginCode extends React.Component {
         showPlaceholder: false
     };
 
-    code = this.props.code;
-
-    componentDidMount() {
-        AsyncStorage.getItem(LOGIN_CODE_KEY)
-            .then(code => this.code = code);
-    }
-
     codeChange = (code: string) => {
         if (code.length >= config.smsCodeLength) {
             this.setState({code: code, buttonDisabled: false});
@@ -38,9 +32,13 @@ export default class LoginCode extends React.Component {
     };
 
     nextPage = () => {
-        console.log(this.code, this.state.code);
 
-        if (this.code !== this.state.code) {
+        let state = new GlobalState();
+        let code = state.AuthCode;
+
+        console.log(code, this.state.code);
+
+        if (code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {
             const api = new Client();

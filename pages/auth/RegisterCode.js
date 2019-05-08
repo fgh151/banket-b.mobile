@@ -6,7 +6,7 @@ import {Button} from "../../components/Button";
 import PropTypes from "prop-types";
 import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
-import Client, {LOGIN_CODE_KEY} from '../../http/Client';
+import Client from '../../http/Client';
 import {firstLunchDone} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
@@ -14,10 +14,9 @@ import CodeInput from "./CodeInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
 import config from "../../Config";
+import GlobalState from "../../models/GlobalState";
 
 export default class RegisterCode extends React.Component {
-
-    code = this.props.code;
 
     state = {
         phone: this.props.phone,
@@ -33,11 +32,6 @@ export default class RegisterCode extends React.Component {
         console.log(props);
     }
 
-    componentDidMount() {
-        AsyncStorage.getItem(LOGIN_CODE_KEY)
-            .then(code => this.code = code);
-    }
-
     proposal = new Proposal();
 
     codeChange = (code: string) => {
@@ -48,9 +42,12 @@ export default class RegisterCode extends React.Component {
 
     nextPage = () => {
 
-        console.log(this.code, this.state.code);
+        let state = new GlobalState();
+        let code = state.AuthCode;
 
-        if (this.code !== this.state.code) {
+        console.log(code, this.state.code);
+
+        if (code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {
             this.setState({buttonDisabled: true});

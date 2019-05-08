@@ -8,6 +8,12 @@ export default class GlobalState {
     BattleList = null;
     DialogList = null;
 
+    AuthCode = null;
+
+    /**
+     *
+     * @returns GlobalState
+     */
     constructor() {
         if (GlobalState.instance) {
             return GlobalState.instance;

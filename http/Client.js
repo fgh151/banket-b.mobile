@@ -1,5 +1,6 @@
 import config from '../Config';
-import {AsyncStorage, NetInfo} from 'react-native';
+import {NetInfo} from 'react-native';
+import GlobalState from "../models/GlobalState";
 
 export const LOGIN_CODE_KEY = 'login_code_key';
 
@@ -25,7 +26,8 @@ export default class Client {
         api.POST('/v2/auth/sendcode', params)
             .then(response => {
                 if (response.hasOwnProperty('code')) {
-                    AsyncStorage.setItem(LOGIN_CODE_KEY, response.code);
+                    let state = new GlobalState();
+                    state.AuthCode = response.code;
                 }
             })
     }
