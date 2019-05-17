@@ -33,13 +33,14 @@ export default class AdditionalInput extends React.PureComponent {
                     fontSize: 15,
                     lineHeight: 18,
                     fontFamily: "Lato-Regular",
+                    width: '100%'
                 }]}
                 placeholderTextColor={'#000000'}
                 onChangeText={(notes) => {
                     this.onChangeText();
                     this.props.onChangeText(notes)
                 }}
-                placeholder='Дополнительно'
+                placeholder='Ваш комментарий'
                 returnKeyType={'done'}
                 blurOnSubmit={true}
                 value={this.props.value}

@@ -1,12 +1,16 @@
 import React from "react";
 
-import {ScrollView, View} from "react-native"
+import ReactNative, {View} from "react-native"
 import {Styles as textStyle} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import ServiceInput from '../../components/ServiceInput';
 import Proposal from "../../models/Proposal";
+import AdditionalInput from './AdditionalInput'
 
-export default class Services extends React.PureComponent {
+import FormPage, {commonStyles} from './AbstractFormPage';
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+
+export default class Services extends FormPage {
 
     state = {
         buttonDisabled: false
@@ -32,10 +36,20 @@ export default class Services extends React.PureComponent {
     }
 
     render() {
+
+        // if (Platform.OS === 'android') {
+        //     AndroidKeyboardAdjust.setAdjustPan();
+        // }
         return (
             <View style={textStyle.rootViewWrapper}>
 
-                <ScrollView>
+                <KeyboardAwareScrollView
+                    enableOnAndroid={true}
+                    contentContainerStyle={commonStyles.contentContainerStyle}
+                    innerRef={ref => {
+                        this.scroll = ref
+                    }}
+                >
                     <View style={{
                         flex: 1,
                         flexDirection: 'row',
@@ -58,8 +72,18 @@ export default class Services extends React.PureComponent {
                         <ServiceInput text="Отдельный зал" onPress={() => this.toggleProp('private')}/>
                         <ServiceInput text="Танцпол" onPress={() => this.toggleProp('dance')}/>
                         <ServiceInput text="Свой алкоголь" onPress={() => this.toggleProp('own_alcohol')}/>
+                        <AdditionalInput
+                            onChangeText={(notes) => {
+                                this.setProposalProperty('notes', notes);
+                                this.setState({notes: notes});
+                            }}
+                            value={this.state.notes}
+                            onHeightChange={(newHeight) => this._scrollToInput(ReactNative.findNodeHandle(this.marker))}
+                            onFocus={() => this.setState({hideButton: true})}
+                            onBlur={() => this.setState({hideButton: false})}
+                        />
                     </View>
-                </ScrollView>
+                </KeyboardAwareScrollView>
                 <View style={{width: '100%'}}>
                     <Button
                         title="Продолжить"

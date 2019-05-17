@@ -1,5 +1,5 @@
 import React from "react";
-import ReactNative, {Platform, StyleSheet, Text, View} from "react-native";
+import {Platform, StyleSheet, Text, View} from "react-native";
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import moment from "moment";
@@ -13,10 +13,10 @@ import AmountInput from "./AmountInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import GuestsCountInput from "./GuestsCountInput";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import AdditionalInput from './AdditionalInput'
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
+import FormPage, {commonStyles} from './AbstractFormPage';
 
-export default class Form extends React.Component {
+export default class Form extends FormPage {
     state = {
         buttonDisabled: true,
         eventType: '',
@@ -47,37 +47,8 @@ export default class Form extends React.Component {
         Actions.Services();
     };
 
-    _scrollToInput(reactNode: any) {
-        // Add a 'scroll' ref to your ScrollView
-        this.scroll.props.scrollToFocusedInput(reactNode)
-    }
 
-    setProposalProperty(propertyName, value) {
 
-        console.log("validate", propertyName, value);
-
-        let valid = this.proposal.validateProperty(propertyName, value);
-        let errorProp = propertyName + '_error';
-        let state = {};
-
-        this.proposal[propertyName] = value;
-        this.setState(this.proposal);
-
-        if (valid === true) {
-            state[errorProp] = '';
-            console.log('Proposal changed ', this.proposal);
-            if (this.proposal.validate()) {
-                state['buttonDisabled'] = false;
-            }
-        } else {
-            console.log('Invalid!');
-            state['buttonDisabled'] = true;
-            state[errorProp] = valid;
-        }
-        this.setState(state);
-
-        console.log(this.state);
-    }
 
     render() {
 
@@ -87,7 +58,7 @@ export default class Form extends React.Component {
         return (
             <KeyboardAwareScrollView
                 enableOnAndroid={true}
-                contentContainerStyle={styles.contentContainerStyle}
+                contentContainerStyle={commonStyles.contentContainerStyle}
                 innerRef={ref => {
                     this.scroll = ref
                 }}
@@ -122,16 +93,7 @@ export default class Form extends React.Component {
                             onBlur={() => this.setState({hideButton: false})}
                         />
 
-                        <AdditionalInput
-                            onChangeText={(notes) => {
-                                this.setProposalProperty('notes', notes);
-                                this.setState({notes: notes});
-                            }}
-                            value={this.state.notes}
-                            onHeightChange={(newHeight) => this._scrollToInput(ReactNative.findNodeHandle(this.marker))}
-                            onFocus={() => this.setState({hideButton: true})}
-                            onBlur={() => this.setState({hideButton: false})}
-                        />
+
                         <View ref={ref => {
                             this.marker = ref
                         }}/>
@@ -168,11 +130,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         height: 18,
     },
-    contentContainerStyle: {
-        flexDirection: 'column',
-        flex: 1,
-        justifyContent: 'space-between'
-    },
+
     formWrapper: {
         flexDirection: 'column',
         flex: 1,
