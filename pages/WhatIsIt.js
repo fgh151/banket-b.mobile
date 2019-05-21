@@ -5,6 +5,7 @@ import {Styles as textStyle, windowPadding} from '../styles/Global';
 import {Button} from '../components/Button';
 import Swiper from '../components/Swiper/Swiper';
 import Pagination from "../components/Swiper/Pagination";
+import {CREATE_BTN_CLICK, funnel} from "../components/Funnel";
 
 export default function WhatIsIt() {
         return (
@@ -25,7 +26,10 @@ export default function WhatIsIt() {
                     </Swiper>
                 </View>
                 <View style={WIIstyles.createButtonWrapper}>
-                    <Button onPress={() => Actions.Form()} title="Создать новый батл"/>
+                    <Button onPress={() => {
+                        Actions.Form();
+                        funnel.catchEvent(CREATE_BTN_CLICK);
+                    }} title="Создать новый батл"/>
                 </View>
             </SafeAreaView>
         );

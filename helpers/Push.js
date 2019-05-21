@@ -1,10 +1,7 @@
-import {Vibration, AsyncStorage, Permissions, Platform, AppState} from "react-native";
+import {AppState, AsyncStorage, Permissions, Platform, Vibration} from "react-native";
 import Client from '../http/Client';
 
 import React from "react";
-
-
-
 // import type {RemoteMessage} from 'react-native-firebase';
 import firebase from "react-native-firebase";
 import {updateProposalList} from "../pages/BattleList/ProposalListItem";
@@ -55,6 +52,7 @@ export default class Push {
 
         AsyncStorage.getItem('battle@id')
             .then((userId) => {
+                console.log("Save token", userId, token);
                 const api = new Client();
                 api.POST('/v2/push', {
                     user: userId,

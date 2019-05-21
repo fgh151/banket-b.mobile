@@ -1,6 +1,6 @@
 {
   "name": "rubanketb",
-  "version": "2.0.25",
+  "version": "2.0.26",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -24,6 +24,7 @@
     "react-native-appsflyer": "^1.2.13",
     "react-native-cache-store": "^1.0.2",
     "react-native-datepicker": "^1.7.2",
+    "react-native-device-info": "^1.8.0",
     "react-native-firebase": "^5.2.2",
     "react-native-geocoder": "^0.5.0",
     "react-native-geolocation-service": "^2.0.0",

@@ -10,6 +10,7 @@ import {Styles as textStyle} from "../../styles/Global";
 import {updateProposalList} from "../BattleList/ProposalListItem";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
+import {CHAT_ENTER, funnel} from "../../components/Funnel";
 
 export default class Messenger extends Component {
     cacheKey = '';
@@ -44,6 +45,8 @@ export default class Messenger extends Component {
                 db.ref(path).off()
 
             });
+
+        funnel.catchEvent(CHAT_ENTER, {proposal: this.props.proposal.id, organization: this.props.organization.id});
     }
 
     /**

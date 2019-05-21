@@ -13,6 +13,7 @@ import trackEvent from "../../helpers/AppsFlyer";
 import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import {funnel, OPEN_APP_EVENT} from "../../components/Funnel";
 
 let showButtonState = false;
 
@@ -71,6 +72,9 @@ export default class BattleList extends React.PureComponent {
 
         let gs = new GlobalState();
         gs.BattleList = this;
+
+
+        funnel.catchEvent(OPEN_APP_EVENT, {battle: 111});
 
 
         this.onRefresh = this.onRefresh.bind(this);

@@ -15,6 +15,7 @@ import GuestsCountInput from "./GuestsCountInput";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import FormPage, {commonStyles} from './AbstractFormPage';
+import {funnel, GOTO_SERVICES} from "../../components/Funnel";
 
 export default class Form extends FormPage {
     state = {
@@ -44,11 +45,9 @@ export default class Form extends FormPage {
     }
 
     nextPage = () => {
+        funnel.catchEvent(GOTO_SERVICES);
         Actions.Services();
     };
-
-
-
 
     render() {
 

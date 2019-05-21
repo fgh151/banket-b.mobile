@@ -7,6 +7,7 @@ import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {isEmpty} from "../../helpers/StringHelper";
+import {funnel, GOFROM_REGISTER} from "../../components/Funnel";
 
 export default class RegisterPhone extends React.Component {
     state = {
@@ -25,7 +26,8 @@ export default class RegisterPhone extends React.Component {
     };
 
     nextPage = () => {
-        Client.sendCode({phone: this.state.phone, name: this.state.name})
+        Client.sendCode({phone: this.state.phone, name: this.state.name});
+        funnel.catchEvent(GOFROM_REGISTER);
         Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
     };
 

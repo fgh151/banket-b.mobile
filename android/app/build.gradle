@@ -189,6 +189,7 @@ dependencies {
     implementation 'com.android.installreferrer:installreferrer:1.0'
 
     implementation project(":react-native-android-keyboard-adjust")
+    implementation project(':react-native-device-info')
 }
 
 

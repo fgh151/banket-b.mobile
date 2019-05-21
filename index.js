@@ -1,15 +1,15 @@
 /** @format */
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Platform, YellowBox} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 
 import Push from './helpers/Push';
-import {Platform} from 'react-native'
-import { YellowBox } from 'react-native';
 
 import {Sentry, SentryLog} from 'react-native-sentry';
 import Config from './Config';
+import GlobalState from "./models/GlobalState";
+
 Sentry.config(Config.sentryDSN, {
     deactivateStacktraceMerging: true,
     logLevel: SentryLog.Verbose,
@@ -21,6 +21,7 @@ Sentry.setExtraContext({
     version:app.version
 });
 
+new GlobalState();
 new Push();
 // Push.saveToken();
 

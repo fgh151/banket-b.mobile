@@ -15,6 +15,7 @@ import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
 import config from "../../Config";
 import GlobalState from "../../models/GlobalState";
+import {CONFIRM_REGISTER, funnel} from "../../components/Funnel";
 
 export default class RegisterCode extends React.Component {
 
@@ -67,7 +68,10 @@ export default class RegisterCode extends React.Component {
                                         id: response.id
                                     });
                                 firstLunchDone();
+                                let gs = new GlobalState();
+                                gs.userId = response.id;
                                 Push.saveToken();
+                                funnel.catchEvent(CONFIRM_REGISTER);
                                 this.proposal.saveWithToken(response.access_token);
                             })
 

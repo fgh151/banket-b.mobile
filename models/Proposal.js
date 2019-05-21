@@ -5,6 +5,7 @@ import {Actions} from "react-native-router-flux";
 import {AsyncStorage} from "react-native";
 import React from "react";
 import {City} from "../helpers/GeoLocation";
+import {BATTLE_CREATED, funnel} from "../components/Funnel";
 
 
 const MIN_GUEST_COUNT = 1;
@@ -107,6 +108,7 @@ export default class Proposal {
     afterSave() {
         trackEvent('proposal', {proposal: this});
         this.clear();
+
         Actions.Finish();
     }
 
@@ -120,17 +122,16 @@ export default class Proposal {
                 } else {
 
                     this.saveWithToken(result);
-
-
                 }
             }).catch((e) => console.log('cathc', e));
     }
 
     saveWithToken(token) {
         const api = new Client(token);
-        api.POST('/proposal/create', this)
+        api.POST('/v2/proposal/create', this)
             .then(response => {
-                if (ArrayHelper.isEmpty(response)) {
+                if (response.hasOwnProperty('id')) {
+                    funnel.catchEvent(BATTLE_CREATED, {id: response.id});
                     this.afterSave();
                 } else {
                     let keys = ArrayHelper.getKeys(response);

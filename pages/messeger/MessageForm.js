@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
+import {CHAT_ANSWER, funnel} from "../../components/Funnel";
 
 export default class MessageForm extends Component {
 
@@ -56,6 +57,8 @@ export default class MessageForm extends Component {
                     created_at: moment().format('X'),
                 })
             });
+
+        funnel.catchEvent(CHAT_ANSWER, {proposal: this.proposalId, organization: this.organizationId});
     }
 
     setText(text) {

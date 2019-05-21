@@ -9,6 +9,7 @@ import AdditionalInput from './AdditionalInput'
 
 import FormPage, {commonStyles} from './AbstractFormPage';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {funnel, GOFROM_SERVICE} from "../../components/Funnel";
 
 export default class Services extends FormPage {
 
@@ -19,6 +20,8 @@ export default class Services extends FormPage {
     proposal = new Proposal();
 
     nextPage = () => {
+
+        funnel.catchEvent(GOFROM_SERVICE);
         this.setState({buttonDisabled: true});
         this.proposal.save()
     };

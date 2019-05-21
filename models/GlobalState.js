@@ -1,5 +1,4 @@
-
-
+import DeviceInfo from "react-native-device-info";
 
 
 export default class GlobalState {
@@ -9,6 +8,9 @@ export default class GlobalState {
     DialogList = null;
 
     AuthCode = null;
+
+    Uid = DeviceInfo.getUniqueID();
+    userId = null;
 
     /**
      *
@@ -20,5 +22,8 @@ export default class GlobalState {
         }
 
         GlobalState.instance = this;
+
+
+        console.log('uid', this.Uid);
     }
 }

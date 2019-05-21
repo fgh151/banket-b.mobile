@@ -57,6 +57,9 @@ export default class LoginCode extends React.Component {
                                         id: response.id
                                     });
                                 firstLunchDone();
+
+                                let gs = new GlobalState();
+                                gs.userId = response.id;
                                 Push.saveToken();
                                 if (Platform.OS === 'ios') {
                                     setTimeout(function () {

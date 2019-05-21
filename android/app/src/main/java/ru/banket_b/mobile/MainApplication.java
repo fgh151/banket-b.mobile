@@ -1,6 +1,10 @@
 package ru.banket_b.mobile;
 
 import android.app.Application;
+import android.content.Context;
+import android.location.LocationManager;
+import android.os.Build;
+
 import com.RNTextInputMask.RNTextInputMaskPackage;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.appsflyer.reactnative.RNAppsFlyerPackage;
@@ -10,6 +14,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.wheelpicker.WheelPickerPackage;
 import net.zubricky.AndroidKeyboardAdjust.AndroidKeyboardAdjustPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -31,7 +36,15 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
+
+
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//                LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+//                locationEnabled = mLocationManager.isLocationEnabled();
+//            }
+
             return Arrays.<ReactPackage>asList(
+                    new RNDeviceInfo(),
                     new MainReactPackage(),
                     new RNFirebasePackage(),
                     new RNTextInputMaskPackage(),
