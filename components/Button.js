@@ -1,21 +1,39 @@
 import React from 'react';
-import {Button as BaseButton} from "react-native";
-import {StyleSheet, TouchableNativeFeedback, TouchableOpacity, Text, View, Platform} from "react-native";
+import {
+    Button as BaseButton,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableNativeFeedback,
+    TouchableOpacity,
+    View
+} from "react-native";
 
 export class Button extends BaseButton{
 
+    state = {
+        disabled: false
+    };
 
+    constructor(props) {
+        super(props)
+    }
+
+    componentWillReceiveProps(props) {
+        const {disabled} = this.props;
+        this.setState({disabled: disabled});
+    }
 
     render() {
-        const {
+        let {
             accessibilityLabel,
             color,
             onPress,
             title,
             hasTVPreferredFocus,
-            disabled,
             testID,
         } = this.props;
+
         const buttonStyles = [styles.button];
         const textStyles = [styles.text];
         if (color) {
@@ -26,7 +44,7 @@ export class Button extends BaseButton{
             }
         }
         const accessibilityStates = [];
-        if (disabled) {
+        if (this.state.disabled) {
             buttonStyles.push(styles.buttonDisabled);
             textStyles.push(styles.textDisabled);
             accessibilityStates.push('disabled');
@@ -43,20 +61,17 @@ export class Button extends BaseButton{
                 accessibilityStates={accessibilityStates}
                 hasTVPreferredFocus={hasTVPreferredFocus}
                 testID={testID}
-                disabled={disabled}
+                disabled={this.state.disabled}
                 onPress={onPress}>
                 <View style={buttonStyles}>
-                    <Text style={textStyles} disabled={disabled}>
+                    <Text style={textStyles} disabled={this.state.disabled}>
                         {formattedTitle}
                     </Text>
                 </View>
             </Touchable>
         );
     }
-    
 }
-
-
 
 const styles = StyleSheet.create({
     button: Platform.select({
