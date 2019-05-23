@@ -20,7 +20,7 @@ export default class Proposal {
     time = null;
     guests_count = 0;
     amount = 0;
-    notes = '';
+    comment = '';
     errors = [];
     floristics = false;
     hall = false;
@@ -87,7 +87,7 @@ export default class Proposal {
             case 'amount' : {
                 return this.countValid(value, MIN_AMOUNT) ? true : 'Минимальная стоимость ' + MIN_AMOUNT + ' рублей';
             }
-            case 'notes' :{
+            case 'comment' : {
                 return true;
             }
         }

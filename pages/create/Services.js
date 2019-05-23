@@ -14,13 +14,17 @@ import {funnel, GOFROM_SERVICE} from "../../components/Funnel";
 export default class Services extends FormPage {
 
     state = {
-        buttonDisabled: false
+        buttonDisabled: false,
+        notes: null,
+        show_notes_placeholder: false,
+        inputNotesFocus: false,
     };
 
     proposal = new Proposal();
 
     nextPage = () => {
 
+        console.log('next');
         funnel.catchEvent(GOFROM_SERVICE);
         this.setState({buttonDisabled: true});
         this.proposal.save()
@@ -28,9 +32,6 @@ export default class Services extends FormPage {
 
     toggleProp = (propertyName) => {
         this.proposal[propertyName] = !this.proposal[propertyName];
-
-
-        console.log(this.proposal);
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -77,14 +78,19 @@ export default class Services extends FormPage {
                         <ServiceInput text="Свой алкоголь" onPress={() => this.toggleProp('own_alcohol')}/>
                         <AdditionalInput
                             onChangeText={(notes) => {
-                                this.setProposalProperty('notes', notes);
+                                this.setProposalProperty('comment', notes);
                                 this.setState({notes: notes});
                             }}
                             value={this.state.notes}
                             onHeightChange={(newHeight) => this._scrollToInput(ReactNative.findNodeHandle(this.marker))}
-                            onFocus={() => this.setState({hideButton: true})}
-                            onBlur={() => this.setState({hideButton: false})}
+                            onFocus={() => {
+                            }}
+                            onBlur={() => {
+                            }}
                         />
+                        <View ref={ref => {
+                            this.marker = ref
+                        }}/>
                     </View>
                 </KeyboardAwareScrollView>
                 <View style={{width: '100%'}}>

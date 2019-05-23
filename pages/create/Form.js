@@ -25,13 +25,10 @@ export default class Form extends FormPage {
         amount_error: '',
         amount_value: null,
         guests_count: null,
-        notes: null,
         show_guests_count_placeholder: false,
         inputGCFocus: false,
         show_amount_placeholder: false,
         inputAmountFocus: false,
-        show_notes_placeholder: false,
-        inputNotesFocus: false,
 
         hideButton: false
     };
