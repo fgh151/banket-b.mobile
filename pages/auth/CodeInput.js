@@ -4,6 +4,7 @@ import ReSendCode from './ReSendCode';
 import {plural} from '../../helpers/StringHelper';
 import Client from "../../http/Client";
 import type {LoginResponse} from "../../types/LoginResponse";
+import GlobalState from "../../models/GlobalState";
 
 const SECONDS_COUNT = 60;
 
@@ -58,7 +59,8 @@ export default class CodeInput extends React.Component {
         const api = new Client();
         api.POST('/v2/auth/sendcode', {phone: this.props.phone, name: this.props.name})
             .then((response: LoginResponse) => {
-
+                let state = new GlobalState();
+                state.AuthCode = response.code;
             });
     }
 
