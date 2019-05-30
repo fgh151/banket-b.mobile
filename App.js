@@ -27,7 +27,6 @@ import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
 
 import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
-import Sentry from "react-native-sentry";
 import {funnel, OPEN_APP_EVENT} from "./components/Funnel";
 import GlobalState from "./models/GlobalState";
 
@@ -73,9 +72,9 @@ export default class App extends React.Component {
             .then((userId) => {
                 let gs = new GlobalState();
                 gs.userId = userId;
-                Sentry.setUserContext({
-                    id: userId
-                })
+                // Sentry.setUserContext({
+                //     id: userId
+                // })
             });
 
         funnel.catchEvent(OPEN_APP_EVENT);
