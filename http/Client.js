@@ -32,6 +32,17 @@ export default class Client {
             })
     }
 
+    static sendRegisterCode(params: Object): void {
+        const api = new Client();
+        api.POST('/v2/auth/sendregistercode', params)
+            .then(response => {
+                if (response.hasOwnProperty('code')) {
+                    let state = new GlobalState();
+                    state.AuthCode = response.code;
+                }
+            })
+    }
+
     getCurrentUser() {
         // If the request is successful, you can return the expected object
         // instead of the whole response.
