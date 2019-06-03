@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {AsyncStorage, FlatList, Platform, SafeAreaView, StyleSheet, View} from "react-native";
-import Config, {db} from '../../Config';
+import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
 import CacheStore from "react-native-cache-store";
@@ -14,6 +14,7 @@ import {CHAT_ENTER, funnel} from "../../components/Funnel";
 
 export default class Messenger extends Component {
     cacheKey = '';
+    previusMessage = null;
 
     constructor(props) {
         super(props);
@@ -104,7 +105,7 @@ export default class Messenger extends Component {
         }, () => this.scroll(true));
 
         const length = ArrayHelper.getKeys(items).length;
-        CacheStore.set('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length, Config.lowCache);
+        AsyncStorage.setItem('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length);
     }
 
     toggleInputActive() {
@@ -122,8 +123,6 @@ export default class Messenger extends Component {
         }
         return null;
     }
-
-    previusMessage = null;
 
     render() {
         if (!this.state.loaded) {
