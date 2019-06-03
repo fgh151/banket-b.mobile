@@ -26,8 +26,8 @@ export default class RegisterPhone extends React.Component {
     };
 
     nextPage = () => {
-        Client.sendRegisterCode({phone: this.state.phone, name: this.state.name});
         funnel.catchEvent(GOFROM_REGISTER);
+        Client.sendRegisterCode({phone: this.state.phone, name: this.state.name});
         Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
     };
 
