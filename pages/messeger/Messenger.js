@@ -4,13 +4,14 @@ import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
 import CacheStore from "react-native-cache-store";
-import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
-import {updateProposalList} from "../BattleList/ProposalListItem";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
 import {CHAT_ENTER, funnel} from "../../components/Funnel";
+import EventBus from "eventing-bus";
+
+export const MESSAGE_READ_EVENT = 'message_read_event';
 
 export default class Messenger extends Component {
     cacheKey = '';
@@ -22,12 +23,10 @@ export default class Messenger extends Component {
             items: [],
             listTitle: '',
             loaded: false,
-
             inputActive: false
         };
 
         this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
-
         this.toggleInputActive = this.toggleInputActive.bind(this);
     }
 
@@ -37,6 +36,11 @@ export default class Messenger extends Component {
 
     componentDidMount() {
         this.fetchData();
+
+        EventBus.publish(MESSAGE_READ_EVENT, {
+            'proposalId': this.props.proposal.id,
+            'organizationId': this.props.organization.id
+        });
     }
 
     componentWillUnmount() {
@@ -65,35 +69,11 @@ export default class Messenger extends Component {
         AsyncStorage.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
-
-
                 let ref = db.ref(path);
-
-
                 ref.on('value', (snapshot) => {
                     const value = snapshot.val();
-
-
                     this.updateList(value);
-                    AsyncStorage.setItem(this.cacheKey, JSON.stringify(value));
-                    const messages = ArrayHelper.getKeys(value);
-                    let count = 0;
-                    messages.forEach((messageTime) => {
 
-                        let message = value[messageTime];
-                        if (message.author_class === 'app\\common\\models\\Organization') {
-                            count++;
-                        }
-                    });
-
-                    AsyncStorage.getItem('answers-count-read' + this.props.proposal.id)
-                        .then((value) => {
-
-                            let acr = value == null ? count : parseInt(value) + count;
-
-                            AsyncStorage.setItem('answers-count-read' + this.props.proposal.id, acr.toString());
-                        });
-                    updateProposalList();
                 })
             });
     }
@@ -103,9 +83,6 @@ export default class Messenger extends Component {
             items: items,
             loaded: true,
         }, () => this.scroll(true));
-
-        const length = ArrayHelper.getKeys(items).length;
-        AsyncStorage.setItem('answers-count-read' + this.props.proposal.id + '-' + this.props.organization.id, length);
     }
 
     toggleInputActive() {

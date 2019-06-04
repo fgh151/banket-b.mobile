@@ -1,17 +1,18 @@
 import React, {Component} from "react";
-import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
 import {formatCost, round10} from "../../helpers/StringHelper";
-
 import Rating from '../../components/Rating';
 import type {Organization} from "../../types/Organization";
 import Profit from "../../components/Profit";
 import AndroidVersion from "../../helpers/AndroidVersion";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
-import {db} from "../../Config";
-import {extractMessageCount} from "../../helpers/ArrayHelper";
+import GlobalState from "../../models/GlobalState";
+import EventBus from "eventing-bus";
+import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
+import {MESSAGE_READ_EVENT} from "./Messenger";
 
 export default class DialogListItem extends Component {
 
@@ -22,6 +23,10 @@ export default class DialogListItem extends Component {
     };
     dialog: any;
     address: any;
+
+
+    newMessageSubscription;
+    readMessageSubscription;
 
     constructor(props) {
         super(props);
@@ -34,23 +39,30 @@ export default class DialogListItem extends Component {
         });
     }
 
-    componentDidMount() {
-        AsyncStorage.getItem('battle@id')
-            .then((id) => {
-                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.dialog.item.id + '/';
-                db.ref(path).once('value', (snapshot) => {
-                    const value = snapshot.val();
-                    if (extractMessageCount(value) > 0) {
-                        AsyncStorage.getItem('answers-count-read' + this.props.proposal.id + '_' + this.props.dialog.item.id)
-                            .then((readedAnswersCount) => {
+    componentWillMount() {
+        this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+            if (parseInt(data.proposalId) === this.props.proposal.id && parseInt(data.organizationId) === this.props.dialog.item.id) {
+                this.setState({newMessages: true})
+            }
+        });
 
-                                if (parseInt(readedAnswersCount) < messagesCount) {
-                                    this.setState({newMessages: true});
-                                }
-                            });
-                    }
-                });
-            })
+        this.readMessageSubscription = EventBus.on(MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
+            if (parseInt(data.proposalId) === this.props.proposal.id && parseInt(data.organizationId) === this.props.dialog.item.id) {
+                this.setState({newMessages: false})
+            }
+        });
+
+        let state = new GlobalState();
+
+        if (state.newMessagesInDialogs.indexOf(this.props.proposal.id + '-' + this.props.dialog.item.id) !== -1) {
+            console.log('there is new messages');
+            this.setState({newMessages: true});
+        }
+    }
+
+    componentWillUnmount() {
+        this.newMessageSubscription();
+        this.readMessageSubscription();
     }
 
     render() {
@@ -117,61 +129,36 @@ export default class DialogListItem extends Component {
 const styles = StyleSheet.create({
     blockWrapper: {
         borderRadius: 5,
-
         marginTop: 10,
         marginBottom: 1,
-
         marginRight: 11,
         marginLeft: 11,
-
-
-
-        // shadowColor: 'rgba(0, 0, 0, 0.19452)',
-        // shadowOffset: {width: 0, height: 0},
-        // shadowOpacity: 0.5,
-        // shadowRadius: 30,
-        // height:345
-
-
         borderColor: '#E0E0E0',
         borderWidth: 1,
-
         ...AndroidVersion.select({
             28: {
-                // elevation: 1,
             },
             default: {
-
-                // shadowColor: '#000',
-                // shadowOffset: {width: 0, height: 2},
-                // shadowOpacity: 0.8,
-                // shadowRadius: 2,
-                // elevation: 1,
             }
         })
     },
     adItem: {
         flex: 1,
         flexDirection: 'row',
-
-        // height:85
     },
     itemAnnotation: {
         flexDirection: 'column',
     },
     imageWrapper: {
         overflow: 'hidden',
-        // height:100
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
     },
     image: {
         width: '100%',
         height: '100%',
-
         ...Platform.select({
             ios: {
-
             },
             android: {
                 paddingTop:5

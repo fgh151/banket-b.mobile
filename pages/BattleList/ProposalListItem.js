@@ -1,21 +1,22 @@
 import React, {Component} from "react";
-import {AsyncStorage, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
-import * as ArrayHelper from '../../helpers/ArrayHelper';
-import {extractMessageCount} from '../../helpers/ArrayHelper';
 import {formatCost, formatDate, plural} from '../../helpers/StringHelper';
-import {db} from '../../Config';
-
 import Proposal from "../../models/Proposal";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import type {ProposalType} from "../../types/ProposalType";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
 import Profit from "../../components/Profit";
+import GlobalState from "../../models/GlobalState";
+import EventBus from 'eventing-bus';
+import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
+import {MESSAGE_READ_EVENT} from "../messeger/Messenger";
 
 let shouldUpdate = false;
 
 export function updateProposalList() {
+    console.log('shoud upd');
     shouldUpdate = true;
 }
 
@@ -25,6 +26,9 @@ export default class ProposalListItem extends Component {
         newMessages: false,
     };
 
+    newMessageSubscription;
+    readMessageSubscription;
+
     constructor(props) {
         super(props);
     }
@@ -33,36 +37,31 @@ export default class ProposalListItem extends Component {
         Actions.DialogList({proposal: proposal})
     }
 
-    shouldComponentUpdate() {
-        let should = shouldUpdate;
-        if (should) {
-            shouldUpdate = false;
+    componentWillMount() {
+
+        //Рисуем кружок при новых сообщениях
+        this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+            if (parseInt(data.proposalId) === this.props.proposal.id) {
+                this.setState({newMessages: true})
+            }
+        });
+
+        this.readMessageSubscription = EventBus.on(MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
+            if (parseInt(data.proposalId) === this.props.proposal.id) {
+                this.setState({newMessages: false})
+            }
+        });
+
+        //рисуем кружок если там что то есть
+        let state = new GlobalState();
+        if (this.props.proposal.id in state.newMessagesInProposal) {
+            this.setState({newMessages: true});
         }
-        return should;
     }
 
-    componentDidMount() {
-        AsyncStorage.getItem('battle@id')
-            .then((id) => {
-                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/';
-                db.ref(path).once('value', (snapshot) => {
-                    let messagesCount = 0;
-                    const value = snapshot.val();
-                    let organizations = ArrayHelper.getKeys(value);
-                    organizations.forEach((organization) => {
-                        messagesCount = extractMessageCount(value);
-                    });
-                    if (messagesCount > 0) {
-                        AsyncStorage.getItem('answers-count-read' + this.props.proposal.id)
-                            .then((readedAnswersCount) => {
-
-                                if (parseInt(readedAnswersCount) < messagesCount) {
-                                    this.setState({newMessages: true});
-                                }
-                            });
-                    }
-                });
-            })
+    componentWillUnmount() {
+        this.newMessageSubscription();
+        this.readMessageSubscription();
     }
 
     renderProfit(proposal: ProposalType) {
@@ -135,28 +134,19 @@ export default class ProposalListItem extends Component {
     }
 }
 
-// box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.19452);
-
 const styles = StyleSheet.create({
     blockWrapper: {
         padding: 10,
         borderRadius: 5,
-        //
-        // boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.19452)",
-
         shadowColor: 'rgba(0, 0, 0, 0.2)',
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 1, //0.5,
         shadowRadius: 30,
-
         marginLeft: windowPadding,
         marginRight: windowPadding,
         marginTop: 13,
         marginBottom: 0,
-
         backgroundColor: 'white',
-
-
         ...Platform.select({
             ios: {
                 paddingLeft: windowPadding,

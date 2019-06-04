@@ -1,14 +1,12 @@
 import {AppState, AsyncStorage, Permissions, Platform, Vibration} from "react-native";
 import Client from '../http/Client';
-
 import React from "react";
-// import type {RemoteMessage} from 'react-native-firebase';
 import firebase from "react-native-firebase";
-import {updateProposalList} from "../pages/BattleList/ProposalListItem";
-import GlobalState from "../models/GlobalState";
+import EventBus from 'eventing-bus';
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
+export const NEW_MESSAGE_EVENT = 'new_message_event';
 
 export default class Push {
 
@@ -65,6 +63,9 @@ export default class Push {
 
     setRecieveHandler() {
         FN.onNotification((notification: Notification) => {
+
+            console.log('recive notify', notification);
+
             if (AppState.currentState !== 'active') {
                 notification
                     .android.setChannelId('test-channel')
@@ -73,19 +74,30 @@ export default class Push {
                     .displayNotification(notification)
                     .then(() => {
                         Vibration.vibrate(100, [1000, 2000, 3000]);
-                        updateProposalList();
                     });
             }
 
-            let state = new GlobalState();
-            if (state.DialogList !== null) {
-                state.DialogList.getRemoteList();
-            }
-            if (state.BattleList !== null) {
-                state.BattleList.getRemoteList();
-            }
+            if (notification.data) {
+                if (notification.data.hasOwnProperty('proposalId')) {
+                    console.log('eb send');
 
+                    EventBus.publish(NEW_MESSAGE_EVENT, {
+                        'proposalId': notification.data.proposalId,
+                        'organizationId': notification.data.organizationId
+                    });
+                }
+            }
         });
     }
+}
 
+export class NewMessageEventParams {
+    /**
+     * @type {string}
+     */
+    proposalId;
+    /**
+     * @type {string}
+     */
+    organizationId;
 }

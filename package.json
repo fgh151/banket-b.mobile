@@ -11,10 +11,12 @@
     "ios-realize": "react-native bundle  --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --sourcemap-output ./sourcemap/ios.map",
     "preversion": "./npm-version/pre-version.sh",
     "version": "./npm-version/version-ios.sh",
-    "postversion": "./npm-version/post-version.sh"
+    "postversion": "./npm-version/post-version.sh",
+    "sentry": "sentry-cli react-native gradle --bundle android/app/src/main/assets/index.android.bundle --release 2.0.31 --sourcemap sourcemap/android.map --dist all --project banket-bmobile"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
+    "eventing-bus": "^1.3.3",
     "lodash.isequal": "^4.5.0",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
