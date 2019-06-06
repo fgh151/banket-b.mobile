@@ -9,9 +9,6 @@ export default class FormPage extends React.PureComponent {
     }
 
     setProposalProperty(propertyName, value) {
-
-        console.log("validate", propertyName, value);
-
         let valid = this.proposal.validateProperty(propertyName, value);
         let errorProp = propertyName + '_error';
         let state = {};
@@ -21,7 +18,6 @@ export default class FormPage extends React.PureComponent {
 
         if (valid === true) {
             state[errorProp] = '';
-            console.log('Proposal changed ', this.proposal);
             if (this.proposal.validate()) {
                 state['buttonDisabled'] = false;
             }
@@ -31,8 +27,6 @@ export default class FormPage extends React.PureComponent {
             state[errorProp] = valid;
         }
         this.setState(state);
-
-        console.log(this.state);
     }
 
 
