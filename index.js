@@ -10,16 +10,18 @@ import {Sentry, SentryLog} from 'react-native-sentry';
 import Config from './Config';
 import GlobalState from "./models/GlobalState";
 
-Sentry.config(Config.sentryDSN, {
-    deactivateStacktraceMerging: true,
-    logLevel: SentryLog.Verbose,
-    // currently sentry is not reporting errors on android using the native module
-    disableNativeIntegration: Platform.OS === 'android',
-}).install();
-const app = require('./package');
-Sentry.setExtraContext({
-    version:app.version
-});
+if (__DEV__ !== true) {
+    Sentry.config(Config.sentryDSN, {
+        deactivateStacktraceMerging: true,
+        logLevel: SentryLog.Verbose,
+        // currently sentry is not reporting errors on android using the native module
+        disableNativeIntegration: Platform.OS === 'android',
+    }).install();
+    const app = require('./package');
+    Sentry.setExtraContext({
+        version: app.version
+    });
+}
 
 new GlobalState();
 new Push();
