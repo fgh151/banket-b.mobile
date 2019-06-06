@@ -29,7 +29,6 @@ export default class MessageForm extends Component {
             author_class: "app\\common\\models\\MobileUser",
             organization_id: this.props.organizationId,
             proposal_id: this.props.proposalId,
-            created_at: moment().format('X').toString(),
             message: "",
 
             btnDisabled: true,
@@ -40,21 +39,21 @@ export default class MessageForm extends Component {
     }
 
     sendMessage() {
+        let created = moment().format('X').toString();
         AsyncStorage.getItem('battle@id')
             .then((id) => {
-                const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/o_' + this.organizationId + '/' + this.state.created_at;
+                const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/o_' + this.organizationId + '/' + created;
                 db.ref(path).set({
                     author_class: this.state.author_class,
                     organization_id: this.state.organizationId,
                     proposal_id: this.state.proposal_id,
-                    created_at: moment().format('X').toString(),
+                    created_at: created,
                     message: this.state.message,
                 });
                 this.setState({
                     message: "",
                     btnDisabled: true,
-                    btnStyle: style.buttonWrapperInactive,
-                    created_at: moment().format('X'),
+                    btnStyle: style.buttonWrapperInactive
                 })
             });
 
