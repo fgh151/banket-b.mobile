@@ -47,7 +47,7 @@ export default class MessageForm extends Component {
                     author_class: this.state.author_class,
                     organization_id: this.state.organizationId,
                     proposal_id: this.state.proposal_id,
-                    created_at: this.state.created_at,
+                    created_at: moment().format('X').toString(),
                     message: this.state.message,
                 });
                 this.setState({
