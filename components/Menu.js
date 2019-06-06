@@ -31,11 +31,12 @@ export default class Menu extends React.Component {
             dots: {
                 width: 20, height: 20
             }
-        }
+        };
 
         return (
             <View style={this.props.style}>
-                <TouchableOpacity onPress={this.toggleModal} style={{height: '100%', alignItems: 'center', justifyContent: 'center', width: 50}}>
+                <TouchableOpacity onPress={this.toggleModal}
+                                  style={{height: '100%', alignItems: 'center', justifyContent: 'center', width: 50}}>
                     <ImageBackground
                         source={images[this.props.image]}
                         resizeMode="stretch"
@@ -62,15 +63,21 @@ export default class Menu extends React.Component {
     }
 
     renderButtons() {
+        let buttonsCount = this.props.buttons.length;
         return this.props.buttons.map((item, index) => {
-            return (<Button
-                key={index}
-                onPress={() => {
-                    item.action();
-                    this.toggleModal();
-                }}
-                title={item.title}
-            />)
+            let isLast = buttonsCount === index + 1;
+            return (
+                <View
+                    key={index} style={{paddingBottom: isLast ? 0 : 10}}>
+                    <Button
+                        onPress={() => {
+                            item.action();
+                            this.toggleModal();
+                        }}
+                        title={item.title}
+                    />
+                </View>
+            )
         })
     }
 }

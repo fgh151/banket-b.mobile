@@ -30,6 +30,9 @@ import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
 import {funnel, OPEN_APP_EVENT} from "./components/Funnel";
 import GlobalState from "./models/GlobalState";
 
+import Feedback from './pages/feedback/Feedback';
+import FeedbackDone from './pages/feedback/FeedbackDone';
+
 const customFont = {
     fontFamily: "Lato-Regular",
 };
@@ -174,6 +177,13 @@ export default class App extends React.Component {
                         title="Ваши батлы"
                         titleStyle={localStyle.titleStyle}
                         renderLeftButton={<Menu image="menu" buttons={[
+
+                            {
+                                action: () => {
+                                    Actions.Feedback();
+                                },
+                                title: 'Связаться с нами'
+                            },
                             {
                                 action: () => {
                                     AsyncStorage.clear(() => Actions.WhatIsIt())
@@ -259,6 +269,29 @@ export default class App extends React.Component {
                         key={'RestaurantCard'}
                         component={RestaurantCard}
                         hideNavBar={true}
+                        // initial={true}
+                    />
+
+                    <Scene
+                        titleStyle={localStyle.titleStyle}
+                        key="Feedback"
+                        title={'Связаться с нами'}
+                        component={Feedback}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                    />
+
+                    <Scene
+                        titleStyle={localStyle.titleStyle}
+                        key="FeedbackDone"
+                        title={'Связаться с нами'}
+                        component={FeedbackDone}
+                        back={false}
+                        renderBackButton={() => {
+                        }}
+                        renderLeftButton={() => {
+                        }}
+                        renderRightButton={() => {
+                        }}
                         // initial={true}
                     />
 
