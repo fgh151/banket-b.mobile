@@ -22,10 +22,10 @@ export default class FormPage extends React.PureComponent {
                 state['buttonDisabled'] = false;
             }
         } else {
-            console.log('Invalid!');
             state['buttonDisabled'] = true;
             state[errorProp] = valid;
         }
+
         this.setState(state);
     }
 

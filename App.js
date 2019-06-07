@@ -169,7 +169,6 @@ export default class App extends React.Component {
                         title="Создать батл"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                         // initial={true}
-
                     />
                     <Scene
                         key="BattleList"
@@ -200,7 +199,7 @@ export default class App extends React.Component {
                         component={Services}
                         title="Выберите услуги"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
-
+                        // initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}

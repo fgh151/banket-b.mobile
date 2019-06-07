@@ -78,7 +78,6 @@ export default class FormTimePicker extends React.Component {
     }
 
     onstartSelected = selectedItem => {
-        console.log(selectedItem);
         let value = timePeriod[selectedItem];
         let endTime = timePeriod.slice(selectedItem);
         let state = {

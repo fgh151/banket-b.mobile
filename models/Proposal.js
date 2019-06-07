@@ -67,11 +67,8 @@ export default class Proposal {
      * @returns {boolean|string}
      */
     validateProperty(property: string, value: any) {
-
-
         switch (property) {
             case 'event_type' : {
-                console.log('Type valid ', value !== null, value);
                 return value !== null;
             }
             case 'time' : {
@@ -98,7 +95,13 @@ export default class Proposal {
      * @returns {boolean}
      */
     validate() {
-        return this.cityId !== null && this.event_type !== null && this.date !== null && this.time !== null && this.countValid(this.guests_count, MIN_GUEST_COUNT) && this.countValid(this.amount, MIN_AMOUNT);
+        let valid = this.cityId !== null &&
+            this.event_type !== null &&
+            this.date !== null &&
+            this.time !== null &&
+            this.countValid(this.guests_count, MIN_GUEST_COUNT) &&
+            this.countValid(this.amount, MIN_AMOUNT);
+        return valid;
     }
 
     countValid(count, assert) {
@@ -115,7 +118,6 @@ export default class Proposal {
     save() {
         AsyncStorage.getItem('battle@token')
             .then((result) => {
-                console.log('token', result);
 
                 if (result === null) {
                     Actions.RegisterPhone();

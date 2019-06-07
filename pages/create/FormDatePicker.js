@@ -30,7 +30,6 @@ export default class FormDatePicker extends React.Component{
                 cancelBtnText="Отмена"
                 showIcon={false}
                 onDateChange={(date) => {
-                    console.log(date);
                     this.props.onDateChange(date);
                     this.setDatePlaceholder(date);
                 }}

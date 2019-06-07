@@ -18,20 +18,7 @@ import FormPage, {commonStyles} from './AbstractFormPage';
 import {funnel, GOTO_SERVICES} from "../../components/Funnel";
 
 export default class Form extends FormPage {
-    state = {
-        buttonDisabled: true,
-        eventType: '',
-        guests_count_error: '',
-        amount_error: '',
-        amount_value: null,
-        guests_count: null,
-        show_guests_count_placeholder: false,
-        inputGCFocus: false,
-        show_amount_placeholder: false,
-        inputAmountFocus: false,
 
-        hideButton: false
-    };
 
     proposal = new Proposal();
     now = moment();
@@ -39,12 +26,33 @@ export default class Form extends FormPage {
     constructor(props) {
         super(props);
         this.setProposalProperty = this.setProposalProperty.bind(this);
+
+        this.state = {
+            buttonDisabled: true,
+            eventType: '',
+            guests_count_error: '',
+            amount_error: '',
+            amount_value: null,
+            guests_count: null,
+            show_guests_count_placeholder: false,
+            inputGCFocus: false,
+            show_amount_placeholder: false,
+            inputAmountFocus: false,
+
+            hideButton: false
+        };
     }
 
     nextPage = () => {
         funnel.catchEvent(GOTO_SERVICES);
         Actions.Services();
     };
+
+    // componentDidMount() {
+    //     if (!this.proposal.validate()) {
+    //         this.setState({buttonDisabled: true})
+    //     }
+    // }
 
     render() {
 
