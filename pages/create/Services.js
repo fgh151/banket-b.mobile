@@ -49,19 +49,18 @@ export default class Services extends FormPage {
 
                 <KeyboardAwareScrollView
                     enableOnAndroid={true}
-                    contentContainerStyle={commonStyles.contentContainerStyle}
+                    contentContainerStyle={[commonStyles.contentContainerStyle, {flex: 0}]}
                     innerRef={ref => {
                         this.scroll = ref
                     }}
                 >
                     <View style={{
-                        flex: 1,
                         flexDirection: 'row',
                         justifyContent: 'center',
                         alignItems: 'stretch',
                         flexWrap: 'wrap',
                         maxWidth: 320,
-                        marginTop: 10
+                        marginTop: 10,
                     }}>
                         <ServiceInput text="Флористика" onPress={() => this.toggleProp('floristics')}/>
                         <ServiceInput text="Оформление зала" onPress={() => this.toggleProp('hall')}/>
@@ -76,13 +75,17 @@ export default class Services extends FormPage {
                         <ServiceInput text="Отдельный зал" onPress={() => this.toggleProp('private')}/>
                         <ServiceInput text="Танцпол" onPress={() => this.toggleProp('dance')}/>
                         <ServiceInput text="Свой алкоголь" onPress={() => this.toggleProp('own_alcohol')}/>
+                    </View>
+                    <View style={{width: '100%'}}>
                         <AdditionalInput
                             onChangeText={(notes) => {
                                 this.setProposalProperty('comment', notes);
                                 this.setState({notes: notes});
                             }}
                             value={this.state.notes}
-                            onHeightChange={(newHeight) => this._scrollToInput(ReactNative.findNodeHandle(this.marker))}
+                            onHeightChange={(newHeight) => {
+                                this._scrollToInput(ReactNative.findNodeHandle(this.marker));
+                            }}
                             onFocus={() => {
                             }}
                             onBlur={() => {
