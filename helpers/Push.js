@@ -61,6 +61,10 @@ export default class Push {
             })
     }
 
+    static clearNotifications() {
+        FN.cancelAllNotifications();
+    }
+
     setRecieveHandler() {
         FN.onNotification((notification: Notification) => {
 

@@ -1,9 +1,8 @@
 import DeviceInfo from "react-native-device-info";
 import EventBus from "eventing-bus";
-import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../helpers/Push";
+import Push, {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../helpers/Push";
 import {MESSAGE_READ_EVENT} from "../pages/messeger/Messenger";
 import * as ArrayHelper from "../helpers/ArrayHelper";
-
 
 export default class GlobalState {
     static instance;
@@ -49,6 +48,9 @@ export default class GlobalState {
         EventBus.on(MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
             ArrayHelper.removeA(this.newMessagesInProposal, data.proposalId);
             ArrayHelper.removeA(this.newMessagesInDialogs, data.proposalId + '-' + data.organizationId);
+            if (ArrayHelper.isEmpty(this.newMessagesInDialogs) && ArrayHelper.isEmpty(this.newMessagesInProposal)) {
+                Push.clearNotifications();
+            }
         });
     }
 }
