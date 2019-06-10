@@ -24,10 +24,11 @@
 		30ABE8EB76C64B3D88647649 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E11B1E65D015439EB6CB6EF0 /* libRNGeocoder.a */; };
 		35096C52A39141229EB9FD5D /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D7DCDA58DC4DEF97560B09 /* libRNFirebase.a */; };
 		3609EC4191AEA25ADA09D91B /* libPods-rubanketb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 943FA4424BDF685B2177C470 /* libPods-rubanketb.a */; };
+		468B134B22AE6BF2007F362F /* InputMask.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 468B134A22AE6BDB007F362F /* InputMask.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		468B134C22AE6C08007F362F /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B134A22AE6BDB007F362F /* InputMask.framework */; };
 		6F042C5E221EC19800D7757C /* libRNAppsFlyer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F042C5D221EC18B00D7757C /* libRNAppsFlyer.a */; };
 		6F042C6A221EC3AF00D7757C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F042C68221EC3AE00D7757C /* Lato-Bold.ttf */; };
 		6F042C6B221EC3AF00D7757C /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F042C69221EC3AE00D7757C /* Lato-Regular.ttf */; };
-		6F0BD3B822AE57FF0046B596 /* InputMask.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0BD36522AE56580046B596 /* InputMask.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6F0BD3B922AE580D0046B596 /* libRNTextInputMask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0BD3B722AE57E90046B596 /* libRNTextInputMask.a */; };
 		6F1D0113221A90C9009733BE /* libRNSentry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F1D0072221A8F5D009733BE /* libRNSentry.a */; };
 		6F1D028F221AAEBE009733BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F1D028E221AAEBE009733BE /* GoogleService-Info.plist */; };
@@ -36,7 +37,6 @@
 		802C393FD3C54B3B9AC98B5B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F13CCD665704C11A25AA971 /* libSplashScreen.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		BB4552F220D84EF08C71B51F /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A82F430BF954CB79DA099CE /* InputMask.framework */; };
 		F5AA33BDE5C9432ABCEEB2B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3B59685B014C11B8EE5173 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
@@ -265,6 +265,13 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
+		468B134922AE6BDB007F362F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 468B134522AE6BDB007F362F /* InputMask.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A808ECB1D5B0FEC00A75B9C;
+			remoteInfo = InputMask;
+		};
 		5E9157321DD0AC6500FF2AA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
@@ -428,7 +435,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6F0BD3B822AE57FF0046B596 /* InputMask.framework in Embed Frameworks */,
+				468B134B22AE6BF2007F362F /* InputMask.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +465,8 @@
 		29D203D4ED26415D96F7EE4E /* libRNAppsFlyer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAppsFlyer.a; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F3B59685B014C11B8EE5173 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		4625081422AE5AD000B98BD0 /* InputMask.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMask.framework; path = "../../../../Library/Developer/Xcode/DerivedData/rubanketb-gnynzychdbmcbvhiurwgkwedndbz/Build/Products/Debug-iphoneos/InputMask.framework"; sourceTree = "<group>"; };
+		468B134522AE6BDB007F362F /* InputMask.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputMask.xcodeproj; path = "../node_modules/react-native-text-input-mask/ios/RNTextInputMask/InputMask/InputMask.xcodeproj"; sourceTree = "<group>"; };
 		531AB6A0AE6C4CB38C8B8E77 /* InputMaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = InputMaskTests.xctest; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F13CCD665704C11A25AA971 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
@@ -465,7 +474,6 @@
 		6F042C58221EC18B00D7757C /* RNAppsFlyer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNAppsFlyer.xcodeproj; path = "../node_modules/react-native-appsflyer/ios/RNAppsFlyer.xcodeproj"; sourceTree = "<group>"; };
 		6F042C68221EC3AE00D7757C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		6F042C69221EC3AE00D7757C /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
-		6F0BD36522AE56580046B596 /* InputMask.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMask.framework; path = "../../../../Library/Developer/Xcode/DerivedData/rubanketb-gcsytozkajqhjahjxpnwfifvyiqi/Build/Products/Debug-iphoneos/InputMask.framework"; sourceTree = "<group>"; };
 		6F0BD3B122AE57E90046B596 /* RNTextInputMask.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNTextInputMask.xcodeproj; path = "../node_modules/react-native-text-input-mask/ios/RNTextInputMask/RNTextInputMask.xcodeproj"; sourceTree = "<group>"; };
 		6F1D0046221A8F5D009733BE /* RNSentry.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		6F1D01ED221A9E8B009733BE /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
@@ -505,12 +513,12 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				30ABE8EB76C64B3D88647649 /* libRNGeocoder.a in Frameworks */,
+				468B134C22AE6C08007F362F /* InputMask.framework in Frameworks */,
 				F5AA33BDE5C9432ABCEEB2B1 /* libz.tbd in Frameworks */,
 				802C393FD3C54B3B9AC98B5B /* libSplashScreen.a in Frameworks */,
-				BB4552F220D84EF08C71B51F /* InputMask.framework in Frameworks */,
 				7AA79711FE1D4BBDBAF41543 /* InputMaskTests.xctest in Frameworks */,
-				3609EC4191AEA25ADA09D91B /* libPods-rubanketb.a in Frameworks */,
 				6F0BD3B922AE580D0046B596 /* libRNTextInputMask.a in Frameworks */,
+				3609EC4191AEA25ADA09D91B /* libPods-rubanketb.a in Frameworks */,
 				35096C52A39141229EB9FD5D /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,6 +655,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		468B134622AE6BDB007F362F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				468B134A22AE6BDB007F362F /* InputMask.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		53ECCDD13245BB77F931B30E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +789,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				468B134522AE6BDB007F362F /* InputMask.xcodeproj */,
 				6F0BD3B122AE57E90046B596 /* RNTextInputMask.xcodeproj */,
 				6F8377FC228EBC5F008D116C /* RNDeviceInfo.xcodeproj */,
 				6F00CC272224288000D0A9DF /* SplashScreen.xcodeproj */,
@@ -809,7 +826,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				6F0BD36522AE56580046B596 /* InputMask.framework */,
+				4625081422AE5AD000B98BD0 /* InputMask.framework */,
 				13B07FAE1A68108700A75B9A /* rubanketb */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* rubanketbTests */,
@@ -904,6 +921,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 468B134622AE6BDB007F362F /* Products */;
+					ProjectRef = 468B134522AE6BDB007F362F /* InputMask.xcodeproj */;
+				},
 				{
 					ProductGroup = 6F1D01EE221A9E8B009733BE /* Products */;
 					ProjectRef = 6F1D01ED221A9E8B009733BE /* Pods.xcodeproj */;
@@ -1217,6 +1238,13 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		468B134A22AE6BDB007F362F /* InputMask.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = InputMask.framework;
+			remoteRef = 468B134922AE6BDB007F362F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1437,7 +1465,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EXTRA_DIR=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Frameworks/InputMask.framework/Frameworks\"\n\nif [[ -d \"${EXTRA_DIR}\" ]]; then\nrm -rf \"${EXTRA_DIR}\"\nfi\n";
+			shellScript = "#EXTRA_DIR=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Frameworks/InputMask.framework/Frameworks\"\n\n#if [[ -d \"${EXTRA_DIR}\" ]]; then\n#rm -rf \"${EXTRA_DIR}\"\n#fi\n";
 		};
 		6F232EA122451EDC00D13AA4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
