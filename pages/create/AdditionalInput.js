@@ -27,7 +27,9 @@ export default class AdditionalInput extends React.PureComponent {
                     fontFamily: "Lato-Regular",
                     marginRight: 10,
                     textAlignVertical: 'top',
-                    height: this.state.height,
+                    maxWidth: 310,
+                    height: 'auto',
+                    flex: 1
                 }]}
 
                 onContentSizeChange={(event) => {
