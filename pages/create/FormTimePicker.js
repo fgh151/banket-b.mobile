@@ -16,21 +16,26 @@ const defaultValue = timePeriod[23] + ' - ' + timePeriod[24];
 
 export default class FormTimePicker extends React.Component {
 
-    state = {
-        modalVisible: false,
-        viewText: 'Время',
-        startTime: null,
-        endTime: null,
-        selectedStart: '12:00',
-        selectedEnd: '12:00',
-        valid: false,
-        selectedItemStart: 24,
-        selectedItemEnd: 24,
 
-        timePeriod: timePeriod,
-        endTimePeriod: timePeriod,
-        startTimePeriod: timePeriod
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            modalVisible: false,
+            viewText: 'Время',
+            startTime: null,
+            endTime: null,
+            selectedStart: '12:00',
+            selectedEnd: '12:00',
+            valid: false,
+            selectedItemStart: 24,
+            selectedItemEnd: 24,
+
+            timePeriod: timePeriod,
+            endTimePeriod: timePeriod,
+            startTimePeriod: timePeriod
+        };
+    }
 
     render() {
         return (
@@ -107,6 +112,9 @@ export default class FormTimePicker extends React.Component {
             state.viewText = this.state.startTime + ' - ' + value;
             state.valid = true;
             this.onDateChange(state.viewText);
+        } else {
+            state.viewText = '12:00 - ' + value;
+            state.valid = true;
         }
         this.setState(state)
     };
