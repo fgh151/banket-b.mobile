@@ -10,6 +10,9 @@ import AdditionalInput from './AdditionalInput'
 import FormPage, {commonStyles} from './AbstractFormPage';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {funnel, GOFROM_SERVICE} from "../../components/Funnel";
+import EventBus from "eventing-bus";
+
+export const BACK_TO_FORM_EVENT = 'back_to_form';
 
 export default class Services extends FormPage {
 
@@ -29,6 +32,12 @@ export default class Services extends FormPage {
         this.setState({buttonDisabled: true});
         this.proposal.save()
     };
+
+    componentDidMount(): void {
+        EventBus.on(BACK_TO_FORM_EVENT, () => {
+            this.setState({buttonDisabled: false})
+        });
+    }
 
     toggleProp = (propertyName) => {
         this.proposal[propertyName] = !this.proposal[propertyName];

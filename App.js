@@ -32,6 +32,7 @@ import GlobalState from "./models/GlobalState";
 
 import Feedback from './pages/feedback/Feedback';
 import FeedbackDone from './pages/feedback/FeedbackDone';
+import BackFromRegister from "./components/BackFromRegister";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -150,7 +151,7 @@ export default class App extends React.Component {
                         navigationBarStyle={Styles.navBar}
                         component={RegisterPhone}
                         title="Регистрация"
-                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        renderBackButton={() => <BackFromRegister style={localStyle.androidBackButton}/>}
                         // initial={true}
                     />
                     <Scene

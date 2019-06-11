@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Image, TouchableOpacity, View, StyleSheet, Platform} from 'react-native'
+import {Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Actions} from "react-native-router-flux";
 
 export default class BackButton extends Component{
 
     image = require('../assets/images/back.png');
 
+    backAction = () => Actions.pop();
 
     render() {
         if (this.props.image) {
@@ -15,7 +16,7 @@ export default class BackButton extends Component{
             <TouchableOpacity
                 style={[styles.wrapper, this.props.style]}
                 onPress={() => {
-                    Actions.pop();
+                    this.backAction();
                 }}
             >
                 <View style={{ alignItems: 'center', backgroundColor:'transparent', padding:16 }}>
