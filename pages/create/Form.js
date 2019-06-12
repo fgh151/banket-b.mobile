@@ -48,12 +48,6 @@ export default class Form extends FormPage {
         Actions.Services();
     };
 
-    // componentDidMount() {
-    //     if (!this.proposal.validate()) {
-    //         this.setState({buttonDisabled: true})
-    //     }
-    // }
-
     render() {
 
         if (Platform.OS === 'android') {

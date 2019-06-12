@@ -107,15 +107,14 @@ export default class FormTimePicker extends React.Component {
             endTime: value,
             selectedEnd: selectedItem,
             selectedItemEnd: selectedItem,
+            valid: true
         };
         if (this.state.startTime !== null) {
             state.viewText = this.state.startTime + ' - ' + value;
-            state.valid = true;
-            this.onDateChange(state.viewText);
         } else {
             state.viewText = '12:00 - ' + value;
-            state.valid = true;
         }
+        this.onDateChange(state.viewText);
         this.setState(state)
     };
 
