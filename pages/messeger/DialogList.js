@@ -246,6 +246,7 @@ const pickerStyle = StyleSheet.create({
         paddingTop: 0,
         paddingBottom: 0,
         marginTop: -5,
-        marginRight: 0
+        marginRight: 10,
+        color: '#919498',
     }
 });
