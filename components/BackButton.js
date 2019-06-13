@@ -4,9 +4,13 @@ import {Actions} from "react-native-router-flux";
 
 export default class BackButton extends Component{
 
+    constructor(props) {
+        super(props);
+    }
+
     image = require('../assets/images/back.png');
 
-    backAction = () => Actions.pop();
+    backAction = () => this.props.backAction === undefined ? Actions.pop() : this.props.backAction();
 
     render() {
         if (this.props.image) {

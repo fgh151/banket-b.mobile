@@ -168,7 +168,8 @@ export default class App extends React.Component {
                         key="Form"
                         component={Form}
                         title="Создать батл"
-                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}
+                                                            backAction={() => Actions.WhatIsIt()}/>}
                         // initial={true}
                     />
                     <Scene
@@ -199,7 +200,8 @@ export default class App extends React.Component {
                         key="Services"
                         component={Services}
                         title="Выберите услуги"
-                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}
+                                                            backAction={() => Actions.Form()}/>}
                         // initial={true}
                     />
                     <Scene
