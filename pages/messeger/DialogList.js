@@ -12,8 +12,12 @@ import type {Organization} from "../../types/Organization";
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import PickerSelect from '../../components/PickerSelect';
 import GlobalState from "../../models/GlobalState";
+import EventBus from "eventing-bus";
+import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
 
 export default class DialogList extends Component {
+
+    newMessageSubscription;
 
     state = {
         items: [],
@@ -54,6 +58,21 @@ export default class DialogList extends Component {
 
         let gs = new GlobalState();
         gs.DialogList = this;
+    }
+
+    componentWillMount() {
+        this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+            if (data.proposalId === this.props.proposal.id) {
+                if (this.state.items.length === 0) {
+                    this.setState({loaded: false});
+                }
+                this.fetchData(true);
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.newMessageSubscription();
     }
 
     /**
