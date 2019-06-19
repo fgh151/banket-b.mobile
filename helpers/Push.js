@@ -63,6 +63,7 @@ export default class Push {
 
     static clearNotifications() {
         FN.cancelAllNotifications();
+        FN.removeAllDeliveredNotifications();
     }
 
     setRecieveHandler() {
