@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import {formatCost, formatDate, plural} from '../../helpers/StringHelper';
 import Proposal from "../../models/Proposal";
@@ -10,7 +10,7 @@ import NewMessagesNotify from "../../components/NewMessagesNotify";
 import Profit from "../../components/Profit";
 import GlobalState from "../../models/GlobalState";
 import EventBus from 'eventing-bus';
-import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
+import {NEW_MESSAGE_EVENT, NEW_PROPOSALS_IDS, NewMessageEventParams} from "../../helpers/Push";
 import {MESSAGE_READ_EVENT} from "../messeger/Messenger";
 
 let shouldUpdate = false;
@@ -57,6 +57,13 @@ export default class ProposalListItem extends Component {
         if (this.props.proposal.id in state.newMessagesInProposal) {
             this.setState({newMessages: true});
         }
+
+        AsyncStorage.getItem(NEW_PROPOSALS_IDS).then(data => {
+            data = JSON.parse(data);
+            if (this.props.proposal.id in data) {
+                this.setState({newMessages: true})
+            }
+        })
     }
 
     componentWillUnmount() {

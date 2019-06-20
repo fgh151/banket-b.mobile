@@ -8,6 +8,9 @@ const FCM = firebase.messaging();
 const FN = firebase.notifications();
 export const NEW_MESSAGE_EVENT = 'new_message_event';
 
+export const NEW_PROPOSALS_IDS = 'npids';
+export const NEW_ORGANIZATIONS_IDS = 'noids';
+
 export default class Push {
 
     url = '/api/v2/push';
@@ -81,6 +84,18 @@ export default class Push {
                     .then(() => {
                         Vibration.vibrate(100, [1000, 2000, 3000]);
                     });
+            } else {
+                if (notification.data) {
+                    if (notification.data.hasOwnProperty('proposalId')) {
+                        let data = {
+                            'proposalId': notification.data.proposalId,
+                            'organizationId': notification.data.organizationId
+                        };
+
+                        this.extracted(NEW_ORGANIZATIONS_IDS, notification.data.organizationId);
+                        this.extracted(NEW_PROPOSALS_IDS, notification.data.proposalId);
+                    }
+                }
             }
 
             if (notification.data) {
@@ -93,6 +108,18 @@ export default class Push {
                     });
                 }
             }
+        });
+    }
+
+    extracted(key, value) {
+        AsyncStorage.getItem(key).then(data => {
+            if (data !== null) {
+                data = JSON.parse(data);
+                data.push(value);
+            } else {
+                data = [value];
+            }
+            AsyncStorage.setItem(key, JSON.stringify(data));
         });
     }
 }

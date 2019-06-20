@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
@@ -11,7 +11,7 @@ import AndroidVersion from "../../helpers/AndroidVersion";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
 import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
-import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
+import {NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS, NewMessageEventParams} from "../../helpers/Push";
 import {MESSAGE_READ_EVENT} from "./Messenger";
 
 export default class DialogListItem extends Component {
@@ -37,6 +37,15 @@ export default class DialogListItem extends Component {
             organization: organization,
             proposal: proposal
         });
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem(NEW_ORGANIZATIONS_IDS).then(data => {
+            data = JSON.parse(data);
+            if (this.props.organization.id in data) {
+                this.setState({newMessages: true})
+            }
+        })
     }
 
     componentWillMount() {

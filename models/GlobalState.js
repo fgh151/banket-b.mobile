@@ -1,8 +1,9 @@
 import DeviceInfo from "react-native-device-info";
 import EventBus from "eventing-bus";
-import Push, {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../helpers/Push";
+import Push, {NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS, NewMessageEventParams} from "../helpers/Push";
 import {MESSAGE_READ_EVENT} from "../pages/messeger/Messenger";
 import * as ArrayHelper from "../helpers/ArrayHelper";
+import {AsyncStorage} from "react-native";
 
 export default class GlobalState {
     static instance;
@@ -51,6 +52,19 @@ export default class GlobalState {
             if (ArrayHelper.isEmpty(this.newMessagesInDialogs) && ArrayHelper.isEmpty(this.newMessagesInProposal)) {
                 Push.clearNotifications();
             }
+
+            this.extracted(NEW_MESSAGE_EVENT, data, 'proposalId');
+            this.extracted(NEW_ORGANIZATIONS_IDS, data, 'organizationId');
         });
+    }
+
+    extracted(key, data, dataKey) {
+        AsyncStorage.getItem(key).then(storage => {
+            if (storage !== null) {
+                storage = JSON.parse(storage);
+                ArrayHelper.removeA(storage, data[dataKey]);
+                AsyncStorage.setItem(key, storage);
+            }
+        })
     }
 }
