@@ -12,6 +12,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.wheelpicker.WheelPickerPackage;
 
 import net.zubricky.AndroidKeyboardAdjust.AndroidKeyboardAdjustPackage;
@@ -52,7 +54,9 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNFirebaseNotificationsPackage(),
                     new RNFirebaseDatabasePackage(),
                     new WheelPickerPackage(),
-                    new AndroidKeyboardAdjustPackage()
+                    new AndroidKeyboardAdjustPackage(),
+                    new AsyncStoragePackage(),
+                    new NetInfoPackage()
             );
         }
 
