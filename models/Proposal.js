@@ -2,7 +2,7 @@ import trackEvent from "../helpers/AppsFlyer";
 import Client from '../http/Client';
 import * as ArrayHelper from "../helpers/ArrayHelper";
 import {Actions} from "react-native-router-flux";
-import {AsyncStorage} from "react-native";
+import AS from '@react-native-community/async-storage'
 import React from "react";
 import {City} from "../helpers/GeoLocation";
 import {BATTLE_CREATED, funnel} from "../components/Funnel";
@@ -116,7 +116,7 @@ export default class Proposal {
     }
 
     save() {
-        AsyncStorage.getItem('battle@token')
+        AS.getItem('battle@token')
             .then((result) => {
 
                 if (result === null) {

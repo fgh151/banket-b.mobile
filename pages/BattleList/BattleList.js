@@ -1,9 +1,10 @@
 import React from 'react';
-import {AsyncStorage, FlatList, Platform, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Platform, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import AS from '@react-native-community/async-storage'
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
 import ProposalListItem from "./ProposalListItem";
-import CacheStore from 'react-native-cache-store';
+import CacheStore from '../../components/CacheStore';
 import Client from '../../http/Client';
 import Config from '../../Config';
 import Empty from './Empty';
@@ -119,7 +120,7 @@ export default class BattleList extends React.PureComponent {
                     }
                 )
         } else {
-            AsyncStorage.getItem('battle@token')
+            AS.getItem('battle@token')
                 .then((result) => {
                     if (result === null) {
                         Actions.login();
@@ -214,7 +215,7 @@ export default class BattleList extends React.PureComponent {
      * @param dialogId
      */
     delete(dialogId) {
-        AsyncStorage.getItem('battle@token')
+        AS.getItem('battle@token')
             .then((result) => {
                 if (result === null) {
                     Actions.login();

@@ -1,5 +1,5 @@
 import config from '../Config';
-import {NetInfo} from 'react-native';
+import NetInfo from "@react-native-community/netinfo";
 import GlobalState from "../models/GlobalState";
 
 export const LOGIN_CODE_KEY = 'login_code_key';
@@ -81,7 +81,7 @@ export default class Client {
 
     onlineFetch(fullRoute, opts, debugInfo='') {
         const fetchPromise = () => fetch(fullRoute, opts);
-        return NetInfo.getConnectionInfo().then((connectionInfo) => {
+        return NetInfo.fetch().then((connectionInfo) => {
 
 
             // console.log(connectionInfo.type);

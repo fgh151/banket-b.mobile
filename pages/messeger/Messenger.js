@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Platform, SafeAreaView, StyleSheet, View} from "react-native";
+import {FlatList, Platform, SafeAreaView, StyleSheet, View} from "react-native";
+import AS from '@react-native-community/async-storage'
 import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
@@ -44,7 +45,7 @@ export default class Messenger extends Component {
     }
 
     componentWillUnmount() {
-        AsyncStorage.getItem('battle@id')
+        AS.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
                 db.ref(path).off()
@@ -66,7 +67,7 @@ export default class Messenger extends Component {
             }
         });
 
-        AsyncStorage.getItem('battle@id')
+        AS.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
                 let ref = db.ref(path);

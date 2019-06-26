@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {AsyncStorage, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import AS from '@react-native-community/async-storage'
 import {Actions} from "react-native-router-flux";
 import {formatCost, formatDate, plural} from '../../helpers/StringHelper';
 import Proposal from "../../models/Proposal";
@@ -58,10 +59,12 @@ export default class ProposalListItem extends Component {
             this.setState({newMessages: true});
         }
 
-        AsyncStorage.getItem(NEW_PROPOSALS_IDS).then(data => {
-            data = JSON.parse(data);
-            if (this.props.proposal.id in data) {
-                this.setState({newMessages: true})
+        AS.getItem(NEW_PROPOSALS_IDS).then(data => {
+            if (data) {
+                data = JSON.parse(data);
+                if (this.props.proposal.id in data) {
+                    this.setState({newMessages: true})
+                }
             }
         })
     }

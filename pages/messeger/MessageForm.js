@@ -3,7 +3,6 @@ import moment from "moment";
 import {db} from '../../Config';
 import {
     Animated,
-    AsyncStorage,
     Keyboard,
     KeyboardAvoidingView,
     Platform,
@@ -13,6 +12,7 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
+import AS from '@react-native-community/async-storage'
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import {CHAT_ANSWER, funnel} from "../../components/Funnel";
@@ -40,7 +40,7 @@ export default class MessageForm extends Component {
 
     sendMessage() {
         let created = moment().format('X').toString();
-        AsyncStorage.getItem('battle@id')
+        AS.getItem('battle@id')
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/o_' + this.organizationId + '/' + created;
                 db.ref(path).set({

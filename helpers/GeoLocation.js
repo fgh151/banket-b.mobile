@@ -1,7 +1,8 @@
 import Geocoder from 'react-native-geocoder';
 import Geolocation from 'react-native-geolocation-service';
-import {PermissionsAndroid, AsyncStorage} from "react-native";
+import {PermissionsAndroid} from "react-native";
 import Client from '../http/Client';
+import AS from '@react-native-community/async-storage'
 
 
 const Position = {
@@ -89,7 +90,7 @@ export default class GeoLocation {
         GeoLocation.getRemoteCities()
             .then(
                 (responseData) => {
-                    AsyncStorage.setItem(GeoLocation.CACHE_KEY, responseData);
+                    AS.setItem(GeoLocation.CACHE_KEY, responseData);
                     let c = responseData.find((cityObject) => cityObject.title === cityName);
                     if (c) {
                         // console.log(c);

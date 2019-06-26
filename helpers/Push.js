@@ -1,8 +1,9 @@
-import {AppState, AsyncStorage, Permissions, Platform, Vibration} from "react-native";
+import {AppState, Permissions, Platform, Vibration} from "react-native";
 import Client from '../http/Client';
 import React from "react";
 import firebase from "react-native-firebase";
 import EventBus from 'eventing-bus';
+import AS from '@react-native-community/async-storage'
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -51,7 +52,7 @@ export default class Push {
 
         console.log("Save token", token);
 
-        AsyncStorage.getItem('battle@id')
+        AS.getItem('battle@id')
             .then((userId) => {
                 console.log("Save token", userId, token);
                 const api = new Client();
@@ -73,9 +74,11 @@ export default class Push {
     setRecieveHandler() {
         FN.onNotification((notification: Notification) => {
 
-            console.log('recive notify', notification);
+
+            console.log('notify', notification.data);
 
             if (AppState.currentState !== 'active') {
+
                 notification
                     .android.setChannelId('test-channel')
                     .android.setSmallIcon('ic_launcher');
@@ -87,11 +90,6 @@ export default class Push {
             } else {
                 if (notification.data) {
                     if (notification.data.hasOwnProperty('proposalId')) {
-                        let data = {
-                            'proposalId': notification.data.proposalId,
-                            'organizationId': notification.data.organizationId
-                        };
-
                         this.extracted(NEW_ORGANIZATIONS_IDS, notification.data.organizationId);
                         this.extracted(NEW_PROPOSALS_IDS, notification.data.proposalId);
                     }
@@ -100,8 +98,6 @@ export default class Push {
 
             if (notification.data) {
                 if (notification.data.hasOwnProperty('proposalId')) {
-                    console.log('eb send');
-
                     EventBus.publish(NEW_MESSAGE_EVENT, {
                         'proposalId': notification.data.proposalId,
                         'organizationId': notification.data.organizationId
@@ -112,14 +108,14 @@ export default class Push {
     }
 
     extracted(key, value) {
-        AsyncStorage.getItem(key).then(data => {
+        AS.getItem(key).then(data => {
             if (data !== null) {
                 data = JSON.parse(data);
                 data.push(value);
             } else {
                 data = [value];
             }
-            AsyncStorage.setItem(key, JSON.stringify(data));
+            AS.setItem(key, JSON.stringify(data));
         });
     }
 }

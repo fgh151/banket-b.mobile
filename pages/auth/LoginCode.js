@@ -1,5 +1,6 @@
 import React from 'react';
-import {Alert, AsyncStorage, Platform, ScrollView, StyleSheet, View} from "react-native";
+import {Alert, Platform, ScrollView, StyleSheet, View} from "react-native";
+import AS from '@react-native-community/async-storage'
 import Input from "../../components/Input";
 import TextInputMask from "react-native-text-input-mask";
 import {Button} from "../../components/Button";
@@ -49,7 +50,7 @@ export default class LoginCode extends React.Component {
                     } else {
                         console.log(response);
 
-                        AsyncStorage.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
+                        AS.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
                             .then(() => {
                                 console.log('added');
                                 trackEvent(

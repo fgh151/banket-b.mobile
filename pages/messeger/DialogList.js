@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import {AsyncStorage, FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
+import {FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
+import AS from '@react-native-community/async-storage'
 import Client from "../../http/Client";
 import Loading from "../Loading";
 import {Actions} from "react-native-router-flux";
-import CacheStore from 'react-native-cache-store';
+import CacheStore from '../../components/CacheStore';
 import DialogListItem from './DialogListItem';
 import Config from "../../Config";
 import {changeTitle} from "../../components/ProposalBar";
@@ -62,7 +63,7 @@ export default class DialogList extends Component {
 
     componentWillMount() {
         this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
-            if (data.proposalId === this.props.proposal.id) {
+            if (parseInt(data.proposalId) === this.props.proposal.id) {
                 if (this.state.items.length === 0) {
                     this.setState({loaded: false});
                 }
@@ -96,7 +97,7 @@ export default class DialogList extends Component {
 
     getRemoteList() {
         const CACHE_KEY = 'dialog-list';
-        AsyncStorage.getItem('battle@token')
+        AS.getItem('battle@token')
             .then((result) => {
                 if (result === null) {
                     Actions.LoginPhone();
@@ -133,7 +134,7 @@ export default class DialogList extends Component {
     }
 
     delete(proposalId, dialogId) {
-        AsyncStorage.getItem('battle@token')
+        AS.getItem('battle@token')
             .then((result) => {
                 if (result === null) {
                     Actions.login();

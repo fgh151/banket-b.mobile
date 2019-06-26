@@ -3,7 +3,7 @@ import EventBus from "eventing-bus";
 import Push, {NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS, NewMessageEventParams} from "../helpers/Push";
 import {MESSAGE_READ_EVENT} from "../pages/messeger/Messenger";
 import * as ArrayHelper from "../helpers/ArrayHelper";
-import {AsyncStorage} from "react-native";
+import AS from '@react-native-community/async-storage'
 
 export default class GlobalState {
     static instance;
@@ -47,23 +47,26 @@ export default class GlobalState {
         });
 
         EventBus.on(MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
+            this.extracted(NEW_MESSAGE_EVENT, data, 'proposalId');
+            this.extracted(NEW_ORGANIZATIONS_IDS, data, 'organizationId');
             ArrayHelper.removeA(this.newMessagesInProposal, data.proposalId);
             ArrayHelper.removeA(this.newMessagesInDialogs, data.proposalId + '-' + data.organizationId);
             if (ArrayHelper.isEmpty(this.newMessagesInDialogs) && ArrayHelper.isEmpty(this.newMessagesInProposal)) {
                 Push.clearNotifications();
             }
 
-            this.extracted(NEW_MESSAGE_EVENT, data, 'proposalId');
-            this.extracted(NEW_ORGANIZATIONS_IDS, data, 'organizationId');
         });
     }
 
     extracted(key, data, dataKey) {
-        AsyncStorage.getItem(key).then(storage => {
-            if (storage !== null) {
-                storage = JSON.parse(storage);
-                ArrayHelper.removeA(storage, data[dataKey]);
-                AsyncStorage.setItem(key, storage);
+        AS.getItem(key).then(existStorage => {
+
+            console.log('sss', existStorage);
+
+            if (existStorage !== null) {
+                existStorage = JSON.parse(existStorage);
+                ArrayHelper.removeA(existStorage, data[dataKey]);
+                AS.setItem(key, JSON.stringify(existStorage));
             }
         })
     }

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import AS from '@react-native-community/async-storage'
 import {Actions} from "react-native-router-flux";
 import Shadow from "../../components/Shadow";
 import {Styles as textStyle} from "../../styles/Global";
@@ -40,10 +41,12 @@ export default class DialogListItem extends Component {
     }
 
     componentDidMount() {
-        AsyncStorage.getItem(NEW_ORGANIZATIONS_IDS).then(data => {
-            data = JSON.parse(data);
-            if (this.props.organization.id in data) {
-                this.setState({newMessages: true})
+        AS.getItem(NEW_ORGANIZATIONS_IDS).then(data => {
+            if (data) {
+                data = JSON.parse(data);
+                if (this.props.organization.id in data) {
+                    this.setState({newMessages: true})
+                }
             }
         })
     }

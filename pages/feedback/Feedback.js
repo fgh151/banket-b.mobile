@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {AsyncStorage, Platform, StyleSheet, TextInput, View} from "react-native"
+import {Platform, StyleSheet, TextInput, View} from "react-native"
+import AS from '@react-native-community/async-storage'
 import {Button} from "../../components/Button";
 import {Styles as textStyle} from "../../styles/Global";
 import {Actions} from "react-native-router-flux";
@@ -24,7 +25,7 @@ export default class Feedback extends Component {
     nextPage = () => {
         console.log('next');
         this.setState({btnDisabled: true});
-        AsyncStorage.getItem('battle@token')
+        AS.getItem('battle@token')
             .then((result) => {
                 if (result === null) {
                     Actions.RegisterPhone();

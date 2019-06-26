@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppState, AsyncStorage, Platform, StyleSheet} from "react-native"
+import {AppState, Platform, StyleSheet} from "react-native"
 import {Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import BattleList, {RightButton} from './pages/BattleList/BattleList'
@@ -25,14 +25,13 @@ import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
-
 import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
 import {funnel, OPEN_APP_EVENT} from "./components/Funnel";
 import GlobalState from "./models/GlobalState";
-
 import Feedback from './pages/feedback/Feedback';
 import FeedbackDone from './pages/feedback/FeedbackDone';
 import BackFromRegister from "./components/BackFromRegister";
+import AS from '@react-native-community/async-storage'
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -72,7 +71,7 @@ export default class App extends React.Component {
                 }
             });
 
-        AsyncStorage.getItem('battle@id')
+        AS.getItem('battle@id')
             .then((userId) => {
                 let gs = new GlobalState();
                 gs.userId = userId;
@@ -187,7 +186,7 @@ export default class App extends React.Component {
                             },
                             {
                                 action: () => {
-                                    AsyncStorage.clear(() => Actions.WhatIsIt())
+                                    AS.clear(() => Actions.WhatIsIt())
                                 },
                                 title: 'Выйти'
                             }
@@ -233,7 +232,7 @@ export default class App extends React.Component {
                                     {
                                         action: () => {
                                             let p = getCurrentProposal();
-                                            AsyncStorage.getItem('battle@token')
+                                            AS.getItem('battle@token')
                                                 .then((result) => {
                                                     const api = new Client(result);
                                                     api.GET('/proposal/close/' + p.id)
