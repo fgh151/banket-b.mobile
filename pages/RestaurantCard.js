@@ -18,6 +18,8 @@ import BackButton from "../components/BackButton";
 import {Styles, windowPadding} from '../styles/Global';
 import {isEmpty} from "../helpers/ArrayHelper";
 import {ifIphoneX} from "react-native-iphone-x-helper";
+import {funnel} from "../components/Funnel";
+import {FUNNEL_OPEN_MAP} from "../helpers/Constants";
 
 // const org = {
 //     "id": 1,
@@ -84,6 +86,7 @@ export default function RestaurantCard(props) {
                     borderBottomWidth: 1
                 }}>
                     <TouchableOpacity onPress={() => {
+                        funnel.catchEvent(FUNNEL_OPEN_MAP, {organizationId: this.restaurant.id});
                         openMap({
                             latitude: this.restaurant.latitude,
                             longitude: this.restaurant.longitude
