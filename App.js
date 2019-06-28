@@ -32,7 +32,8 @@ import Feedback from './pages/feedback/Feedback';
 import FeedbackDone from './pages/feedback/FeedbackDone';
 import BackFromRegister from "./components/BackFromRegister";
 import AS from '@react-native-community/async-storage'
-import {FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_ID, STORAGE_AUTH_TOKEN} from "./helpers/Constants";
+import {BUS_CLOSE_PROPOSAL, FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_ID, STORAGE_AUTH_TOKEN} from "./helpers/Constants";
+import EventBus from "eventing-bus";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -244,6 +245,8 @@ export default class App extends React.Component {
                                                             }
                                                         )
                                                 });
+
+                                            setTimeout(() => EventBus.publish(BUS_CLOSE_PROPOSAL), 1500);
                                             Actions.BattleList();
                                         },
                                         title: 'Закончить батл'

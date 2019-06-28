@@ -14,7 +14,13 @@ import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {funnel} from "../../components/Funnel";
-import {FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
+import {
+    BUS_CLOSE_PROPOSAL,
+    FUNNEL_OPEN_APP_EVENT,
+    STORAGE_AUTH_TOKEN,
+    STORAGE_PROPOSALS_LIST_CACHE_KEY
+} from "../../helpers/Constants";
+import EventBus from "eventing-bus";
 
 let showButtonState = false;
 
@@ -61,6 +67,8 @@ export class RightButton extends React.Component {
 
 export default class BattleList extends React.PureComponent {
 
+    deleteProposalHandler;
+
     constructor(props) {
 
 
@@ -87,10 +95,16 @@ export default class BattleList extends React.PureComponent {
     componentDidMount() {
         this.fetchData(true);
         AppState.addEventListener('change', this._handleAppStateChange);
+
+        this.deleteProposalHandler = EventBus.on(BUS_CLOSE_PROPOSAL, () => {
+            console.log('refresh proposals by event');
+            this.fetchData(true);
+        })
     }
 
     componentWillUnmount() {
         AppState.removeEventListener('change', this._handleAppStateChange);
+        this.deleteProposalHandler();
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -108,12 +122,11 @@ export default class BattleList extends React.PureComponent {
      */
     fetchData(clearCache = false) {
 
-        const CACHE_KEY = 'proposal-list';
         if (clearCache) {
-            CacheStore.remove(CACHE_KEY);
+            CacheStore.remove(STORAGE_PROPOSALS_LIST_CACHE_KEY);
         }
 
-        CacheStore.get(CACHE_KEY).then((value) => {
+        CacheStore.get(STORAGE_PROPOSALS_LIST_CACHE_KEY).then((value) => {
             if (value !== null) {
                 this.updateList(value);
             }

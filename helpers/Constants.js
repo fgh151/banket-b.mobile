@@ -12,8 +12,10 @@ export const FUNNEL_CHAT_ANSWER = 'chan-answer';
 export const BUS_MESSAGE_READ_EVENT = 'message_read_event';
 export const BUS_NEW_MESSAGE_EVENT = 'new_message_event';
 export const BUS_CLEAR_NOTIFICATIONS = 'clear_notifications';
+export const BUS_CLOSE_PROPOSAL = 'close-proposal';
 //Константы для хранилища значений
 export const STORAGE_NEW_ORGANIZATIONS_IDS = 'noids';
 export const STORAGE_AUTH_ID = 'battle@id';
 export const STORAGE_AUTH_TOKEN = 'battle@token';
 export const STORAGE_FIRST_LUNCH = "battle@firstLunch";
+export const STORAGE_PROPOSALS_LIST_CACHE_KEY = 'proposal-list';
