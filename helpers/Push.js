@@ -79,7 +79,7 @@ export default class Push {
 
             console.log('notify', notification.data);
 
-            alert('notufy');
+            // alert('notufy');
 
             if (AppState.currentState !== 'active') {
 
@@ -94,6 +94,8 @@ export default class Push {
             }
 
             if (notification.data) {
+
+
                 if (notification.data.hasOwnProperty('proposalId')) {
 
                     EventBus.publish(BUS_NEW_MESSAGE_EVENT, {

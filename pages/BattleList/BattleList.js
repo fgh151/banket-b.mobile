@@ -70,6 +70,9 @@ export default class BattleList extends React.PureComponent {
             items: [],
             loaded: false,
             refreshing: false,
+
+            appState: AppState.currentState,
+
         };
 
         let gs = new GlobalState();
@@ -92,11 +95,12 @@ export default class BattleList extends React.PureComponent {
     }
 
     _handleAppStateChange = (nextAppState) => {
-        if (
-            this.state.appState.match(/inactive|background/) &&
-            nextAppState === 'active'
-        ) {
-            this.fetchData();
+
+        console.log("change state", nextAppState);
+
+        if (nextAppState === 'active') {
+            console.log('fetch after bg');
+            this.setState({items: [], loaded: false}, this.fetchData(true));
         }
     };
 
@@ -272,4 +276,4 @@ const style = StyleSheet.create({
             marginBottom: windowPadding,
         })
     }
-})
+});

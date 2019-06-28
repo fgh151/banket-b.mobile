@@ -30,6 +30,7 @@ export default class ProposalListItem extends Component {
 
     newMessageSubscription;
     readMessageSubscription;
+    pushMessage;
 
     constructor(props) {
         super(props);
@@ -43,6 +44,10 @@ export default class ProposalListItem extends Component {
 
         //Рисуем кружок при новых сообщениях
         this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+
+
+            console.log('new message', data);
+
             if (parseInt(data.proposalId) === this.props.proposal.id) {
                 this.setState({newMessages: true})
             }
@@ -60,18 +65,29 @@ export default class ProposalListItem extends Component {
             this.setState({newMessages: true});
         }
 
+        // this.pushMessage = EventBus.on(BUS_RECEIVE_PUSH, () => this.calcNewMessages());
+        this.calcNewMessages()
+
+    }
+
+    calcNewMessages() {
+        console.log('calc');
+
         AS.getItem(getProposalMessagesStorageKey(this.props.proposal.id)).then((data) => {
             let count = parseInt(data);
+
+            console.log('diff', count, this.props.proposal.messages);
+
             if (this.props.proposal.messages > count) {
                 this.setState({newMessages: true});
             }
         })
-
     }
 
     componentWillUnmount() {
         this.newMessageSubscription();
         this.readMessageSubscription();
+        // this.pushMessage();
     }
 
     renderProfit(proposal: ProposalType) {
@@ -81,10 +97,13 @@ export default class ProposalListItem extends Component {
         return null;
     }
 
-    renderAnswersCount(proposal: ProposalType){
+    renderAnswersCount(proposal: ProposalType) {
 
         if (proposal.answers > 0) {
-            return(<Text style={{fontSize:13, lineHeight: 16}}>{proposal.answers} {plural(proposal.answers, 'ставка', 'ставки', 'ставок')}</Text>)
+            return (<Text style={{
+                fontSize: 13,
+                lineHeight: 16
+            }}>{proposal.answers} {plural(proposal.answers, 'ставка', 'ставки', 'ставок')}</Text>)
         }
         return null;
     }
@@ -108,11 +127,11 @@ export default class ProposalListItem extends Component {
                                 </Text>
                             </View>
                             <View>
-                                <Text style={{fontSize:15, lineHeight: 18}}>
-                                    <Text style={[textStyle.boldFont, {fontSize:15, lineHeight: 18}]}>
+                                <Text style={{fontSize: 15, lineHeight: 18}}>
+                                    <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
                                         {formatCost(proposal.amount * proposal.guests_count)}
                                     </Text>
-                                    <Text style={{fontSize:15, lineHeight: 18}}>
+                                    <Text style={{fontSize: 15, lineHeight: 18}}>
                                         &nbsp;{"\u20bd"}
                                     </Text>
                                 </Text>
@@ -120,7 +139,7 @@ export default class ProposalListItem extends Component {
                         </View>
                         <View style={styles.rowWrapper}>
                             <View style={{marginBottom: 10}}>
-                                <Text style={{fontSize:15, lineHeight: 18}}>
+                                <Text style={{fontSize: 15, lineHeight: 18}}>
                                     {formatDate(proposal.date, 'D MMM')}, {proposal.time}
                                 </Text>
                             </View>
@@ -128,11 +147,17 @@ export default class ProposalListItem extends Component {
                                 {this.renderProfit(proposal)}
                             </View>
                         </View>
-                        <View style={[styles.rowWrapper, {marginBottom:5}]}>
+                        <View style={[styles.rowWrapper, {marginBottom: 5}]}>
                             <View>
                                 <Text>
-                                    <Text style={{fontSize:13, lineHeight: 16}}>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
-                                    <Text style={{fontSize:13, lineHeight: 16}} >, {formatCost(proposal.amount)} {"\u20bd"} / чел.</Text>
+                                    <Text style={{
+                                        fontSize: 13,
+                                        lineHeight: 16
+                                    }}>{proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}</Text>
+                                    <Text style={{
+                                        fontSize: 13,
+                                        lineHeight: 16
+                                    }}>, {formatCost(proposal.amount)} {"\u20bd"} / чел.</Text>
                                 </Text>
                             </View>
                             <View>
@@ -179,7 +204,7 @@ const styles = StyleSheet.create({
     eventType: {
         fontFamily: "Lato-Bold",
         fontSize: 15,
-        lineHeight:18,
+        lineHeight: 18,
         color: '#1711E8'
     },
     time: {
