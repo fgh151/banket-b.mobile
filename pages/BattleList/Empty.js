@@ -3,7 +3,6 @@ import {Text, View} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import {Button} from '../../components/Button';
 import {Actions} from "react-native-router-flux";
-import Ad from "../../components/Ad";
 
 export default function Empty() {
     return (
@@ -20,9 +19,9 @@ export default function Empty() {
                     предложения от ресторанов.</Text>
                 <Button onPress={() => Actions.Form()} title={"Создать новый батл"}/>
             </View>
-            <View style={{flex: 0.3}}>
-                <Ad/>
-            </View>
+            {/*<View style={{flex: 0.3}}>*/}
+            {/*<Ad/>*/}
+            {/*</View>*/}
         </View>
     );
 }

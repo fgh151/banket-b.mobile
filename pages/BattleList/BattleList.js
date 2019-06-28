@@ -9,7 +9,6 @@ import Client from '../../http/Client';
 import Config from '../../Config';
 import Empty from './Empty';
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
-import Ad from "../../components/Ad";
 import trackEvent from "../../helpers/AppsFlyer";
 import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
@@ -223,9 +222,9 @@ export default class BattleList extends React.PureComponent {
     }
 
     renderAd() {
-        if (this.state.items.length < 3) {
-            return <Ad style={style.ad}/>
-        }
+        // if (this.state.items.length < 3) {
+        //     return <Ad style={style.ad}/>
+        // }
         return null;
     }
 
