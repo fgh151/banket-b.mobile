@@ -32,7 +32,7 @@ import Feedback from './pages/feedback/Feedback';
 import FeedbackDone from './pages/feedback/FeedbackDone';
 import BackFromRegister from "./components/BackFromRegister";
 import AS from '@react-native-community/async-storage'
-import {OPEN_APP_EVENT} from "./helpers/Constants";
+import {FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_ID, STORAGE_AUTH_TOKEN} from "./helpers/Constants";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -72,7 +72,7 @@ export default class App extends React.Component {
                 }
             });
 
-        AS.getItem('battle@id')
+        AS.getItem(STORAGE_AUTH_ID)
             .then((userId) => {
                 let gs = new GlobalState();
                 gs.userId = userId;
@@ -81,7 +81,7 @@ export default class App extends React.Component {
                 // })
             });
 
-        funnel.catchEvent(OPEN_APP_EVENT);
+        funnel.catchEvent(FUNNEL_OPEN_APP_EVENT);
     }
 
     componentWillUnmount() {
@@ -233,7 +233,7 @@ export default class App extends React.Component {
                                     {
                                         action: () => {
                                             let p = getCurrentProposal();
-                                            AS.getItem('battle@token')
+                                            AS.getItem(STORAGE_AUTH_TOKEN)
                                                 .then((result) => {
                                                     const api = new Client(result);
                                                     api.GET('/proposal/close/' + p.id)

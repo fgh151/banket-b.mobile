@@ -17,7 +17,7 @@ import {Styles} from "../../styles/Global";
 import config from "../../Config";
 import GlobalState from "../../models/GlobalState";
 import {funnel} from "../../components/Funnel";
-import {CONFIRM_REGISTER} from "../../helpers/Constants";
+import {FUNNEL_CONFIRM_REGISTER} from "../../helpers/Constants";
 
 export default class RegisterCode extends React.Component {
 
@@ -73,7 +73,7 @@ export default class RegisterCode extends React.Component {
                                 let gs = new GlobalState();
                                 gs.userId = response.id;
                                 Push.saveToken();
-                                funnel.catchEvent(CONFIRM_REGISTER);
+                                funnel.catchEvent(FUNNEL_CONFIRM_REGISTER);
                                 this.proposal.saveWithToken(response.access_token);
                             })
 

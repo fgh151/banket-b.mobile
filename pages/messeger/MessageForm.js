@@ -16,7 +16,7 @@ import AS from '@react-native-community/async-storage'
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import {funnel} from "../../components/Funnel";
-import {CHAT_ANSWER} from "../../helpers/Constants";
+import {FUNNEL_CHAT_ANSWER, STORAGE_AUTH_ID} from "../../helpers/Constants";
 
 export default class MessageForm extends Component {
 
@@ -41,7 +41,7 @@ export default class MessageForm extends Component {
 
     sendMessage() {
         let created = moment().format('X').toString();
-        AS.getItem('battle@id')
+        AS.getItem(STORAGE_AUTH_ID)
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.proposalId + '/o_' + this.organizationId + '/' + created;
                 db.ref(path).set({
@@ -58,7 +58,7 @@ export default class MessageForm extends Component {
                 })
             });
 
-        funnel.catchEvent(CHAT_ANSWER, {proposal: this.proposalId, organization: this.organizationId});
+        funnel.catchEvent(FUNNEL_CHAT_ANSWER, {proposal: this.proposalId, organization: this.organizationId});
     }
 
     setText(text) {

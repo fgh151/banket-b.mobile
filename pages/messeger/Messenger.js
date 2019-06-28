@@ -12,7 +12,7 @@ import MessageWrapper from "./MessageWrapper";
 import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
 import {setMessagesCount, setOrganizationMessagesCount, setProposalMessagesCount} from "../../helpers/Storage";
-import {CHAT_ENTER, MESSAGE_READ_EVENT} from "../../helpers/Constants";
+import {BUS_MESSAGE_READ_EVENT, FUNNEL_CHAT_ENTER, STORAGE_AUTH_ID} from "../../helpers/Constants";
 
 export default class Messenger extends Component {
     cacheKey = '';
@@ -38,21 +38,24 @@ export default class Messenger extends Component {
     componentDidMount() {
         this.fetchData();
 
-        EventBus.publish(MESSAGE_READ_EVENT, {
+        EventBus.publish(BUS_MESSAGE_READ_EVENT, {
             'proposalId': this.props.proposal.id,
             'organizationId': this.props.organization.id
         });
     }
 
     componentWillUnmount() {
-        AS.getItem('battle@id')
+        AS.getItem(STORAGE_AUTH_ID)
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
                 db.ref(path).off()
 
             });
 
-        funnel.catchEvent(CHAT_ENTER, {proposal: this.props.proposal.id, organization: this.props.organization.id});
+        funnel.catchEvent(FUNNEL_CHAT_ENTER, {
+            proposal: this.props.proposal.id,
+            organization: this.props.organization.id
+        });
     }
 
     /**
@@ -67,7 +70,7 @@ export default class Messenger extends Component {
             }
         });
 
-        AS.getItem('battle@id')
+        AS.getItem(STORAGE_AUTH_ID)
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
                 let ref = db.ref(path);

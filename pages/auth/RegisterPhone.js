@@ -8,7 +8,7 @@ import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {isEmpty} from "../../helpers/StringHelper";
 import {funnel} from "../../components/Funnel";
-import {GOFROM_REGISTER} from "../../helpers/Constants";
+import {FUNNEL_GO_FROM_REGISTER} from "../../helpers/Constants";
 
 export default class RegisterPhone extends React.Component {
     state = {
@@ -27,7 +27,7 @@ export default class RegisterPhone extends React.Component {
     };
 
     nextPage = () => {
-        funnel.catchEvent(GOFROM_REGISTER);
+        funnel.catchEvent(FUNNEL_GO_FROM_REGISTER);
         Client.sendRegisterCode({phone: this.state.phone, name: this.state.name});
         Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
     };

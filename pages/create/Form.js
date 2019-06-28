@@ -16,7 +16,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import FormPage, {commonStyles} from './AbstractFormPage';
 import {funnel} from "../../components/Funnel";
-import {GOTO_SERVICES} from "../../helpers/Constants";
+import {FUNNEL_GOTO_SERVICES} from "../../helpers/Constants";
 
 export default class Form extends FormPage {
 
@@ -45,7 +45,7 @@ export default class Form extends FormPage {
     }
 
     nextPage = () => {
-        funnel.catchEvent(GOTO_SERVICES);
+        funnel.catchEvent(FUNNEL_GOTO_SERVICES);
         Actions.Services();
     };
 

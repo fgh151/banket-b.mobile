@@ -15,7 +15,7 @@ import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {funnel} from "../../components/Funnel";
-import {OPEN_APP_EVENT} from "../../helpers/Constants";
+import {FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
 
 let showButtonState = false;
 
@@ -76,7 +76,7 @@ export default class BattleList extends React.PureComponent {
         gs.BattleList = this;
 
 
-        funnel.catchEvent(OPEN_APP_EVENT, {battle: 111});
+        funnel.catchEvent(FUNNEL_OPEN_APP_EVENT, {battle: 111});
 
 
         this.onRefresh = this.onRefresh.bind(this);
@@ -135,7 +135,7 @@ export default class BattleList extends React.PureComponent {
                     }
                 )
         } else {
-            AS.getItem('battle@token')
+            AS.getItem(STORAGE_AUTH_TOKEN)
                 .then((result) => {
                     if (result === null) {
                         Actions.login();
@@ -230,7 +230,7 @@ export default class BattleList extends React.PureComponent {
      * @param dialogId
      */
     delete(dialogId) {
-        AS.getItem('battle@token')
+        AS.getItem(STORAGE_AUTH_TOKEN)
             .then((result) => {
                 if (result === null) {
                     Actions.login();

@@ -15,7 +15,7 @@ import PickerSelect from '../../components/PickerSelect';
 import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
 import {NewMessageEventParams} from "../../models/NewMessageEventParams";
-import {NEW_MESSAGE_EVENT} from "../../helpers/Constants";
+import {BUS_NEW_MESSAGE_EVENT, STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
 
 export default class DialogList extends Component {
 
@@ -65,7 +65,7 @@ export default class DialogList extends Component {
     }
 
     componentWillMount() {
-        this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+        this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
             if (parseInt(data.proposalId) === this.props.proposal.id) {
                 if (this.state.items.length === 0) {
                     this.setState({loaded: false});
@@ -110,7 +110,7 @@ export default class DialogList extends Component {
 
     getRemoteList() {
         const CACHE_KEY = 'dialog-list';
-        AS.getItem('battle@token')
+        AS.getItem(STORAGE_AUTH_TOKEN)
             .then((result) => {
                 if (result === null) {
                     Actions.LoginPhone();
@@ -147,7 +147,7 @@ export default class DialogList extends Component {
     }
 
     delete(proposalId, dialogId) {
-        AS.getItem('battle@token')
+        AS.getItem(STORAGE_AUTH_TOKEN)
             .then((result) => {
                 if (result === null) {
                     Actions.login();

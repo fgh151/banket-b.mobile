@@ -6,7 +6,7 @@ import AS from '@react-native-community/async-storage'
 import React from "react";
 import {City} from "../helpers/GeoLocation";
 import {funnel} from "../components/Funnel";
-import {BATTLE_CREATED} from "../helpers/Constants";
+import {FUNNEL_BATTLE_CREATED, STORAGE_AUTH_TOKEN} from "../helpers/Constants";
 
 
 const MIN_GUEST_COUNT = 1;
@@ -117,7 +117,7 @@ export default class Proposal {
     }
 
     save() {
-        AS.getItem('battle@token')
+        AS.getItem(STORAGE_AUTH_TOKEN)
             .then((result) => {
 
                 if (result === null) {
@@ -134,7 +134,7 @@ export default class Proposal {
         api.POST('/v2/proposal/create', this)
             .then(response => {
                 if (response.hasOwnProperty('id')) {
-                    funnel.catchEvent(BATTLE_CREATED, {id: response.id});
+                    funnel.catchEvent(FUNNEL_BATTLE_CREATED, {id: response.id});
                     this.afterSave();
                 } else {
                     let keys = ArrayHelper.getKeys(response);

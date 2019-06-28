@@ -6,7 +6,7 @@ import {Button} from '../components/Button';
 import Swiper from '../components/Swiper/Swiper';
 import Pagination from "../components/Swiper/Pagination";
 import {funnel} from "../components/Funnel";
-import {CREATE_BTN_CLICK} from "../helpers/Constants";
+import {FUNNEL_CREATE_BTN_CLICK} from "../helpers/Constants";
 
 export default function WhatIsIt() {
         return (
@@ -29,7 +29,7 @@ export default function WhatIsIt() {
                 <View style={WIIstyles.createButtonWrapper}>
                     <Button onPress={() => {
                         Actions.Form();
-                        funnel.catchEvent(CREATE_BTN_CLICK);
+                        funnel.catchEvent(FUNNEL_CREATE_BTN_CLICK);
                     }} title="Создать новый батл"/>
                 </View>
             </SafeAreaView>

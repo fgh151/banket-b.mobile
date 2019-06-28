@@ -5,6 +5,7 @@ import {Button} from "../../components/Button";
 import {Styles as textStyle} from "../../styles/Global";
 import {Actions} from "react-native-router-flux";
 import Client from '../../http/Client'
+import {STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
 
 export default class Feedback extends Component {
 
@@ -25,7 +26,7 @@ export default class Feedback extends Component {
     nextPage = () => {
         console.log('next');
         this.setState({btnDisabled: true});
-        AS.getItem('battle@token')
+        AS.getItem(STORAGE_AUTH_TOKEN)
             .then((result) => {
                 if (result === null) {
                     Actions.RegisterPhone();

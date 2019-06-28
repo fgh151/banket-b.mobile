@@ -2,6 +2,7 @@ import React from "react";
 import {Actions} from "react-native-router-flux";
 import {isFirstLunch} from "../helpers/Luncher";
 import AS from '@react-native-community/async-storage'
+import {STORAGE_AUTH_TOKEN} from "../helpers/Constants";
 
 export class Router extends React.Component {
 
@@ -12,7 +13,7 @@ export class Router extends React.Component {
             if (value !== true.toString()) {
                 Actions.WhatIsIt()
             } else {
-                AS.getItem('battle@token')
+                AS.getItem(STORAGE_AUTH_TOKEN)
                     .then((result) => {
 
                         // console.log('User token', result);

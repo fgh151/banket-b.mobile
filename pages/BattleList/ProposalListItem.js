@@ -12,7 +12,7 @@ import Profit from "../../components/Profit";
 import GlobalState from "../../models/GlobalState";
 import EventBus from 'eventing-bus';
 import {NewMessageEventParams} from "../../models/NewMessageEventParams";
-import {MESSAGE_READ_EVENT, NEW_MESSAGE_EVENT} from "../../helpers/Constants";
+import {BUS_MESSAGE_READ_EVENT, BUS_NEW_MESSAGE_EVENT} from "../../helpers/Constants";
 import {getProposalMessagesStorageKey} from "../../helpers/Storage";
 
 let shouldUpdate = false;
@@ -42,13 +42,13 @@ export default class ProposalListItem extends Component {
     componentWillMount() {
 
         //Рисуем кружок при новых сообщениях
-        this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+        this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
             if (parseInt(data.proposalId) === this.props.proposal.id) {
                 this.setState({newMessages: true})
             }
         });
 
-        this.readMessageSubscription = EventBus.on(MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
+        this.readMessageSubscription = EventBus.on(BUS_MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
             if (parseInt(data.proposalId) === this.props.proposal.id) {
                 this.setState({newMessages: false})
             }

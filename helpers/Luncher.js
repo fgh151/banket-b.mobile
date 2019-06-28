@@ -1,13 +1,12 @@
 import AS from '@react-native-community/async-storage'
+import {STORAGE_FIRST_LUNCH} from "./Constants";
 
-
-const STORAGE_KEY = "battle@firstLunch";
 
 /**
  * @returns {Promise<any>}
  */
 export function isFirstLunch() {
-    return AS.getItem(STORAGE_KEY);
+    return AS.getItem(STORAGE_FIRST_LUNCH);
 }
 
 /**
@@ -15,12 +14,12 @@ export function isFirstLunch() {
  * @returns {Promise}
  */
 export function firstLunchDone() {
-    return AS.setItem(STORAGE_KEY, true.toString());
+    return AS.setItem(STORAGE_FIRST_LUNCH, true.toString());
 }
 
 /**
  * @returns {Promise}
  */
 export function firstLunchRevert() {
-    return AS.removeItem(STORAGE_KEY);
+    return AS.removeItem(STORAGE_FIRST_LUNCH);
 }

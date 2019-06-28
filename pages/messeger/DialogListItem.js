@@ -13,7 +13,7 @@ import NewMessagesNotify from "../../components/NewMessagesNotify";
 import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
 import {NewMessageEventParams} from "../../models/NewMessageEventParams";
-import {MESSAGE_READ_EVENT, NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS} from "../../helpers/Constants";
+import {BUS_MESSAGE_READ_EVENT, BUS_NEW_MESSAGE_EVENT, STORAGE_NEW_ORGANIZATIONS_IDS} from "../../helpers/Constants";
 import {getOrganizationMessagesStorageKey} from "../../helpers/Storage";
 
 export default class DialogListItem extends Component {
@@ -42,7 +42,7 @@ export default class DialogListItem extends Component {
     }
 
     componentDidMount() {
-        AS.getItem(NEW_ORGANIZATIONS_IDS).then(data => {
+        AS.getItem(STORAGE_NEW_ORGANIZATIONS_IDS).then(data => {
             if (data) {
                 data = JSON.parse(data);
                 if (data.includes(this.props.organization.id.toString())) {
@@ -53,13 +53,13 @@ export default class DialogListItem extends Component {
     }
 
     componentWillMount() {
-        this.newMessageSubscription = EventBus.on(NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
+        this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
             if (parseInt(data.proposalId) === this.props.proposal.id && parseInt(data.organizationId) === this.props.dialog.item.id) {
                 this.setState({newMessages: true})
             }
         });
 
-        this.readMessageSubscription = EventBus.on(MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
+        this.readMessageSubscription = EventBus.on(BUS_MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
             if (parseInt(data.proposalId) === this.props.proposal.id && parseInt(data.organizationId) === this.props.dialog.item.id) {
                 this.setState({newMessages: false})
             }

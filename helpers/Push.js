@@ -4,7 +4,7 @@ import React from "react";
 import firebase from "react-native-firebase";
 import EventBus from 'eventing-bus';
 import AS from '@react-native-community/async-storage'
-import {CLEAR_NOTIFICATIONS, NEW_MESSAGE_EVENT} from "./Constants";
+import {BUS_CLEAR_NOTIFICATIONS, BUS_NEW_MESSAGE_EVENT, STORAGE_AUTH_ID} from "./Constants";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -13,7 +13,6 @@ export default class Push {
 
     url = '/api/v2/push';
     granted = false;
-
 
     static instance;
 
@@ -27,8 +26,7 @@ export default class Push {
         this.checkPermissions();
         this.setRecieveHandler();
 
-        EventBus.on(CLEAR_NOTIFICATIONS, () => {
-            console.log('cler pushs');
+        EventBus.on(BUS_CLEAR_NOTIFICATIONS, () => {
             Push.clearNotifications();
         })
     }
@@ -54,7 +52,7 @@ export default class Push {
 
         console.log("Save token", token);
 
-        AS.getItem('battle@id')
+        AS.getItem(STORAGE_AUTH_ID)
             .then((userId) => {
                 console.log("Save token", userId, token);
                 const api = new Client();
@@ -98,7 +96,7 @@ export default class Push {
             if (notification.data) {
                 if (notification.data.hasOwnProperty('proposalId')) {
 
-                    EventBus.publish(NEW_MESSAGE_EVENT, {
+                    EventBus.publish(BUS_NEW_MESSAGE_EVENT, {
                         'proposalId': notification.data.proposalId,
                         'organizationId': notification.data.organizationId
                     });
