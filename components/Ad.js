@@ -2,7 +2,7 @@ import {FlatList, Image, Linking, StyleSheet, Text, TouchableOpacity, View} from
 import React from "react";
 import Client from "../http/Client";
 import Config from '../Config'
-import CacheStore from "react-native-cache-store";
+import CacheStore from './CacheStore';
 import {Styles as textStyle, windowPadding} from "../styles/Global";
 import Shadow from './Shadow'
 

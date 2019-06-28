@@ -4,7 +4,7 @@ import AS from '@react-native-community/async-storage'
 import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
-import CacheStore from "react-native-cache-store";
+import CacheStore from '../../components/CacheStore';
 import {getKeys, messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import Organization from "./Organization";
