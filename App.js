@@ -26,12 +26,13 @@ import {Router as AppRouter} from './components/Router';
 import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
 import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
-import {funnel, OPEN_APP_EVENT} from "./components/Funnel";
+import {funnel} from "./components/Funnel";
 import GlobalState from "./models/GlobalState";
 import Feedback from './pages/feedback/Feedback';
 import FeedbackDone from './pages/feedback/FeedbackDone';
 import BackFromRegister from "./components/BackFromRegister";
 import AS from '@react-native-community/async-storage'
+import {OPEN_APP_EVENT} from "./helpers/Constants";
 
 const customFont = {
     fontFamily: "Lato-Regular",

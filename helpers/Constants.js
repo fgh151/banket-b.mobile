@@ -1,0 +1,15 @@
+export const OPEN_APP_EVENT = 'open-app';
+export const CREATE_BTN_CLICK = 'create-btn-click';
+export const GOTO_SERVICES = 'go-to-services';
+export const GOFROM_SERVICE = 'go-from-service';
+export const GOFROM_REGISTER = 'go-from-register';
+export const CONFIRM_REGISTER = 'confirm-register';
+export const BATTLE_CREATED = 'battle-created';
+export const CHAT_ENTER = 'chat-enter';
+export const CHAT_ANSWER = 'chan-answer';
+export const MESSAGE_READ_EVENT = 'message_read_event';
+export const LOGIN_CODE_KEY = 'login_code_key';
+export const NEW_MESSAGE_EVENT = 'new_message_event';
+export const NEW_PROPOSALS_IDS = 'npids';
+export const NEW_ORGANIZATIONS_IDS = 'noids';
+export const CLEAR_NOTIFICATIONS = 'clear_notifications';

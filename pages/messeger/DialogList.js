@@ -14,7 +14,8 @@ import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import PickerSelect from '../../components/PickerSelect';
 import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
-import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
+import {NewMessageEventParams} from "../../models/NewMessageEventParams";
+import {NEW_MESSAGE_EVENT} from "../../helpers/Constants";
 
 export default class DialogList extends Component {
 

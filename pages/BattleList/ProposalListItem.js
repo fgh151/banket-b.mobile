@@ -11,8 +11,8 @@ import NewMessagesNotify from "../../components/NewMessagesNotify";
 import Profit from "../../components/Profit";
 import GlobalState from "../../models/GlobalState";
 import EventBus from 'eventing-bus';
-import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
-import {MESSAGE_READ_EVENT} from "../messeger/Messenger";
+import {NewMessageEventParams} from "../../models/NewMessageEventParams";
+import {MESSAGE_READ_EVENT, NEW_MESSAGE_EVENT} from "../../helpers/Constants";
 import {getProposalMessagesStorageKey} from "../../helpers/Storage";
 
 let shouldUpdate = false;

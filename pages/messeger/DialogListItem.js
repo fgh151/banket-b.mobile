@@ -12,8 +12,8 @@ import AndroidVersion from "../../helpers/AndroidVersion";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
 import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
-import {NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS, NewMessageEventParams} from "../../helpers/Push";
-import {MESSAGE_READ_EVENT} from "./Messenger";
+import {NewMessageEventParams} from "../../models/NewMessageEventParams";
+import {MESSAGE_READ_EVENT, NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS} from "../../helpers/Constants";
 import {getOrganizationMessagesStorageKey} from "../../helpers/Storage";
 
 export default class DialogListItem extends Component {

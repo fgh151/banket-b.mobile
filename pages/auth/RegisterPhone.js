@@ -7,7 +7,8 @@ import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {isEmpty} from "../../helpers/StringHelper";
-import {funnel, GOFROM_REGISTER} from "../../components/Funnel";
+import {funnel} from "../../components/Funnel";
+import {GOFROM_REGISTER} from "../../helpers/Constants";
 
 export default class RegisterPhone extends React.Component {
     state = {

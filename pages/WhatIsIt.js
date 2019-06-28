@@ -5,7 +5,8 @@ import {Styles as textStyle, windowPadding} from '../styles/Global';
 import {Button} from '../components/Button';
 import Swiper from '../components/Swiper/Swiper';
 import Pagination from "../components/Swiper/Pagination";
-import {CREATE_BTN_CLICK, funnel} from "../components/Funnel";
+import {funnel} from "../components/Funnel";
+import {CREATE_BTN_CLICK} from "../helpers/Constants";
 
 export default function WhatIsIt() {
         return (

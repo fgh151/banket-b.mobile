@@ -2,8 +2,6 @@ import config from '../Config';
 import NetInfo from "@react-native-community/netinfo";
 import GlobalState from "../models/GlobalState";
 
-export const LOGIN_CODE_KEY = 'login_code_key';
-
 export default class Client {
 
     constructor(authToken, baseUrl = '', {headers = {}} = {}) {
@@ -54,7 +52,7 @@ export default class Client {
         return `${this.baseUrl}${url}`;
     }
 
-    _fetch(route, method, body, isQuery = false, debugInfo='') {
+    _fetch(route, method, body, isQuery = false, debugInfo = '') {
 
         if (!route) throw new Error('Route is undefined');
         let fullRoute = this._fullRoute(route);
@@ -79,7 +77,7 @@ export default class Client {
 
     }
 
-    onlineFetch(fullRoute, opts, debugInfo='') {
+    onlineFetch(fullRoute, opts, debugInfo = '') {
         const fetchPromise = () => fetch(fullRoute, opts);
         return NetInfo.fetch().then((connectionInfo) => {
 
@@ -87,10 +85,11 @@ export default class Client {
             // console.log(connectionInfo.type);
 
             // if (connectionInfo.type !== 'none') {
-                return fetchPromise()
-                    .then(response => {
-                        console.log(debugInfo, fullRoute, response); return response.json()
-                    })
+            return fetchPromise()
+                .then(response => {
+                    console.log(debugInfo, fullRoute, response);
+                    return response.json()
+                })
             // }
             // return {};
         });

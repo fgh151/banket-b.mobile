@@ -9,11 +9,10 @@ import {getKeys, messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
-import {CHAT_ENTER, funnel} from "../../components/Funnel";
+import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
 import {setMessagesCount, setOrganizationMessagesCount, setProposalMessagesCount} from "../../helpers/Storage";
-
-export const MESSAGE_READ_EVENT = 'message_read_event';
+import {CHAT_ENTER, MESSAGE_READ_EVENT} from "../../helpers/Constants";
 
 export default class Messenger extends Component {
     cacheKey = '';

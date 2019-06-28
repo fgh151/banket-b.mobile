@@ -9,8 +9,9 @@ import AdditionalInput from './AdditionalInput'
 
 import FormPage, {commonStyles} from './AbstractFormPage';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {funnel, GOFROM_SERVICE} from "../../components/Funnel";
+import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
+import {GOFROM_SERVICE} from "../../helpers/Constants";
 
 export const BACK_TO_FORM_EVENT = 'back_to_form';
 

@@ -16,7 +16,8 @@ import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
 import config from "../../Config";
 import GlobalState from "../../models/GlobalState";
-import {CONFIRM_REGISTER, funnel} from "../../components/Funnel";
+import {funnel} from "../../components/Funnel";
+import {CONFIRM_REGISTER} from "../../helpers/Constants";
 
 export default class RegisterCode extends React.Component {
 

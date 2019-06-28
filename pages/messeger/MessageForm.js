@@ -15,7 +15,8 @@ import {
 import AS from '@react-native-community/async-storage'
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
-import {CHAT_ANSWER, funnel} from "../../components/Funnel";
+import {funnel} from "../../components/Funnel";
+import {CHAT_ANSWER} from "../../helpers/Constants";
 
 export default class MessageForm extends Component {
 

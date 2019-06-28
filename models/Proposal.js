@@ -5,7 +5,8 @@ import {Actions} from "react-native-router-flux";
 import AS from '@react-native-community/async-storage'
 import React from "react";
 import {City} from "../helpers/GeoLocation";
-import {BATTLE_CREATED, funnel} from "../components/Funnel";
+import {funnel} from "../components/Funnel";
+import {BATTLE_CREATED} from "../helpers/Constants";
 
 
 const MIN_GUEST_COUNT = 1;

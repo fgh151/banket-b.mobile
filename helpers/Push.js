@@ -4,13 +4,10 @@ import React from "react";
 import firebase from "react-native-firebase";
 import EventBus from 'eventing-bus';
 import AS from '@react-native-community/async-storage'
+import {CLEAR_NOTIFICATIONS, NEW_MESSAGE_EVENT} from "./Constants";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
-export const NEW_MESSAGE_EVENT = 'new_message_event';
-
-export const NEW_PROPOSALS_IDS = 'npids';
-export const NEW_ORGANIZATIONS_IDS = 'noids';
 
 export default class Push {
 
@@ -29,6 +26,11 @@ export default class Push {
 
         this.checkPermissions();
         this.setRecieveHandler();
+
+        EventBus.on(CLEAR_NOTIFICATIONS, () => {
+            console.log('cler pushs');
+            Push.clearNotifications();
+        })
     }
 
     checkPermissions() {
@@ -106,13 +108,3 @@ export default class Push {
     }
 }
 
-export class NewMessageEventParams {
-    /**
-     * @type {string}
-     */
-    proposalId;
-    /**
-     * @type {string}
-     */
-    organizationId;
-}

@@ -14,7 +14,8 @@ import trackEvent from "../../helpers/AppsFlyer";
 import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
-import {funnel, OPEN_APP_EVENT} from "../../components/Funnel";
+import {funnel} from "../../components/Funnel";
+import {OPEN_APP_EVENT} from "../../helpers/Constants";
 
 let showButtonState = false;
 
