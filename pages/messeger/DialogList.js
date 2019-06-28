@@ -235,7 +235,12 @@ export default class DialogList extends Component {
                                 </View>
                             </View>
 
-                            <View style={{marginTop: 10, marginLeft: -11, marginRight: -11}}>
+                            <View style={{
+                                marginTop: 10,
+                                marginLeft: -11,
+                                marginRight: -11,
+                                minHeight: '100%',
+                            }}>
                                 <FlatList
                                     data={this.state.items}
                                     renderItem={(item) => this.renderItem(item)}
