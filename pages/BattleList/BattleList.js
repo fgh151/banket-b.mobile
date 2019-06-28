@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Platform, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {AppState, FlatList, Platform, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import AS from '@react-native-community/async-storage'
 import Loading from "../Loading";
 import {ProposalListItemType} from "../../types/ProposalType";
@@ -83,7 +83,21 @@ export default class BattleList extends React.PureComponent {
 
     componentDidMount() {
         this.fetchData(true);
+        AppState.addEventListener('change', this._handleAppStateChange);
     }
+
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (
+            this.state.appState.match(/inactive|background/) &&
+            nextAppState === 'active'
+        ) {
+            this.fetchData();
+        }
+    };
 
     /**
      * fetch data from API

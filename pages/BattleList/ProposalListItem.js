@@ -11,8 +11,9 @@ import NewMessagesNotify from "../../components/NewMessagesNotify";
 import Profit from "../../components/Profit";
 import GlobalState from "../../models/GlobalState";
 import EventBus from 'eventing-bus';
-import {NEW_MESSAGE_EVENT, NEW_PROPOSALS_IDS, NewMessageEventParams} from "../../helpers/Push";
+import {NEW_MESSAGE_EVENT, NewMessageEventParams} from "../../helpers/Push";
 import {MESSAGE_READ_EVENT} from "../messeger/Messenger";
+import {getProposalMessagesStorageKey} from "../../helpers/Storage";
 
 let shouldUpdate = false;
 
@@ -59,14 +60,13 @@ export default class ProposalListItem extends Component {
             this.setState({newMessages: true});
         }
 
-        AS.getItem(NEW_PROPOSALS_IDS).then(data => {
-            if (data) {
-                data = JSON.parse(data);
-                if (this.props.proposal.id in data) {
-                    this.setState({newMessages: true})
-                }
+        AS.getItem(getProposalMessagesStorageKey(this.props.proposal.id)).then((data) => {
+            let count = parseInt(data);
+            if (this.props.proposal.messages > count) {
+                this.setState({newMessages: true});
             }
         })
+
     }
 
     componentWillUnmount() {
@@ -90,7 +90,10 @@ export default class ProposalListItem extends Component {
     }
 
     render() {
+
+
         const proposal = this.props.proposal;
+        console.log(proposal);
         return (
             <Shadow style={styles.blockWrapper}>
                 <NewMessagesNotify newMessages={this.state.newMessages}/>

@@ -5,12 +5,13 @@ import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
 import CacheStore from "react-native-cache-store";
-import {messagesObject2array} from "../../helpers/ArrayHelper";
+import {getKeys, messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
 import {CHAT_ENTER, funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
+import {setMessagesCount, setOrganizationMessagesCount, setProposalMessagesCount} from "../../helpers/Storage";
 
 export const MESSAGE_READ_EVENT = 'message_read_event';
 
@@ -80,10 +81,12 @@ export default class Messenger extends Component {
     }
 
     updateList(items) {
-        this.setState({
-            items: items,
-            loaded: true,
-        }, () => this.scroll(true));
+        this.setState({items: items, loaded: true,}, () => {
+            this.scroll(true);
+            console.log('set messages count', getKeys(items).length);
+            let count = getKeys(items).length;
+            setMessagesCount(this.props.proposal.id, this.props.organization.id, count);
+        });
     }
 
     toggleInputActive() {

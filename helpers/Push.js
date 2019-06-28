@@ -68,7 +68,9 @@ export default class Push {
     static clearNotifications() {
         FN.cancelAllNotifications();
         FN.removeAllDeliveredNotifications();
-        FN.setBadge(0);
+        if (Platform.OS === 'ios') {
+            FN.setBadge(0);
+        }
     }
 
     setRecieveHandler() {
@@ -76,6 +78,8 @@ export default class Push {
 
 
             console.log('notify', notification.data);
+
+            alert('notufy');
 
             if (AppState.currentState !== 'active') {
 
@@ -87,35 +91,17 @@ export default class Push {
                     .then(() => {
                         Vibration.vibrate(100, [1000, 2000, 3000]);
                     });
-            } else {
-                if (notification.data) {
-                    if (notification.data.hasOwnProperty('proposalId')) {
-                        this.extracted(NEW_ORGANIZATIONS_IDS, notification.data.organizationId);
-                        this.extracted(NEW_PROPOSALS_IDS, notification.data.proposalId);
-                    }
-                }
             }
 
             if (notification.data) {
                 if (notification.data.hasOwnProperty('proposalId')) {
+
                     EventBus.publish(NEW_MESSAGE_EVENT, {
                         'proposalId': notification.data.proposalId,
                         'organizationId': notification.data.organizationId
                     });
                 }
             }
-        });
-    }
-
-    extracted(key, value) {
-        AS.getItem(key).then(data => {
-            if (data !== null) {
-                data = JSON.parse(data);
-                data.push(value);
-            } else {
-                data = [value];
-            }
-            AS.setItem(key, JSON.stringify(data));
         });
     }
 }

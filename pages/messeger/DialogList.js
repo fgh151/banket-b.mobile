@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
+import {AppState, FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
 import AS from '@react-native-community/async-storage'
 import Client from "../../http/Client";
 import Loading from "../Loading";
@@ -59,6 +59,8 @@ export default class DialogList extends Component {
 
         let gs = new GlobalState();
         gs.DialogList = this;
+
+        AppState.addEventListener('change', this._handleAppStateChange);
     }
 
     componentWillMount() {
@@ -74,7 +76,17 @@ export default class DialogList extends Component {
 
     componentWillUnmount() {
         this.newMessageSubscription();
+        AppState.removeEventListener('change', this._handleAppStateChange);
     }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (
+            this.state.appState.match(/inactive|background/) &&
+            nextAppState === 'active'
+        ) {
+            this.fetchData();
+        }
+    };
 
     /**
      * fetch data from API

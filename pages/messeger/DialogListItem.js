@@ -14,6 +14,7 @@ import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
 import {NEW_MESSAGE_EVENT, NEW_ORGANIZATIONS_IDS, NewMessageEventParams} from "../../helpers/Push";
 import {MESSAGE_READ_EVENT} from "./Messenger";
+import {getOrganizationMessagesStorageKey} from "../../helpers/Storage";
 
 export default class DialogListItem extends Component {
 
@@ -44,7 +45,7 @@ export default class DialogListItem extends Component {
         AS.getItem(NEW_ORGANIZATIONS_IDS).then(data => {
             if (data) {
                 data = JSON.parse(data);
-                if (this.props.organization.id in data) {
+                if (data.includes(this.props.organization.id.toString())) {
                     this.setState({newMessages: true})
                 }
             }
@@ -70,6 +71,13 @@ export default class DialogListItem extends Component {
             console.log('there is new messages');
             this.setState({newMessages: true});
         }
+
+        AS.getItem(getOrganizationMessagesStorageKey(this.props.proposal.id, this.props.dialog.item.id)).then((data) => {
+            let count = parseInt(data);
+            if (this.props.proposal.messages > count) {
+                this.setState({newMessages: true});
+            }
+        })
     }
 
     componentWillUnmount() {
