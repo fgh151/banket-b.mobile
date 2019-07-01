@@ -295,20 +295,6 @@
 			remoteGlobalIDString = 8A808ECA1D5B0FEC00A75B9C;
 			remoteInfo = InputMask;
 		};
-		46E1F68C22C2468600BBC7B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 46E1F65522C23CF200BBC7B1 /* InputMask.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 518F8AAD1F36A98400065733;
-			remoteInfo = InputMaskMac;
-		};
-		46E1F68E22C2468600BBC7B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 46E1F65522C23CF200BBC7B1 /* InputMask.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A808ED51D5B0FEC00A75B9C;
-			remoteInfo = InputMaskTests;
-		};
 		46E1F6C122C2468600BBC7B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46E1F68722C2468600BBC7B1 /* RNCNetInfo.xcodeproj */;
@@ -725,8 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				46E1F65C22C23CF200BBC7B1 /* InputMask.framework */,
-				46E1F68D22C2468600BBC7B1 /* InputMaskMac.framework */,
-				46E1F68F22C2468600BBC7B1 /* InputMaskTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1337,20 +1321,6 @@
 			fileType = wrapper.framework;
 			path = InputMask.framework;
 			remoteRef = 46E1F65B22C23CF200BBC7B1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		46E1F68D22C2468600BBC7B1 /* InputMaskMac.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = InputMaskMac.framework;
-			remoteRef = 46E1F68C22C2468600BBC7B1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		46E1F68F22C2468600BBC7B1 /* InputMaskTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = InputMaskTests.xctest;
-			remoteRef = 46E1F68E22C2468600BBC7B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		46E1F6C222C2468600BBC7B1 /* libRNCNetInfo.a */ = {
