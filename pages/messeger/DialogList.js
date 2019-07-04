@@ -81,10 +81,7 @@ export default class DialogList extends Component {
     }
 
     _handleAppStateChange = (nextAppState) => {
-        if (
-            this.state.appState.match(/inactive|background/) &&
-            nextAppState === 'active'
-        ) {
+        if (nextAppState === 'active') {
             this.fetchData();
         }
     };

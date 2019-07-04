@@ -49,9 +49,6 @@ export default class Push {
 
     static async saveToken() {
         const token = await FCM.getToken();
-
-        console.log("Save token", token);
-
         AS.getItem(STORAGE_AUTH_ID)
             .then((userId) => {
                 console.log("Save token", userId, token);
@@ -75,14 +72,7 @@ export default class Push {
 
     setRecieveHandler() {
         FN.onNotification((notification: Notification) => {
-
-
-            console.log('notify', notification.data);
-
-            // alert('notufy');
-
             if (AppState.currentState !== 'active') {
-
                 notification
                     .android.setChannelId('test-channel')
                     .android.setSmallIcon('ic_launcher');
@@ -91,17 +81,14 @@ export default class Push {
                     .then(() => {
                         Vibration.vibrate(100, [1000, 2000, 3000]);
                     });
-            }
-
-            if (notification.data) {
-
-
-                if (notification.data.hasOwnProperty('proposalId')) {
-
-                    EventBus.publish(BUS_NEW_MESSAGE_EVENT, {
-                        'proposalId': notification.data.proposalId,
-                        'organizationId': notification.data.organizationId
-                    });
+            } else {
+                if (notification.data) {
+                    if (notification.data.hasOwnProperty('proposalId')) {
+                        EventBus.publish(BUS_NEW_MESSAGE_EVENT, {
+                            'proposalId': notification.data.proposalId,
+                            'organizationId': notification.data.organizationId
+                        });
+                    }
                 }
             }
         });

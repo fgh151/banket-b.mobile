@@ -43,6 +43,10 @@ export default class CodeInput extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
     componentDidMount() {
         this.timer = setInterval(this.secondTick, 1000)
     }
