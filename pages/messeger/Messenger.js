@@ -11,12 +11,16 @@ import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
 import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
-import {setMessagesCount, setOrganizationMessagesCount, setProposalMessagesCount} from "../../helpers/Storage";
+import {setMessagesCount} from "../../helpers/Storage";
 import {BUS_MESSAGE_READ_EVENT, FUNNEL_CHAT_ENTER, STORAGE_AUTH_ID} from "../../helpers/Constants";
+
 
 export default class Messenger extends Component {
     cacheKey = '';
     previusMessage = null;
+
+    isUpdating = false;
+    needUpdate = false;
 
     constructor(props) {
         super(props);
@@ -26,7 +30,6 @@ export default class Messenger extends Component {
             loaded: false,
             inputActive: false
         };
-
         this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
         this.toggleInputActive = this.toggleInputActive.bind(this);
     }
@@ -37,7 +40,6 @@ export default class Messenger extends Component {
 
     componentDidMount() {
         this.fetchData();
-
         EventBus.publish(BUS_MESSAGE_READ_EVENT, {
             'proposalId': this.props.proposal.id,
             'organizationId': this.props.organization.id
@@ -83,12 +85,22 @@ export default class Messenger extends Component {
     }
 
     updateList(items) {
-        this.setState({items: items, loaded: true,}, () => {
-            this.scroll(true);
-            console.log('set messages count', getKeys(items).length);
-            let count = getKeys(items).length;
-            setMessagesCount(this.props.proposal.id, this.props.organization.id, count);
-        });
+        if (!this.isUpdating) {
+            this.isUpdating = true;
+            this.setState({items: items, loaded: true,}, () => {
+                this.scroll(true);
+                console.log('set messages count', getKeys(items).length);
+                let count = getKeys(items).length;
+                setMessagesCount(this.props.proposal.id, this.props.organization.id, count);
+                this.isUpdating = false;
+                if (this.needUpdate !== false) {
+                    this.updateList(this.needUpdate);
+                    this.needUpdate = false;
+                }
+            });
+        } else {
+            this.needUpdate = items;
+        }
     }
 
     toggleInputActive() {
