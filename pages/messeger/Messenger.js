@@ -4,15 +4,15 @@ import AS from '@react-native-community/async-storage'
 import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
-import CacheStore from '../../components/CacheStore';
+import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {getKeys, messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
 import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
-import {setMessagesCount} from "../../helpers/Storage";
-import {BUS_MESSAGE_READ_EVENT, FUNNEL_CHAT_ENTER, STORAGE_AUTH_ID} from "../../helpers/Constants";
+import {FUNNEL_CHAT_ENTER, STORAGE_AUTH_ID} from "../../helpers/Constants";
+import {Notify} from "../../helpers/Notify";
 
 
 export default class Messenger extends Component {
@@ -22,16 +22,24 @@ export default class Messenger extends Component {
     isUpdating = false;
     needUpdate = false;
 
+    eventListener;
+
+    messagesCount = 0;
+
+    notifyService;
+
+
     constructor(props) {
         super(props);
         this.state = {
             items: [],
             listTitle: '',
-            loaded: false,
+            loaded: true,
             inputActive: false
         };
         this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
         this.toggleInputActive = this.toggleInputActive.bind(this);
+        this.notifyService = new Notify();
     }
 
     static isMy(model) {
@@ -39,39 +47,6 @@ export default class Messenger extends Component {
     }
 
     componentDidMount() {
-        this.fetchData();
-        EventBus.publish(BUS_MESSAGE_READ_EVENT, {
-            'proposalId': this.props.proposal.id,
-            'organizationId': this.props.organization.id
-        });
-    }
-
-    componentWillUnmount() {
-        AS.getItem(STORAGE_AUTH_ID)
-            .then((id) => {
-                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
-                db.ref(path).off()
-
-            });
-
-        funnel.catchEvent(FUNNEL_CHAT_ENTER, {
-            proposal: this.props.proposal.id,
-            organization: this.props.organization.id
-        });
-    }
-
-    /**
-     * fetch data from API
-     */
-    fetchData() {
-
-        CacheStore.get(this.cacheKey).then((value) => {
-            if (value !== null) {
-                value = JSON.parse(value);
-                this.updateList(value);
-            }
-        });
-
         AS.getItem(STORAGE_AUTH_ID)
             .then((id) => {
                 const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
@@ -79,9 +54,29 @@ export default class Messenger extends Component {
                 ref.on('value', (snapshot) => {
                     const value = snapshot.val();
                     this.updateList(value);
-
                 })
             });
+    }
+
+    componentWillMount() {
+        console.log('listen message ' + this.constructor.name, 'p_' + this.props.proposal.id + 'o_' + this.props.organization.id);
+        this.eventListener = EventBus.on('p_' + this.props.proposal.id + 'o_' + this.props.organization.id, (val) => {
+            let count = ArrayHelper.getKeys(val).length;
+            if (count !== this.messagesCount && val !== undefined) {
+                this.updateList(val);
+                this.messagesCount = count;
+            }
+        })
+    }
+
+    componentWillUnmount() {
+        this.eventListener();
+        funnel.catchEvent(FUNNEL_CHAT_ENTER, {
+            proposal: this.props.proposal.id,
+            organization: this.props.organization.id
+        });
+
+        this.notifyService.readAllMessages(this.props.proposal.id, this.props.organization.id, ArrayHelper.getKeys(this.state.items).length);
     }
 
     updateList(items) {
@@ -89,10 +84,9 @@ export default class Messenger extends Component {
             this.isUpdating = true;
             this.setState({items: items, loaded: true,}, () => {
                 this.scroll(true);
-                console.log('set messages count', getKeys(items).length);
-                let count = getKeys(items).length;
-                setMessagesCount(this.props.proposal.id, this.props.organization.id, count);
                 this.isUpdating = false;
+
+
                 if (this.needUpdate !== false) {
                     this.updateList(this.needUpdate);
                     this.needUpdate = false;
@@ -101,6 +95,9 @@ export default class Messenger extends Component {
         } else {
             this.needUpdate = items;
         }
+
+
+        let count = getKeys(items).length;
     }
 
     toggleInputActive() {

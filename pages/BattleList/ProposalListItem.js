@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import AS from '@react-native-community/async-storage'
 import {Actions} from "react-native-router-flux";
 import {formatCost, formatDate, plural} from '../../helpers/StringHelper';
 import Proposal from "../../models/Proposal";
@@ -9,18 +8,8 @@ import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import type {ProposalType} from "../../types/ProposalType";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
 import Profit from "../../components/Profit";
-import GlobalState from "../../models/GlobalState";
-import EventBus from 'eventing-bus';
-import {NewMessageEventParams} from "../../models/NewMessageEventParams";
-import {BUS_MESSAGE_READ_EVENT, BUS_NEW_MESSAGE_EVENT} from "../../helpers/Constants";
-import {getProposalMessagesStorageKey} from "../../helpers/Storage";
-
-let shouldUpdate = false;
-
-export function updateProposalList() {
-    console.log('shoud upd');
-    shouldUpdate = true;
-}
+import EventBus from "eventing-bus"
+import AS from "@react-native-community/async-storage";
 
 export default class ProposalListItem extends Component {
 
@@ -28,9 +17,7 @@ export default class ProposalListItem extends Component {
         newMessages: false,
     };
 
-    newMessageSubscription;
-    readMessageSubscription;
-    pushMessage;
+    notifySubscribe;
 
     constructor(props) {
         super(props);
@@ -40,54 +27,28 @@ export default class ProposalListItem extends Component {
         Actions.DialogList({proposal: proposal})
     }
 
-    componentWillMount() {
-
-        //Рисуем кружок при новых сообщениях
-        this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
-
-
-            console.log('new message', data);
-
-            if (parseInt(data.proposalId) === this.props.proposal.id) {
-                this.setState({newMessages: true})
-            }
-        });
-
-        this.readMessageSubscription = EventBus.on(BUS_MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
-            if (parseInt(data.proposalId) === this.props.proposal.id) {
-                this.setState({newMessages: false})
-            }
-        });
-
-        //рисуем кружок если там что то есть
-        let state = new GlobalState();
-        if (this.props.proposal.id in state.newMessagesInProposal) {
-            this.setState({newMessages: true});
-        }
-
-        // this.pushMessage = EventBus.on(BUS_RECEIVE_PUSH, () => this.calcNewMessages());
-        this.calcNewMessages()
-
+    getSubscribeKey(): string {
+        return 'p_' + this.props.proposal.id;
     }
 
-    calcNewMessages() {
-        console.log('calc');
+    componentWillMount() {
+        this.notifySubscribe = EventBus.on(this.getSubscribeKey(), (val) => {
+            console.log('new in proposal');
+            this.setState({newMessages: true});
+        });
+    }
 
-        AS.getItem(getProposalMessagesStorageKey(this.props.proposal.id)).then((data) => {
+    componentDidMount() {
+        AS.getItem('p_' + this.props.proposal.id).then((data) => {
             let count = parseInt(data);
-
-            console.log('diff', count, this.props.proposal.messages);
-
             if (this.props.proposal.messages > count) {
                 this.setState({newMessages: true});
             }
         })
     }
 
-    componentWillUnmount() {
-        this.newMessageSubscription();
-        this.readMessageSubscription();
-        // this.pushMessage();
+    componentWillUnmount(): void {
+        this.notifySubscribe();
     }
 
     renderProfit(proposal: ProposalType) {
@@ -109,8 +70,6 @@ export default class ProposalListItem extends Component {
     }
 
     render() {
-
-
         const proposal = this.props.proposal;
         console.log(proposal);
         return (

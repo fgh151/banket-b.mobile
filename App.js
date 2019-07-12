@@ -23,7 +23,6 @@ import RegisterPhone from "./pages/auth/RegisterPhone";
 import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
-import appsFlyer from 'react-native-appsflyer';
 import RestaurantCard from './pages/RestaurantCard';
 import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
 import {funnel} from "./components/Funnel";
@@ -41,7 +40,6 @@ const customFont = {
 setCustomText(customFont);
 setCustomTextInput(customFont);
 
-
 export default class App extends React.Component {
     state = {
         appState: AppState.currentState,
@@ -49,7 +47,6 @@ export default class App extends React.Component {
 
     componentDidMount() {
 
-        // AppState.addEventListener('change', this._handleAppStateChange);
         new GeoLocation();
 
         SplashScreen.hide();
@@ -77,31 +74,10 @@ export default class App extends React.Component {
             .then((userId) => {
                 let gs = new GlobalState();
                 gs.userId = userId;
-                // Sentry.setUserContext({
-                //     id: userId
-                // })
             });
 
         funnel.catchEvent(FUNNEL_OPEN_APP_EVENT);
     }
-
-    componentWillUnmount() {
-        // AppState.removeEventListener('change', this._handleAppStateChange);
-    }
-
-    _handleAppStateChange = (nextAppState) => {
-        if (
-            this.state.appState.match(/inactive|background/) &&
-            nextAppState === 'active'
-        ) {
-            if (Platform.OS === 'ios') {
-                appsFlyer.trackAppLaunch();
-            }
-            //App has come to the foreground!
-            // SplashScreen.hide();
-        }
-        this.setState({appState: nextAppState});
-    };
 
     render() {
         return (

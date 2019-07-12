@@ -10,11 +10,10 @@ import type {Organization} from "../../types/Organization";
 import Profit from "../../components/Profit";
 import AndroidVersion from "../../helpers/AndroidVersion";
 import NewMessagesNotify from "../../components/NewMessagesNotify";
-import GlobalState from "../../models/GlobalState";
+import {STORAGE_AUTH_ID} from "../../helpers/Constants";
 import EventBus from "eventing-bus";
-import {NewMessageEventParams} from "../../models/NewMessageEventParams";
-import {BUS_MESSAGE_READ_EVENT, BUS_NEW_MESSAGE_EVENT, STORAGE_NEW_ORGANIZATIONS_IDS} from "../../helpers/Constants";
-import {getOrganizationMessagesStorageKey} from "../../helpers/Storage";
+import * as ArrayHelper from "../../helpers/ArrayHelper";
+import {db} from "../../Config";
 
 export default class DialogListItem extends Component {
 
@@ -27,62 +26,67 @@ export default class DialogListItem extends Component {
     address: any;
 
 
-    newMessageSubscription;
-    readMessageSubscription;
+    notifySubscribe;
+    notifyReadSubscribe;
+
+    messages = [];
+
 
     constructor(props) {
         super(props);
     }
 
-    static goToMessenger(organization: Organization, proposal) {
+    getSubscribeKey(): string {
+        return 'p_' + this.props.proposal.id + 'o_' + this.props.dialog.item.id;
+    }
+
+    componentWillMount() {
+
+        AS.getItem(STORAGE_AUTH_ID)
+            .then((id) => {
+                const path = '/proposal_2/u_' + id + '/p_' + this.props.proposal.id + '/o_' + this.props.organization.id;
+                let ref = db.ref(path);
+                ref.once('value', (snapshot) => {
+                    const value = snapshot.val();
+                    this.messages = ArrayHelper.getKeys(value);
+
+                    console.log('init messages', this.messages);
+
+                })
+            });
+
+
+        console.log('subscribe', this.getSubscribeKey());
+
+        this.notifySubscribe = EventBus.on(this.getSubscribeKey(), (val) => {
+            this.setState({newMessages: true});
+        });
+
+        this.notifyReadSubscribe = EventBus.on(this.getSubscribeKey() + 'read', () => {
+            this.setState({newMessages: false});
+        });
+    }
+
+    componentWillUnmount(): void {
+        this.notifySubscribe();
+        this.notifyReadSubscribe();
+    }
+
+    goToMessenger(organization: Organization, proposal) {
         Actions.Messenger({
             organization: organization,
-            proposal: proposal
+            proposal: proposal,
+            subscribeHandler: this.subscribeHandler
         });
     }
 
     componentDidMount() {
-        AS.getItem(STORAGE_NEW_ORGANIZATIONS_IDS).then(data => {
-            if (data) {
-                data = JSON.parse(data);
-                if (data.includes(this.props.organization.id.toString())) {
-                    this.setState({newMessages: true})
-                }
-            }
-        })
-    }
-
-    componentWillMount() {
-        this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
-            if (parseInt(data.proposalId) === this.props.proposal.id && parseInt(data.organizationId) === this.props.dialog.item.id) {
-                this.setState({newMessages: true})
-            }
-        });
-
-        this.readMessageSubscription = EventBus.on(BUS_MESSAGE_READ_EVENT, (data: NewMessageEventParams) => {
-            if (parseInt(data.proposalId) === this.props.proposal.id && parseInt(data.organizationId) === this.props.dialog.item.id) {
-                this.setState({newMessages: false})
-            }
-        });
-
-        let state = new GlobalState();
-
-        if (state.newMessagesInDialogs.indexOf(this.props.proposal.id + '-' + this.props.dialog.item.id) !== -1) {
-            console.log('there is new messages');
-            this.setState({newMessages: true});
-        }
-
-        AS.getItem(getOrganizationMessagesStorageKey(this.props.proposal.id, this.props.dialog.item.id)).then((data) => {
+        AS.getItem('p_' + this.props.proposal.id + 'o_' + this.props.dialog.item.id).then((data) => {
             let count = parseInt(data);
             if (this.props.proposal.messages > count) {
                 this.setState({newMessages: true});
             }
         })
-    }
-
-    componentWillUnmount() {
-        this.newMessageSubscription();
-        this.readMessageSubscription();
     }
 
     render() {
@@ -91,7 +95,7 @@ export default class DialogListItem extends Component {
             <Shadow style={styles.blockWrapper}>
                 <NewMessagesNotify newMessages={this.state.newMessages}/>
                 <TouchableOpacity
-                    onPress={() => DialogListItem.goToMessenger(this.props.dialog.item, this.props.proposal)}
+                    onPress={() => this.goToMessenger(this.props.dialog.item, this.props.proposal)}
                 >
                     <View style={styles.adItem}>
                         <View style={[styles.imageWrapper, {flex: 0.3}]}>
@@ -99,13 +103,13 @@ export default class DialogListItem extends Component {
                         </View>
                         <View style={[styles.itemAnnotation, {padding: 10, flex: 0.6}]}>
                             <View style={{marginBottom: 5}}>
-                                <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
+                                <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
                                     {this.props.dialog.item.name}
                                 </Text>
                             </View>
                             <View style={{marginBottom: 5}}>
                                 <Text
-                                    style={[textStyle.defaultFont, {fontSize: 13, lineHeight:16}]}>
+                                    style={[textStyle.defaultFont, {fontSize: 13, lineHeight: 16}]}>
                                     {this.props.dialog.item.address}
                                 </Text>
                             </View>
@@ -122,20 +126,21 @@ export default class DialogListItem extends Component {
                             <View style={{marginBottom: 5}}>
                                 <Text>
                                     <Text>
-                                        <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
+                                        <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
                                             {formatCost(this.props.proposal.amount * this.props.proposal.guests_count)}
                                         </Text>
-                                        <Text style={[textStyle.boldFont, {fontSize:15, lineHeight:18}]}>
+                                        <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
                                             &nbsp;{"\u20bd"}
                                         </Text>
                                     </Text>
                                 </Text>
                             </View>
-                            <View style={{marginBottom:6}}>
+                            <View style={{marginBottom: 6}}>
                                 <Profit profit={this.props.dialog.item.profit}/>
                             </View>
                             <View>
-                                <Text>{ round10( this.props.dialog.item.minPrice / this.props.proposal.guests_count)} {"\u20bd"} / чел.</Text>
+                                <Text>{round10(this.props.dialog.item.minPrice / this.props.proposal.guests_count)} {"\u20bd"} /
+                                    чел.</Text>
                             </View>
                         </View>
                     </View>
@@ -156,10 +161,8 @@ const styles = StyleSheet.create({
         borderColor: '#E0E0E0',
         borderWidth: 1,
         ...AndroidVersion.select({
-            28: {
-            },
-            default: {
-            }
+            28: {},
+            default: {}
         })
     },
     adItem: {
@@ -178,10 +181,9 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         ...Platform.select({
-            ios: {
-            },
+            ios: {},
             android: {
-                paddingTop:5
+                paddingTop: 5
             },
         }),
         ...AndroidVersion.select({

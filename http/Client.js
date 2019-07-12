@@ -87,7 +87,7 @@ export default class Client {
             // if (connectionInfo.type !== 'none') {
             return fetchPromise()
                 .then(response => {
-                    console.log(debugInfo, fullRoute, response);
+                    // console.log(debugInfo, fullRoute, response);
                     return response.json()
                 })
             // }

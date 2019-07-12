@@ -1,13 +1,8 @@
 import EventBus from "eventing-bus";
-import * as ArrayHelper from "./ArrayHelper";
-import {db} from "../Config";
-
+import AS from "@react-native-community/async-storage";
 
 export class Notify {
     static instance;
-
-
-    messageStat = [];
 
     /**
      *
@@ -20,98 +15,21 @@ export class Notify {
         Notify.instance = this;
     }
 
-
-    subscribeOnMessages(userId: number) {
-        const path = '/proposal_2/u_' + userId;
-        let ref = db.ref(path);
-        ref.on('value', (snapshot) => {
-            const value = snapshot.val();
-            let proposals = ArrayHelper.getKeys(value);
-            proposals.forEach((index) => this._subscribeProposal(index, path));
-        });
+    readAllMessages(proposal, organization, count) {
+        EventBus.publish('p_' + proposal + 'o_' + organization + 'read');
+        EventBus.publish('proposal_read');
+        AS.getItem('p_' + proposal).then((cnt) => {
+            //Прочитано в заявке
+            cnt = parseInt(cnt);
+            AS.getItem('p_' + proposal + 'o_' + organization).then((oldValue) => {
+                //прочитано в заявке у ресторана
+                oldValue = parseInt(oldValue);
+                count = count.toString();
+                //новое значение в заявке
+                cnt = cnt - oldValue + count;
+                AS.setItem('p_' + proposal, cnt);
+                AS.setItem('p_' + proposal + 'o_' + organization, count);
+            })
+        })
     }
-
-    _subscribeProposal = (proposalIndex, path) => {
-        let proposalPath = path + '/' + proposalIndex;
-        db.ref(proposalPath).once('value', (snapshot) => {
-            /**
-             * {"o_1": {"123":{message}}}
-             */
-            let proposalValues = snapshot.val();
-            ArrayHelper.getKeys(proposalValues).forEach((organizationIndex, index, arr) => {
-                this._subscribeOrganizationMessage(proposalPath, organizationIndex, proposalIndex, proposalValues)
-            });
-        });
-    };
-
-    _subscribeOrganizationMessage(proposalPath, organizationIndex, proposalIndex, proposalValues) {
-        let organizationPath = proposalPath + '/' + organizationIndex;
-        let organizationRef = db.ref(organizationPath);
-        organizationRef.once('value', (snapshot, messageAddedIndex) => {
-            if (messageAddedIndex !== null) {
-                EventBus.publish(proposalIndex); //ProposalListItem
-                EventBus.publish(proposalIndex + organizationIndex); //DialogListItem
-                EventBus.publish(proposalIndex + organizationIndex, proposalValues[organizationIndex]); //Messenger
-            }
-        });
-    }
-
-
-    _sendMessageEvent(proposal, organization, messages) {
-
-        EventBus.publish(proposal); //ProposalListItem
-        EventBus.publish(proposal + organization); //DialogListItem
-        EventBus.publish(proposal + organization, messages); //Messenger
-
-
-        console.log('messages', messages);
-
-        this.saveStatistic(proposal, organization, messages)
-    }
-
-    saveStatistic(proposal: string, organization: string, messages: Array) {
-        // let stat = {};
-        // stat[organization] = messages.length;
-        if (messages !== undefined) {
-            this.messageStat[proposal][organization] = messages.length;
-        }
-
-        console.log('new stat', this.messageStat)
-    }
-
-
-    /**
-     *
-     * @param proposalIndex
-     * @returns {NotifyStorage}
-     */
-    getValuesForProposal(proposalIndex) {
-        let tmp = new NotifyStorage();
-        tmp.cnt = 90;
-        tmp.read = 90;
-        return tmp;
-    }
-
-    /**
-     *
-     * @param proposalIndex
-     * @param organizationIndex
-     * @returns {NotifyStorage}
-     */
-    getValuesForOrganization(proposalIndex, organizationIndex) {
-        let tmp = new NotifyStorage();
-        tmp.cnt = 90;
-        tmp.read = 90;
-        return tmp;
-    }
-
-    setSendNotifyForProposal(proposalIndex, send = true) {
-    }
-
-
-}
-
-export class NotifyStorage {
-    cnt;
-    read;
 }

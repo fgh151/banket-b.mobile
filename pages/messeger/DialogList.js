@@ -12,10 +12,8 @@ import Empty from './Empty';
 import type {Organization} from "../../types/Organization";
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import PickerSelect from '../../components/PickerSelect';
-import GlobalState from "../../models/GlobalState";
 import EventBus from "eventing-bus";
-import {NewMessageEventParams} from "../../models/NewMessageEventParams";
-import {BUS_NEW_MESSAGE_EVENT, STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
+import {STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
 
 export default class DialogList extends Component {
 
@@ -58,21 +56,21 @@ export default class DialogList extends Component {
         this.fetchData();
         changeTitle(this.props.proposal);
 
-        let gs = new GlobalState();
-        gs.DialogList = this;
-
         AppState.addEventListener('change', this._handleAppStateChange);
     }
 
+    getSubscribeKey(): string {
+        return 'p_' + this.props.proposal.id;
+    }
+
     componentWillMount() {
-        this.newMessageSubscription = EventBus.on(BUS_NEW_MESSAGE_EVENT, (data: NewMessageEventParams) => {
-            if (parseInt(data.proposalId) === this.props.proposal.id) {
-                if (this.state.items.length === 0) {
-                    this.setState({loaded: false});
-                }
-                this.fetchData(true);
+        this.fetchData(true);
+        this.newMessageSubscription = EventBus.on(this.getSubscribeKey(), () => {
+            if (this.state.items.length === 0) {
+                this.setState({loaded: false});
             }
-        });
+            this.fetchData(true);
+        })
     }
 
     componentWillUnmount() {
@@ -82,6 +80,7 @@ export default class DialogList extends Component {
 
     _handleAppStateChange = (nextAppState) => {
         if (nextAppState === 'active') {
+            console.log('fetch after bg in dialogs');
             this.fetchData();
         }
     };
@@ -116,9 +115,6 @@ export default class DialogList extends Component {
                     api.GET('/proposal/dialogs/' + this.props.proposal.id)
                         .then(
                             (responseData) => {
-
-                                console.log(responseData);
-
                                 this.updateList(responseData);
                                 CacheStore.set(CACHE_KEY, responseData, Config.lowCache);
                             }

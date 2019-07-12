@@ -4,7 +4,7 @@ import React from "react";
 import firebase from "react-native-firebase";
 import EventBus from 'eventing-bus';
 import AS from '@react-native-community/async-storage'
-import {BUS_CLEAR_NOTIFICATIONS, BUS_NEW_MESSAGE_EVENT, STORAGE_AUTH_ID} from "./Constants";
+import {BUS_CLEAR_NOTIFICATIONS, STORAGE_AUTH_ID} from "./Constants";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -31,12 +31,28 @@ export default class Push {
         })
     }
 
+    static async saveToken() {
+        const token = await FCM.getToken();
+        AS.getItem(STORAGE_AUTH_ID)
+            .then((userId) => {
+                // console.log("Save token", userId, token);
+                const api = new Client();
+                api.POST('/v2/push', {
+                    user: userId,
+                    token: token,
+                    device: Platform.OS,
+                }).then((s) => {
+                })
+                    .catch((e) => console.log(e));
+            })
+    }
+
     checkPermissions() {
         FCM.hasPermission()
             .then(enabled => {
                 if (enabled) {
                     this.granted = true;
-                    console.log('Push permission granted');
+                    // console.log('Push permission granted');
                     Push.saveToken();
                 } else {
                     firebase.messaging().requestPermission()
@@ -45,21 +61,6 @@ export default class Push {
                         });
                 }
             });
-    }
-
-    static async saveToken() {
-        const token = await FCM.getToken();
-        AS.getItem(STORAGE_AUTH_ID)
-            .then((userId) => {
-                console.log("Save token", userId, token);
-                const api = new Client();
-                api.POST('/v2/push', {
-                    user: userId,
-                    token: token,
-                    device: Platform.OS,
-                }).then((s) => console.log(s))
-                    .catch((e) => console.log(e));
-            })
     }
 
     static clearNotifications() {
@@ -84,10 +85,8 @@ export default class Push {
             } else {
                 if (notification.data) {
                     if (notification.data.hasOwnProperty('proposalId')) {
-                        EventBus.publish(BUS_NEW_MESSAGE_EVENT, {
-                            'proposalId': notification.data.proposalId,
-                            'organizationId': notification.data.organizationId
-                        });
+                        EventBus.publish('p_' + notification.data.proposalId); //ProposalListItem
+                        EventBus.publish('p_' + notification.data.proposalId + 'o_' + notification.data.organizationId); //Messenger, DialogListItem
                     }
                 }
             }

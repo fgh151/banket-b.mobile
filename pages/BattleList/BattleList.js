@@ -10,16 +10,9 @@ import Config from '../../Config';
 import Empty from './Empty';
 import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import trackEvent from "../../helpers/AppsFlyer";
-import GlobalState from "../../models/GlobalState";
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
-import {funnel} from "../../components/Funnel";
-import {
-    BUS_CLOSE_PROPOSAL,
-    FUNNEL_OPEN_APP_EVENT,
-    STORAGE_AUTH_TOKEN,
-    STORAGE_PROPOSALS_LIST_CACHE_KEY
-} from "../../helpers/Constants";
+import {BUS_CLOSE_PROPOSAL, STORAGE_AUTH_TOKEN, STORAGE_PROPOSALS_LIST_CACHE_KEY} from "../../helpers/Constants";
 import EventBus from "eventing-bus";
 
 let showButtonState = false;
@@ -69,6 +62,8 @@ export default class BattleList extends React.PureComponent {
 
     deleteProposalHandler;
 
+    readMessagesHandler;
+
     constructor(props) {
 
 
@@ -82,13 +77,6 @@ export default class BattleList extends React.PureComponent {
 
         };
 
-        let gs = new GlobalState();
-        gs.BattleList = this;
-
-
-        funnel.catchEvent(FUNNEL_OPEN_APP_EVENT, {battle: 111});
-
-
         this.onRefresh = this.onRefresh.bind(this);
     }
 
@@ -99,12 +87,21 @@ export default class BattleList extends React.PureComponent {
         this.deleteProposalHandler = EventBus.on(BUS_CLOSE_PROPOSAL, () => {
             console.log('refresh proposals by event');
             this.fetchData(true);
-        })
+        });
+
+        this.readMessagesHandler = EventBus.on('proposal_read', () => {
+            console.log('refresh dialog list');
+            this.setState({items: []}, () => {
+                this.getRemoteList()
+            });
+        });
+
     }
 
     componentWillUnmount() {
         AppState.removeEventListener('change', this._handleAppStateChange);
         this.deleteProposalHandler();
+        this.readMessagesHandler();
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -113,7 +110,7 @@ export default class BattleList extends React.PureComponent {
 
         if (nextAppState === 'active') {
             console.log('fetch after bg');
-            this.setState({items: [], loaded: false}, this.fetchData(true));
+            this.fetchData(true);
         }
     };
 
@@ -136,6 +133,8 @@ export default class BattleList extends React.PureComponent {
 
     getRemoteList() {
 
+        console.log('get remote');
+
         const CACHE_KEY = 'proposal-list';
         if (this.props.token) {
             const api = new Client(this.props.token);
@@ -144,6 +143,7 @@ export default class BattleList extends React.PureComponent {
                     (responseData) => {
                         let items = responseData;
                         this.updateList(items);
+                        console.log('recievw klist', items);
                         CacheStore.set(CACHE_KEY, items, Config.lowCache);
                         this.setState({
                             loaded: true,

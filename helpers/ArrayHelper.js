@@ -84,6 +84,60 @@ export function messagesObject2array(obj) {
         message['key'] = item;
         result.push(message)
     });
-return result;
+    return result;
 }
 
+/**
+ *
+ * @param {Array} obj1
+ * @param {Array} obj2
+ * @returns {*}
+ */
+export function merge(obj1, obj2) {
+    for (let p in obj2) {
+        try {
+            // Property in destination object set; update its value.
+            if (obj2[p].constructor === Object) {
+                obj1[p] = merge(obj1[p], obj2[p]);
+
+            } else {
+                obj1[p] = obj2[p];
+            }
+        } catch (e) {
+            // Property in destination object not set; create it and set its value.
+            obj1[p] = obj2[p];
+        }
+    }
+    return obj1;
+}
+
+/**
+ *
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {boolean}
+ */
+export function isEqual(a, b) {
+    // if the other array is a falsy value, return
+    if (!b)
+        return false;
+    // isEqual lengths - can save a lot of time
+    if (
+        a.length !==
+        b.length
+    )
+        return false;
+
+    for (let i = 0, l = a.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (a[i] instanceof Array && b[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!isEqual(a[i], b[i]))
+                return false;
+        } else if (a[i] !== b[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;
+        }
+    }
+    return true;
+}
