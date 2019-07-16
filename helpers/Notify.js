@@ -19,14 +19,22 @@ export class Notify {
         EventBus.publish('p_' + proposal + 'o_' + organization + 'read');
         EventBus.publish('proposal_read');
         AS.getItem('p_' + proposal).then((cnt) => {
-            //Прочитано в заявке
-            cnt = parseInt(cnt);
+            if (cnt === null) {
+                cnt = 0;
+            } else {
+                //Прочитано в заявке
+                cnt = parseInt(cnt);
+            }
             AS.getItem('p_' + proposal + 'o_' + organization).then((oldValue) => {
                 //прочитано в заявке у ресторана
                 oldValue = parseInt(oldValue);
-                count = count.toString();
-                //новое значение в заявке
-                cnt = cnt - oldValue + count;
+                if (oldValue === null) {
+                    count = count.toString();
+                    //новое значение в заявке
+                    cnt = cnt - oldValue + count;
+                } else {
+                    cnt = count;
+                }
                 AS.setItem('p_' + proposal, cnt);
                 AS.setItem('p_' + proposal + 'o_' + organization, count);
             })

@@ -9,6 +9,7 @@ import Push from './helpers/Push';
 import {Sentry, SentryLog} from 'react-native-sentry';
 import Config from './Config';
 import GlobalState from "./models/GlobalState";
+import {Notify} from "./helpers/Notify";
 
 if (__DEV__ !== true) {
     Sentry.config(Config.sentryDSN, {
@@ -26,6 +27,7 @@ if (__DEV__ !== true) {
 new GlobalState();
 new Push();
 // Push.saveToken();
+new Notify();
 
 YellowBox.ignoreWarnings([
     'Remote debugger', //In background

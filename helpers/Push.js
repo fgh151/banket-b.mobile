@@ -35,15 +35,17 @@ export default class Push {
         const token = await FCM.getToken();
         AS.getItem(STORAGE_AUTH_ID)
             .then((userId) => {
-                // console.log("Save token", userId, token);
-                const api = new Client();
-                api.POST('/v2/push', {
-                    user: userId,
-                    token: token,
-                    device: Platform.OS,
-                }).then((s) => {
-                })
-                    .catch((e) => console.log(e));
+                if (userId) {
+                    // console.log("Save token", userId, token);
+                    const api = new Client();
+                    api.POST('/v2/push', {
+                        user: userId,
+                        token: token,
+                        device: Platform.OS,
+                    }).then((s) => {
+                    })
+                }
+                // .catch((e) => console.log(e));
             })
     }
 
@@ -84,6 +86,7 @@ export default class Push {
                     });
             } else {
                 if (notification.data) {
+                    console.log('notify', notification.data);
                     if (notification.data.hasOwnProperty('proposalId')) {
                         EventBus.publish('p_' + notification.data.proposalId); //ProposalListItem
                         EventBus.publish('p_' + notification.data.proposalId + 'o_' + notification.data.organizationId); //Messenger, DialogListItem
