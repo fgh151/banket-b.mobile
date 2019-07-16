@@ -109,9 +109,11 @@ export default class Proposal {
         return parseInt(count) >= assert;
     }
 
-    afterSave() {
+    afterSave(proposal) {
         trackEvent('proposal', {proposal: this});
         this.clear();
+
+        AS.setItem('p_' + proposal.id, 0);
 
         Actions.Finish();
     }
@@ -135,7 +137,7 @@ export default class Proposal {
             .then(response => {
                 if (response.hasOwnProperty('id')) {
                     funnel.catchEvent(FUNNEL_BATTLE_CREATED, {id: response.id});
-                    this.afterSave();
+                    this.afterSave(response);
                 } else {
                     let keys = ArrayHelper.getKeys(response);
                     keys.forEach((val) => {
