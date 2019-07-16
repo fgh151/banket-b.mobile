@@ -96,13 +96,12 @@ export default class Proposal {
      * @returns {boolean}
      */
     validate() {
-        let valid = this.cityId !== null &&
+        return this.cityId !== null &&
             this.event_type !== null &&
             this.date !== null &&
             this.time !== null &&
             this.countValid(this.guests_count, MIN_GUEST_COUNT) &&
             this.countValid(this.amount, MIN_AMOUNT);
-        return valid;
     }
 
     countValid(count, assert) {
@@ -113,7 +112,7 @@ export default class Proposal {
         trackEvent('proposal', {proposal: this});
         this.clear();
 
-        AS.setItem('p_' + proposal.id, 0);
+        AS.setItem('p_' + proposal.id, '0');
 
         Actions.Finish();
     }

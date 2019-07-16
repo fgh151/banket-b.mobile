@@ -35,8 +35,8 @@ export class Notify {
                 } else {
                     cnt = count;
                 }
-                AS.setItem('p_' + proposal, cnt);
-                AS.setItem('p_' + proposal + 'o_' + organization, count);
+                AS.setItem('p_' + proposal, cnt.toString());
+                AS.setItem('p_' + proposal + 'o_' + organization, count.toString());
             })
         })
     }

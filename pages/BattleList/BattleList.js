@@ -91,12 +91,13 @@ export default class BattleList extends React.PureComponent {
 
         this.readMessagesHandler = EventBus.on('proposal_read', () => {
             console.log('refresh dialog list');
-            this.setState({items: []}, () => {
+            this.setState({items: [], refreshing: true}, () => {
                 this.getRemoteList()
             });
         });
 
     }
+
 
     componentWillUnmount() {
         AppState.removeEventListener('change', this._handleAppStateChange);
@@ -111,6 +112,24 @@ export default class BattleList extends React.PureComponent {
         if (nextAppState === 'active') {
             console.log('fetch after bg');
             this.fetchData(true);
+
+
+            this.deleteProposalHandler = EventBus.on(BUS_CLOSE_PROPOSAL, () => {
+                console.log('refresh proposals by event');
+                this.fetchData(true);
+            });
+
+            this.readMessagesHandler = EventBus.on('proposal_read', () => {
+                console.log('refresh dialog list');
+                this.setState({items: [], refreshing: true}, () => {
+                    this.getRemoteList()
+                });
+            });
+
+
+        } else {
+            this.deleteProposalHandler();
+            this.readMessagesHandler();
         }
     };
 
@@ -134,6 +153,10 @@ export default class BattleList extends React.PureComponent {
     getRemoteList() {
 
         console.log('get remote');
+
+        this.setState({
+            loaded: false, items: []
+        });
 
         const CACHE_KEY = 'proposal-list';
         if (this.props.token) {
