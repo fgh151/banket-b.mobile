@@ -22,6 +22,15 @@ if (__DEV__ !== true) {
     Sentry.setExtraContext({
         version: app.version
     });
+
+    var console = {};
+    console.log = function () {
+    };
+
+    console.warn = function () {
+    };
+    console.error = function () {
+    };
 }
 
 new GlobalState();
