@@ -31,6 +31,8 @@ if (__DEV__ !== true) {
     };
     console.error = function () {
     };
+    console.info = function () {
+    };
 }
 
 new GlobalState();
