@@ -83,7 +83,7 @@ export default class DialogListItem extends Component {
     componentDidMount() {
         AS.getItem('p_' + this.props.proposal.id + 'o_' + this.props.dialog.item.id).then((data) => {
             let count = parseInt(data);
-            if (this.props.proposal.messages > count) {
+            if (this.props.proposal.messages > count || isNaN(count)) {
                 this.setState({newMessages: true});
             }
         })

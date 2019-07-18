@@ -1,5 +1,6 @@
 import EventBus from "eventing-bus";
 import AS from "@react-native-community/async-storage";
+import Push from "./Push";
 
 export class Notify {
     static instance;
@@ -37,6 +38,8 @@ export class Notify {
                 }
                 AS.setItem('p_' + proposal, cnt.toString());
                 AS.setItem('p_' + proposal + 'o_' + organization, count.toString());
+
+                Push.clearNotifications();
             })
         })
     }

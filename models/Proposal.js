@@ -10,7 +10,7 @@ import {FUNNEL_BATTLE_CREATED, STORAGE_AUTH_TOKEN} from "../helpers/Constants";
 
 
 const MIN_GUEST_COUNT = 1;
-const MIN_AMOUNT = 100;
+const MIN_AMOUNT = 1000;
 
 export default class Proposal {
 

@@ -1,6 +1,6 @@
 {
   "name": "rubanketb",
-  "version": "2.0.42",
+  "version": "2.0.44",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -12,7 +12,7 @@
     "preversion": "./npm-version/pre-version.sh",
     "version": "./npm-version/version-ios.sh",
     "postversion": "./npm-version/post-version.sh",
-    "sentry": "sentry-cli react-native gradle --bundle android/app/src/main/assets/index.android.bundle --release 2.0.42 --sourcemap sourcemap/android.map --dist all --project banket-bmobile"
+    "sentry": "sentry-cli react-native gradle --bundle android/app/src/main/assets/index.android.bundle --release 2.0.44 --sourcemap sourcemap/android.map --dist all --project banket-bmobile"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
