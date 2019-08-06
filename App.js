@@ -164,7 +164,7 @@ export default class App extends React.Component {
                             },
                             {
                                 action: () => {
-                                    AS.clear(() => Actions.WhatIsIt())
+                                    AS.multiRemove(['battle@token', 'battle@id'], () => Actions.WhatIsIt());
                                 },
                                 title: 'Выйти'
                             }
