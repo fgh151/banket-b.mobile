@@ -66,7 +66,7 @@ export default function Organization(props) {
                     <Profit profit={props.organization.profit}/>
                 </View>
                 <View style={{paddingTop: 10}}>
-                    <Text>{round10(props.organization.minPrice / props.proposal.guests_count)} {"\u20bd"} /
+                    <Text>{round10(props.organization.minPrice)} {"\u20bd"} /
                         чел.</Text>
                 </View>
 
