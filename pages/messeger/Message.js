@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, Text, View} from "react-native"
-import Hyperlink from 'react-native-hyperlink'
+import HyperlinkedText from 'react-native-hyperlinked-text'
 import moment from "moment";
 import {windowPadding} from "../../styles/Global";
 
@@ -9,9 +9,9 @@ export default function Message(props) {
     return (
         <View style={style.wrapper}>
             <View style={style.messageWrapper}>
-                <Hyperlink linkDefault={true}>
+                <HyperlinkedText linkDefault={true}>
                     <Text>{props.message}</Text>
-                </Hyperlink>
+                </HyperlinkedText>
             </View>
             <View style={style.timeWrapper}>
                 <Text style={style.time}>{time.format('HH:mm')}</Text>
@@ -27,10 +27,8 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 8,
         paddingBottom: 8,
-
         paddingLeft: windowPadding,
         paddingRight: windowPadding
-
     },
     messageWrapper: {
         maxWidth:'90%'
@@ -44,6 +42,5 @@ const style = StyleSheet.create({
         color: '#878787',
         fontSize:12,
         lineHeight:15,
-
     }
 });

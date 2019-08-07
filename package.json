@@ -32,7 +32,7 @@
     "react-native-geocoder": "^0.5.0",
     "react-native-geolocation-service": "^2.0.0",
     "react-native-global-props": "^1.1.5",
-    "react-native-hyperlink": "^0.0.14",
+    "react-native-hyperlinked-text": "^1.0.2",
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-keyboard-aware-scroll-view": "latest",
     "react-native-open-maps": "^0.3.3",
