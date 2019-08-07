@@ -10,7 +10,7 @@ export default function Message(props) {
         <View style={style.wrapper}>
             <View style={style.messageWrapper}>
                 <HyperlinkedText linkDefault={true}>
-                    <Text>{props.message}</Text>
+                    {props.message}
                 </HyperlinkedText>
             </View>
             <View style={style.timeWrapper}>
