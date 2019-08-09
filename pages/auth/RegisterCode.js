@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
 import Client from '../../http/Client';
-import {firstLunchDone} from '../../helpers/Luncher';
+import {firstLunchDone, initMessages} from '../../helpers/Luncher';
 import Proposal from "../../models/Proposal";
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
@@ -70,6 +70,7 @@ export default class RegisterCode extends React.Component {
                                         id: response.id
                                     });
                                 firstLunchDone();
+                                initMessages(response.id);
                                 let gs = new GlobalState();
                                 gs.userId = response.id;
                                 Push.saveToken();

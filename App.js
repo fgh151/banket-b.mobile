@@ -33,6 +33,7 @@ import BackFromRegister from "./components/BackFromRegister";
 import AS from '@react-native-community/async-storage'
 import {BUS_CLOSE_PROPOSAL, FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_ID, STORAGE_AUTH_TOKEN} from "./helpers/Constants";
 import EventBus from "eventing-bus";
+import {firstLunchRevert} from "./helpers/Luncher";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -51,15 +52,17 @@ export default class App extends React.Component {
 
         SplashScreen.hide();
 
-        firebase.messaging().hasPermission()
+        let messaging = firebase.messaging();
+
+        messaging.hasPermission()
             .then(enabled => {
                 if (enabled) {
-                    firebase.messaging().getToken().then(token => {
+                    messaging.getToken().then(token => {
                         // console.log("LOG: ", token);
                     })
                     // user has permissions
                 } else {
-                    firebase.messaging().requestPermission()
+                    messaging.requestPermission()
                         .then(() => {
                             // alert("User Now Has Permission")
                         })
@@ -94,6 +97,7 @@ export default class App extends React.Component {
                         key={'router'}
                         component={AppRouter}
                         hideNavBar={true}
+                        initial={true}
                     />
 
                     <Scene
@@ -164,6 +168,8 @@ export default class App extends React.Component {
                             },
                             {
                                 action: () => {
+                                    // noinspection JSIgnoredPromiseFromCall
+                                    firstLunchRevert();
                                     AS.multiRemove(['battle@token', 'battle@id'], () => Actions.WhatIsIt());
                                 },
                                 title: 'Выйти'
@@ -171,7 +177,6 @@ export default class App extends React.Component {
                         ]}/>}
                         renderRightButton={<RightButton/>}
                     />
-
                     <Scene
                         titleStyle={localStyle.titleStyle}
                         key="Services"
@@ -230,7 +235,6 @@ export default class App extends React.Component {
                                 ]}/>
                         }
                     />
-
                     <Scene
                         titleStyle={localStyle.titleStyle}
                         key="Messenger"
@@ -252,7 +256,6 @@ export default class App extends React.Component {
                         hideNavBar={true}
                         // initial={true}
                     />
-
                     <Scene
                         titleStyle={localStyle.titleStyle}
                         key="Feedback"
@@ -260,7 +263,6 @@ export default class App extends React.Component {
                         component={Feedback}
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
-
                     <Scene
                         titleStyle={localStyle.titleStyle}
                         key="FeedbackDone"
@@ -275,7 +277,6 @@ export default class App extends React.Component {
                         }}
                         // initial={true}
                     />
-
                 </Scene>
             </Router>
         );

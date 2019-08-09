@@ -17,16 +17,16 @@ export class Notify {
     }
 
     readAllMessages(proposal, organization, count) {
-        EventBus.publish('p_' + proposal + 'o_' + organization + 'read');
+        EventBus.publish(proposal + organization + 'read');
         EventBus.publish('proposal_read');
-        AS.getItem('p_' + proposal).then((cnt) => {
+        AS.getItem(proposal).then((cnt) => {
             if (cnt === null) {
                 cnt = 0;
             } else {
                 //Прочитано в заявке
                 cnt = parseInt(cnt);
             }
-            AS.getItem('p_' + proposal + 'o_' + organization).then((oldValue) => {
+            AS.getItem(proposal + organization).then((oldValue) => {
                 //прочитано в заявке у ресторана
                 oldValue = parseInt(oldValue);
                 if (oldValue === null) {
@@ -36,8 +36,8 @@ export class Notify {
                 } else {
                     cnt = count;
                 }
-                AS.setItem('p_' + proposal, cnt.toString());
-                AS.setItem('p_' + proposal + 'o_' + organization, count.toString());
+                AS.setItem(proposal, cnt.toString());
+                AS.setItem(proposal + organization, count.toString());
 
                 Push.clearNotifications();
             })

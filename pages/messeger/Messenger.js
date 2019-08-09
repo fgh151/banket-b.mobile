@@ -76,7 +76,7 @@ export default class Messenger extends Component {
             organization: this.props.organization.id
         });
 
-        this.notifyService.readAllMessages(this.props.proposal.id, this.props.organization.id, ArrayHelper.getKeys(this.state.items).length);
+        this.notifyService.readAllMessages('p_' + this.props.proposal.id, 'o_' + this.props.organization.id, ArrayHelper.getKeys(this.state.items).length);
     }
 
     updateList(items) {

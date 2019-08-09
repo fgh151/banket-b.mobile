@@ -9,7 +9,7 @@ import type {LoginResponse} from "../../types/LoginResponse";
 import trackEvent from "../../helpers/AppsFlyer";
 import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
-import {firstLunchDone} from '../../helpers/Luncher';
+import {firstLunchDone, initMessages} from '../../helpers/Luncher';
 import Push from "../../helpers/Push";
 import CodeInput from "./CodeInput";
 import {ifIphoneX} from "react-native-iphone-x-helper";
@@ -58,6 +58,7 @@ export default class LoginCode extends React.Component {
                                         id: response.id
                                     });
                                 firstLunchDone();
+                                initMessages(response.id);
 
                                 let gs = new GlobalState();
                                 gs.userId = response.id;

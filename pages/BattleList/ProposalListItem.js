@@ -41,9 +41,6 @@ export default class ProposalListItem extends Component {
     componentDidMount() {
         AS.getItem('p_' + this.props.proposal.id).then((data) => {
             let count = parseInt(data);
-
-            console.log('PLI diff ' + this.props.proposal.id, this.props.proposal.messages, count);
-
             if (this.props.proposal.messages > count) {
                 this.setState({newMessages: true});
             }
@@ -74,7 +71,6 @@ export default class ProposalListItem extends Component {
 
     render() {
         const proposal = this.props.proposal;
-        console.log(proposal);
         return (
             <Shadow style={styles.blockWrapper}>
                 <NewMessagesNotify newMessages={this.state.newMessages}/>
