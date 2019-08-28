@@ -3,6 +3,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {PermissionsAndroid} from "react-native";
 import Client from '../http/Client';
 import AS from '@react-native-community/async-storage'
+import {STORAGE_GEO_CACHE_KEY} from "./Constants";
 
 
 const Position = {
@@ -45,6 +46,7 @@ export class City {
         metro: [],
         title: "Москва"
     };
+
     constructor() {
         if (City.instance) {
             return City.instance;
@@ -54,11 +56,15 @@ export class City {
 }
 
 export default class GeoLocation {
-    static CACHE_KEY = 'geo-base';
     city = new City();
 
     constructor() {
         this.requestLocationPermission();
+
+        (new Client()).GET('/city/city')
+            .then((responseData) => {
+                AS.setItem(STORAGE_GEO_CACHE_KEY, JSON.stringify(responseData));
+            });
     }
 
     async requestLocationPermission() {
@@ -85,12 +91,9 @@ export default class GeoLocation {
     }
 
     findInRemote(cityName) {
-
-
-        GeoLocation.getRemoteCities()
+        AS.getItem(STORAGE_GEO_CACHE_KEY)
             .then(
                 (responseData) => {
-                    AS.setItem(GeoLocation.CACHE_KEY, responseData);
                     let c = responseData.find((cityObject) => cityObject.title === cityName);
                     if (c) {
                         // console.log(c);
@@ -100,11 +103,6 @@ export default class GeoLocation {
 
                 }
             )
-    }
-
-    static getRemoteCities() {
-        const api = new Client();
-        return api.GET('/city/city')
     }
 
     getLocation() {

@@ -33,14 +33,13 @@ export function initMessages(id) {
     ref.once('value', (snapshot) => {
         const value = snapshot.val();
         const proposals = getKeys(value);
-        const notifyService = new Notify();
         proposals.forEach(function (currentProposal, proposalIndex) {
             const organizations = getKeys(value[currentProposal]);
             organizations.forEach(function (messages, index) {
                 let proposal = proposals[proposalIndex];
                 let organization = organizations[index];
                 let count = getKeys(value[proposal][organization]).length;
-                notifyService.readAllMessages(proposal, organization, count);
+                Notify.readAllMessages(proposal, organization, count);
             })
         })
     })

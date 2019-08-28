@@ -62,7 +62,10 @@ export default class ProposalBar extends Component {
                         {proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}
                         </Text>
                         <Text>
-                            <Text>&nbsp;&nbsp;&nbsp;&nbsp;{formatCost(proposal.amount)} {"\u20bd"} на гостя</Text>
+                            <Text>&nbsp;&nbsp;&nbsp;&nbsp;{formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
+                        </Text>
+                        <Text>
+                            <Text>&nbsp;&nbsp;&nbsp;&nbsp;{formatCost(proposal.amount * proposal.guests_count)} {"\u20bd"}</Text>
                         </Text>
                     </Text>
                 </View>

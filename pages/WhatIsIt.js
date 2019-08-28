@@ -5,35 +5,37 @@ import {Styles as textStyle, windowPadding} from '../styles/Global';
 import {Button} from '../components/Button';
 import Swiper from '../components/Swiper/Swiper';
 import Pagination from "../components/Swiper/Pagination";
-import {funnel} from "../components/Funnel";
-import {FUNNEL_CREATE_BTN_CLICK} from "../helpers/Constants";
+import log from "../helpers/firebaseAnalytic";
 
 export default function WhatIsIt() {
-        return (
-            <SafeAreaView style={[textStyle.rootViewWrapper, WIIstyles.rootView]}>
-                <View style={{marginTop: 0, paddingRight: windowPadding, alignItems: 'flex-end', width: '100%'}}>
-                    <TouchableOpacity style={{width: 100, height: 60, paddingTop: 5}}
-                                      onPress={() => Actions.LoginPhone()}>
-                        <Text style={WIIstyles.loginButton}>Войти</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{flex: 1, width:'100%'}}>
-                    <Swiper
-                        showPagination
-                        PaginationComponent={Pagination}
-                    >
-                        <Slide1/>
-                        <Slide2/>
-                    </Swiper>
-                </View>
-                <View style={WIIstyles.createButtonWrapper}>
-                    <Button onPress={() => {
-                        Actions.Form();
-                        funnel.catchEvent(FUNNEL_CREATE_BTN_CLICK);
-                    }} title="Создать новый батл"/>
-                </View>
-            </SafeAreaView>
-        );
+    return (
+        <SafeAreaView style={[textStyle.rootViewWrapper, WIIstyles.rootView]}>
+            <View style={{marginTop: 0, paddingRight: windowPadding, alignItems: 'flex-end', width: '100%'}}>
+                <TouchableOpacity style={{width: 100, height: 60, paddingTop: 5}}
+                                  onPress={() => {
+                                      Actions.LoginPhone();
+                                      log(this, 'login_btn');
+                                  }}>
+                    <Text style={WIIstyles.loginButton}>Войти</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, width: '100%'}}>
+                <Swiper
+                    showPagination
+                    PaginationComponent={Pagination}
+                >
+                    <Slide1/>
+                    <Slide2/>
+                </Swiper>
+            </View>
+            <View style={WIIstyles.createButtonWrapper}>
+                <Button onPress={() => {
+                    Actions.Form();
+                    log(this, create_battle_btn);
+                }} title="Создать новый батл"/>
+            </View>
+        </SafeAreaView>
+    );
 }
 
 function Slide1() {
@@ -96,7 +98,7 @@ const WIIstyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom:100,
+        paddingBottom: 100,
         width: width,
         ...Platform.select({
             ios: {},

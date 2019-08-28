@@ -14,6 +14,7 @@ import {STORAGE_AUTH_ID} from "../../helpers/Constants";
 import EventBus from "eventing-bus";
 import * as ArrayHelper from "../../helpers/ArrayHelper";
 import {db} from "../../Config";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class DialogListItem extends Component {
 
@@ -56,8 +57,6 @@ export default class DialogListItem extends Component {
             });
 
 
-        console.log('subscribe', this.getSubscribeKey());
-
         this.notifySubscribe = EventBus.on(this.getSubscribeKey(), (val) => {
             this.setState({newMessages: true});
         });
@@ -78,19 +77,42 @@ export default class DialogListItem extends Component {
             proposal: proposal,
             subscribeHandler: this.subscribeHandler
         });
+        log(this, 'open_messenger');
     }
 
     componentDidMount() {
         AS.getItem('p_' + this.props.proposal.id + 'o_' + this.props.dialog.item.id).then((data) => {
             let count = parseInt(data);
-            if (this.props.proposal.messages > count || isNaN(count)) {
+            if (this.props.dialog.item.messages > count || isNaN(count)) {
                 this.setState({newMessages: true});
             }
         })
     }
 
+    renderOrganizationCost(proposal) {
+        if (proposal.minPrice * proposal.guests > 0) {
+            return (
+                <Text>
+                    <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
+                        {formatCost(proposal.minPrice * proposal.guests)}
+                    </Text>
+                    <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
+                        &nbsp;{"\u20bd"}
+                    </Text>
+                </Text>
+            )
+        }
+        return null;
+    }
+
     render() {
+
+        log(this, 'render');
+
         const image = this.props.dialog.item.images[0];
+        let organizationProfit = this.props.dialog.item.profit > 0 ?
+            <Text>{round10(this.props.dialog.item.minPrice)} {"\u20bd"} / чел.</Text> : null;
+
         return (
             <Shadow style={styles.blockWrapper}>
                 <NewMessagesNotify newMessages={this.state.newMessages}/>
@@ -125,28 +147,19 @@ export default class DialogListItem extends Component {
                         }]}>
                             <View style={{marginBottom: 5}}>
                                 <Text>
-                                    <Text>
-                                        <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
-                                            {formatCost(this.props.proposal.amount * this.props.proposal.guests_count)}
-                                        </Text>
-                                        <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
-                                            &nbsp;{"\u20bd"}
-                                        </Text>
-                                    </Text>
+                                    {this.renderOrganizationCost(this.props.dialog.item)}
                                 </Text>
                             </View>
                             <View style={{marginBottom: 6}}>
                                 <Profit profit={this.props.dialog.item.profit}/>
                             </View>
                             <View>
-                                <Text>{round10(this.props.dialog.item.minPrice)} {"\u20bd"} /
-                                    чел.</Text>
+                                {organizationProfit}
                             </View>
                         </View>
                     </View>
                 </TouchableOpacity>
             </Shadow>
-
         );
     }
 }

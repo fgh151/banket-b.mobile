@@ -1,19 +1,15 @@
 import React from "react";
-
 import ReactNative, {View} from "react-native"
 import {Styles as textStyle} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import ServiceInput from '../../components/ServiceInput';
 import Proposal from "../../models/Proposal";
 import AdditionalInput from './AdditionalInput'
-
 import FormPage, {commonStyles} from './AbstractFormPage';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
-import {FUNNEL_GO_FROM_SERVICE} from "../../helpers/Constants";
-
-export const BACK_TO_FORM_EVENT = 'back_to_form';
+import {BACK_TO_FORM_EVENT} from "../../helpers/Constants";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class Services extends FormPage {
 
@@ -27,11 +23,9 @@ export default class Services extends FormPage {
     proposal = new Proposal();
 
     nextPage = () => {
-
-        console.log('next');
-        funnel.catchEvent(FUNNEL_GO_FROM_SERVICE);
         this.setState({buttonDisabled: true});
-        this.proposal.save()
+        this.proposal.save();
+        log(this, 'next_btn');
     };
 
     componentDidMount(): void {
@@ -44,16 +38,8 @@ export default class Services extends FormPage {
         this.proposal[propertyName] = !this.proposal[propertyName];
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-        this.setState({buttonDisabled: false})
-    }
-
     render() {
-
-        // if (Platform.OS === 'android') {
-        //     AndroidKeyboardAdjust.setAdjustPan();
-        // }
+        log(this, 'render');
         return (
             <View style={textStyle.rootViewWrapper}>
 
@@ -116,5 +102,4 @@ export default class Services extends FormPage {
             </View>
         )
     }
-
 }

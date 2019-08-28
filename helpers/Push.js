@@ -5,6 +5,7 @@ import firebase from "react-native-firebase";
 import EventBus from 'eventing-bus';
 import AS from '@react-native-community/async-storage'
 import {BUS_CLEAR_NOTIFICATIONS, STORAGE_AUTH_ID} from "./Constants";
+import {Actions} from "react-native-router-flux";
 
 const FCM = firebase.messaging();
 const FN = firebase.notifications();
@@ -74,6 +75,24 @@ export default class Push {
     }
 
     setRecieveHandler() {
+        FN.onNotificationOpened((notificationOpen) => {
+            FN.removeDeliveredNotification(notificationOpen.notification.notificationId)
+            const api = new Client();
+            api.GET('/v2/push/info', {
+                organizationId: notificationOpen.notification.data.organizationId,
+                proposalId: notificationOpen.notification.data.proposalId,
+            }).then((info) => {
+
+                console.log('get push info', info)
+
+                Actions.Messenger({
+                    organization: info.organization,
+                    proposal: info.proposal,
+                });
+            })
+            // .catch((e) => console.log(e));
+        });
+
         FN.onNotification((notification: Notification) => {
             if (AppState.currentState !== 'active') {
                 notification

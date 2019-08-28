@@ -14,6 +14,7 @@ import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {BUS_CLOSE_PROPOSAL, STORAGE_AUTH_TOKEN, STORAGE_PROPOSALS_LIST_CACHE_KEY} from "../../helpers/Constants";
 import EventBus from "eventing-bus";
+import log from "../../helpers/firebaseAnalytic";
 
 let showButtonState = false;
 
@@ -30,6 +31,7 @@ export class RightButton extends React.Component {
     };
 
     render() {
+        log(this, 'render');
         if (this.state.show) {
             return (
                 <TouchableOpacity
@@ -220,6 +222,8 @@ export default class BattleList extends React.PureComponent {
     }
 
     render() {
+
+        console.log('actions', Actions.prevScene);
 
         if (!this.state.loaded) {
             return <Loading/>;

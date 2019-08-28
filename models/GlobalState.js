@@ -1,10 +1,11 @@
-import DeviceInfo from "react-native-device-info";
+import {firebase} from "../Config";
+
 
 export default class GlobalState {
     static instance;
 
     AuthCode = null;
-    Uid = DeviceInfo.getUniqueID();
+    Uid = null;
     userId = null;
 
     /**
@@ -15,6 +16,8 @@ export default class GlobalState {
         if (GlobalState.instance) {
             return GlobalState.instance;
         }
+
+        firebase.iid().get().then((iid) => this.Uid = iid);
         GlobalState.instance = this;
     }
 }

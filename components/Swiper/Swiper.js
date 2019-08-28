@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {FlatList, Platform} from 'react-native';
 
 import Pagination from './Pagination';
+import {fa} from "../../Config";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class Swiper extends PureComponent {
     static propTypes = {
@@ -122,6 +124,7 @@ export default class Swiper extends PureComponent {
             if (this.flatListRef) {
                 this.flatListRef.scrollToIndex(params);
             }
+            log(this, 'whatisit_swipe');
             return {paginationIndex: index};
         });
     };

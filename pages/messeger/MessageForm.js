@@ -15,8 +15,8 @@ import {
 import AS from '@react-native-community/async-storage'
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
-import {funnel} from "../../components/Funnel";
-import {FUNNEL_CHAT_ANSWER, STORAGE_AUTH_ID} from "../../helpers/Constants";
+import {STORAGE_AUTH_ID} from "../../helpers/Constants";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class MessageForm extends Component {
 
@@ -40,6 +40,7 @@ export default class MessageForm extends Component {
     }
 
     sendMessage() {
+        log(this, 'send_btn');
         let created = moment().format('X').toString();
         AS.getItem(STORAGE_AUTH_ID)
             .then((id) => {
@@ -57,8 +58,6 @@ export default class MessageForm extends Component {
                     btnStyle: style.buttonWrapperInactive
                 })
             });
-
-        funnel.catchEvent(FUNNEL_CHAT_ANSWER, {proposal: this.proposalId, organization: this.organizationId});
     }
 
     setText(text) {
@@ -149,7 +148,7 @@ const style = StyleSheet.create({
         backgroundColor: '#F7F7F7',
         ...ifIphoneX({
             marginBottom: -35,
-            paddingBottom:35
+            paddingBottom: 35
         }),
         ...Platform.select({
             ios: {
@@ -183,7 +182,7 @@ const style = StyleSheet.create({
             },
             android: {
                 marginLeft: -5,
-                padding:5,
+                padding: 5,
                 paddingLeft: 12
             },
         }),
@@ -200,7 +199,7 @@ const style = StyleSheet.create({
 
             },
             android: {
-               paddingTop:5
+                paddingTop: 5
             },
         }),
     },

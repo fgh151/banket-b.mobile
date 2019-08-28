@@ -10,6 +10,7 @@ import NewMessagesNotify from "../../components/NewMessagesNotify";
 import Profit from "../../components/Profit";
 import EventBus from "eventing-bus"
 import AS from "@react-native-community/async-storage";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class ProposalListItem extends Component {
 
@@ -24,7 +25,8 @@ export default class ProposalListItem extends Component {
     }
 
     static goToDialogs(proposal: Proposal) {
-        Actions.DialogList({proposal: proposal})
+        Actions.DialogList({proposal: proposal});
+        log(this, 'open_proposal', {proposalId: proposal.id});
     }
 
     getSubscribeKey(): string {
@@ -39,9 +41,15 @@ export default class ProposalListItem extends Component {
     }
 
     componentDidMount() {
-        AS.getItem('p_' + this.props.proposal.id).then((data) => {
-            let count = parseInt(data);
-            if (this.props.proposal.messages > count) {
+        let dialogs = this.props.proposal.dialogs.map((val, index, array) => {
+            return this.getSubscribeKey() + 'o_' + val
+        });
+        AS.multiGet(dialogs).then((values) => {
+            let readCount = 0;
+            values.forEach((element) => {
+                readCount += parseInt(element[1]);
+            });
+            if (this.props.proposal.messages > readCount) {
                 this.setState({newMessages: true});
             }
         })

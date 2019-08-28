@@ -16,8 +16,7 @@ import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
 import config from "../../Config";
 import GlobalState from "../../models/GlobalState";
-import {funnel} from "../../components/Funnel";
-import {FUNNEL_CONFIRM_REGISTER} from "../../helpers/Constants";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class RegisterCode extends React.Component {
 
@@ -28,14 +27,13 @@ export default class RegisterCode extends React.Component {
         buttonDisabled: true,
         showPlaceholder: false
     };
+    proposal = new Proposal();
 
     constructor(props) {
         super(props);
 
         console.log(props);
     }
-
-    proposal = new Proposal();
 
     codeChange = (code: string) => {
         if (code.length >= config.smsCodeLength) {
@@ -74,7 +72,6 @@ export default class RegisterCode extends React.Component {
                                 let gs = new GlobalState();
                                 gs.userId = response.id;
                                 Push.saveToken();
-                                funnel.catchEvent(FUNNEL_CONFIRM_REGISTER);
                                 this.proposal.saveWithToken(response.access_token);
                             })
 
@@ -86,76 +83,77 @@ export default class RegisterCode extends React.Component {
     };
 
     render() {
+        log(this, 'render');
         return (
             <View style={styles.container}>
                 <ScrollView style={Styles.rootView}>
-                <View style={{margin: 10, maxWidth: 300}}>
-                    <View style={{justifyContent: 'flex-start'}}>
-                        <View style={{height: 50, opacity: .5}}>
-                            <Input
-                                style={{marginBottom: 0}}
-                                active={false}
-                                showPlaceholder={true}
-                                placeholder={'Имя'}
-                                showError={false}
-                            >
-                                <TextInput
-                                    style={styles.textInput}
-                                    value={this.props.userName}
-                                    // value={'Test'}
-                                    onChangeText={this.nameChange}
-                                    autoCorrect={false}
-                                />
-                            </Input>
-                        </View>
-                        <View style={{height: 100, opacity: .5}}>
-                            <Input
-                                showPlaceholder={true}
-                                style={{marginBottom: 50}}
-                                descriptionStyle={styles.descriptionStyle}
-                                description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
-                                active={false}
-                                placeholder='Номер телефона'
-                                showError={false}
-                            >
-                                <TextInputMask
-                                    refInput={ref => {
-                                        this.input = ref
-                                    }}
-                                    value={this.props.phone}
-                                    // value={'+7 (999) 999 99 99'}
-                                    onChangeText={this.phoneChange}
-                                    keyboardType="phone-pad"
+                    <View style={{margin: 10, maxWidth: 300}}>
+                        <View style={{justifyContent: 'flex-start'}}>
+                            <View style={{height: 50, opacity: .5}}>
+                                <Input
+                                    style={{marginBottom: 0}}
+                                    active={false}
+                                    showPlaceholder={true}
+                                    placeholder={'Имя'}
+                                    showError={false}
+                                >
+                                    <TextInput
+                                        style={styles.textInput}
+                                        value={this.props.userName}
+                                        // value={'Test'}
+                                        onChangeText={this.nameChange}
+                                        autoCorrect={false}
+                                    />
+                                </Input>
+                            </View>
+                            <View style={{height: 100, opacity: .5}}>
+                                <Input
+                                    showPlaceholder={true}
+                                    style={{marginBottom: 50}}
+                                    descriptionStyle={styles.descriptionStyle}
+                                    description="Вам будет отправлен код подтверждения по СМС на этот телефонный номер"
+                                    active={false}
                                     placeholder='Номер телефона'
-                                    placeholderTextColor="#000"
-                                    // style={{color: '#0C20E3', paddingBottom: 5}}
-                                    style={styles.maskInput}
-                                    mask={"+7 ([000]) [000] [00] [00]"}
-                                    autoCorrect={false}
-                                />
-                            </Input>
-                        </View>
+                                    showError={false}
+                                >
+                                    <TextInputMask
+                                        refInput={ref => {
+                                            this.input = ref
+                                        }}
+                                        value={this.props.phone}
+                                        // value={'+7 (999) 999 99 99'}
+                                        onChangeText={this.phoneChange}
+                                        keyboardType="phone-pad"
+                                        placeholder='Номер телефона'
+                                        placeholderTextColor="#000"
+                                        // style={{color: '#0C20E3', paddingBottom: 5}}
+                                        style={styles.maskInput}
+                                        mask={"+7 ([000]) [000] [00] [00]"}
+                                        autoCorrect={false}
+                                    />
+                                </Input>
+                            </View>
 
-                        <View style={{height: 100}}>
-                            <Input
-                                style={{}}
-                                showPlaceholder={this.state.showPlaceholder}
-                                descriptionStyle={styles.descriptionStyle}
-                                placeholder='Код подтверждения'
-                                inputStyle={{borderBottomWidth: 0}}
-                                showError={false}
-                            >
-                                <CodeInput
-                                    onFocus={() => this.setState({showPlaceholder: true})}
-                                    onBlur={() => this.setState({showPlaceholder: false})}
-                                    phone={this.props.phone}
-                                    name={this.state.userName}
-                                    codeChange={this.codeChange}
-                                />
-                            </Input>
+                            <View style={{height: 100}}>
+                                <Input
+                                    style={{}}
+                                    showPlaceholder={this.state.showPlaceholder}
+                                    descriptionStyle={styles.descriptionStyle}
+                                    placeholder='Код подтверждения'
+                                    inputStyle={{borderBottomWidth: 0}}
+                                    showError={false}
+                                >
+                                    <CodeInput
+                                        onFocus={() => this.setState({showPlaceholder: true})}
+                                        onBlur={() => this.setState({showPlaceholder: false})}
+                                        phone={this.props.phone}
+                                        name={this.state.userName}
+                                        codeChange={this.codeChange}
+                                    />
+                                </Input>
+                            </View>
                         </View>
                     </View>
-                </View>
                 </ScrollView>
                 <View style={styles.buttonWrapper}>
                     <Button

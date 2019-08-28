@@ -1,10 +1,12 @@
 import React from "react"
 
 import {FlatList, Text, TouchableOpacity, View} from "react-native";
-import GeoLocation, {City} from '../../helpers/GeoLocation';
+import {City} from '../../helpers/GeoLocation';
 import {Styles as textStyle} from "../../styles/Global";
 import {Actions} from "react-native-router-flux";
 import Loading from "../Loading";
+import AS from '@react-native-community/async-storage'
+import {STORAGE_GEO_CACHE_KEY} from "../../helpers/Constants";
 
 export default class CitySelector extends React.Component {
 
@@ -21,14 +23,13 @@ export default class CitySelector extends React.Component {
     }
 
     fetchData() {
-        GeoLocation.getRemoteCities()
+        AS.getItem(STORAGE_GEO_CACHE_KEY)
             .then((citiesArray) => {
-                this.setState({cities: citiesArray});
+                this.setState({cities: JSON.parse(citiesArray)});
             });
     }
 
     render() {
-
         if (this.state.cities.length > 0) {
             return (
                 <View style={textStyle.rootViewWrapper}>
@@ -56,7 +57,6 @@ export default class CitySelector extends React.Component {
     }
 
     renderCity = (city) => {
-        console.log(city);
         return (
             <TouchableOpacity
                 onPress={() => this.setCity(city.item)}

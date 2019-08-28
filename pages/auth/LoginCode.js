@@ -16,6 +16,7 @@ import {ifIphoneX} from "react-native-iphone-x-helper";
 import {Styles} from "../../styles/Global";
 import config from "../../Config";
 import GlobalState from "../../models/GlobalState";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class LoginCode extends React.Component {
 
@@ -37,8 +38,8 @@ export default class LoginCode extends React.Component {
         let state = new GlobalState();
         let code = state.AuthCode;
 
-        console.log(code, this.state.code);
 
+        this.setState({showLoginBtn: false});
         if (code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {
@@ -48,11 +49,8 @@ export default class LoginCode extends React.Component {
                     if (response.hasOwnProperty('error')) {
                         this.setState({showError: true})
                     } else {
-                        console.log(response);
-
-                        AS.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
+                        AS.multiSet([['battle@token', response.access_token], ['battle@id', response.id]], () => Actions.BattleList({token: response.access_token}))
                             .then(() => {
-                                console.log('added');
                                 trackEvent(
                                     'login', {
                                         id: response.id
@@ -63,13 +61,7 @@ export default class LoginCode extends React.Component {
                                 let gs = new GlobalState();
                                 gs.userId = response.id;
                                 Push.saveToken();
-                                if (Platform.OS === 'ios') {
-                                    setTimeout(function () {
-                                        Actions.BattleList({token: response.access_token});
-                                    }, 2000);
-                                } else {
-                                    Actions.BattleList({token: response.access_token})
-                                }
+                                log(this, 'login_btn', {userId: response.id})
                             })
                     }
                     this.setState({showLoginBtn: true});
@@ -79,6 +71,7 @@ export default class LoginCode extends React.Component {
     };
 
     render() {
+        log(this, 'render');
         return (
             <View style={styles.container}>
                 <ScrollView style={Styles.rootView}>
@@ -100,7 +93,8 @@ export default class LoginCode extends React.Component {
                                         }}
                                         value={this.props.phone}
                                         // value={'+7 (999) 999 99 99'}
-                                        onChangeText={this.phoneChange}
+                                        onChangeText={() => {
+                                        }}
                                         keyboardType="phone-pad"
                                         placeholder='Номер телефона'
                                         placeholderTextColor="#000"

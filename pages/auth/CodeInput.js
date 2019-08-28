@@ -5,6 +5,8 @@ import {plural} from '../../helpers/StringHelper';
 import Client from "../../http/Client";
 import type {LoginResponse} from "../../types/LoginResponse";
 import GlobalState from "../../models/GlobalState";
+import {fa} from "../../Config";
+import log from "../../helpers/firebaseAnalytic";
 
 const SECONDS_COUNT = 60;
 
@@ -66,6 +68,8 @@ export default class CodeInput extends React.Component {
                 let state = new GlobalState();
                 state.AuthCode = response.code;
             });
+
+        log(this, 'resend_code');
     }
 
     renderButton() {
@@ -100,12 +104,14 @@ export default class CodeInput extends React.Component {
                             onFocus={() => {
                                 let placeholder = '';
                                 this.setState({placeholderText: placeholder});
-                                this.props.onFocus()
+                                this.props.onFocus();
+                                log(this, 'text_focus');
                             }}
                             onBlur={() => {
                                 let placeholder = this.state.currentCode !== '' ? this.state.currentCode : 'Код подтверждения';
                                 this.setState({placeholderText: placeholder});
-                                this.props.onBlur()
+                                this.props.onBlur();
+                                log(this, 'text_blur');
                             }}
                             value={this.state.currentCode}
                             placeholderTextColor={'#000000'}

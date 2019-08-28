@@ -6,6 +6,7 @@ import {Styles as textStyle} from "../../styles/Global";
 import {Actions} from "react-native-router-flux";
 import Client from '../../http/Client'
 import {STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class Feedback extends Component {
 
@@ -24,7 +25,6 @@ export default class Feedback extends Component {
     }
 
     nextPage = () => {
-        console.log('next');
         this.setState({btnDisabled: true});
         AS.getItem(STORAGE_AUTH_TOKEN)
             .then((result) => {
@@ -35,7 +35,7 @@ export default class Feedback extends Component {
                     api.POST('/v2/feedback/add', this.state)
                         .then(response => {
                             Actions.FeedbackDone();
-
+                            log(this, 'feedback_sended');
                         });
                 }
             })
@@ -49,6 +49,7 @@ export default class Feedback extends Component {
     }
 
     render() {
+        log(this, 'render');
         return (
             <View style={[textStyle.rootViewWrapper, styles.wrapper]}>
 

@@ -11,7 +11,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.wheelpicker.WheelPickerPackage;
@@ -27,7 +26,9 @@ import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
-import io.sentry.RNSentryPackage;
+import io.invertase.firebase.instanceid.RNFirebaseInstanceIdPackage;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -41,12 +42,10 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
 
             return Arrays.<ReactPackage>asList(
-                    new RNDeviceInfo(),
                     new MainReactPackage(),
                     new RNFirebasePackage(),
                     new RNTextInputMaskPackage(),
                     new SplashScreenReactPackage(),
-                    new RNSentryPackage(),
                     new RNFusedLocationPackage(),
                     new RNGeocoderPackage(),
                     new RNAppsFlyerPackage(),
@@ -56,7 +55,10 @@ public class MainApplication extends Application implements ReactApplication {
                     new WheelPickerPackage(),
                     new AndroidKeyboardAdjustPackage(),
                     new AsyncStoragePackage(),
-                    new NetInfoPackage()
+                    new NetInfoPackage(),
+                    new RNFirebaseInstanceIdPackage(),
+                    new RNFirebaseCrashlyticsPackage(),
+                    new RNFirebaseAnalyticsPackage()
             );
         }
 

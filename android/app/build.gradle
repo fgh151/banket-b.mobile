@@ -162,7 +162,6 @@ dependencies {
     implementation project(':react-native-appsflyer')
     implementation project(':react-native-splash-screen')
 //    implementation project(':react-native-firebase')
-    implementation project(':react-native-sentry')
     implementation(project(':react-native-geolocation-service')) {
         exclude group: 'com.google.android.gms', module: 'play-services-location'
     }
@@ -180,27 +179,32 @@ dependencies {
     // ...
 
     // Firebase dependencies
-    implementation "com.google.android.gms:play-services-base:17.0.0"
-    implementation "com.google.firebase:firebase-core:17.0.0"
+    implementation "com.google.android.gms:play-services-base:17.1.0"
+    implementation "com.google.firebase:firebase-core:17.1.0"
     // Automatically selecting the latest available version
 //    implementation 'com.google.firebase:firebase-core'
-    implementation "com.google.firebase:firebase-messaging:19.0.1"
+    implementation "com.google.firebase:firebase-messaging:20.0.0"
 
-    implementation "com.google.firebase:firebase-database:18.0.0"
+    implementation "com.google.firebase:firebase-database:19.0.0"
     implementation 'com.appsflyer:af-android-sdk:4+@aar'
     implementation 'com.android.installreferrer:installreferrer:1.0'
 
     implementation project(":react-native-android-keyboard-adjust")
-    implementation project(':react-native-device-info')
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.annotation:annotation:1.1.0'
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
+        transitive = true
+    }
 }
 
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.android.application"
+apply plugin: "io.fabric"
 
-com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
+//com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 
 
 // Run this once to be able to run the application with BUCK

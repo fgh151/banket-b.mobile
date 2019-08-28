@@ -2,7 +2,7 @@ import React from "react";
 import {Actions} from "react-native-router-flux";
 import {isFirstLunch} from "../helpers/Luncher";
 import AS from '@react-native-community/async-storage'
-import {STORAGE_AUTH_TOKEN} from "../helpers/Constants";
+import {STORAGE_AUTH_ID} from "../helpers/Constants";
 import Push from "../helpers/Push";
 
 export class Router extends React.Component {
@@ -15,13 +15,14 @@ export class Router extends React.Component {
                 Push.clearNotifications();
                 Actions.WhatIsIt()
             } else {
-                AS.getItem(STORAGE_AUTH_TOKEN)
-                    .then((result) => {
+                AS.getItem(STORAGE_AUTH_ID)
+                    .then((userId) => {
 
                         // console.log('User token', result);
-                        if (result === null) {
+                        if (userId === null) {
                             Actions.LoginPhone();
                         } else {
+                            // initMessages(userId);
                             Actions.BattleList();
                         }
                     });

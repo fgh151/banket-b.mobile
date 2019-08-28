@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AppState, FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
+import {AppState, Dimensions, FlatList, Image, Platform, RefreshControl, StyleSheet, Text, View} from "react-native";
 import AS from '@react-native-community/async-storage'
 import Client from "../../http/Client";
 import Loading from "../Loading";
@@ -14,6 +14,7 @@ import {Styles as textStyle, windowPadding} from "../../styles/Global";
 import PickerSelect from '../../components/PickerSelect';
 import EventBus from "eventing-bus";
 import {STORAGE_AUTH_TOKEN} from "../../helpers/Constants";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class DialogList extends Component {
 
@@ -125,6 +126,7 @@ export default class DialogList extends Component {
 
     onRefresh() {
         const self = this;
+        log(this, 'refresh');
         this.setState({refreshing: true}, function () {
             self.getRemoteList()
         });
@@ -139,20 +141,6 @@ export default class DialogList extends Component {
         });
     }
 
-    delete(proposalId, dialogId) {
-        AS.getItem(STORAGE_AUTH_TOKEN)
-            .then((result) => {
-                if (result === null) {
-                    Actions.login();
-                } else {
-                    const api = new Client(result);
-                    api.GET('/proposal/delete/' + proposalId + '/' + dialogId)
-                        .then(this.fetchData());
-                }
-                this.fetchData();
-            });
-    }
-
     renderPicker() {
         const placeholder = {
             label: 'По скидке',
@@ -162,7 +150,7 @@ export default class DialogList extends Component {
         const variants = [
             // {label: "Лучшие", value: 1},
             {label: "Последние", value: 2},
-            {label: "Рейтинг ресторана", value: 3},
+            // {label: "Рейтинг ресторана", value: 3},
         ];
 
         return (
@@ -177,17 +165,21 @@ export default class DialogList extends Component {
                 selectedValue={variants[0]}
                 style={pickerStyle}
                 onValueChange={(itemValue) => {
+
                     this.setState({selectedSort: itemValue.value});
                     switch (itemValue) {
                         case 1 : {
+                            log(this, 'sort_by_price');
                             this.setState({items: this.state.items.sort(DialogList.comparePrice)});
                             break
                         }
                         case 2 : {
+                            log(this, 'sort_by_last_message');
                             this.setState({items: this.state.items.sort(DialogList.compareLastMessage)});
                             break
                         }
                         case 3 : {
+                            log(this, 'sort_by_rating');
                             this.setState({items: this.state.items.sort(DialogList.compareRating)});
                             break
                         }
@@ -198,6 +190,7 @@ export default class DialogList extends Component {
     }
 
     render() {
+        log(this, 'render');
         if (!this.state.loaded) {
             return (
                 <Loading/>
@@ -217,7 +210,7 @@ export default class DialogList extends Component {
 
                         <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
 
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between', height: 25}}>
                                 <View>
                                     <Text
                                         style={[textStyle.boldFont, {fontWeight: '800', fontSize: 15, lineHeight: 18}]}>Предложения
@@ -227,26 +220,24 @@ export default class DialogList extends Component {
                                     {this.renderPicker()}
                                 </View>
                             </View>
-
-                            <View style={{
-                                marginTop: 10,
-                                marginLeft: -11,
-                                marginRight: -11,
-                                minHeight: '100%',
-                            }}>
-                                <FlatList
-                                    data={this.state.items}
-                                    renderItem={(item) => this.renderItem(item)}
-                                    refreshControl={
-                                        <RefreshControl
-                                            colors={['#0C21E2', '#00D800', '#D0021B']}
-                                            tintColor={'#0C21E2'}
-                                            refreshing={this.state.refreshing}
-                                            onRefresh={this.onRefresh}
-                                        />
-                                    }
-                                />
-                            </View>
+                            <FlatList
+                                data={this.state.items}
+                                renderItem={(item) => this.renderItem(item)}
+                                style={{
+                                    marginTop: 10,
+                                    marginLeft: -11,
+                                    marginRight: -11,
+                                    height: Dimensions.get('window').height - 175
+                                }}
+                                refreshControl={
+                                    <RefreshControl
+                                        colors={['#0C21E2', '#00D800', '#D0021B']}
+                                        tintColor={'#0C21E2'}
+                                        refreshing={this.state.refreshing}
+                                        onRefresh={this.onRefresh}
+                                    />
+                                }
+                            />
                         </View>
                     </View>
                 </View>

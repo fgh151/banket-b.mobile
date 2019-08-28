@@ -9,10 +9,10 @@ import {getKeys, messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
-import {funnel} from "../../components/Funnel";
 import EventBus from "eventing-bus";
-import {FUNNEL_CHAT_ENTER, STORAGE_AUTH_ID} from "../../helpers/Constants";
+import {STORAGE_AUTH_ID} from "../../helpers/Constants";
 import {Notify} from "../../helpers/Notify";
+import log from "../../helpers/firebaseAnalytic";
 
 
 export default class Messenger extends Component {
@@ -26,9 +26,6 @@ export default class Messenger extends Component {
 
     messagesCount = 0;
 
-    notifyService;
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +36,6 @@ export default class Messenger extends Component {
         };
         this.cacheKey = 'cache-messages-' + this.props.proposal.id + '-o_' + this.props.organization.id;
         this.toggleInputActive = this.toggleInputActive.bind(this);
-        this.notifyService = new Notify();
     }
 
     static isMy(model) {
@@ -71,12 +67,7 @@ export default class Messenger extends Component {
 
     componentWillUnmount() {
         this.eventListener();
-        funnel.catchEvent(FUNNEL_CHAT_ENTER, {
-            proposal: this.props.proposal.id,
-            organization: this.props.organization.id
-        });
-
-        this.notifyService.readAllMessages('p_' + this.props.proposal.id, 'o_' + this.props.organization.id, ArrayHelper.getKeys(this.state.items).length);
+        Notify.readAllMessages('p_' + this.props.proposal.id, 'o_' + this.props.organization.id, ArrayHelper.getKeys(this.state.items).length);
     }
 
     updateList(items) {
@@ -117,6 +108,7 @@ export default class Messenger extends Component {
     }
 
     render() {
+        log(this, 'render');
         if (!this.state.loaded) {
             return (
                 <View style={textStyle.rootViewWrapper}>

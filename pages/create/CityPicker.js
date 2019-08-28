@@ -12,11 +12,16 @@ export default class CityPicker extends React.Component {
         }
     };
 
+    constructor(props) {
+        super(props);
+    }
+
     onSelect(city) {
         console.log('select', city);
         this.setState({
             city: city
-        })
+        });
+        this.props.onChange(city, city.id)
     }
 
     render() {

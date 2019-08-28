@@ -3,27 +3,42 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import {Actions} from "react-native-router-flux";
+import log from "../../helpers/firebaseAnalytic";
 
-export default function Finish() {
-    return (
-        <View style={[textStyle.rootViewWrapper]}>
-            <View style={WIIstyles.sliderItem}>
-                <Image source={require('../../assets/images/done.png')}
-                       style={{marginBottom: 30, width: 120, height: 120}}/>
-                <View style={{marginBottom: 20}}>
-                    <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>
+export default class Finish extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        log(this, 'render');
+        return (
+            <View style={[textStyle.rootViewWrapper]}>
+                <View style={WIIstyles.sliderItem}>
+                    <Image source={require('../../assets/images/done.png')}
+                           style={{marginBottom: 30, width: 120, height: 120}}/>
+                    <View style={{marginBottom: 20}}>
+                        <Text style={[textStyle.boldFont, WIIstyles.sliderHeader]}>Ваш батл создан!</Text>
+                    </View>
+                    <View style={WIIstyles.sliderTextWrapper}>
+                        <Text style={[textStyle.defaultFont, {textAlign: 'center', fontSize: 15, lineHeight: 20}]}>
+                            Батл успешно создан и отправлен в рестораны. Ожидайте ответов от ресторанов.
+                        </Text>
+                    </View>
                 </View>
-                <View style={WIIstyles.sliderTextWrapper}>
-                    <Text style={[textStyle.defaultFont, {textAlign: 'center', fontSize: 15, lineHeight: 20}]}>
-                        Батл успешно создан и отправлен в рестораны. Ожидайте ответов от ресторанов.
-                    </Text>
+                <View style={WIIstyles.createButtonWrapper}>
+                    <Button
+                        onPress={() => {
+                            Actions.DialogList({proposal: this.props.proposal});
+                            log(this, 'next_btn');
+                        }}
+                        title="Перейти к батлу"
+                    />
                 </View>
             </View>
-            <View style={WIIstyles.createButtonWrapper}>
-                <Button onPress={() => Actions.BattleList()} title="Перейти к батлам"/>
-            </View>
-        </View>
-    )
+        )
+    }
 }
 
 const WIIstyles = StyleSheet.create({

@@ -7,8 +7,7 @@ import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {isEmpty} from "../../helpers/StringHelper";
-import {funnel} from "../../components/Funnel";
-import {FUNNEL_GO_FROM_REGISTER} from "../../helpers/Constants";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class RegisterPhone extends React.Component {
     state = {
@@ -16,20 +15,20 @@ export default class RegisterPhone extends React.Component {
         name: null,
         buttonDisabled: true,
         inputNameFocus: false,
-        showNamePlaceholder:false,
-        inputPhoneFocus:false,
-        showPhonePlaceholder:false,
+        showNamePlaceholder: false,
+        inputPhoneFocus: false,
+        showPhonePlaceholder: false,
 
-        currentPhoneValue:'',
+        currentPhoneValue: '',
 
         namePlaceholder: 'Имя',
-        phonePlaceholder:'Номер телефона'
+        phonePlaceholder: 'Номер телефона'
     };
 
     nextPage = () => {
-        funnel.catchEvent(FUNNEL_GO_FROM_REGISTER);
         Client.sendRegisterCode({phone: this.state.phone, name: this.state.name});
         Actions.RegisterCode({phone: this.state.phone, userName: this.state.name});
+        log(this, 'register_btn');
     };
 
     phoneChange = (formatted: string, extracted: string) => {
@@ -39,17 +38,21 @@ export default class RegisterPhone extends React.Component {
         if (extracted.length === 10) {
             state.phone = formatted;
             state.buttonDisabled = false;
-        } else  {
+        } else {
             state.buttonDisabled = true;
         }
         this.setState(state);
+        log(this, 'phone_input_change');
     };
 
     nameChange = (name) => {
+
+        log(this, 'name_input_change');
         this.setState({name: name});
     };
 
     render() {
+        log(this, 'render');
         return (
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
@@ -67,13 +70,25 @@ export default class RegisterPhone extends React.Component {
                                     placeholder={this.state.namePlaceholder}
                                     value={this.state.name}
                                     onChangeText={this.nameChange}
-                                    onFocus={() => {this.setState({inputNameFocus: true, namePlaceholder:''}, () => this.toggleNamePlaceHolder())}}
-                                    onBlur={()=>{this.setState({inputNameFocus: false, namePlaceholder:'Имя'}, () => this.toggleNamePlaceHolder())}}
+                                    onFocus={() => {
+                                        log(this, 'name_input_focus');
+                                        this.setState({
+                                            inputNameFocus: true,
+                                            namePlaceholder: ''
+                                        }, () => this.toggleNamePlaceHolder())
+                                    }}
+                                    onBlur={() => {
+                                        log(this, 'name_input_blur');
+                                        this.setState({
+                                            inputNameFocus: false,
+                                            namePlaceholder: 'Имя'
+                                        }, () => this.toggleNamePlaceHolder())
+                                    }}
                                     autoCorrect={false}
                                 />
                             </Input>
                         </View>
-                        <View style={{height: 100, marginTop:10}}>
+                        <View style={{height: 100, marginTop: 10}}>
                             <Input
                                 style={{marginBottom: 50}}
                                 descriptionStyle={styles.descriptionStyle}
@@ -87,8 +102,21 @@ export default class RegisterPhone extends React.Component {
                                         this.input = ref
                                     }}
                                     onChangeText={this.phoneChange}
-                                    onFocus={() => {this.setState({inputPhoneFocus: true, phonePlaceholder:'',  currentPhoneValue: this.state.currentPhoneValue ? this.state.currentPhoneValue: '+7 ('}, () => this.togglePhonePlaceHolder())}}
-                                    onBlur={()=>{this.setState({inputPhoneFocus: false, phonePlaceholder:'Номер телефона'}, () => this.togglePhonePlaceHolder())}}
+                                    onFocus={() => {
+                                        log(this, 'phone_input_focus');
+                                        this.setState({
+                                            inputPhoneFocus: true,
+                                            phonePlaceholder: '',
+                                            currentPhoneValue: this.state.currentPhoneValue ? this.state.currentPhoneValue : '+7 ('
+                                        }, () => this.togglePhonePlaceHolder())
+                                    }}
+                                    onBlur={() => {
+                                        log(this, 'phone_input_blur');
+                                        this.setState({
+                                            inputPhoneFocus: false,
+                                            phonePlaceholder: 'Номер телефона'
+                                        }, () => this.togglePhonePlaceHolder())
+                                    }}
                                     keyboardType="phone-pad"
                                     placeholder={this.state.phonePlaceholder}
                                     placeholderTextColor="#000"
@@ -117,7 +145,7 @@ export default class RegisterPhone extends React.Component {
         let show = false;
         if (!isEmpty(this.state.name)) {
             show = true;
-        } else if (this.state.inputNameFocus)  {
+        } else if (this.state.inputNameFocus) {
             show = true;
         }
         this.setState({showNamePlaceholder: show})
@@ -127,7 +155,7 @@ export default class RegisterPhone extends React.Component {
         let show = false;
         if (!isEmpty(this.state.currentPhoneValue)) {
             show = true;
-        } else if (this.state.inputPhoneFocus)  {
+        } else if (this.state.inputPhoneFocus) {
             show = true;
         }
         this.setState({showPhonePlaceholder: show})
@@ -135,10 +163,9 @@ export default class RegisterPhone extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    descriptionStyle:{
+    descriptionStyle: {
         ...Platform.select({
-            ios: {
-            },
+            ios: {},
             android: {
                 marginLeft: 0,
             },
@@ -152,7 +179,7 @@ const styles = StyleSheet.create({
         })
     },
     textInput: {
-        color:'#000000',
+        color: '#000000',
         fontSize: 15,
         borderBottomWidth: 0,
         ...Platform.select({
@@ -162,7 +189,7 @@ const styles = StyleSheet.create({
             },
             android: {
                 marginLeft: -5,
-                paddingBottom:0,
+                paddingBottom: 0,
                 paddingTop: 0
             },
         }),

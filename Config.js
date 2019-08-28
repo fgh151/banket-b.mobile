@@ -33,8 +33,6 @@ const config = {
     //Время кеширования на небольшой длительны времени в минутах
     highCache: 100,
 
-    sentryDSN: 'https://853a3e3476854893b66e1c1652f3ad90@sentry.io/1328643',
-
     smsCodeLength: 4
 };
 export const firebase = Firebase.app();

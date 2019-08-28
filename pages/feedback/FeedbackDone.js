@@ -3,9 +3,11 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import {Styles as textStyle} from "../../styles/Global";
 import {Button} from "../../components/Button";
 import {Actions} from "react-native-router-flux";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class FeedbackDone extends Component {
     render() {
+        log(this, 'render');
         return (
             <View style={[textStyle.rootViewWrapper]}>
                 <View style={WIIstyles.sliderItem}>
@@ -16,7 +18,13 @@ export default class FeedbackDone extends Component {
                     </View>
                 </View>
                 <View style={WIIstyles.createButtonWrapper}>
-                    <Button onPress={() => Actions.BattleList()} title="Перейти к батлам"/>
+                    <Button
+                        onPress={() => {
+                            Actions.BattleList();
+                            log(this, 'next_btn');
+                        }}
+                        title="Перейти к батлам"
+                    />
                 </View>
             </View>
         )

@@ -7,6 +7,7 @@ import Client from '../../http/Client';
 import {Actions} from "react-native-router-flux";
 import {ifIphoneX} from "react-native-iphone-x-helper";
 import {isEmpty} from "../../helpers/StringHelper";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class LoginPhone extends React.Component {
 
@@ -25,6 +26,7 @@ export default class LoginPhone extends React.Component {
     nextPage = () => {
         Client.sendCode({phone: this.state.phone});
         Actions.LoginCode({phone: this.state.phone});
+        log(this, 'login_btn');
     };
 
     phoneChange = (formatted: string, extracted: string) => {
@@ -38,6 +40,7 @@ export default class LoginPhone extends React.Component {
             state.buttonDisabled = true;
         }
         this.setState(state);
+        log(this, 'phone_input_change');
     };
 
     togglePhonePlaceHolder() {
@@ -51,6 +54,7 @@ export default class LoginPhone extends React.Component {
     }
 
     render() {
+        log(this, 'render');
         return (
             <View style={styles.container}>
                 <View style={{margin: 10, maxWidth: 300}}>
@@ -70,6 +74,8 @@ export default class LoginPhone extends React.Component {
                                     }}
                                     onChangeText={this.phoneChange}
                                     onFocus={() => {
+
+                                        log(this, 'phone_input_focus');
                                         this.setState({
                                             inputPhoneFocus: true,
                                             phonePlaceholder: '',
@@ -77,6 +83,7 @@ export default class LoginPhone extends React.Component {
                                         }, () => this.togglePhonePlaceHolder())
                                     }}
                                     onBlur={() => {
+                                        log(this, 'phone_input_blur');
                                         this.setState({
                                             inputPhoneFocus: false,
                                             phonePlaceholder: 'Номер телефона'

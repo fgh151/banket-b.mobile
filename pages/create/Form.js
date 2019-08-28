@@ -15,11 +15,12 @@ import GuestsCountInput from "./GuestsCountInput";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import FormPage, {commonStyles} from './AbstractFormPage';
-import {funnel} from "../../components/Funnel";
-import {FUNNEL_GOTO_SERVICES} from "../../helpers/Constants";
+import {STORAGE_GEO_CACHE_KEY} from "../../helpers/Constants";
+import MetroPicker from "./MetroPicker";
+import AS from "@react-native-community/async-storage";
+import log from "../../helpers/firebaseAnalytic";
 
 export default class Form extends FormPage {
-
 
     proposal = new Proposal();
     now = moment();
@@ -40,20 +41,39 @@ export default class Form extends FormPage {
             show_amount_placeholder: false,
             inputAmountFocus: false,
 
-            hideButton: false
+            hideButton: false,
+
+            metro: null,
+            city_id: 1,
+
+
+            city: null
         };
     }
 
+    componentDidMount() {
+        AS.getItem(STORAGE_GEO_CACHE_KEY).then(data => {
+
+            let city = JSON.parse(data)[0];
+            this.setState({city: city}, () => console.log(this.state.city))
+        })
+    }
+
     nextPage = () => {
-        funnel.catchEvent(FUNNEL_GOTO_SERVICES);
         Actions.Services();
+        log(this, 'next_btn');
     };
 
     render() {
 
+        log(this, 'render');
         if (Platform.OS === 'android') {
             AndroidKeyboardAdjust.setAdjustPan();
         }
+
+        let metro = this.state.city ? <MetroPicker onChange={(value) => this.setProposalProperty('metro', value.id)}
+                                                   stations={this.state.city.metro}/> : null;
+
         return (
             <KeyboardAwareScrollView
                 enableOnAndroid={true}
@@ -64,8 +84,15 @@ export default class Form extends FormPage {
             >
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <View style={[textStyle.rootView, styles.formWrapper]}>
-                        <CityPicker/>
+                        <CityPicker onChange={(city, cityId) => {
+                            this.setProposalProperty('city_id', cityId);
+                            this.setState({city: city})
+                        }}/>
+
+                        {metro}
+
                         <EventTypePicker onValueChange={(value) => this.setProposalProperty('event_type', value)}/>
+
                         <FormDatePicker onDateChange={(date) => {
                             this.setProposalProperty('date', date)
                         }}/>

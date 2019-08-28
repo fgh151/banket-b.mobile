@@ -5,17 +5,13 @@ import {Actions} from "react-native-router-flux";
 import AS from '@react-native-community/async-storage'
 import React from "react";
 import {City} from "../helpers/GeoLocation";
-import {funnel} from "../components/Funnel";
-import {FUNNEL_BATTLE_CREATED, STORAGE_AUTH_TOKEN} from "../helpers/Constants";
-
-
-const MIN_GUEST_COUNT = 1;
-const MIN_AMOUNT = 1000;
+import {MIN_AMOUNT, MIN_GUEST_COUNT, STORAGE_AUTH_TOKEN} from "../helpers/Constants";
+import log from "../helpers/firebaseAnalytic";
 
 export default class Proposal {
 
     static instance;
-    cityId = (new City()).id; // 1; //Москва
+    city_id = (new City()).id; // 1; //Москва
     event_type = null;
     date = null;
     time = null;
@@ -35,6 +31,7 @@ export default class Proposal {
     //Back compability props
     type = 1;
     cuisine = 1;
+    metro = null;
 
 
     constructor() {
@@ -55,7 +52,7 @@ export default class Proposal {
             "Свадьба",
             "Другое",
         ];
-        return types[typeId -1];
+        return types[typeId - 1];
     }
 
     clear() {
@@ -96,7 +93,7 @@ export default class Proposal {
      * @returns {boolean}
      */
     validate() {
-        return this.cityId !== null &&
+        return this.city_id !== null &&
             this.event_type !== null &&
             this.date !== null &&
             this.time !== null &&
@@ -114,7 +111,8 @@ export default class Proposal {
 
         AS.setItem('p_' + proposal.id, '0');
 
-        Actions.Finish();
+        Actions.Finish({proposal: proposal});
+        log(this, 'save_proposal');
     }
 
     save() {
@@ -135,7 +133,6 @@ export default class Proposal {
         api.POST('/v2/proposal/create', this)
             .then(response => {
                 if (response.hasOwnProperty('id')) {
-                    funnel.catchEvent(FUNNEL_BATTLE_CREATED, {id: response.id});
                     this.afterSave(response);
                 } else {
                     let keys = ArrayHelper.getKeys(response);

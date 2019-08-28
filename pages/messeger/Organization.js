@@ -54,7 +54,7 @@ export default function Organization(props) {
                     <Text style={{flexWrap: 'nowrap'}}>
                         <Text>
                             <Text style={[textStyle.boldFont, {fontSize: 15, lineHeight: 18}]}>
-                                {formatCost(props.proposal.amount * props.proposal.guests_count)}
+                                {formatCost(props.organization.minPrice * props.proposal.guests_count)}
                             </Text>
                             <Text style={{fontSize: 15, lineHeight: 18}}>
                                 &nbsp;{"\u20bd"}

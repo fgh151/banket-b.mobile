@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppState, Platform, StyleSheet} from "react-native"
-import {Actions, Router, Scene} from "react-native-router-flux";
+import {ActionConst, Actions, Router, Scene} from "react-native-router-flux";
 import WhatIsIt from './pages/WhatIsIt';
 import BattleList, {RightButton} from './pages/BattleList/BattleList'
 import SplashScreen from 'react-native-splash-screen'
@@ -25,15 +25,16 @@ import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
 import RestaurantCard from './pages/RestaurantCard';
 import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
-import {funnel} from "./components/Funnel";
 import GlobalState from "./models/GlobalState";
 import Feedback from './pages/feedback/Feedback';
 import FeedbackDone from './pages/feedback/FeedbackDone';
 import BackFromRegister from "./components/BackFromRegister";
 import AS from '@react-native-community/async-storage'
-import {BUS_CLOSE_PROPOSAL, FUNNEL_OPEN_APP_EVENT, STORAGE_AUTH_ID, STORAGE_AUTH_TOKEN} from "./helpers/Constants";
+import {BUS_CLOSE_PROPOSAL, STORAGE_AUTH_ID, STORAGE_AUTH_TOKEN} from "./helpers/Constants";
 import EventBus from "eventing-bus";
 import {firstLunchRevert} from "./helpers/Luncher";
+import MetroSelector from "./pages/create/MetroSelector";
+import log from "./helpers/firebaseAnalytic";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -79,10 +80,10 @@ export default class App extends React.Component {
                 gs.userId = userId;
             });
 
-        funnel.catchEvent(FUNNEL_OPEN_APP_EVENT);
     }
 
     render() {
+        log(this, 'render');
         return (
             <Router
                 sceneStyle={{backgroundColor: '#ffffff'}}
@@ -92,6 +93,8 @@ export default class App extends React.Component {
                     hideNavBar={false}
                     title="Банкетный баттл"
                     titleStyle={{textAlign: 'center', fontWeight: 'bold', fontSize: 15}}
+
+                    panHandlers={null}
                 >
                     <Scene
                         key={'router'}
@@ -149,9 +152,30 @@ export default class App extends React.Component {
                         key="Form"
                         component={Form}
                         title="Создать батл"
-                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}
-                                                            backAction={() => Actions.WhatIsIt()}/>}
+                        renderBackButton={() => {
+
+                            let action = () => Actions.WhatIsIt();
+
+                            AS.getItem(STORAGE_AUTH_TOKEN)
+                                .then((result) => {
+                                    if (result === null) {
+                                        action = () => Actions.BattleList();
+                                    }
+                                    return <BackButton style={localStyle.androidBackButton}
+                                                       backAction={action}/>
+                                });
+                        }
+
+                        }
                         // initial={true}
+
+
+                        // initial
+                        // on={this.authenticate}
+                        // success="Scene2"
+                        // failure="Scene1"
+
+
                     />
                     <Scene
                         key="BattleList"
@@ -176,6 +200,7 @@ export default class App extends React.Component {
                             }
                         ]}/>}
                         renderRightButton={<RightButton/>}
+                        type={ActionConst.RESET}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}
@@ -206,7 +231,8 @@ export default class App extends React.Component {
                         title="DialogList"
                         navigationBarStyle={{height: 90}}
                         renderTitle={<ProposalBar/>}
-                        renderBackButton={() => <BackButton style={localStyle.androidBackButtonTop}/>}
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButtonTop}
+                                                            backAction={() => Actions.BattleList()}/>}
                         renderRightButton={
                             <ProposalMenu
                                 image="dots"
@@ -247,6 +273,13 @@ export default class App extends React.Component {
                         key="CitySelector"
                         component={CitySelector}
                         title="Выберите город"
+                        renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
+                    />
+                    <Scene
+                        titleStyle={localStyle.titleStyle}
+                        key="MetroSelector"
+                        component={MetroSelector}
+                        title="Выберите метро"
                         renderBackButton={() => <BackButton style={localStyle.androidBackButton}/>}
                     />
                     <Scene
