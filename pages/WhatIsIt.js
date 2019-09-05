@@ -31,7 +31,7 @@ export default function WhatIsIt() {
             <View style={WIIstyles.createButtonWrapper}>
                 <Button onPress={() => {
                     Actions.Form();
-                    log(this, create_battle_btn);
+                    log(this, 'create_battle_btn');
                 }} title="Создать новый батл"/>
             </View>
         </SafeAreaView>

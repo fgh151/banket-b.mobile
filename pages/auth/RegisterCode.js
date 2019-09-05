@@ -68,6 +68,7 @@ export default class RegisterCode extends React.Component {
                                         id: response.id
                                     });
                                 firstLunchDone();
+                                Push.instance.setReceiveHandler();
                                 initMessages(response.id);
                                 let gs = new GlobalState();
                                 gs.userId = response.id;

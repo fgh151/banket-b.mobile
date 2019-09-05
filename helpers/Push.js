@@ -1,4 +1,4 @@
-import {AppState, Permissions, Platform, Vibration} from "react-native";
+import {Permissions, Platform} from "react-native";
 import Client from '../http/Client';
 import React from "react";
 import firebase from "react-native-firebase";
@@ -15,6 +15,8 @@ export default class Push {
     url = '/api/v2/push';
     granted = false;
 
+    onNotificationOpenedListener = null;
+
     static instance;
 
     constructor() {
@@ -25,7 +27,7 @@ export default class Push {
         Push.instance = this;
 
         this.checkPermissions();
-        this.setRecieveHandler();
+        this.setReceiveHandler();
 
         EventBus.on(BUS_CLEAR_NOTIFICATIONS, () => {
             Push.clearNotifications();
@@ -74,45 +76,50 @@ export default class Push {
         }
     }
 
-    setRecieveHandler() {
-        FN.onNotificationOpened((notificationOpen) => {
+
+    /*
+    показываем только если свернуто или чиним IOS версию
+     */
+    setReceiveHandler() {
+        this.onNotificationOpenedListener = FN.onNotificationOpened((notificationOpen) => {
             FN.removeDeliveredNotification(notificationOpen.notification.notificationId)
             const api = new Client();
             api.GET('/v2/push/info', {
                 organizationId: notificationOpen.notification.data.organizationId,
                 proposalId: notificationOpen.notification.data.proposalId,
             }).then((info) => {
-
-                console.log('get push info', info)
-
                 Actions.Messenger({
                     organization: info.organization,
                     proposal: info.proposal,
                 });
             })
-            // .catch((e) => console.log(e));
+                .catch((e) => console.log(JSON.stringify(e)));
         });
 
-        FN.onNotification((notification: Notification) => {
-            if (AppState.currentState !== 'active') {
-                notification
-                    .android.setChannelId('test-channel')
-                    .android.setSmallIcon('ic_launcher');
-                firebase.notifications()
-                    .displayNotification(notification)
-                    .then(() => {
-                        Vibration.vibrate(100, [1000, 2000, 3000]);
-                    });
-            } else {
-                if (notification.data) {
-                    console.log('notify', notification.data);
-                    if (notification.data.hasOwnProperty('proposalId')) {
-                        EventBus.publish('p_' + notification.data.proposalId); //ProposalListItem
-                        EventBus.publish('p_' + notification.data.proposalId + 'o_' + notification.data.organizationId); //Messenger, DialogListItem
-                    }
-                }
-            }
-        });
+        // FN.onNotification((notification: Notification) => {
+        //     if (AppState.currentState !== 'active') {
+        //         notification
+        //             .android.setChannelId('test-channel')
+        //             .android.setSmallIcon('ic_launcher');
+        //         firebase.notifications()
+        //             .displayNotification(notification)
+        //             .then(() => {
+        //                 Vibration.vibrate(100, [1000, 2000, 3000]);
+        //             });
+        //     } else {
+        //         if (notification.data) {
+        //             console.log('notify', notification.data);
+        //             if (notification.data.hasOwnProperty('proposalId')) {
+        //                 EventBus.publish('p_' + notification.data.proposalId); //ProposalListItem
+        //                 EventBus.publish('p_' + notification.data.proposalId + 'o_' + notification.data.organizationId, notification.data); //Messenger, DialogListItem
+        //             }
+        //         }
+        //     }
+        // });
+    }
+
+    unsetReceiveHandler() {
+        this.onNotificationOpenedListener()
     }
 }
 

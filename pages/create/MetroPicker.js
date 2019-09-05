@@ -25,9 +25,6 @@ export default class MetroPicker extends React.Component {
     }
 
     render() {
-
-        console.log('stations', this.props.stations);
-
         if (Array.isArray(this.props.stations) && this.props.stations.length > 0) {
             return (
                 <TouchableOpacity

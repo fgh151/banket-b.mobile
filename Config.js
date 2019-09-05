@@ -37,6 +37,7 @@ const config = {
 };
 export const firebase = Firebase.app();
 export const db = firebase.database();
+export const fa = firebase.analytics();
 
 export default config;
 

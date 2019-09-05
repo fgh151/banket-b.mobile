@@ -61,6 +61,7 @@ export default class LoginCode extends React.Component {
                                 let gs = new GlobalState();
                                 gs.userId = response.id;
                                 Push.saveToken();
+                                Push.instance.setReceiveHandler();
                                 log(this, 'login_btn', {userId: response.id})
                             })
                     }

@@ -35,6 +35,7 @@ import EventBus from "eventing-bus";
 import {firstLunchRevert} from "./helpers/Luncher";
 import MetroSelector from "./pages/create/MetroSelector";
 import log from "./helpers/firebaseAnalytic";
+import Push from "./helpers/Push";
 
 const customFont = {
     fontFamily: "Lato-Regular",
@@ -194,6 +195,7 @@ export default class App extends React.Component {
                                 action: () => {
                                     // noinspection JSIgnoredPromiseFromCall
                                     firstLunchRevert();
+                                    Push.instance.unsetReceiveHandler();
                                     AS.multiRemove(['battle@token', 'battle@id'], () => Actions.WhatIsIt());
                                 },
                                 title: 'Выйти'
