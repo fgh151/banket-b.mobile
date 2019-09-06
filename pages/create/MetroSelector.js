@@ -1383,7 +1383,10 @@ export default class MetroSelector extends React.Component {
                                 borderColor: '#E0E0E0',
                                 borderBottomWidth: 1,
                                 marginLeft: 15,
-                                marginRight: 15
+                                marginRight: 15,
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center'
                             }}
 
                             onItemSelect={(item) => {

@@ -136,13 +136,12 @@ export default class SearchableDropDown extends Component {
                         }, 0);
                     }}
                 >
-                    {
-                        this.props.selectedItems && this.props.selectedItems.length > 0 && this.props.selectedItems.find(x => x.id === item.id)
-                            ?
-                            <Text style={{...this.props.itemTextStyle}}>{item.title}</Text>
-                            :
-                            <Text style={{...this.props.itemTextStyle}}>{item.title}</Text>
-                    }
+                    <View style={{backgroundColor: '#' + item.color, width: 20, height: 20, borderRadius: 10}}/>
+                    <View style={{paddingLeft: 15}}>
+                        <Text style={{...this.props.itemTextStyle}}>
+                            {item.title}
+                        </Text>
+                    </View>
                 </TouchableOpacity>
             );
         }
@@ -165,7 +164,7 @@ export default class SearchableDropDown extends Component {
             {
                 key: 'onFocus',
                 val: () => {
-                    this.props.onFocus && this.props.onFocus()
+                    this.props.onFocus && this.props.onFocus();
                     this.setState({
                         item: defaultItemValue,
                         listItems: this.props.items
@@ -213,7 +212,7 @@ export default class SearchableDropDown extends Component {
                 {...textInputProps}
             />
         )
-    }
+    };
 
     render = () => {
         return (
