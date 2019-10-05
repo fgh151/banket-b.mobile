@@ -23,7 +23,7 @@ import RegisterPhone from "./pages/auth/RegisterPhone";
 import RegisterCode from "./pages/auth/RegisterCode";
 import Client from "./http/Client";
 import {Router as AppRouter} from './components/Router';
-import RestaurantCard from './pages/RestaurantCard';
+import RestaurantCard from './pages/restaurantCard/RestaurantCard';
 import {setCustomText, setCustomTextInput,} from 'react-native-global-props';
 import GlobalState from "./models/GlobalState";
 import Feedback from './pages/feedback/Feedback';
@@ -289,7 +289,7 @@ export default class App extends React.Component {
                         key={'RestaurantCard'}
                         component={RestaurantCard}
                         hideNavBar={true}
-                        // initial={true}
+                        initial={true}
                     />
                     <Scene
                         titleStyle={localStyle.titleStyle}

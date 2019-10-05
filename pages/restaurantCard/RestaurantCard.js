@@ -5,6 +5,7 @@ import {
     ImageBackground,
     Linking,
     Platform,
+    ScrollView,
     StatusBar,
     StyleSheet,
     Text,
@@ -12,42 +13,49 @@ import {
     View
 } from 'react-native';
 import Swiper from 'react-native-swiper';
-import Rating from "../components/Rating";
+import Rating from "../../components/Rating";
 import openMap from 'react-native-open-maps';
-import BackButton from "../components/BackButton";
-import {Styles, windowPadding} from '../styles/Global';
-import {isEmpty} from "../helpers/ArrayHelper";
+import BackButton from "../../components/BackButton";
+import {Styles, windowPadding} from '../../styles/Global';
+import {isEmpty} from "../../helpers/ArrayHelper";
 import {ifIphoneX} from "react-native-iphone-x-helper";
-import log from "../helpers/firebaseAnalytic";
+import log from "../../helpers/firebaseAnalytic";
+import CardItem from "./CardItem";
 
-// const org = {
-//     "id": 1,
-//     "name": "Ресторанный рейтинг",
-//     "contact": "Владимир",
-//     "phone": "+7 (495) 788-06-00",
-//     "email": "pr7880600@gmail.com",
-//     "address": "Москва Славянская площадь 2/3",
-//     "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/3.jpg", "https://banket-b.ru/upload/organization/1/bfccf0d7_1.jpg"],
-//     "halls": [
-//         {"title": "VIP", "size": 10000},
-//         {"title": "Общий", "size": 200}
-//     ],
-//     "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
-//         "id": 166,
-//         "title": "Китай-город",
-//         "color": "943E90"
-//     }, {"id": 186, "title": "Киевская", "color": "915133"}],
-//     "key": "1",
-//     "rating": 10
-// };
+const org = {
+    "id": 1,
+    "name": "Ресторанный рейтинг",
+    "contact": "Владимир",
+    "phone": "+7 (495) 788-06-00",
+    "email": "pr7880600@gmail.com",
+    "address": "Москва Славянская площадь 2/3",
+    "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/521696c0_1.jpg", "https://banket-b.ru/upload/organization/1/33458f80_1.jpg", "https://banket-b.ru/upload/organization/1/ab6d6aa6_1.jpg"],
+    "halls": [
+        {"title": "VIP", "size": 10000},
+        {"title": "Общий", "size": 200}
+    ],
+    "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
+        "id": 166,
+        "title": "Китай-город",
+        "color": "943E90"
+    }, {"id": 186, "title": "Киевская", "color": "915133"}],
+    "key": "1",
+    "rating": 10,
+    "description": "test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test "
+};
+
 
 export default function RestaurantCard(props) {
-    this.restaurant = props.restaurant;
+    this.restaurant = org;// props.restaurant;
+
+    // console.log(this.restaurant );
+
     log(this, 'render', {restaurant: this.restaurant.name});
     return (
-        <View style={[local.wrapper]}>
+        <ScrollView>
+            <View style={local.wrapper}>
             <StatusBar barStyle="light-content"/>
-            <View style={{flex: 30}}>
+                <View style={{flex: 30, height: 250}}>
                 <Swiper
                     loop={true}
                     showsButtons={false}
@@ -60,7 +68,7 @@ export default function RestaurantCard(props) {
                     {renderSlider(this.restaurant.images)}
                 </Swiper>
                 <ImageBackground resizeMode={'stretch'} style={local.gradient}
-                                 source={require('../assets/images/gradient.png')}/>
+                                 source={require('../../assets/images/gradient.png')}/>
                 <BackButton style={local.backButton} image={'white'}/>
             </View>
             <View style={{flex: 70}}>
@@ -110,8 +118,10 @@ export default function RestaurantCard(props) {
                     </View>
                 </View>
                 {renderHalls(this.restaurant)}
+                {renderDescription(this.restaurant)}
             </View>
-        </View>
+            </View>
+        </ScrollView>
     )
 }
 
@@ -142,40 +152,32 @@ function renderSlider(images) {
     });
 }
 
+function renderDescription(restaurant) {
+    if (restaurant.description !== '' && restaurant.description !== null) {
+        return <CardItem title={'Описание'} content={<Text>{restaurant.description}</Text>}/>
+    }
+    return null;
+}
+
 function renderHalls(restaurant) {
     if (isEmpty(restaurant)) {
         return null;
     }
     return (
-        <View style={{
-            padding: windowPadding,
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'flex-start'
-        }}>
-            <View style={{marginBottom: 5}}>
-                <Text style={[Styles.boldFont, {fontSize: 15, lineHeight: 18, marginBottom: 5}]}>Залы</Text>
-            </View>
-            <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                alignSelf: 'auto',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                flexWrap: 'wrap'
-            }}>
-                {restaurant.halls.map((hall, index) => (
-                    <View style={{flexDirection: 'row', marginBottom: 5}} key={index}>
-                        <View style={{flex: 1, alignSelf: 'stretch'}}>
-                            <Text style={{fontSize: 15, lineHeight: 18}}>{hall.title}</Text>
-                        </View>
-                        <View style={{flex: 2, alignSelf: 'stretch'}}>
-                            <Text style={{fontSize: 15, lineHeight: 18}}>{hall.size} человек</Text>
-                        </View>
+
+        <CardItem
+            title={'Залы'}
+            content={restaurant.halls.map((hall, index) => (
+                <View style={{flexDirection: 'row', marginBottom: 5}} key={index}>
+                    <View style={{flex: 1, alignSelf: 'stretch'}}>
+                        <Text style={{fontSize: 15, lineHeight: 18}}>{hall.title}</Text>
                     </View>
-                ))}
-            </View>
-        </View>
+                    <View style={{flex: 2, alignSelf: 'stretch'}}>
+                        <Text style={{fontSize: 15, lineHeight: 18}}>{hall.size} человек</Text>
+                    </View>
+                </View>
+            ))}
+        />
     )
 }
 
