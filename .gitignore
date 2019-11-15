@@ -24,7 +24,6 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
@@ -57,3 +56,8 @@ buck-out/
 ios/Pods
 android/app/release/*
 sourcemap/
+
+*.aab
+*.apk
+ios/assets/*
+*.log
