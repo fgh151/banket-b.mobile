@@ -14,7 +14,6 @@
     "postversion": "./npm-version/post-version.sh"
   },
   "dependencies": {
-    "qs": "^6.5.2",
     "@babel/runtime": "^7.3.1",
     "@react-native-community/async-storage": "^1.5.0",
     "@react-native-community/netinfo": "^3.2.1",
@@ -22,6 +21,7 @@
     "lodash.isequal": "^4.5.0",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
+    "qs": "^6.5.2",
     "react": "16.8.6",
     "react-native": "0.59.9",
     "react-native-android-keyboard-adjust": "^1.2.0",
@@ -33,7 +33,7 @@
     "react-native-global-props": "^1.1.5",
     "react-native-hyperlinked-text": "^1.0.2",
     "react-native-iphone-x-helper": "^1.2.0",
-    "react-native-keyboard-aware-scroll-view": "latest",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-open-maps": "^0.3.3",
     "react-native-router-flux": "^4.0.6",
     "react-native-splash-screen": "^3.1.1",
