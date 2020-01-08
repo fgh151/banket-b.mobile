@@ -82,6 +82,9 @@ export default class Proposal {
             case 'amount' : {
                 return this.countValid(value, MIN_AMOUNT) ? true : 'Минимальная стоимость ' + MIN_AMOUNT + ' рублей';
             }
+            case 'metro' : {
+                return true;
+            }
             case 'comment' : {
                 return true;
             }
