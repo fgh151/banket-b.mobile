@@ -1350,6 +1350,13 @@ export default class MetroSelector extends React.Component {
         if (city.hasOwnProperty('metro') && city.metro.length > 0) {
 
             let items = city.metro.sort(compare);
+            items.unshift(
+                {
+                    "id": null,
+                    "title": "Любое метро",
+                    "color": "ffffff"
+                }
+            );
 
             return (
                 <View>
