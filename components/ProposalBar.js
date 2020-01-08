@@ -43,23 +43,16 @@ export default class ProposalBar extends Component {
             let proposal = this.state.proposal;
             return (
                 <View style={{width: 260, marginTop: 10}}>
-                    <Text style={{
-                        fontSize: 15,
-                        lineHeight: 18,
-                        color: '#000',
-                        textAlign: 'center',
-                        paddingBottom: 10,
-                        fontFamily: "Lato-Bold"
-                    }}>
+                    <Text style={style.proposalType}>
                         {Proposal.getEventTypeNames(this.state.proposal.event_type)}
                         {this.renderProposalId()}
                     </Text>
-                    <Text style={{textAlign:'center', paddingBottom: 10, fontSize:15, lineHeight:15}}>
+                    <Text style={style.proposalTime}>
                         {formatDate(proposal.date, 'D MMMM')}, {proposal.time}
                     </Text>
-                    <Text style={{textAlign: 'center', opacity: .8, fontSize: 13, lineHeight: 13, paddingBottom: 10}}>
+                    <Text style={style.proposalGuests}>
                         <Text>
-                        {proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}
+                            {proposal.guests_count} {plural(proposal.guests_count, 'гость', 'гостя', 'гостей')}
                         </Text>
                         <Text>
                             <Text>&nbsp;&nbsp;&nbsp;&nbsp;{formatCost(proposal.amount)} {"\u20bd"} / чел</Text>
@@ -77,6 +70,27 @@ export default class ProposalBar extends Component {
 }
 
 const style = StyleSheet.create({
+    proposalGuests: {
+        textAlign: 'center',
+        opacity: .8,
+        fontSize: 13,
+        lineHeight: 13,
+        paddingBottom: 10
+    },
+    proposalTime: {
+        textAlign: 'center',
+        paddingBottom: 10,
+        fontSize: 15,
+        lineHeight: 15
+    },
+    proposalType: {
+        fontSize: 15,
+        lineHeight: 18,
+        color: '#000',
+        textAlign: 'center',
+        paddingBottom: 10,
+        fontFamily: "Lato-Bold"
+    },
     overlay: {
         flex: 1,
         flexDirection: 'column',

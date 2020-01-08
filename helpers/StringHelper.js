@@ -74,7 +74,7 @@ export function trunc(string, n){
 
 export function isString(str) {
     return str && typeof str === 'string';
-};
+}
 
 export function round10(value, exp) {
     return decimalAdjust('round', value, exp);

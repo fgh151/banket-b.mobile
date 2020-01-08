@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
-        shadowColor: 'rgba(0, 0, 0, 1)',
+        shadowColor: '#000',
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.5,
         shadowRadius: 7,
         ...AndroidVersion.select({
             '>=26': {
                 elevation: 1,
-                borderWidth:0
+                borderWidth: 0
             }
         })
 

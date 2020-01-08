@@ -1,16 +1,13 @@
 'use strict';
 
 import AS from '@react-native-community/async-storage'
+import {CACHE_EXPIRATION_PREFIX, CACHE_PREFIX, EXPIRY_UNITS} from "../helpers/Constants";
 
 // Inspired by lscache https://github.com/pamelafox/lscache
 
-const CACHE_PREFIX = 'cachestore-';
-const CACHE_EXPIRATION_PREFIX = 'cacheexpiration-';
-const EXPIRY_UNITS = 60 * 1000; // Time resolution in minutes
-
 function currentTime() {
     return Math.floor((new Date().getTime()) / EXPIRY_UNITS);
-};
+}
 
 const CacheStore = {
     get(key) {
@@ -47,15 +44,15 @@ const CacheStore = {
     isExpired(key) {
         const exprKey = CACHE_EXPIRATION_PREFIX + key;
         return AS.getItem(exprKey).then((expiry) => {
-            var expired = expiry && currentTime() >= parseInt(expiry, 10);
+            const expired = expiry && currentTime() >= parseInt(expiry, 10);
             return expired ? Promise.resolve() : new Promise.reject(null);
         });
     },
 
     flush() {
         return AS.getAllKeys().then((keys) => {
-            var theKeys = keys.filter((key) => {
-                return key.indexOf(CACHE_PREFIX) == 0 || key.indexOf(CACHE_EXPIRATION_PREFIX) == 0;
+            const theKeys = keys.filter((key) => {
+                return key.indexOf(CACHE_PREFIX) === 0 || key.indexOf(CACHE_EXPIRATION_PREFIX) === 0;
             });
             return AS.multiRemove(theKeys);
         });
@@ -64,11 +61,11 @@ const CacheStore = {
     flushExpired() {
         return AS.getAllKeys().then((keys) => {
             keys.forEach((key) => {
-                if (key.indexOf(CACHE_EXPIRATION_PREFIX) == 0) {
-                    var exprKey = key;
+                if (key.indexOf(CACHE_EXPIRATION_PREFIX) === 0) {
+                    let exprKey = key;
                     return AS.getItem(exprKey).then((expiry) => {
                         if (expiry && currentTime() >= parseInt(expiry, 10)) {
-                            var theKey = CACHE_PREFIX + key.replace(CACHE_EXPIRATION_PREFIX, '');
+                            const theKey = CACHE_PREFIX + key.replace(CACHE_EXPIRATION_PREFIX, '');
                             return AS.multiRemove([exprKey, theKey]);
                         }
                         return Promise.resolve();

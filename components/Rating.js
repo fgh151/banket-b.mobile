@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Image} from "react-native"
+import {Image, StyleSheet, View} from "react-native"
 
 export default class Rating extends React.Component{
 
@@ -17,16 +17,28 @@ export default class Rating extends React.Component{
     getStars = () => {
         this.stars=[];
         for (let i = 0; i < this.state.points; i++) {
-            this.stars.push(<Image key={i} source={require('../assets/images/star.png')} style={{width:12, height:12, marginRight:3}}/>)
+            this.stars.push(<Image key={i} source={require('../assets/images/star.png')} style={style.star}/>)
         }
         return this.stars;
     };
 
     render() {
-        return(
-            <View style={{flex:1, flexDirection: 'row'}}>
+        return (
+            <View style={style.wrapper}>
                 {this.getStars()}
             </View>
         )
     }
 }
+
+const style = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    star: {
+        width: 12,
+        height: 12,
+        marginRight: 3
+    }
+});

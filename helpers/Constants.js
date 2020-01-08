@@ -14,3 +14,7 @@ export const STORAGE_GEO_CACHE_KEY = 'geo-base';
 //Числовые константы
 export const MIN_GUEST_COUNT = 1; //Минимальное кол-во гостей
 export const MIN_AMOUNT = 1000; //Минимальная стоимость
+//Кеш
+export const CACHE_PREFIX = 'cachestore-';
+export const CACHE_EXPIRATION_PREFIX = 'cacheexpiration-';
+export const EXPIRY_UNITS = 60 * 1000; // Time resolution in minutes
