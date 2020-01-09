@@ -168,7 +168,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation project(':react-native-geocoder')
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "com.facebook.react:react-native:0.20.1"  // From node_modules
 
 
@@ -180,18 +180,18 @@ dependencies {
 
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:17.1.0"
-    implementation "com.google.firebase:firebase-core:17.1.0"
+    implementation "com.google.firebase:firebase-core:17.2.1"
     // Automatically selecting the latest available version
 //    implementation 'com.google.firebase:firebase-core'
-    implementation "com.google.firebase:firebase-messaging:20.0.0"
+    implementation "com.google.firebase:firebase-messaging:20.1.0"
 
-    implementation "com.google.firebase:firebase-database:19.0.0"
+    implementation "com.google.firebase:firebase-database:19.2.0"
     implementation 'com.appsflyer:af-android-sdk:4+@aar'
-    implementation 'com.android.installreferrer:installreferrer:1.0'
+    implementation 'com.android.installreferrer:installreferrer:1.1'
 
     implementation project(":react-native-android-keyboard-adjust")
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.annotation:annotation:1.1.0'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
