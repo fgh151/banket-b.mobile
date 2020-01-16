@@ -29,6 +29,8 @@
 		46E1F66322C243CA00BBC7B1 /* libRNTextInputMask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E1F65322C23CE000BBC7B1 /* libRNTextInputMask.a */; };
 		46E1F66A22C2457400BBC7B1 /* InputMask.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 46E1F65C22C23CF200BBC7B1 /* InputMask.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		46E1F6CD22C2469E00BBC7B1 /* libRNCNetInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E1F6C222C2468600BBC7B1 /* libRNCNetInfo.a */; };
+		46E67E0D23D09343002FA3A9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 46E67E0C23D09343002FA3A9 /* main.jsbundle */; };
+		46E67E0F23D09422002FA3A9 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 46E67E0E23D09422002FA3A9 /* assets */; };
 		6F042C5E221EC19800D7757C /* libRNAppsFlyer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F042C5D221EC18B00D7757C /* libRNAppsFlyer.a */; };
 		6F042C6A221EC3AF00D7757C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F042C68221EC3AE00D7757C /* Lato-Bold.ttf */; };
 		6F042C6B221EC3AF00D7757C /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F042C69221EC3AE00D7757C /* Lato-Regular.ttf */; };
@@ -443,7 +445,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -471,6 +472,8 @@
 		46E1F65522C23CF200BBC7B1 /* InputMask.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputMask.xcodeproj; path = "../node_modules/react-native-text-input-mask/ios/InputMask/InputMask.xcodeproj"; sourceTree = "<group>"; };
 		46E1F66122C2402300BBC7B1 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		46E1F68722C2468600BBC7B1 /* RNCNetInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCNetInfo.xcodeproj; path = "../node_modules/@react-native-community/netinfo/ios/RNCNetInfo.xcodeproj"; sourceTree = "<group>"; };
+		46E67E0C23D09343002FA3A9 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		46E67E0E23D09422002FA3A9 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		531AB6A0AE6C4CB38C8B8E77 /* InputMaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = InputMaskTests.xctest; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F13CCD665704C11A25AA971 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
@@ -609,9 +612,10 @@
 		13B07FAE1A68108700A75B9A /* rubanketb */ = {
 			isa = PBXGroup;
 			children = (
+				46E67E0E23D09422002FA3A9 /* assets */,
+				46E67E0C23D09343002FA3A9 /* main.jsbundle */,
 				6F042C67221EC3AE00D7757C /* fonts */,
 				6F1D028B221AABDA009733BE /* rubanketb.entitlements */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -1402,7 +1406,9 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				46E67E0F23D09422002FA3A9 /* assets in Resources */,
 				6F042C6B221EC3AF00D7757C /* Lato-Regular.ttf in Resources */,
+				46E67E0D23D09343002FA3A9 /* main.jsbundle in Resources */,
 				6F1D028F221AAEBE009733BE /* GoogleService-Info.plist in Resources */,
 				6F042C6A221EC3AF00D7757C /* Lato-Bold.ttf in Resources */,
 			);
@@ -1548,7 +1554,7 @@
 				);
 				INFOPLIST_FILE = rubanketb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.49;
+				MARKETING_VERSION = 2.0.50;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1579,7 +1585,7 @@
 				);
 				INFOPLIST_FILE = rubanketb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.49;
+				MARKETING_VERSION = 2.0.50;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
