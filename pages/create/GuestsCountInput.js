@@ -17,7 +17,6 @@ export default class GuestsCountInput extends React.Component {
     }
 
     onChange(amount) {
-        console.log(amount);
         this.props.onChange('guests_count', amount);
 
         let state = {amount_value: amount};

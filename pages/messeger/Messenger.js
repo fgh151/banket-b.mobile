@@ -5,7 +5,7 @@ import {db} from '../../Config';
 import Loading from "../Loading";
 import MessageForm from './MessageForm'
 import * as ArrayHelper from "../../helpers/ArrayHelper";
-import {getKeys, messagesObject2array} from "../../helpers/ArrayHelper";
+import {messagesObject2array} from "../../helpers/ArrayHelper";
 import {Styles as textStyle} from "../../styles/Global";
 import Organization from "./Organization";
 import MessageWrapper from "./MessageWrapper";
@@ -55,7 +55,6 @@ export default class Messenger extends Component {
     }
 
     componentWillMount() {
-        console.log('listen message ' + this.constructor.name, 'p_' + this.props.proposal.id + 'o_' + this.props.organization.id);
         this.eventListener = EventBus.on('p_' + this.props.proposal.id + 'o_' + this.props.organization.id, (val) => {
             let count = ArrayHelper.getKeys(val).length;
             if (count !== this.messagesCount && val !== undefined) {
@@ -86,9 +85,6 @@ export default class Messenger extends Component {
         } else {
             this.needUpdate = items;
         }
-
-
-        let count = getKeys(items).length;
     }
 
     toggleInputActive() {
@@ -150,7 +146,7 @@ export default class Messenger extends Component {
         return result;
     }
 
-    renderMessage(listItem, index) {
+    renderMessage(listItem) {
         let message = listItem.item;
         let isMy = Messenger.isMy(message);
 

@@ -17,7 +17,6 @@ export default class AmountInput extends React.Component {
     }
 
     onChange(amount) {
-        console.log(amount);
         this.props.onChange('amount', amount);
         let state = {amount_value: amount};
         if (amount !== '') {

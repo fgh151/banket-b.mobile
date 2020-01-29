@@ -87,12 +87,10 @@ export default class BattleList extends React.PureComponent {
         AppState.addEventListener('change', this._handleAppStateChange);
 
         this.deleteProposalHandler = EventBus.on(BUS_CLOSE_PROPOSAL, () => {
-            console.log('refresh proposals by event');
             this.fetchData(true);
         });
 
         this.readMessagesHandler = EventBus.on('proposal_read', () => {
-            console.log('refresh dialog list');
             this.setState({items: [], refreshing: true}, () => {
                 this.getRemoteList()
             });
@@ -109,20 +107,14 @@ export default class BattleList extends React.PureComponent {
 
     _handleAppStateChange = (nextAppState) => {
 
-        console.log("change state", nextAppState);
-
         if (nextAppState === 'active') {
-            console.log('fetch after bg');
             this.fetchData(true);
 
-
             this.deleteProposalHandler = EventBus.on(BUS_CLOSE_PROPOSAL, () => {
-                console.log('refresh proposals by event');
                 this.fetchData(true);
             });
 
             this.readMessagesHandler = EventBus.on('proposal_read', () => {
-                console.log('refresh dialog list');
                 this.setState({items: [], refreshing: true}, () => {
                     this.getRemoteList()
                 });
@@ -153,9 +145,6 @@ export default class BattleList extends React.PureComponent {
     }
 
     getRemoteList() {
-
-        console.log('get remote');
-
         this.setState({
             loaded: false, items: []
         });
@@ -168,7 +157,6 @@ export default class BattleList extends React.PureComponent {
                     (responseData) => {
                         let items = responseData;
                         this.updateList(items);
-                        console.log('recievw klist', items);
                         CacheStore.set(CACHE_KEY, items, Config.lowCache);
                         this.setState({
                             loaded: true,
@@ -222,9 +210,6 @@ export default class BattleList extends React.PureComponent {
     }
 
     render() {
-
-        console.log('actions', Actions.prevScene);
-
         if (!this.state.loaded) {
             return <Loading/>;
         }

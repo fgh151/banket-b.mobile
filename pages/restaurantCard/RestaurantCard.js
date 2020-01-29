@@ -23,32 +23,31 @@ import log from "../../helpers/firebaseAnalytic";
 import CardItem from "./CardItem";
 import ContactItem from "./ContactItem";
 
-const org = {
-    "id": 1,
-    "name": "Ресторанный рейтинг",
-    "contact": "Владимир",
-    "phone": "+7 (495) 788-06-00",
-    "email": "pr7880600@gmail.com",
-    "address": "Москва Славянская площадь 2/3",
-    "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/521696c0_1.jpg", "https://banket-b.ru/upload/organization/1/33458f80_1.jpg", "https://banket-b.ru/upload/organization/1/ab6d6aa6_1.jpg"],
-    "halls": [
-        {"title": "VIP", "size": 10000},
-        {"title": "Общий", "size": 200}
-    ],
-    "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
-        "id": 166,
-        "title": "Китай-город",
-        "color": "943E90"
-    }, {"id": 186, "title": "Киевская", "color": "915133"}],
-    "key": "1",
-    "rating": 10,
-    "tripadvisor_url": "http://ya.ru",
-    "description": "test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test "
-};
-
+// const org = {
+//     "id": 1,
+//     "name": "Ресторанный рейтинг",
+//     "contact": "Владимир",
+//     "phone": "+7 (495) 788-06-00",
+//     "email": "pr7880600@gmail.com",
+//     "address": "Москва Славянская площадь 2/3",
+//     "images": ["https://banket-b.ru/upload/organization/1/1.png", "https://banket-b.ru/upload/organization/1/2.jpg", "https://banket-b.ru/upload/organization/1/521696c0_1.jpg", "https://banket-b.ru/upload/organization/1/33458f80_1.jpg", "https://banket-b.ru/upload/organization/1/ab6d6aa6_1.jpg"],
+//     "halls": [
+//         {"title": "VIP", "size": 10000},
+//         {"title": "Общий", "size": 200}
+//     ],
+//     "metro": [{"id": 58, "title": "Китай-город", "color": "F07E24"}, {
+//         "id": 166,
+//         "title": "Китай-город",
+//         "color": "943E90"
+//     }, {"id": 186, "title": "Киевская", "color": "915133"}],
+//     "key": "1",
+//     "rating": 10,
+//     "tripadvisor_url": "http://ya.ru",
+//     "description": "test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test "
+// };
 
 export default function RestaurantCard(props) {
-    this.restaurant = org;// props.restaurant;
+    this.restaurant = props.restaurant;
 
     // console.log(this.restaurant );
 
@@ -132,8 +131,6 @@ function openInBrowser(url) {
     Linking.canOpenURL(url).then(supported => {
         if (supported) {
             Linking.openURL(url);
-        } else {
-            console.log("Don't know how to open URI: " + url);
         }
     });
 }
@@ -147,9 +144,7 @@ function callNumber(phone) {
     }
 
     Linking.canOpenURL(phoneNumber).then(supported => {
-        if (!supported) {
-            console.log('Can\'t handle url: ' + phoneNumber);
-        } else {
+        if (supported) {
             return Linking.openURL(phoneNumber);
         }
     }).catch(err => console.error('An error occurred', err));

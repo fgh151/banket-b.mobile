@@ -55,7 +55,7 @@ export default class Form extends FormPage {
         AS.getItem(STORAGE_GEO_CACHE_KEY).then(data => {
 
             let city = JSON.parse(data)[0];
-            this.setState({city: city}, () => console.log(this.state.city))
+            this.setState({city: city})
         })
     }
 

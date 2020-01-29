@@ -1,19 +1,11 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
 
-export default class NewMessagesNotify extends React.PureComponent {
-
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        if (this.props.newMessages) {
-            return (
-                <View style={styles.round}/>
-            )
-        }
-        return null;
+export default function NewMessagesNotify(props) {
+    if (props.newMessages) {
+        return (
+            <View style={styles.round}/>
+        )
     }
 }
 

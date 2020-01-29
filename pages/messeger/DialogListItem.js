@@ -50,14 +50,11 @@ export default class DialogListItem extends Component {
                 ref.once('value', (snapshot) => {
                     const value = snapshot.val();
                     this.messages = ArrayHelper.getKeys(value);
-
-                    console.log('init messages', this.messages);
-
                 })
             });
 
 
-        this.notifySubscribe = EventBus.on(this.getSubscribeKey(), (val) => {
+        this.notifySubscribe = EventBus.on(this.getSubscribeKey(), () => {
             this.setState({newMessages: true});
         });
 

@@ -17,7 +17,6 @@ export default class CityPicker extends React.Component {
     }
 
     onSelect(city) {
-        console.log('select', city);
         this.setState({
             city: city
         });

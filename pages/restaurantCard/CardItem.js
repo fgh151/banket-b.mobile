@@ -2,21 +2,19 @@ import React from 'react';
 import {Styles, windowPadding} from "../../styles/Global";
 import {StyleSheet, Text, View} from "react-native";
 
-export default class CardItem extends React.PureComponent {
-    render() {
-        return (
-            <View style={style.wrapper}>
-                <View style={style.titleWrapper}>
-                    <Text style={[Styles.boldFont, style.titleText]}>
-                        {this.props.title}
-                    </Text>
-                </View>
-                <View style={style.contentWrapper}>
-                    {this.props.content}
-                </View>
+export default function CardItem(props) {
+    return (
+        <View style={style.wrapper}>
+            <View style={style.titleWrapper}>
+                <Text style={[Styles.boldFont, style.titleText]}>
+                    {props.title}
+                </Text>
             </View>
-        )
-    }
+            <View style={style.contentWrapper}>
+                {props.content}
+            </View>
+        </View>
+    )
 }
 
 const style = StyleSheet.create({

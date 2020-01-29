@@ -29,12 +29,6 @@ export default class RegisterCode extends React.Component {
     };
     proposal = new Proposal();
 
-    constructor(props) {
-        super(props);
-
-        console.log(props);
-    }
-
     codeChange = (code: string) => {
         if (code.length >= config.smsCodeLength) {
             this.setState({code: code, buttonDisabled: false});
@@ -46,8 +40,6 @@ export default class RegisterCode extends React.Component {
         let state = new GlobalState();
         let code = state.AuthCode;
 
-        console.log(code, this.state.code);
-
         if (code !== this.state.code) {
             Alert.alert('Неверный код');
         } else {
@@ -58,11 +50,9 @@ export default class RegisterCode extends React.Component {
                     if (response.hasOwnProperty('error')) {
                         this.setState({showError: true, buttonDisabled: false})
                     } else {
-                        console.log(response);
 
                         AS.multiSet([['battle@token', response.access_token], ['battle@id', response.id]])
                             .then(() => {
-                                console.log('added');
                                 trackEvent(
                                     'register', {
                                         id: response.id

@@ -81,7 +81,6 @@ export default class DialogList extends Component {
 
     _handleAppStateChange = (nextAppState) => {
         if (nextAppState === 'active') {
-            console.log('fetch after bg in dialogs');
             this.fetchData();
         }
     };

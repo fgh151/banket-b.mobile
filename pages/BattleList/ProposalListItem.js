@@ -34,14 +34,13 @@ export default class ProposalListItem extends Component {
     }
 
     componentWillMount() {
-        this.notifySubscribe = EventBus.on(this.getSubscribeKey(), (val) => {
-            console.log('new in proposal');
+        this.notifySubscribe = EventBus.on(this.getSubscribeKey(), () => {
             this.setState({newMessages: true});
         });
     }
 
     componentDidMount() {
-        let dialogs = this.props.proposal.dialogs.map((val, index, array) => {
+        let dialogs = this.props.proposal.dialogs.map((val) => {
             return this.getSubscribeKey() + 'o_' + val
         });
         AS.multiGet(dialogs).then((values) => {

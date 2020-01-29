@@ -33,7 +33,6 @@ export default class AdditionalInput extends React.PureComponent {
                 }]}
 
                 onContentSizeChange={(event) => {
-                    console.log('new height', event.nativeEvent.contentSize.height);
                     this.setState({height: event.nativeEvent.contentSize.height})
                 }}
 

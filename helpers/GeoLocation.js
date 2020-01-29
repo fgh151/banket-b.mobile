@@ -5,36 +5,32 @@ import Client from '../http/Client';
 import AS from '@react-native-community/async-storage'
 import {STORAGE_GEO_CACHE_KEY} from "./Constants";
 
-
-const Position = {
-    "timestamp": 1484669056399.49,
-    "coords": {
-        "accuracy": 5,
-        "altitude": 0,
-        "altitudeAccuracy": -1,
-        "heading": -1,
-        "latitude": 37.785834,
-        "longitude": -122.406417,
-        "speed": -1
-    }
-};
-
-const geoCoder = {
-    position: {lat: String, lng: String},
-    formattedAddress: String, // the full address
-    feature: String | null, // ex Yosemite Park, Eiffel Tower
-    streetNumber: String | null,
-    streetName: String | null,
-    postalCode: String | null,
-    locality: String | null, // city name
-    country: String,
-    countryCode: String,
-    adminArea: String | null,
-    subAdminArea: String | null,
-    subLocality: String | null
-};
-
-let hasPermission;
+// const Position = {
+//     "timestamp": 1484669056399.49,
+//     "coords": {
+//         "accuracy": 5,
+//         "altitude": 0,
+//         "altitudeAccuracy": -1,
+//         "heading": -1,
+//         "latitude": 37.785834,
+//         "longitude": -122.406417,
+//         "speed": -1
+//     }
+// };
+// const geoCoder = {
+//     position: {lat: String, lng: String},
+//     formattedAddress: String, // the full address
+//     feature: String | null, // ex Yosemite Park, Eiffel Tower
+//     streetNumber: String | null,
+//     streetName: String | null,
+//     postalCode: String | null,
+//     locality: String | null, // city name
+//     country: String,
+//     countryCode: String,
+//     adminArea: String | null,
+//     subAdminArea: String | null,
+//     subLocality: String | null
+// };
 
 export class City {
     static instance;
@@ -83,7 +79,7 @@ export default class GeoLocation {
 
                 // alert("You can use the location");
             } else {
-                console.log("location permission denied");
+                // console.log("location permission denied");
                 // alert("Location permission denied");
             }
         } catch (err) {
@@ -141,9 +137,9 @@ export default class GeoLocation {
                 })
 
             },
-            (error) => {
+            () => {
                 // See error code charts below.
-                console.log(error.code, error.message);
+                // console.log(error.code, error.message);
             },
             {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000}
         );

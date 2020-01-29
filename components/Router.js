@@ -5,7 +5,7 @@ import AS from '@react-native-community/async-storage'
 import {STORAGE_AUTH_ID} from "../helpers/Constants";
 import Push from "../helpers/Push";
 
-export class Router extends React.Component {
+export class Router extends React.PureComponent {
 
     constructor() {
         super();

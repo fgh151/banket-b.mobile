@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Actions} from "react-native-router-flux";
 
-export default class BackButton extends Component{
+export default class BackButton extends React.PureComponent {
 
     constructor(props) {
         super(props);

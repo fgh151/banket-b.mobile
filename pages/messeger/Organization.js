@@ -7,7 +7,7 @@ import Profit from "../../components/Profit";
 import {Actions} from "react-native-router-flux";
 import EventBus from "eventing-bus";
 
-export default class Organization extends React.Component {
+export default class Organization extends React.PureComponent {
 
     notifySubscribe;
 

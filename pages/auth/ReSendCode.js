@@ -3,17 +3,15 @@ import {Image, Platform, StyleSheet, TouchableOpacity, View} from "react-native"
 import {windowPadding} from "../../styles/Global";
 
 
-export default class ReSendCode extends React.Component {
+export default function ReSendCode(props) {
 
-    render() {
-        return (
-            <View style={style.wrapper}>
-                <TouchableOpacity onPress={this.props.onPress}>
-                    <Image source={require('../../assets/images/reload.png')} style={{width: 18, height: 18}}/>
-                </TouchableOpacity>
-            </View>
-        )
-    }
+    return (
+        <View style={style.wrapper}>
+            <TouchableOpacity onPress={props.onPress}>
+                <Image source={require('../../assets/images/reload.png')} style={{width: 18, height: 18}}/>
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 const style = StyleSheet.create({
