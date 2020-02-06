@@ -24,6 +24,7 @@
 		30ABE8EB76C64B3D88647649 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E11B1E65D015439EB6CB6EF0 /* libRNGeocoder.a */; };
 		35096C52A39141229EB9FD5D /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D7DCDA58DC4DEF97560B09 /* libRNFirebase.a */; };
 		3609EC4191AEA25ADA09D91B /* libPods-rubanketb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 943FA4424BDF685B2177C470 /* libPods-rubanketb.a */; };
+		4685BCE023EC58AB0049A2AF /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		46E1F5F622C235C800BBC7B1 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E1F5ED22C235BD00BBC7B1 /* libRNCAsyncStorage.a */; };
 		46E1F66222C2402300BBC7B1 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E1F66122C2402300BBC7B1 /* JavaScriptCore.framework */; };
 		46E1F66322C243CA00BBC7B1 /* libRNTextInputMask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E1F65322C23CE000BBC7B1 /* libRNTextInputMask.a */; };
@@ -1400,6 +1401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4685BCE023EC58AB0049A2AF /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				6F042C6B221EC3AF00D7757C /* Lato-Regular.ttf in Resources */,
@@ -1423,7 +1425,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport NODE_BINARY=node \n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		096AC8622E7858B158555537 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
