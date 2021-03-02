@@ -34,11 +34,12 @@ export default class Client {
         const api = new Client();
         api.POST('/v2/auth/sendregistercode', params)
             .then(response => {
+                console.log(response)
                 if (response.hasOwnProperty('code')) {
                     let state = new GlobalState();
                     state.AuthCode = response.code;
                 }
-            })
+            }).catch(e=> console.log(e))
     }
 
     getCurrentUser() {
@@ -72,6 +73,7 @@ export default class Client {
             Object.assign(opts, {body: JSON.stringify(body)});
         }
 
+        console.log(fullRoute, body);
 
         return this.onlineFetch(fullRoute, opts, debugInfo);
 
@@ -87,6 +89,7 @@ export default class Client {
             // if (connectionInfo.type !== 'none') {
             return fetchPromise()
                 .then(response => {
+                    console.log(response);
                     // response.json().then(data => console.log(data, debugInfo, fullRoute));
                     return response.json()
                 })

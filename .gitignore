@@ -61,3 +61,4 @@ sourcemap/
 *.apk
 ios/assets/*
 *.log
+/android/app/src/main/assets/index.android.bundle

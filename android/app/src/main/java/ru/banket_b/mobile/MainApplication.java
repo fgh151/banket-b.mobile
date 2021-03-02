@@ -27,7 +27,6 @@ import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.instanceid.RNFirebaseInstanceIdPackage;
-import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -57,7 +56,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new AsyncStoragePackage(),
                     new NetInfoPackage(),
                     new RNFirebaseInstanceIdPackage(),
-                    new RNFirebaseCrashlyticsPackage(),
                     new RNFirebaseAnalyticsPackage()
             );
         }

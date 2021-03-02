@@ -85,7 +85,7 @@ DEPENDENCIES:
   - GoogleIDFASupport (~> 3.14.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AppsFlyerFramework
     - Crashlytics
     - Fabric
@@ -125,4 +125,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a23272f2786ba9f665660c681e00f7978bde41e6
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.10.0
